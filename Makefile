@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/05/20 10:46:45 by rumachad         ###   ########.fr        #
+#    Updated: 2024/05/20 14:14:23 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,6 @@ GREEN = \033[0;32m
 RED = \033[0;31m
 RESET = \033[0m
 
-NAME = cub3D
 BONUS = cub3D_bonus
 
 SRC_BONUS_PATH = src_bonus/
@@ -35,33 +34,11 @@ SRC_BONUS = main_bonus.c \
 	read_from_file_bonus.c \
 	check_b4_init_bonus.c \
 	draw_bonus.c \
-	clean_bonus.c 
-
-SRC = main.c \
-	handle_events.c \
-	img_manipulation.c \
-	img_utils.c \
-	raycasting.c \
-	texture_pos.c \
-	init_map.c \
-	set_map.c \
-	check_map.c \
-	v2D_math.c \
-	v2D_utils.c \
-	check_functions.c \
-	utils.c \
-	read_from_file.c \
-	check_b4_init.c \
-	draw.c \
-	clean.c
+	clean_bonus.c
 
 OBJ_BONUS_PATH = obj_bonus/
 OBJ_BONUS_FILES = $(SRC_BONUS:.c=.o)
 OBJ_BONUS = $(addprefix $(OBJ_BONUS_PATH), $(OBJ_BONUS_FILES))
-
-OBJ_PATH = obj/
-OBJFILES = $(SRC:.c=.o)
-OBJ = $(addprefix $(OBJ_PATH), $(OBJFILES))
 
 CC = cc
 
@@ -69,22 +46,13 @@ MLX_HEADER = -I minilibx
 MLX_PATH = minilibx-linux
 LIBFT_PATH = libft
 
-HEADER = include
 HEADER_BONUS = include_bonus
 CFLAGS = -Wall -Wextra -Werror -I
 MLXFLAGS = -Lminilibx-linux -lmlx -lXext -lX11
 LIBFTFLAGS = -Llibft -lft
 MATHFLAGS = -lm
 
-all: $(NAME)
-
-$(NAME):	$(OBJ)
-			@make -C $(MLX_PATH) > /dev/null 2>&1
-			@echo "$(GREEN)MLX Compiled$(RESET)"
-			@make -C $(LIBFT_PATH) > /dev/null
-			@echo "$(GREEN)Libft Compiled$(RESET)"
-			@$(CC) -o $(NAME) $(OBJ) $(MLXFLAGS) $(LIBFTFLAGS) $(MATHFLAGS)
-			@echo "$(GREEN)Cub3d Compiled$(RESET)"
+all: $(BONUS)
 
 $(BONUS):	$(OBJ_BONUS)
 			@make -C $(MLX_PATH) > /dev/null 2>&1
@@ -93,10 +61,6 @@ $(BONUS):	$(OBJ_BONUS)
 			@echo "$(GREEN)Libft Compiled$(RESET)"
 			@$(CC) -o $(BONUS) $(OBJ_BONUS) $(MLXFLAGS) $(LIBFTFLAGS) $(MATHFLAGS)
 			@echo "$(GREEN)Cub3d Bonus Compiled$(RESET)"
-
-$(OBJ_PATH)%.o: %.c
-	@mkdir -p $(OBJ_PATH)
-	@$(CC) $(CFLAGS) $(HEADER) $(MLX_HEADER) -c $< -o $@
 
 $(OBJ_BONUS_PATH)%.o: %.c
 	@mkdir -p $(OBJ_BONUS_PATH)

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/20 10:47:18 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:23:29 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@
 
 # define HEIGHT 600
 # define WIDTH 800
-# define FOV 90
+# define FOV 360
 # define SPRITE_SIZE 64
 
 # define PI 3.14159265359
 # define GREEN 	0x0000FF00
 
 # define SPEED 0.02
+# define ROTATION_SPEED 3
 
 typedef struct s_player
 {
@@ -45,6 +46,7 @@ typedef struct s_player
 	t_v2D	plane;
 	t_v2D	movement;
 	double	angle;
+	double	fov;
 }	t_player;
 
 typedef struct s_map

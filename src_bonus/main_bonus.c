@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/20 10:19:45 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/21 10:34:59 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@ t_player	init_player(double x, double y, char tile)
 	int			dir;
 
 	dir = 1;
-	player.pos = create_vector(x, y);
+	player.pos = (t_v2D){x, y};
 	if (tile == 'N')
-		player.direction = create_vector(0, -dir);
+		player.direction = (t_v2D){0, -dir};
 	else if (tile == 'S')
-		player.direction = create_vector(0, dir);
+		player.direction = (t_v2D){0, dir};
 	else if (tile == 'W')
-		player.direction = create_vector(-dir, 0);
+		player.direction = (t_v2D){-dir, 0};
 	else if (tile == 'E')
-		player.direction = create_vector(dir, 0);
-	player.movement = create_vector(0, 0);
-	player.plane = create_vector((double)FOV / 90, 0);
-	player.movement = create_vector(0,0);
+		player.direction = (t_v2D){dir, 0};
+	player.movement = (t_v2D){0, 0};
+	player.plane = perp_vector(player.direction);
 	player.angle = 0.1;
+	player.fov = (double)FOV / 90;
 	return (player);
 }
 
@@ -114,6 +114,7 @@ int main(int argc, char *argv[])
 	map_draw(&mlx);
 	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
 	mlx_hook(mlx.window, KeyRelease, KeyReleaseMask, handle_keyRelease, &mlx.player);
+	mlx_mouse_hide(mlx.lib, mlx.window);
 	mlx_loop_hook(mlx.lib, render, &mlx);
 	mlx_loop(mlx.lib);
 	
