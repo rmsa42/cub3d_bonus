@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/22 15:16:48 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:01:11 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	dda(t_mlx *mlx, t_map *map, t_ray *ray)
 			hit = 1;
 			sprite_index(ray, mlx , mlx->side);
 		}
-		if (map->game_map[map->y][map->x] == 'D')
+		if (map->game_map[map->y][map->x] == 'D' /*&& mlx->player->open_door*/)
 		{
 			hit = 1;
 			mlx->sprite_index = 6;

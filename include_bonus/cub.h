@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/22 12:19:10 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:29:04 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_player
 	double	angle;
 	double	fov;
 	double	pitch;
+	bool	open_door;
 }	t_player;
 
 typedef struct s_map
@@ -141,6 +142,8 @@ void		image_to_window(t_mlx *mlx, void *img_ptr, int x, int y);
 // Events
 int			handle_keyPress(int keycode, t_mlx *mlx);
 int			handle_keyRelease(int keycode, t_player *player);
+
+bool	in_reach(char **game_map, t_player *player);
 
 void		close_game(t_mlx *mlx);
 int	ft_perror(char *msg, t_mlx *mlx);
