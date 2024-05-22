@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/20 14:23:29 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:36:47 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 # define HEIGHT 600
 # define WIDTH 800
-# define FOV 360
+# define FOV 90
 # define SPRITE_SIZE 64
 
 # define PI 3.14159265359
@@ -47,6 +47,7 @@ typedef struct s_player
 	t_v2D	movement;
 	double	angle;
 	double	fov;
+	double	pitch;
 }	t_player;
 
 typedef struct s_map
@@ -87,7 +88,7 @@ typedef struct s_mlx
 {
 	void		*lib;
 	void		*window;
-	t_sprite	sprite[6];
+	t_sprite	sprite[7];
 	t_player	player;
 	t_map		map;
 	t_image		img;

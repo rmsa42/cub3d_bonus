@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/21 10:34:59 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:39:24 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_player	init_player(double x, double y, char tile)
 	t_player	player;
 	int			dir;
 
+	player.pitch = 0;
 	dir = 1;
 	player.pos = (t_v2D){x, y};
 	if (tile == 'N')
@@ -89,6 +90,28 @@ char **teste(char **map)
 	return (conf_map);
 }
 
+int handle_mouse(int x, int y, t_mlx *mlx)
+{
+    t_v2D center;
+    t_v2D vector;
+
+    center = (t_v2D){WIDTH / 2, HEIGHT / 2};
+    if (x != WIDTH / 2 || y != HEIGHT / 2)
+    {
+        vector = (t_v2D){x - center.x, center.y - y};
+        mlx->player.pitch += vector.y;
+        if (mlx->player.pitch > 200)
+            mlx->player.pitch = 200;
+        else if (mlx->player.pitch < -200)
+            mlx->player.pitch = -200;
+        mlx->player.angle = vector.x;
+        mlx_mouse_move(mlx->lib, mlx->window, WIDTH / 2, HEIGHT / 2);
+    }
+    else
+        mlx->player.angle = 0;
+    return (0);
+}
+
 
 int main(int argc, char *argv[])
 {	
@@ -106,12 +129,14 @@ int main(int argc, char *argv[])
 	if (check_map(&mlx, mlx.map.config_map))
 		return (printf("Check Error\n"), -1);
 	
-
+	mlx.sprite[7] = xpm_to_image(&mlx, "./sprites/door.xpm");
 	// Create Window
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	assert(mlx.window != NULL);
 	
 	map_draw(&mlx);
+
+	mlx_hook(mlx.window, 6, PointerMotionMask, handle_mouse, &mlx);
 	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
 	mlx_hook(mlx.window, KeyRelease, KeyReleaseMask, handle_keyRelease, &mlx.player);
 	mlx_mouse_hide(mlx.lib, mlx.window);
