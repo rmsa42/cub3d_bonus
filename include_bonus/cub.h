@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/22 10:33:36 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/22 12:19:10 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ typedef struct s_mlx
 	double		line_height;
 	double		scale;
 	double		tex_pos;
-	int		sprite_index;
+	int			hit_type;
+	int			sprite_index;
 }	t_mlx;
 
 

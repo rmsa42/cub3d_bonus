@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/20 12:34:26 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:16:48 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,24 @@ void	launch_rays(t_mlx *mlx, int x)
 	step_rays(mlx->map, mlx->player, &mlx->ray);
 }
 
+void	sprite_index(t_ray *ray,  t_mlx *mlx, int side)
+{
+	if (side == 1)
+		{
+			if (ray->dir.y < 0)
+				mlx->sprite_index = 0;
+			else
+				mlx->sprite_index = 1;
+		}
+		else if(side == 0)
+		{
+			if (ray->dir.x < 0)
+				mlx->sprite_index = 2;
+			else
+				mlx->sprite_index = 3;
+		}
+}
+
 
 void	dda(t_mlx *mlx, t_map *map, t_ray *ray)
 {
@@ -71,8 +89,38 @@ void	dda(t_mlx *mlx, t_map *map, t_ray *ray)
 			map->y += ray->step.y;
 			mlx->side = 1;
 		}
-		if (map->game_map[map->y][map->x] == '1' || mlx->map.game_map[mlx->map.y][mlx->map.x] == 'M')
+		if (map->game_map[map->y][map->x] == '1')
+		{
 			hit = 1;
+			sprite_index(ray, mlx , mlx->side);
+		}
+		if (map->game_map[map->y][map->x] == 'D')
+		{
+			hit = 1;
+			mlx->sprite_index = 6;
+			if (mlx->side == 0)
+			{
+				ray->side_d.x -= ray->delta.x / 2;
+				if (ray->side_d.x > ray->side_d.y)
+				{
+					ray->side_d.y += ray->delta.y;
+					mlx->side = 1;
+					sprite_index(ray, mlx , mlx->side);
+				}
+				ray->side_d.x += ray->delta.x;
+			}
+			else
+			{
+				ray->side_d.y -= ray->delta.y / 2;
+				if (ray->side_d.y > ray->side_d.x)
+				{
+					ray->side_d.x += ray->delta.x;
+					mlx->side = 0;
+					sprite_index(ray, mlx , mlx->side);
+				}
+				ray->side_d.y += ray->delta.y;
+			}
+		}
 	}
 }
 
@@ -81,7 +129,6 @@ int	text_x(t_ray *ray, int side, double perp_wall, t_mlx *mlx)
 	double	wall_x;
 	int		tex_x;
 
-	mlx->sprite_index = 0;
 	wall_x = 0;
 	tex_x = 0;
 	if (side == 0)
@@ -92,22 +139,6 @@ int	text_x(t_ray *ray, int side, double perp_wall, t_mlx *mlx)
 	tex_x = (int)(wall_x * (int)SPRITE_SIZE);
 	if ((side == 0 && ray->dir.x < 0) || (side == 1 && ray->dir.y > 0))
 		tex_x = SPRITE_SIZE - tex_x - 1;
-	if (side == 1)
-	{
-		if (ray->dir.y < 0)
-			mlx->sprite_index = 0;
-		else
-			mlx->sprite_index = 1;
-	}
-	else if(side == 0)
-	{
-		if (ray->dir.x < 0)
-			mlx->sprite_index = 2;
-		else
-			mlx->sprite_index = 3;
-	}
-	if (mlx->map.game_map[mlx->map.y][mlx->map.x] == 'M')
-		mlx->sprite_index = 6;
 	return (tex_x);
 }
 

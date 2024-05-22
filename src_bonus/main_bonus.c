@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/21 15:39:24 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/22 12:38:00 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int handle_mouse(int x, int y, t_mlx *mlx)
     t_v2D vector;
 
     center = (t_v2D){WIDTH / 2, HEIGHT / 2};
-    if (x != WIDTH / 2 || y != HEIGHT / 2)
+    if ((x != WIDTH / 2 || y != HEIGHT / 2) && x < WIDTH/1.25)
     {
         vector = (t_v2D){x - center.x, center.y - y};
         mlx->player.pitch += vector.y;
@@ -123,13 +123,13 @@ int main(int argc, char *argv[])
 	/* mlx = ft_check_b4_init(argc, argv, &mlx); */
 	
 	// Map init / Parser / Sprite Init
+	mlx.sprite[6] = xpm_to_image(&mlx, "sprites/door.xpm");
 	mlx.map = init_map(argv[1]);
 	mlx.map.config_map = teste(mlx.map.game_map);
 	
 	if (check_map(&mlx, mlx.map.config_map))
 		return (printf("Check Error\n"), -1);
 	
-	mlx.sprite[7] = xpm_to_image(&mlx, "./sprites/door.xpm");
 	// Create Window
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	assert(mlx.window != NULL);
