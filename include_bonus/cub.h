@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/23 10:25:18 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:20:09 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@
 # define SPEED 0.02
 # define ROTATION_SPEED 3
 
+typedef enum	s_type
+{
+	DOOR,
+	WALL,
+	DOOR_OPEN,
+	DOOR_CLOSE,
+}	t_type;
+
 typedef struct s_player
 {
 	t_v2D	pos;
@@ -49,6 +57,7 @@ typedef struct s_player
 	double	fov;
 	double	pitch;
 	bool	open_door;
+	bool	key;
 }	t_player;
 
 typedef struct s_map
@@ -87,8 +96,6 @@ typedef struct s_ray
 
 typedef struct	s_draw
 {
-	t_sprite	*sprite;
-	t_image		*img;
 	int			tex_x;
 	double		line_height;
 	double		scale;
@@ -97,6 +104,16 @@ typedef struct	s_draw
 	int			end;
 	int			sprite_index;
 }	t_draw;
+
+typedef struct	s_objs
+{
+	t_type		type;
+	t_type		state;
+	t_draw		draw;
+	t_ray		*ray;
+	t_sprite	*sprite;
+	t_image		*img;
+}	t_objs;
 
 typedef struct s_mlx
 {
@@ -107,6 +124,7 @@ typedef struct s_mlx
 	t_map		map;
 	t_image		img;
 	t_ray		ray;
+	t_objs		objs[WIDTH];
 	double		camera;
 	int			side;
 }	t_mlx;
@@ -115,7 +133,7 @@ typedef struct s_mlx
 t_player	init_player(double x, double y, char tile);
 //Raycast
 void		ft_grua(t_mlx *mlx);
-void		draw_texture(t_draw *draw, int x);
+void		draw_texture(t_objs *obj, int x);
 
 // Update
 void		update(t_mlx *mlx);

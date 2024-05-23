@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/23 11:10:58 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:55:38 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,27 +51,34 @@ void	launch_rays(t_mlx *mlx, int x)
 	step_rays(mlx->map, mlx->player, &mlx->ray);
 }
 
-void	select_sprite(t_ray *ray,  int *sprite_index, int side)
+int	select_sprite(t_ray *ray, int side)
 {
+	int	sprite_index;
+	
+	sprite_index = 0;
 	if (side == 1)
 	{
 		if (ray->dir.y < 0)
-			*sprite_index = 0;
+			sprite_index = 0;
 		else
-			*sprite_index = 1;
+			sprite_index = 1;
 	}
-	else if(side == 0)
+	else if (side == 0)
 	{
 		if (ray->dir.x < 0)
-			*sprite_index = 2;
+			sprite_index = 2;
 		else
-			*sprite_index = 3;
+			sprite_index = 3;
 	}
+	return (sprite_index);
 }
 
-void	door_hit(t_ray *ray, int *sprite_index, int *side)
+void	door_hit(t_objs *obj, int *side)
 {
-	*sprite_index = 6;
+	t_ray	*ray;
+
+	ray = obj->ray;
+	obj->draw.sprite_index = 6;
 	if (*side == 0)
 	{
 		ray->side_d.x -= ray->delta.x / 2;
@@ -79,7 +86,7 @@ void	door_hit(t_ray *ray, int *sprite_index, int *side)
 		{
 			ray->side_d.y += ray->delta.y;
 			*side = 1;
-			select_sprite(ray, sprite_index, *side);
+			obj->draw.sprite_index = select_sprite(ray, *side);
 		}
 		ray->side_d.x += ray->delta.x;
 	}
@@ -90,17 +97,21 @@ void	door_hit(t_ray *ray, int *sprite_index, int *side)
 		{
 			ray->side_d.x += ray->delta.x;
 			*side = 0;
-			select_sprite(ray, sprite_index, *side);
+			obj->draw.sprite_index = select_sprite(ray, *side);
 		}
 		ray->side_d.y += ray->delta.y;
 	}
 }
 
-void	dda(t_mlx *mlx, t_map *map, t_ray *ray, int *sprite_index)
+t_type	dda(t_mlx *mlx, t_objs *obj)
 {
-	int	hit;
+	int		hit;
+	t_map	*map;
+	t_ray	*ray;
 
 	hit = 0;
+	map = &mlx->map;
+	ray = &mlx->ray;
 	while (!hit)
 	{
 		if (ray->side_d.x < ray->side_d.y)
@@ -118,14 +129,21 @@ void	dda(t_mlx *mlx, t_map *map, t_ray *ray, int *sprite_index)
 		if (map->game_map[map->y][map->x] == '1')
 		{
 			hit = 1;
-			select_sprite(ray, sprite_index, mlx->side);
+			obj->type = WALL;
+			obj->sprite = mlx->sprite;
+			obj->ray = ray;
+			obj->draw.sprite_index = select_sprite(obj->ray, mlx->side);
 		}
-		if (map->game_map[map->y][map->x] == 'D'/*  && mlx->player.open_door == false */)
+		if (map->game_map[map->y][map->x] == 'D')
 		{
 			hit = 1;
-			door_hit(ray, sprite_index, &mlx->side);
+			obj->type = DOOR;
+			obj->sprite = mlx->sprite;
+			obj->ray = ray;
+			door_hit(obj, &mlx->side);
 		}
 	}
+	return (obj->type);
 }
 
 int	text_x(t_ray *ray, int side, double perp_wall, t_player *player)
@@ -146,10 +164,14 @@ int	text_x(t_ray *ray, int side, double perp_wall, t_player *player)
 	return (tex_x);
 }
 
-void	calculus(t_draw *draw, t_player *player, t_ray *ray, int side)
+void	calculus(t_objs *obj, t_player *player, int side)
 {
 	double	perp_wall;
+	t_ray	*ray;
+	t_draw	*draw;
 
+	ray = obj->ray;
+	draw = &obj->draw;
 	perp_wall = 0;
 	if (side == 0)
 		perp_wall = (ray->side_d.x - ray->delta.x);
@@ -171,18 +193,16 @@ void	calculus(t_draw *draw, t_player *player, t_ray *ray, int side)
 void	ft_grua(t_mlx *mlx)
 {
 	int		x;
-	t_draw	draw;
 
 	x = 0;
 	mlx->side = 0;
-	draw.img = &mlx->img;
-	draw.sprite = mlx->sprite;
 	while (x < (int)WIDTH)
 	{
+		mlx->objs[x].img = &mlx->img;
 		launch_rays(mlx, x);
-		dda(mlx, &mlx->map, &mlx->ray, &draw.sprite_index);
-		calculus(&draw, &mlx->player, &mlx->ray, mlx->side);
-		draw_texture(&draw, x);
+		dda(mlx, &mlx->objs[x]);
+		calculus(&mlx->objs[x], &mlx->player, mlx->side);
+		draw_texture(&mlx->objs[x], x);
 		x++;
 	}
 	image_to_window(mlx, mlx->img.img_ptr, 0, 0);
