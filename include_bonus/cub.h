@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/22 16:29:04 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:25:18 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,19 @@ typedef struct s_ray
 	t_v2D	step;
 }	t_ray;
 
+typedef struct	s_draw
+{
+	t_sprite	*sprite;
+	t_image		*img;
+	int			tex_x;
+	double		line_height;
+	double		scale;
+	double		tex_pos;
+	int			start;
+	int			end;
+	int			sprite_index;
+}	t_draw;
+
 typedef struct s_mlx
 {
 	void		*lib;
@@ -95,21 +108,14 @@ typedef struct s_mlx
 	t_image		img;
 	t_ray		ray;
 	double		camera;
-	double		angle;
-	int			tex_x;
 	int			side;
-	double		line_height;
-	double		scale;
-	double		tex_pos;
-	int			hit_type;
-	int			sprite_index;
 }	t_mlx;
 
 
 t_player	init_player(double x, double y, char tile);
 //Raycast
 void		ft_grua(t_mlx *mlx);
-void		draw_texture(t_mlx *mlx, int x);
+void		draw_texture(t_draw *draw, int x);
 
 // Update
 void		update(t_mlx *mlx);
