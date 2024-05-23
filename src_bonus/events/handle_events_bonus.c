@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/20 14:52:20 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:36:50 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	player_move(t_v2D *pos, char **game_map, t_v2D x, t_v2D y)
 	new_velo = multiply_vector(new_pos, SPEED + 0.1);
 	new_pos = add_vector(*pos, new_velo);
 	check = add_vector(*pos, velocity);
-	if (game_map[(int)new_pos.y][(int)new_pos.x] != '1')
+	if (game_map[(int)new_pos.y][(int)new_pos.x] != '1'
+		&& game_map[(int)new_pos.y][(int)new_pos.x] != 'D')
 		*pos = check;
 }
 
@@ -81,6 +82,8 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 		player->angle = -1;
 	else if (keycode == RARROW)
 		player->angle = 1;
+	else if (keycode == 101 && in_reach(mlx->map.game_map, player))
+		player->open_door = true;
 	return (0);
 }
 

@@ -3,71 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   draw_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:27:35 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/21 15:50:40 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:36:51 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	draw_ceiling(t_mlx *mlx, int x, int draw_s, int color)
+void	draw_ceiling(t_draw *draw, int x)
 {
 	int	y;
+	int	color;
 
 	y = -1;
-	while (++y < draw_s)
+	color = draw->sprite[4].color;
+	while (++y < draw->start)
 	{
 		/* color = pixel_get(&mlx->sprite[4].img, x, y); */
-		pixel_put(&mlx->img, x, y, color);
+		pixel_put(draw->img, x, y, color);
 	}
 }
 
-void	draw_walls(t_mlx *mlx, int x, int draw_s, int draw_e)
+void	draw_walls(t_draw *draw, int x)
 {
 	int	color;
 	int	y;
 	int	tex_y;
 	
-	y = draw_s;
-	while (y < draw_e)
+	y = draw->start;
+	while (y < draw->end)
 	{
-		tex_y = (int)mlx->tex_pos & (SPRITE_SIZE - 1);
-		mlx->tex_pos += mlx->scale;
-		color = pixel_get(&mlx->sprite[mlx->sprite_index].img, mlx->tex_x, tex_y);
-		pixel_put(&mlx->img, x, y, color);
+		tex_y = (int)draw->tex_pos & (SPRITE_SIZE - 1);
+		draw->tex_pos += draw->scale;
+		color = pixel_get(&draw->sprite[draw->sprite_index].img, draw->tex_x, tex_y);
+		pixel_put(draw->img, x, y, color);
 		y++;
 	}
 }
 
-void	draw_floor(t_image *img, int x, int draw_e, int color)
+void	draw_floor(t_draw *draw, int x)
 {
 	int	y;
+	int	color;
 
-	y = draw_e;
+	y = draw->end;
+	color = draw->sprite[5].color;
 	while (y < (int)HEIGHT)
 	{
-		pixel_put(img, x, y, color);
+		pixel_put(draw->img, x, y, color);
 		y++;
 	}
 }
 
-void	draw_texture(t_mlx *mlx, int x)
+void	draw_texture(t_draw *draw, int x)
 {
-	int		draw_s;
-	int		draw_e;
-	
-	// printf("%f\n", mlx->player.pitch);
-	draw_s = ((int)HEIGHT / 2 - mlx->line_height / 2) + mlx->player.pitch;
-	draw_e = ((int)HEIGHT / 2 + mlx->line_height / 2) + mlx->player.pitch;
-	if (draw_s < 0)
-		draw_s = 0;
-	if (draw_e >= (int)HEIGHT)
-		draw_e = (int)HEIGHT;
-	mlx->scale = SPRITE_SIZE / mlx->line_height;
-	mlx->tex_pos = (draw_s - mlx->player.pitch - (int)HEIGHT / 2 + mlx->line_height / 2) * mlx->scale;
-	draw_ceiling(mlx, x, draw_s, mlx->sprite[4].color);
-	draw_walls(mlx, x, draw_s, draw_e);
-	draw_floor(&mlx->img, x, draw_e, mlx->sprite[5].color);
+	draw_ceiling(draw, x);
+	draw_walls(draw, x);
+	draw_floor(draw, x);
 }
