@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/23 16:20:09 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/24 17:04:20 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,14 @@
 # define SPEED 0.02
 # define ROTATION_SPEED 3
 
+# define CEILING_S 4
+# define FLOOR_S 5
+
 typedef enum	s_type
 {
-	DOOR,
+	FLOOR,
 	WALL,
+	DOOR,
 	DOOR_OPEN,
 	DOOR_CLOSE,
 }	t_type;
@@ -102,18 +106,21 @@ typedef struct	s_draw
 	double		tex_pos;
 	int			start;
 	int			end;
-	int			sprite_index;
 }	t_draw;
 
 typedef struct	s_objs
 {
 	t_type		type;
-	t_type		state;
-	t_draw		draw;
-	t_ray		*ray;
-	t_sprite	*sprite;
-	t_image		*img;
+	t_v2D		pos;
+	bool		motion;
+	int			spr_index;
 }	t_objs;
+
+typedef struct	s_tile
+{
+	t_type	type;
+	t_v2D	pos;
+}	t_tile;
 
 typedef struct s_mlx
 {
@@ -124,6 +131,7 @@ typedef struct s_mlx
 	t_map		map;
 	t_image		img;
 	t_ray		ray;
+	t_draw		draw;
 	t_objs		objs[WIDTH];
 	double		camera;
 	int			side;
@@ -133,7 +141,9 @@ typedef struct s_mlx
 t_player	init_player(double x, double y, char tile);
 //Raycast
 void		ft_grua(t_mlx *mlx);
-void		draw_texture(t_objs *obj, int x);
+void		draw_texture(t_mlx *mlx, t_objs *obj, int x);
+void		door_hit(t_mlx *mlx, t_objs *obj);
+void		wall_hit(t_mlx *mlx, t_objs *obj);
 
 // Update
 void		update(t_mlx *mlx);
@@ -167,7 +177,9 @@ void		image_to_window(t_mlx *mlx, void *img_ptr, int x, int y);
 int			handle_keyPress(int keycode, t_mlx *mlx);
 int			handle_keyRelease(int keycode, t_player *player);
 
-bool	in_reach(char **game_map, t_player *player);
+bool	in_reach(t_objs *objs, t_player *player);
+t_tile	get_next_tile(char **game_map, t_player *player);
+void	open_door(t_tile *tile, char **game_map);
 
 void		close_game(t_mlx *mlx);
 int	ft_perror(char *msg, t_mlx *mlx);

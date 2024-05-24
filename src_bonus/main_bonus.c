@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/23 16:09:46 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/24 11:57:42 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ int main(int argc, char *argv[])
 	
 	mlx.lib = mlx_init();
 	assert(mlx.lib != NULL);
-	
+	ft_bzero(mlx.objs, sizeof(t_objs) * 800);
+		
 	/* mlx = ft_check_b4_init(argc, argv, &mlx); */
 	
 	// Map init / Parser / Sprite Init

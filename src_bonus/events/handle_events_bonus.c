@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/23 13:22:11 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/24 17:09:43 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,28 @@ void	player_move(t_player *player, char **game_map, t_v2D x, t_v2D y)
 	new_velo = multiply_vector(new_pos, SPEED + 0.1);
 	check = add_vector(player->pos, new_velo);
 	new_pos = add_vector(player->pos, velocity);
-	if (game_map[(int)check.y][(int)check.x] == '0'
-		|| (game_map[(int)check.y][(int)check.x] != '1'
-		&& player->open_door == true))
+	if (game_map[(int)new_pos.y][(int)new_pos.x] != '1'
+		&& game_map[(int)new_pos.y][(int)new_pos.x] != 'D')
 		player->pos = new_pos;
+	/* if (game_map[(int)check.y][(int)check.x] == '0'
+		|| (game_map[(int)check.y][(int)check.x] != '1'))
+		player->pos = new_pos; */
 }
 
 void	update(t_mlx *mlx)
 {
 	t_player *player;
+	t_tile	tile;
 	t_v2D	y_axis;
 	t_v2D	x_axis;
 	
-	player = &mlx->player;
 	// Player Movement (x, y)
-	player->open_door = in_reach(mlx->map.game_map, &mlx->player);
+	player = &mlx->player;
+	tile = get_next_tile(mlx->map.game_map, &mlx->player);
+	if (tile.type == DOOR && player->key)
+		open_door(&tile, mlx->map.game_map);
+	else
+		player->key = false;
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);
 	player_move(player, mlx->map.game_map, x_axis, y_axis);
