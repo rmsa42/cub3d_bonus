@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/24 17:04:20 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:04:37 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define A 97
 # define S 115
 # define D 100
+# define E 101
 # define LARROW 65361
 # define RARROW 65363
 
@@ -44,11 +45,15 @@
 
 typedef enum	s_type
 {
+	NORTH,
+	SOUTH,
+	WEST,
+	EAST,
+	CEILING,
 	FLOOR,
-	WALL,
 	DOOR,
 	DOOR_OPEN,
-	DOOR_CLOSE,
+	WALL
 }	t_type;
 
 typedef struct s_player
@@ -108,14 +113,6 @@ typedef struct	s_draw
 	int			end;
 }	t_draw;
 
-typedef struct	s_objs
-{
-	t_type		type;
-	t_v2D		pos;
-	bool		motion;
-	int			spr_index;
-}	t_objs;
-
 typedef struct	s_tile
 {
 	t_type	type;
@@ -132,18 +129,21 @@ typedef struct s_mlx
 	t_image		img;
 	t_ray		ray;
 	t_draw		draw;
-	t_objs		objs[WIDTH];
+	char		**event_map;
+	int			spr_index;
 	double		camera;
 	int			side;
+	t_v2D		spr_pos;
 }	t_mlx;
 
 
 t_player	init_player(double x, double y, char tile);
 //Raycast
 void		ft_grua(t_mlx *mlx);
-void		draw_texture(t_mlx *mlx, t_objs *obj, int x);
-void		door_hit(t_mlx *mlx, t_objs *obj);
-void		wall_hit(t_mlx *mlx, t_objs *obj);
+int			select_sprite(t_ray *ray, int side);
+void		draw_texture(t_mlx *mlx, int x);
+void		door_hit(t_mlx *mlx);
+void	draw_sprite(t_mlx *mlx);
 
 // Update
 void		update(t_mlx *mlx);
@@ -154,7 +154,7 @@ int			render(t_mlx *mlx);
 // Map
 void		map_draw(t_mlx *mlx);
 t_map		init_map(char *map_name);
-t_mlx ft_check_b4_init(int ac, char **av, t_mlx *mlx);
+t_mlx		ft_check_b4_init(int ac, char **av, t_mlx *mlx);
 
 // Parser (MAP)
 int			check_element(char *line);
@@ -177,9 +177,8 @@ void		image_to_window(t_mlx *mlx, void *img_ptr, int x, int y);
 int			handle_keyPress(int keycode, t_mlx *mlx);
 int			handle_keyRelease(int keycode, t_player *player);
 
-bool	in_reach(t_objs *objs, t_player *player);
 t_tile	get_next_tile(char **game_map, t_player *player);
-void	open_door(t_tile *tile, char **game_map);
+void	interact_door(char **game_map, t_player *player);
 
 void		close_game(t_mlx *mlx);
 int	ft_perror(char *msg, t_mlx *mlx);

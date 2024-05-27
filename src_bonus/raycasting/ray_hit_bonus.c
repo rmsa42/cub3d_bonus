@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:15:49 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/24 16:54:22 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/27 10:26:43 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,9 @@ int	select_sprite(t_ray *ray, int side)
 	return (sprite_index);
 }
 
-void	door_hit(t_mlx *mlx, t_objs *obj)
+void	door_hit(t_mlx *mlx)
 {
-	obj->spr_index = 6;
-	obj->type = DOOR;
+	mlx->spr_index = 6;
 	if (mlx->side == 0)
 	{
 		mlx->ray.side_d.x -= mlx->ray.delta.x / 2;
@@ -45,7 +44,7 @@ void	door_hit(t_mlx *mlx, t_objs *obj)
 		{
 			mlx->ray.side_d.y += mlx->ray.delta.y;
 			mlx->side = 1;
-			obj->spr_index = select_sprite(&mlx->ray, mlx->side);
+			mlx->spr_index = select_sprite(&mlx->ray, mlx->side);
 		}
 		mlx->ray.side_d.x += mlx->ray.delta.x;
 	}
@@ -56,17 +55,8 @@ void	door_hit(t_mlx *mlx, t_objs *obj)
 		{
 			mlx->ray.side_d.x += mlx->ray.delta.x;
 			mlx->side = 0;
-			obj->spr_index = select_sprite(&mlx->ray, mlx->side);
+			mlx->spr_index = select_sprite(&mlx->ray, mlx->side);
 		}
 		mlx->ray.side_d.y += mlx->ray.delta.y;
 	}
-	obj->pos = (t_v2D){mlx->map.x, mlx->map.y};
-}
-
-void	wall_hit(t_mlx *mlx, t_objs *obj)
-{
-	obj->type = WALL;
-	obj->motion = false;
-	obj->pos = (t_v2D){mlx->map.x, mlx->map.y};
-	obj->spr_index = select_sprite(&mlx->ray, mlx->side);
 }

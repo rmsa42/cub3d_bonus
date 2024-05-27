@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/05/24 10:38:44 by rumachad         ###   ########.fr        #
+#    Updated: 2024/05/27 10:46:06 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ $(OBJ_BONUS_PATH)%.o: %.c
 	@$(CC) $(CFLAGS) $(HEADER_BONUS) $(MLX_HEADER) -c $< -o $@
 
 val: re
-	valgrind --leak-check=full --show-leak-kinds=all ./cub3D maps/map.cub
+	valgrind --leak-check=full --show-leak-kinds=all ./cub3D_bonus maps/map2.cub
 
 bonus: $(BONUS)
 

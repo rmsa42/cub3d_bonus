@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/24 16:52:40 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:03:18 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	launch_rays(t_mlx *mlx, int x)
 	step_rays(mlx->map, mlx->player, &mlx->ray);
 }
 
-t_type	dda(t_mlx *mlx, t_objs *obj)
+void	dda(t_mlx *mlx)
 {
 	int		hit;
 	t_map	*map;
@@ -77,15 +77,14 @@ t_type	dda(t_mlx *mlx, t_objs *obj)
 		if (map->game_map[map->y][map->x] == '1')
 		{
 			hit = 1;
-			wall_hit(mlx, obj);
+			mlx->spr_index = select_sprite(ray, mlx->side);
 		}
 		if (map->game_map[map->y][map->x] == 'D')
 		{
 			hit = 1;
-			door_hit(mlx, obj);
+			door_hit(mlx);
 		}
 	}
-	return (obj->type);
 }
 
 int	text_x(t_ray *ray, int side, double perp_wall, t_player *player)
@@ -137,10 +136,11 @@ void	ft_grua(t_mlx *mlx)
 	while (x < (int)WIDTH)
 	{
 		launch_rays(mlx, x);
-		dda(mlx, &mlx->objs[x]);
+		dda(mlx);
 		calculus(&mlx->draw, &mlx->ray, &mlx->player, mlx->side);
-		draw_texture(mlx, &mlx->objs[x], x);
+		draw_texture(mlx, x);
 		x++;
 	}
+	draw_sprite(mlx);
 	image_to_window(mlx, mlx->img.img_ptr, 0, 0);
 }
