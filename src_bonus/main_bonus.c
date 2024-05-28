@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/28 10:43:21 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/28 12:41:22 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ int main(int argc, char *argv[])
 	
 	// Map init / Parser / Sprite Init
 	mlx.sprite[6] = xpm_to_image(&mlx, "sprites/door.xpm");
+	mlx.sprite[7] = xpm_to_image(&mlx, "sprites/open.xpm");
 	mlx.map = init_map(argv[1]);
 	mlx.map.config_map = teste(mlx.map.game_map);
 	

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_hit_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:15:49 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/27 10:26:43 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:50:52 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,12 @@ int	select_sprite(t_ray *ray, int side)
 	return (sprite_index);
 }
 
-void	door_hit(t_mlx *mlx)
+void	door_hit(t_mlx *mlx, t_map	*map)
 {
+	
 	mlx->spr_index = 6;
+	if (map->game_map[map->y][map->x] == 'd')
+		mlx->spr_index = 7;
 	if (mlx->side == 0)
 	{
 		mlx->ray.side_d.x -= mlx->ray.delta.x / 2;

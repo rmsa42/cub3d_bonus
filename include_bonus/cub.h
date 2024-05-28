@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/28 10:20:12 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:45:43 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ typedef struct s_mlx
 	double		camera;
 	int			side;
 	t_v2D		spr_pos;
+	int		hit;
 }	t_mlx;
 
 
@@ -142,8 +143,8 @@ t_player	init_player(double x, double y, char tile);
 void		ft_grua(t_mlx *mlx);
 int			select_sprite(t_ray *ray, int side);
 void		draw_texture(t_mlx *mlx, int x);
-void		door_hit(t_mlx *mlx);
-void	draw_sprite(t_mlx *mlx);
+void		door_hit(t_mlx *mlx, t_map	*map);
+void		draw_sprite(t_mlx *mlx);
 
 // Update
 void		update(t_mlx *mlx);
@@ -181,6 +182,6 @@ t_tile	get_next_tile(char **game_map, t_player *player);
 void	interact_door(t_tile *tile, char **game_map, t_player *player);
 
 void		close_game(t_mlx *mlx);
-int	ft_perror(char *msg, t_mlx *mlx);
+int			ft_perror(char *msg, t_mlx *mlx);
 
 #endif
