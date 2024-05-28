@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/23 10:25:18 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:20:12 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define A 97
 # define S 115
 # define D 100
+# define E 101
 # define LARROW 65361
 # define RARROW 65363
 
@@ -39,6 +40,22 @@
 # define SPEED 0.02
 # define ROTATION_SPEED 3
 
+# define CEILING_S 4
+# define FLOOR_S 5
+
+typedef enum	s_type
+{
+	NORTH,
+	SOUTH,
+	WEST,
+	EAST,
+	CEILING,
+	FLOOR,
+	DOOR,
+	DOOR_OPEN,
+	WALL
+}	t_type;
+
 typedef struct s_player
 {
 	t_v2D	pos;
@@ -49,6 +66,7 @@ typedef struct s_player
 	double	fov;
 	double	pitch;
 	bool	open_door;
+	bool	key;
 }	t_player;
 
 typedef struct s_map
@@ -56,7 +74,7 @@ typedef struct s_map
 	int		x;
 	int		y;
 	char	**game_map;
-	char	**file_map;
+	char	**anim_map;
 	char	**config_map;
 }	t_map;
 
@@ -87,16 +105,19 @@ typedef struct s_ray
 
 typedef struct	s_draw
 {
-	t_sprite	*sprite;
-	t_image		*img;
 	int			tex_x;
 	double		line_height;
 	double		scale;
 	double		tex_pos;
 	int			start;
 	int			end;
-	int			sprite_index;
 }	t_draw;
+
+typedef struct	s_tile
+{
+	t_type	type;
+	t_v2D	pos;
+}	t_tile;
 
 typedef struct s_mlx
 {
@@ -107,15 +128,22 @@ typedef struct s_mlx
 	t_map		map;
 	t_image		img;
 	t_ray		ray;
+	t_draw		draw;
+	char		**event_map;
+	int			spr_index;
 	double		camera;
 	int			side;
+	t_v2D		spr_pos;
 }	t_mlx;
 
 
 t_player	init_player(double x, double y, char tile);
 //Raycast
 void		ft_grua(t_mlx *mlx);
-void		draw_texture(t_draw *draw, int x);
+int			select_sprite(t_ray *ray, int side);
+void		draw_texture(t_mlx *mlx, int x);
+void		door_hit(t_mlx *mlx);
+void	draw_sprite(t_mlx *mlx);
 
 // Update
 void		update(t_mlx *mlx);
@@ -126,7 +154,7 @@ int			render(t_mlx *mlx);
 // Map
 void		map_draw(t_mlx *mlx);
 t_map		init_map(char *map_name);
-t_mlx ft_check_b4_init(int ac, char **av, t_mlx *mlx);
+t_mlx		ft_check_b4_init(int ac, char **av, t_mlx *mlx);
 
 // Parser (MAP)
 int			check_element(char *line);
@@ -149,7 +177,8 @@ void		image_to_window(t_mlx *mlx, void *img_ptr, int x, int y);
 int			handle_keyPress(int keycode, t_mlx *mlx);
 int			handle_keyRelease(int keycode, t_player *player);
 
-bool	in_reach(char **game_map, t_player *player);
+t_tile	get_next_tile(char **game_map, t_player *player);
+void	interact_door(t_tile *tile, char **game_map, t_player *player);
 
 void		close_game(t_mlx *mlx);
 int	ft_perror(char *msg, t_mlx *mlx);

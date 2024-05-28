@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/05/22 16:21:07 by rumachad         ###   ########.fr        #
+#    Updated: 2024/05/28 10:27:18 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC_BONUS = main_bonus.c \
 	handle_events_bonus.c \
 	render_bonus.c \
 	raycasting_bonus.c \
+	ray_hit_bonus.c \
 	init_map_bonus.c \
 	map_draw_bonus.c \
 	v2D_math_bonus.c \
@@ -30,8 +31,6 @@ SRC_BONUS = main_bonus.c \
 	load_image_bonus.c \
 	parser_bonus.c \
 	parser_utils_bonus.c \
-	read_from_file_bonus.c \
-	check_b4_init_bonus.c \
 	draw_bonus.c \
 	interactions_bonus.c \
 	clean_bonus.c
@@ -67,7 +66,7 @@ $(OBJ_BONUS_PATH)%.o: %.c
 	@$(CC) $(CFLAGS) $(HEADER_BONUS) $(MLX_HEADER) -c $< -o $@
 
 val: re
-	valgrind --leak-check=full --show-leak-kinds=all ./cub3D maps/map.cub
+	valgrind --leak-check=full --show-leak-kinds=all ./cub3D_bonus maps/map2.cub
 
 bonus: $(BONUS)
 

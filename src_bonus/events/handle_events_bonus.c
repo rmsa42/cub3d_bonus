@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/22 16:36:50 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:46:28 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,35 +25,39 @@ t_v2D	rotate(t_v2D vector, int degree)
 	return (newV);
 }
 
-void	player_move(t_v2D *pos, char **game_map, t_v2D x, t_v2D y)
+void	player_move(t_player *player, char **game_map, t_v2D x, t_v2D y)
 {
 	t_v2D	velocity;
 	t_v2D	new_pos;
 	t_v2D	check;
 	t_v2D	new_velo;
 
-	new_pos = add_vector(y, x);
+	new_pos = add_vector(x, y);
 	new_pos = normalize_vector(new_pos);
 	velocity = multiply_vector(new_pos, SPEED);
 	new_velo = multiply_vector(new_pos, SPEED + 0.1);
-	new_pos = add_vector(*pos, new_velo);
-	check = add_vector(*pos, velocity);
-	if (game_map[(int)new_pos.y][(int)new_pos.x] != '1'
-		&& game_map[(int)new_pos.y][(int)new_pos.x] != 'D')
-		*pos = check;
+	check = add_vector(player->pos, new_velo);
+	new_pos = add_vector(player->pos, velocity);
+	if (game_map[(int)check.y][(int)check.x] != '1'
+		&& game_map[(int)check.y][(int)check.x] != 'D')
+		player->pos = new_pos;
 }
 
 void	update(t_mlx *mlx)
 {
-	t_player *player;
-	t_v2D	y_axis;
-	t_v2D	x_axis;
+	t_player	*player;
+	t_tile		tile;
+	t_v2D		y_axis;
+	t_v2D		x_axis;
 	
-	player = &mlx->player;
 	// Player Movement (x, y)
+	player = &mlx->player;
+	tile = get_next_tile(mlx->map.game_map, player);
+	if (player->key)
+		interact_door(&tile, mlx->map.game_map, &mlx->player);
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);
-	player_move(&player->pos, mlx->map.game_map, x_axis, y_axis);
+	player_move(player, mlx->map.game_map, x_axis, y_axis);
 	
 	// Player Camera Rotation
 	player->direction = add_vector(player->direction, rotate(player->direction, player->angle));
@@ -82,8 +86,8 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 		player->angle = -1;
 	else if (keycode == RARROW)
 		player->angle = 1;
-	else if (keycode == 101 && in_reach(mlx->map.game_map, player))
-		player->open_door = true;
+	else if (keycode == E)
+		player->key = true;
 	return (0);
 }
 

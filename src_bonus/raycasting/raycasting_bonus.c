@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/23 11:10:58 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:11:21 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,56 +51,15 @@ void	launch_rays(t_mlx *mlx, int x)
 	step_rays(mlx->map, mlx->player, &mlx->ray);
 }
 
-void	select_sprite(t_ray *ray,  int *sprite_index, int side)
+void	dda(t_mlx *mlx)
 {
-	if (side == 1)
-	{
-		if (ray->dir.y < 0)
-			*sprite_index = 0;
-		else
-			*sprite_index = 1;
-	}
-	else if(side == 0)
-	{
-		if (ray->dir.x < 0)
-			*sprite_index = 2;
-		else
-			*sprite_index = 3;
-	}
-}
-
-void	door_hit(t_ray *ray, int *sprite_index, int *side)
-{
-	*sprite_index = 6;
-	if (*side == 0)
-	{
-		ray->side_d.x -= ray->delta.x / 2;
-		if (ray->side_d.x > ray->side_d.y)
-		{
-			ray->side_d.y += ray->delta.y;
-			*side = 1;
-			select_sprite(ray, sprite_index, *side);
-		}
-		ray->side_d.x += ray->delta.x;
-	}
-	else
-	{
-		ray->side_d.y -= ray->delta.y / 2;
-		if (ray->side_d.y > ray->side_d.x)
-		{
-			ray->side_d.x += ray->delta.x;
-			*side = 0;
-			select_sprite(ray, sprite_index, *side);
-		}
-		ray->side_d.y += ray->delta.y;
-	}
-}
-
-void	dda(t_mlx *mlx, t_map *map, t_ray *ray, int *sprite_index)
-{
-	int	hit;
+	int		hit;
+	t_map	*map;
+	t_ray	*ray;
 
 	hit = 0;
+	map = &mlx->map;
+	ray = &mlx->ray;
 	while (!hit)
 	{
 		if (ray->side_d.x < ray->side_d.y)
@@ -118,12 +77,12 @@ void	dda(t_mlx *mlx, t_map *map, t_ray *ray, int *sprite_index)
 		if (map->game_map[map->y][map->x] == '1')
 		{
 			hit = 1;
-			select_sprite(ray, sprite_index, mlx->side);
+			mlx->spr_index = select_sprite(ray, mlx->side);
 		}
-		if (map->game_map[map->y][map->x] == 'D'/*  && mlx->player.open_door == false */)
+		if (map->game_map[map->y][map->x] == 'D')
 		{
 			hit = 1;
-			door_hit(ray, sprite_index, &mlx->side);
+			door_hit(mlx);
 		}
 	}
 }
@@ -146,7 +105,7 @@ int	text_x(t_ray *ray, int side, double perp_wall, t_player *player)
 	return (tex_x);
 }
 
-void	calculus(t_draw *draw, t_player *player, t_ray *ray, int side)
+void	calculus(t_draw *draw, t_ray *ray, t_player *player, int side)
 {
 	double	perp_wall;
 
@@ -171,19 +130,17 @@ void	calculus(t_draw *draw, t_player *player, t_ray *ray, int side)
 void	ft_grua(t_mlx *mlx)
 {
 	int		x;
-	t_draw	draw;
 
 	x = 0;
 	mlx->side = 0;
-	draw.img = &mlx->img;
-	draw.sprite = mlx->sprite;
 	while (x < (int)WIDTH)
 	{
 		launch_rays(mlx, x);
-		dda(mlx, &mlx->map, &mlx->ray, &draw.sprite_index);
-		calculus(&draw, &mlx->player, &mlx->ray, mlx->side);
-		draw_texture(&draw, x);
+		dda(mlx);
+		calculus(&mlx->draw, &mlx->ray, &mlx->player, mlx->side);
+		draw_texture(mlx, x);
 		x++;
 	}
+	/* draw_sprite(mlx); */
 	image_to_window(mlx, mlx->img.img_ptr, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:07:33 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/10 10:31:15 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:41:58 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,21 @@ char	**clone_map(char *map_name)
 	return (map);
 }
 
+char	**anim_map(char **game_map)
+{
+	char	**map;
+
+	map = malloc(sizeof(char *) * 36);
+	if (map == NULL)
+		return (NULL);
+	int i = 6;
+	int k = 0;
+	while (game_map[i])
+		map[k++] = game_map[i++];
+	map[k] = 0;
+	return (map);
+}
+
 t_map	init_map(char *map_name)
 {
 	t_map	map;
@@ -42,5 +57,6 @@ t_map	init_map(char *map_name)
 	map.x = 0;
 	map.y = 0;
 	map.game_map = clone_map(map_name);
+	map.anim_map = anim_map(map.game_map); 
 	return (map);
 }
