@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/27 16:04:37 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:20:12 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct s_map
 	int		x;
 	int		y;
 	char	**game_map;
-	char	**file_map;
+	char	**anim_map;
 	char	**config_map;
 }	t_map;
 
@@ -178,7 +178,7 @@ int			handle_keyPress(int keycode, t_mlx *mlx);
 int			handle_keyRelease(int keycode, t_player *player);
 
 t_tile	get_next_tile(char **game_map, t_player *player);
-void	interact_door(char **game_map, t_player *player);
+void	interact_door(t_tile *tile, char **game_map, t_player *player);
 
 void		close_game(t_mlx *mlx);
 int	ft_perror(char *msg, t_mlx *mlx);

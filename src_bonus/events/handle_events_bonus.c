@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/27 13:22:47 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:46:28 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,20 @@ void	player_move(t_player *player, char **game_map, t_v2D x, t_v2D y)
 	if (game_map[(int)check.y][(int)check.x] != '1'
 		&& game_map[(int)check.y][(int)check.x] != 'D')
 		player->pos = new_pos;
-	/* if (game_map[(int)check.y][(int)check.x] == '0'
-		|| (game_map[(int)check.y][(int)check.x] != '1'))
-		player->pos = new_pos; */
 }
 
 void	update(t_mlx *mlx)
 {
-	t_player *player;
-	t_v2D	y_axis;
-	t_v2D	x_axis;
+	t_player	*player;
+	t_tile		tile;
+	t_v2D		y_axis;
+	t_v2D		x_axis;
 	
 	// Player Movement (x, y)
 	player = &mlx->player;
-	interact_door(mlx->map.game_map, &mlx->player);
+	tile = get_next_tile(mlx->map.game_map, player);
+	if (player->key)
+		interact_door(&tile, mlx->map.game_map, &mlx->player);
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);
 	player_move(player, mlx->map.game_map, x_axis, y_axis);

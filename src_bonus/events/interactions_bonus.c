@@ -6,29 +6,24 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:07:09 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/27 11:55:40 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:16:35 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	interact_door(char **game_map, t_player *player)
+void	interact_door(t_tile *tile, char **game_map, t_player *player)
 {
-	t_tile	tile;
 	int		check_x;
 	int		check_y;
 
-	tile = get_next_tile(game_map, player);
-	check_x = (int)tile.pos.x;
-	check_y = (int)tile.pos.y;
-	if (player->key)
-	{
-		if (tile.type == DOOR)
-			game_map[check_y][check_x] = 'd';
-		else if (tile.type == DOOR_OPEN)
-			game_map[check_y][check_x] = 'D';
-		player->key = false;
-	}
+	check_x = (int)tile->pos.x;
+	check_y = (int)tile->pos.y;
+	if (tile->type == DOOR)
+		game_map[check_y][check_x] = 'd';
+	else if (tile->type == DOOR_OPEN)
+		game_map[check_y][check_x] = 'D';
+	player->key = false;
 }
 
 t_tile	get_next_tile(char **game_map, t_player *player)

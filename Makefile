@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/05/27 10:46:06 by rumachad         ###   ########.fr        #
+#    Updated: 2024/05/28 10:27:18 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,6 @@ SRC_BONUS = main_bonus.c \
 	load_image_bonus.c \
 	parser_bonus.c \
 	parser_utils_bonus.c \
-	read_from_file_bonus.c \
-	check_b4_init_bonus.c \
 	draw_bonus.c \
 	interactions_bonus.c \
 	clean_bonus.c

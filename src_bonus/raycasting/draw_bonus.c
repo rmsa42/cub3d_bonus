@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:27:35 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/27 16:58:49 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:11:27 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	draw_sprite_init(t_draw *draw, t_v2D transform, int res)
 		draw->end = HEIGHT;
 }
 
-void	draw_sprite(t_mlx *mlx)
+/* void	draw_sprite(t_mlx *mlx)
 {
 	t_player *player;
 	t_v2D	spr;
@@ -111,4 +111,4 @@ void	draw_sprite(t_mlx *mlx)
 		stripe++;
 	}
 		
-}
+} */
