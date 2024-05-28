@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/05/28 10:27:18 by rumachad         ###   ########.fr        #
+#    Updated: 2024/05/28 16:02:03 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC_BONUS = main_bonus.c \
 	parser_utils_bonus.c \
 	draw_bonus.c \
 	interactions_bonus.c \
+	line_calcs_bonus.c \
 	clean_bonus.c
 
 OBJ_BONUS_PATH = obj_bonus/

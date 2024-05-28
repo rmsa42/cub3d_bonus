@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:15:49 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/27 10:26:43 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:58:13 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,3 +60,4 @@ void	door_hit(t_mlx *mlx)
 		mlx->ray.side_d.y += mlx->ray.delta.y;
 	}
 }
+

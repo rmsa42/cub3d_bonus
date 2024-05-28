@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:27:35 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/28 10:11:27 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:59:30 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	draw_floor(t_image *img, t_draw *draw, int color, int x)
 	}
 }
 
-void	draw_texture(t_mlx *mlx, int x)
+void	draw_line(t_mlx *mlx, int x)
 {
 	draw_ceiling(&mlx->img, &mlx->draw, mlx->sprite[CEILING_S].color, x);
 	draw_walls(&mlx->img, &mlx->draw, &mlx->sprite[mlx->spr_index], x);
@@ -69,6 +69,7 @@ void	draw_sprite_init(t_draw *draw, t_v2D transform, int res)
 	if (draw->end > HEIGHT)
 		draw->end = HEIGHT;
 }
+
 
 /* void	draw_sprite(t_mlx *mlx)
 {
