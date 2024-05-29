@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/28 12:41:22 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/29 11:35:26 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,11 @@ int main(int argc, char *argv[])
 	// Map init / Parser / Sprite Init
 	mlx.sprite[6] = xpm_to_image(&mlx, "sprites/door.xpm");
 	mlx.sprite[7] = xpm_to_image(&mlx, "sprites/open.xpm");
+	mlx.sprite[8] = xpm_to_image(&mlx, "sprites/open2.xpm");
+	mlx.sprite[9] = xpm_to_image(&mlx, "sprites/open3.xpm");
+	mlx.sprite[10] = xpm_to_image(&mlx, "sprites/open4.xpm");
+	mlx.sprite[11] = xpm_to_image(&mlx, "sprites/open5.xpm");
+	mlx.sprite[12] = xpm_to_image(&mlx, "sprites/open6.xpm");
 	mlx.map = init_map(argv[1]);
 	mlx.map.config_map = teste(mlx.map.game_map);
 	

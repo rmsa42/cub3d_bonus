@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/28 12:42:22 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/29 11:37:58 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,14 @@ int	render(t_mlx *mlx)
 		mlx->sprite[i].img.addr = mlx_get_data_addr(mlx->sprite[i].img.img_ptr,
 			&mlx->sprite[i].img.bits_per_pixel, &mlx->sprite[i].img.line_length, &mlx->sprite[i].img.endian);
 	}
-	mlx->sprite[6].img.addr = mlx_get_data_addr(mlx->sprite[6].img.img_ptr,
-			&mlx->sprite[6].img.bits_per_pixel, &mlx->sprite[6].img.line_length, &mlx->sprite[6].img.endian);
-	mlx->sprite[7].img.addr = mlx_get_data_addr(mlx->sprite[7].img.img_ptr,
-			&mlx->sprite[7].img.bits_per_pixel, &mlx->sprite[7].img.line_length, &mlx->sprite[7].img.endian);
+	i = 5;
+	while (++i < 13)
+	{
+		mlx->sprite[i].img.addr = mlx_get_data_addr(mlx->sprite[i].img.img_ptr,
+				&mlx->sprite[i].img.bits_per_pixel, &mlx->sprite[i].img.line_length, &mlx->sprite[i].img.endian);
+	}
+	/* mlx->sprite[7].img.addr = mlx_get_data_addr(mlx->sprite[7].img.img_ptr,
+			&mlx->sprite[7].img.bits_per_pixel, &mlx->sprite[7].img.line_length, &mlx->sprite[7].img.endian); */
 	ft_grua(mlx);
 	mlx_destroy_image(mlx->lib, mlx->img.img_ptr);
 	return (0);

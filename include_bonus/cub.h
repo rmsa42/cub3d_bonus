@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/28 13:45:43 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/29 11:35:31 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ typedef struct s_mlx
 {
 	void		*lib;
 	void		*window;
-	t_sprite	sprite[8];
+	t_sprite	sprite[13];
 	t_player	player;
 	t_map		map;
 	t_image		img;
@@ -134,7 +134,6 @@ typedef struct s_mlx
 	double		camera;
 	int			side;
 	t_v2D		spr_pos;
-	int		hit;
 }	t_mlx;
 
 

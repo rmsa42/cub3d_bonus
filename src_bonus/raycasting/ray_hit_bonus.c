@@ -6,11 +6,13 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:15:49 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/28 13:50:52 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/29 12:26:42 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+#include <time.h>
+#include <stdbool.h>
 
 int	select_sprite(t_ray *ray, int side)
 {
@@ -36,10 +38,28 @@ int	select_sprite(t_ray *ray, int side)
 
 void	door_hit(t_mlx *mlx, t_map	*map)
 {
-	
+	static int i = 7;
 	mlx->spr_index = 6;
-	if (map->game_map[map->y][map->x] == 'd')
-		mlx->spr_index = 7;
+	static struct timespec last_time = {0};
+	struct timespec current_time;
+	double elapsed_time;
+
+	if (last_time.tv_sec == 0 && last_time.tv_nsec == 0)
+		clock_gettime(CLOCK_MONOTONIC, &last_time);
+	clock_gettime(CLOCK_MONOTONIC, &current_time);
+	elapsed_time = (current_time.tv_sec - last_time.tv_sec) +
+				(current_time.tv_nsec - last_time.tv_nsec) / 1e9;
+	if (map->game_map[map->y][map->x] == 'd' )
+	{
+		mlx->spr_index = i;
+		if (elapsed_time >= 0.35)
+		{
+			i++;
+			clock_gettime(CLOCK_MONOTONIC, &last_time);
+		}
+	}
+	if (i == 12)
+		i = 7;
 	if (mlx->side == 0)
 	{
 		mlx->ray.side_d.x -= mlx->ray.delta.x / 2;
