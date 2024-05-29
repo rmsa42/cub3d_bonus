@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/29 12:42:40 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/29 12:49:39 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,9 +143,9 @@ t_player	init_player(double x, double y, char tile);
 void		ft_grua(t_mlx *mlx);
 t_draw		calculus(t_ray *ray, t_player *player, int side);
 int			select_sprite(t_ray *ray, int side);
-void		draw_texture(t_mlx *mlx, int x);
-void		door_hit(t_mlx *mlx);
-void	draw_sprite(t_mlx *mlx);
+void		draw_line(t_mlx *mlx, int x);
+void		door_hit(t_mlx *mlx, t_map *map);
+void		draw_sprite(t_mlx *mlx);
 
 // Update
 void		update(t_mlx *mlx);

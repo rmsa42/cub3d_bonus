@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/28 16:00:19 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/29 13:02:45 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	close_game(t_mlx *mlx)
 	mlx_destroy_display(mlx->lib);
 	// Map
 	free(mlx->map.config_map);
-	ft_free_dp((void **)mlx->map.anim_map);
 	ft_free_dp((void **)mlx->map.game_map);
 	// MLX
 	free(mlx->lib);

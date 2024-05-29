@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/29 11:01:20 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:05:47 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,32 @@ void	player_move(t_player *player, char **game_map, t_v2D x, t_v2D y)
 		player->pos = new_pos;
 	if (game_map[(int)check.y][(int)check.x] == 'd')
 	{
-		player->pos = add_vector(new_pos,normalize_vector(velocity));
+		print_vector(velocity);
+
+		if(fabs(velocity.x) > fabs(velocity.y))
+		{
+			printf("a\n");
+			if (velocity.x > 0)
+				player->pos.x = check.x + 0.5;
+			else if (velocity.x < 0)
+				player->pos.x = check.x - 0.5;
+			else if (velocity.y > 0)
+				player->pos.y = check.y + 0.5;
+			else if (velocity.y < 0)
+				player->pos.y = check.y - 0.5;
+		}
+		else
+		{
+			printf("b\n");
+			if (velocity.y > 0)
+				player->pos.y += 1.2;
+			else if (velocity.y < 0)
+				player->pos.y -= 1.2;
+			else if (velocity.x > 0)
+				player->pos.x += 1.2;
+			else if (velocity.x < 0)
+				player->pos.x -= 1.2;
+		}
 	}
 }
 
