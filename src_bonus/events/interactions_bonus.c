@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interactions_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:07:09 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/28 15:03:00 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:02:30 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,9 @@ void	interact_door(t_tile *tile, char **game_map, t_player *player)
 	check_x = (int)tile->pos.x;
 	check_y = (int)tile->pos.y;
 	if (tile->type == DOOR)
-	{
-		player->open_door = true;
 		game_map[check_y][check_x] = 'd';
-	}
 	else if (tile->type == DOOR_OPEN)
-	{
-		player->open_door = false;
 		game_map[check_y][check_x] = 'D';
-	}
 	player->key = false;
 }
 

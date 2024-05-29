@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/28 10:11:37 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:20:21 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	draw_map(t_mlx *mlx, char *tile, int x, int y)
 		mlx->player = init_player(x + 0.5, y + 0.5, *tile);
 		*tile = '0';
 	}
-/* 	else if (*tile == 's')
+	else if (*tile == 's')
 	{
 		mlx->spr_pos = (t_v2D){x, y};
-	} */
+	}
 }
 
 void	map_draw(t_mlx *mlx)

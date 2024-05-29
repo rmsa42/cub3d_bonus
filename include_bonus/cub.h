@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/29 12:42:40 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:17:21 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ typedef struct s_player
 	double	angle;
 	double	fov;
 	double	pitch;
-	bool	open_door;
 	bool	key;
 }	t_player;
 
@@ -75,7 +74,6 @@ typedef struct s_map
 	int		x;
 	int		y;
 	char	**game_map;
-	char	**anim_map;
 	char	**config_map;
 }	t_map;
 
@@ -134,6 +132,7 @@ typedef struct s_mlx
 	int			spr_index;
 	double		camera;
 	int			side;
+	double		dist_buffer[WIDTH];
 	t_v2D		spr_pos;
 }	t_mlx;
 
@@ -141,11 +140,11 @@ typedef struct s_mlx
 t_player	init_player(double x, double y, char tile);
 //Raycast
 void		ft_grua(t_mlx *mlx);
-t_draw		calculus(t_ray *ray, t_player *player, int side);
+t_draw		calculus(t_ray *ray, t_player *player, double *buffer , int side);
 int			select_sprite(t_ray *ray, int side);
-void		draw_texture(t_mlx *mlx, int x);
-void		door_hit(t_mlx *mlx);
-void	draw_sprite(t_mlx *mlx);
+void		draw_line(t_mlx *mlx, int x);
+void		door_hit(t_mlx *mlx, t_map *map);
+void		draw_sprite(t_mlx *mlx);
 
 // Update
 void		update(t_mlx *mlx);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/29 12:43:07 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:00:49 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_player	init_player(double x, double y, char tile)
 	player.plane = perp_vector(player.direction);
 	player.angle = 0.1;
 	player.fov = (double)FOV / 90;
-	player.open_door = false;
+	player.key = false;
 	return (player);
 }
 
