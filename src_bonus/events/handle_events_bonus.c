@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/29 15:05:47 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:08:05 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ void	player_move(t_player *player, char **game_map, t_v2D x, t_v2D y)
 		{
 			printf("b\n");
 			if (velocity.y > 0)
-				player->pos.y += 1.2;
+				player->pos.y = check.y + 0.5;
 			else if (velocity.y < 0)
-				player->pos.y -= 1.2;
+				player->pos.y = check.y - 0.5;
 			else if (velocity.x > 0)
-				player->pos.x += 1.2;
+				player->pos.x = check.x - 0.5;
 			else if (velocity.x < 0)
-				player->pos.x -= 1.2;
+				player->pos.x = check.x + 0.5;
 		}
 	}
 }
