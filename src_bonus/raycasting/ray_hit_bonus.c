@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:15:49 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/29 12:26:42 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/29 12:43:34 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,3 +83,4 @@ void	door_hit(t_mlx *mlx, t_map	*map)
 		mlx->ray.side_d.y += mlx->ray.delta.y;
 	}
 }
+

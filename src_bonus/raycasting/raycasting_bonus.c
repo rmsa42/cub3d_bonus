@@ -6,37 +6,37 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/28 15:15:37 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/29 12:45:29 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	step_rays(t_map map, t_player player, t_ray *ray)
+void	step_rays(t_map map, t_v2D start_pos, t_ray *ray)
 {
 	if (ray->dir.x < 0)
 	{
 		ray->step.x = -1;
-		ray->side_d.x = (player.pos.x - map.x) * ray->delta.x;
+		ray->side_d.x = (start_pos.x - map.x) * ray->delta.x;
 	}
 	else
 	{
 		ray->step.x = 1;
-		ray->side_d.x = (map.x + 1.0 - player.pos.x) * ray->delta.x;
+		ray->side_d.x = (map.x + 1.0 - start_pos.x) * ray->delta.x;
 	}
 	if (ray->dir.y < 0)
 	{
 		ray->step.y = -1;
-		ray->side_d.y = (player.pos.y - map.y) * ray->delta.y;
+		ray->side_d.y = (start_pos.y - map.y) * ray->delta.y;
 	}
 	else
 	{
 		ray->step.y = 1;
-		ray->side_d.y = (map.y + 1.0 - player.pos.y) * ray->delta.y;
+		ray->side_d.y = (map.y + 1.0 - start_pos.y) * ray->delta.y;
 	}
 }
 
-void	launch_rays(t_mlx *mlx, int x)
+void	launch_rays(t_mlx *mlx, t_v2D start_pos, int x)
 {
 	t_player	*player;
 
@@ -46,9 +46,9 @@ void	launch_rays(t_mlx *mlx, int x)
 	mlx->ray.dir.y = player->direction.y + player->plane.y * mlx->camera;
 	mlx->ray.delta.x = fabs(1 / mlx->ray.dir.x);
 	mlx->ray.delta.y = fabs(1 / mlx->ray.dir.y);
-	mlx->map.x = (int)player->pos.x;
-	mlx->map.y = (int)player->pos.y;
-	step_rays(mlx->map, mlx->player, &mlx->ray);
+	mlx->map.x = (int)start_pos.x;
+	mlx->map.y = (int)start_pos.y;
+	step_rays(mlx->map, start_pos, &mlx->ray);
 }
 
 void	dda(t_mlx *mlx)
@@ -85,46 +85,7 @@ void	dda(t_mlx *mlx)
 			door_hit(mlx, map);
 		}
 	}
-}
-
-int	text_x(t_ray *ray, int side, double perp_wall, t_player *player)
-{
-	double	wall_x;
-	int		tex_x;
-
-	wall_x = 0;
-	tex_x = 0;
-	if (side == 0)
-		wall_x = player->pos.y + perp_wall * ray->dir.y;
-	else
-		wall_x = player->pos.x + perp_wall * ray->dir.x;
-	wall_x -= floor(wall_x);
-	tex_x = (int)(wall_x * (int)SPRITE_SIZE);
-	if ((side == 0 && ray->dir.x < 0) || (side == 1 && ray->dir.y > 0))
-		tex_x = SPRITE_SIZE - tex_x - 1;
-	return (tex_x);
-}
-
-void	calculus(t_draw *draw, t_ray *ray, t_player *player, int side)
-{
-	double	perp_wall;
-
-	perp_wall = 0;
-	if (side == 0)
-		perp_wall = (ray->side_d.x - ray->delta.x);
-	else
-		perp_wall = (ray->side_d.y - ray->delta.y);
-	draw->tex_x = text_x(ray, side, perp_wall, player);
-	draw->line_height = fabs(HEIGHT / perp_wall);
-	draw->start = (HEIGHT / 2 - draw->line_height / 2) + player->pitch;
-	if (draw->start < 0)
-		draw->start = 0;
-	draw->end = (HEIGHT / 2 + draw->line_height / 2) + player->pitch;
-	if (draw->end >= HEIGHT)
-		draw->end = HEIGHT;
-	draw->scale = SPRITE_SIZE / draw->line_height;
-	draw->tex_pos = (draw->start - player->pitch - HEIGHT / 2 +
-			draw->line_height / 2) * draw->scale;
+	mlx->draw = calculus(&mlx->ray, &mlx->player, mlx->side);
 }
 
 void	ft_grua(t_mlx *mlx)
@@ -135,10 +96,9 @@ void	ft_grua(t_mlx *mlx)
 	mlx->side = 0;
 	while (x < (int)WIDTH)
 	{
-		launch_rays(mlx, x);
+		launch_rays(mlx, mlx->player.pos, x);
 		dda(mlx);
-		calculus(&mlx->draw, &mlx->ray, &mlx->player, mlx->side);
-		draw_texture(mlx, x);
+		draw_line(mlx, x);
 		x++;
 	}
 	/* draw_sprite(mlx); */

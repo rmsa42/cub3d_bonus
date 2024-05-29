@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/29 11:35:31 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/29 12:42:40 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define WIDTH 800
 # define FOV 90
 # define SPRITE_SIZE 64
+# define MAX_HITS 100
 
 # define PI 3.14159265359
 # define GREEN 	0x0000FF00
@@ -140,10 +141,11 @@ typedef struct s_mlx
 t_player	init_player(double x, double y, char tile);
 //Raycast
 void		ft_grua(t_mlx *mlx);
+t_draw		calculus(t_ray *ray, t_player *player, int side);
 int			select_sprite(t_ray *ray, int side);
 void		draw_texture(t_mlx *mlx, int x);
-void		door_hit(t_mlx *mlx, t_map	*map);
-void		draw_sprite(t_mlx *mlx);
+void		door_hit(t_mlx *mlx);
+void	draw_sprite(t_mlx *mlx);
 
 // Update
 void		update(t_mlx *mlx);
