@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_image.c                                       :+:      :+:    :+:   */
+/*   load_image_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:31:14 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/09 13:38:33 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/28 12:25:50 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ int	pixel_get(t_image *img, int pixel_x, int pixel_y)
 	return (color);
 }
 
-void	pixel_put(t_image *img, int pixelX, int pixelY, int color)
+void	pixel_put( t_image *img, int pixelX, int pixelY, int color)
 {
 	char	*dst;
 
+	/* if (color == (int)0xFFFFFF)
+		color = mlx->sprite[CEILING_S].color; */
 	dst = img->addr + (pixelY * img->line_length + pixelX * (img->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/28 16:04:04 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/29 12:45:29 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ void	dda(t_mlx *mlx)
 			hit = 1;
 			mlx->spr_index = select_sprite(ray, mlx->side);
 		}
-		if (map->game_map[map->y][map->x] == 'D')
+		if (map->game_map[map->y][map->x] == 'D' || map->game_map[map->y][map->x] == 'd')
 		{
 			hit = 1;
-			door_hit(mlx);
+			door_hit(mlx, map);
 		}
 	}
 	mlx->draw = calculus(&mlx->ray, &mlx->player, mlx->side);

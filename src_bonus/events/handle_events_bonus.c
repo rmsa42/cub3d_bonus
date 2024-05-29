@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_events_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/28 10:46:28 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/29 11:01:20 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-// Update Function: Fazer melhor a rotaçao do jogador
 
 t_v2D	rotate(t_v2D vector, int degree)
 {
@@ -41,6 +39,10 @@ void	player_move(t_player *player, char **game_map, t_v2D x, t_v2D y)
 	if (game_map[(int)check.y][(int)check.x] != '1'
 		&& game_map[(int)check.y][(int)check.x] != 'D')
 		player->pos = new_pos;
+	if (game_map[(int)check.y][(int)check.x] == 'd')
+	{
+		player->pos = add_vector(new_pos,normalize_vector(velocity));
+	}
 }
 
 void	update(t_mlx *mlx)
