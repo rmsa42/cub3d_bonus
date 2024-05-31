@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/29 12:49:39 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/31 11:52:41 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,9 @@ typedef struct s_mlx
 	double		camera;
 	int			side;
 	t_v2D		spr_pos;
+	int			map_width;
+	int			map_height;
+	char **map2;
 }	t_mlx;
 
 
