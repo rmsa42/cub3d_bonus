@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/31 12:02:47 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/31 14:45:24 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,31 +48,27 @@ int	shift_color(int *rgb)
 
 int	check_map(t_mlx *mlx, char **conf_map)
 {
-	int	i;
 	int	k;
 	int	*rgb;
 
-	k = 0;
-	i = 0;
+	k = -1;
 	rgb = (int *)malloc(sizeof(int) * 3);
 	if (rgb == NULL)
 		return (0);
-	while (conf_map[i])
+	while (++k < 6)
 	{
-		k = check_element(conf_map[i]);
 		if (k >= 0 && k < 4)
 		{
-			if (check_path(conf_map[i] + 2))
+			if (check_path(conf_map[k]))
 				return (-1);
-			mlx->sprite[k] = xpm_to_image(mlx, conf_map[i] + 3);
+			mlx->sprite[k] = xpm_to_image(mlx, conf_map[k]);
 		}
 		else if (k >= 4)
 		{
-			if (check_rgb(&rgb, conf_map[i] + 1))
+			if (check_rgb(&rgb, conf_map[k]))
 				return (-1);
 			mlx->sprite[k].color = shift_color(rgb);
 		}
-		i++;
 	}
 	free(rgb);
 	return (0);
@@ -121,7 +117,6 @@ int main(int argc, char *argv[])
 	mlx.lib = mlx_init();
 	assert(mlx.lib != NULL);
 	
-	/* mlx = ft_check_b4_init(argc, argv, &mlx); */
 	
 	// Map init / Parser / Sprite Init
 	mlx.sprite[6] = xpm_to_image(&mlx, "sprites/door.xpm");
@@ -131,9 +126,10 @@ int main(int argc, char *argv[])
 	mlx.sprite[10] = xpm_to_image(&mlx, "sprites/open4.xpm");
 	mlx.sprite[11] = xpm_to_image(&mlx, "sprites/open5.xpm");
 	mlx.sprite[12] = xpm_to_image(&mlx, "sprites/open6.xpm");
-	mlx.map = init_map(argv[1]);
-	mlx.map.config_map = teste(mlx.map.game_map);
-	
+	// mlx.map = init_map(argv[1]);
+	// mlx.map.config_map = teste(mlx.map.game_map);
+	ft_check_b4_init(argc, argv, &mlx);
+
 	if (check_map(&mlx, mlx.map.config_map))
 		return (printf("Check Error\n"), -1);
 	
@@ -144,7 +140,6 @@ int main(int argc, char *argv[])
 	mlx.map_width = 34;
     mlx.map_height = 37;
 
-    // Example map
     char *map[] = {
         "1111111111111111111111111",
 		"1000000000110000000000001",
