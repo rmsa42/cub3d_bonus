@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 20:34:30 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/31 14:25:02 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/31 14:51:22 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ void	print_map(char **map)
 	int i = 0;
 
 	while (map[i])
-		printf("%s\n", map[i++]);
+		printf("%s", map[i++]);
 }

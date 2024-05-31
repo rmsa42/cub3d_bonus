@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   copy_game_map.c                                    :+:      :+:    :+:   */
+/*   copy_game_map_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinho <jmarinho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:35:11 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/05/24 16:14:06 by jmarinho         ###   ########.fr       */
+/*   Updated: 2024/05/31 14:54:49 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,6 @@ void	ft_copy_game_map(t_mlx *mlx)
 		line = get_next_line(fd);
 	}
 	mlx->map.game_map[i + 1] = NULL;
-	//print_map(mlx->map.game_map);
+	// print_map(mlx->map.game_map);
 	close(fd);
 }
