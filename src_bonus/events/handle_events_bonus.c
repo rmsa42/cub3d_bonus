@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/03 14:50:27 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:52:00 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	player_move(t_player *player, char **game_map, t_v2D x, t_v2D y)
 	velocity = multiply_vector(new_pos, SPEED);
 	new_velo = multiply_vector(new_pos, SPEED + 0.1);
 	check = add_vector(player->pos, new_velo);
+	new_pos = add_vector(player->pos, velocity);
 	if (game_map[(int)check.y][(int)check.x] != '1'
 		&& game_map[(int)check.y][(int)check.x] != 'D')
 		player->pos = new_pos;
