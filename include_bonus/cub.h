@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/29 12:49:39 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:08:53 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@
 # define CEILING_S 4
 # define FLOOR_S 5
 
+#define NO 0
+#define SO 1
+#define EA 2
+#define WE 3
+#define F 4
+#define C 5
+
 typedef enum	s_type
 {
 	NORTH,
@@ -74,9 +81,18 @@ typedef struct s_map
 {
 	int		x;
 	int		y;
+	int		total_lines;
+	int		lines_to_map;
 	char	**game_map;
 	char	**anim_map;
-	char	**config_map;
+	char	*config_map[6];
+	char	**flood_map;
+	bool	NO_flag;
+	bool	SO_flag;
+	bool	EA_flag;
+	bool	WE_flag;
+	bool	F_flag;
+	bool	C_flag;
 }	t_map;
 
 typedef struct s_image
@@ -122,6 +138,7 @@ typedef struct	s_tile
 
 typedef struct s_mlx
 {
+	char		*file;
 	void		*lib;
 	void		*window;
 	t_sprite	sprite[13];
@@ -135,6 +152,9 @@ typedef struct s_mlx
 	double		camera;
 	int			side;
 	t_v2D		spr_pos;
+	int			map_width;
+	int			map_height;
+	char **map2;
 }	t_mlx;
 
 
@@ -156,7 +176,12 @@ int			render(t_mlx *mlx);
 // Map
 void		map_draw(t_mlx *mlx);
 t_map		init_map(char *map_name);
-t_mlx		ft_check_b4_init(int ac, char **av, t_mlx *mlx);
+void 		ft_check_b4_init(int ac, char **av, t_mlx *mlx);
+void    	ft_check_game_map(t_mlx *mlx);
+void		ft_copy_config_map(t_mlx *mlx);
+void 		ft_copy_game_map(t_mlx *mlx);
+int			ft_check_all_config_flags(t_mlx *mlx);
+void		ft_count_map_lines(t_mlx *mlx);
 
 // Parser (MAP)
 int			check_element(char *line);
@@ -166,7 +191,7 @@ int			color(int nbr);
 int			advance_space(char *line);
 
 void		print_map(char **map);
-int			ft_check_filename(char *str);
+int			ft_check_filename(t_mlx *mlx);
 void    	ft_read_file_and_copy_map(char *file, t_mlx *mlx);
 
 // Image
@@ -183,6 +208,6 @@ t_tile	get_next_tile(char **game_map, t_player *player);
 void	interact_door(t_tile *tile, char **game_map, t_player *player);
 
 void		close_game(t_mlx *mlx);
-int			ft_perror(char *msg, t_mlx *mlx);
+void			ft_perror(char *msg, t_mlx *mlx);
 
 #endif

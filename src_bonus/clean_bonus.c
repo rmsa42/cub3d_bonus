@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/29 13:02:45 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/31 14:46:41 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	close_game(t_mlx *mlx)
 	mlx_destroy_window(mlx->lib, mlx->window);
 	mlx_destroy_display(mlx->lib);
 	// Map
-	free(mlx->map.config_map);
+	// free(mlx->map.config_map);
 	ft_free_dp((void **)mlx->map.game_map);
 	// MLX
 	free(mlx->lib);

@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:31:14 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/28 12:25:50 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/31 14:07:00 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	pixel_put( t_image *img, int pixelX, int pixelY, int color)
 t_sprite	xpm_to_image(t_mlx *mlx, char *texture)
 {
 	t_sprite	sprite;
-
+	
 	sprite.img.img_ptr = mlx_xpm_file_to_image(mlx->lib, texture,
 						&sprite.width, &sprite.height);
 	assert(sprite.img.img_ptr != NULL);
