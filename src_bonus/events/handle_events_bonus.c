@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_events_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/03 14:52:00 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:11:42 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void	sprite_move(t_player *player, t_v2D *spr_pos)
 	dir.x = player->pos.x - spr_pos->x;
 	dir.y = player->pos.y - spr_pos->y;
 	dir = normalize_vector(dir);
-	velocity = multiply_vector(dir, SPEED * 0.1);
+	
+	velocity = multiply_vector(dir, SPEED * 0.3);
 	*spr_pos = add_vector(*spr_pos, velocity);
 }
 
