@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/03 13:44:33 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:46:01 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int main(int argc, char *argv[])
 	assert(mlx.window != NULL);
 	
 	// mlx.map_width = 33;
-    mlx.map_height = 36;
+    // mlx.map_height = 36;
 
 	map_draw(&mlx);
 

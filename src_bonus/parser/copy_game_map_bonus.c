@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   copy_game_map_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:35:11 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/06/03 11:11:52 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:46:58 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	ft_copy_game_map(t_mlx *mlx)
 		free (line);
 		line = get_next_line(fd);
 	}
-	printf("%i\n", mlx->map_width);
+	// printf("%i\n", mlx->map_width);
+	mlx->map_height = i + 1;
 	mlx->map.game_map[i + 1] = NULL;
 	// print_map(mlx->map.game_map);
 	close(fd);

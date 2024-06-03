@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/03 13:43:34 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:50:27 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,19 @@ void	player_move(t_player *player, char **game_map, t_v2D x, t_v2D y)
 		&& game_map[(int)check.y][(int)check.x] != 'D')
 		player->pos = new_pos;
 	if (game_map[(int)check.y][(int)check.x] == 'd')
-	{
-		player->pos = add_vector(new_pos,normalize_vector(velocity));
-	}
+		portal_calc(player, old_pos, check, velocity);
+}
+
+void	sprite_move(t_player *player, t_v2D *spr_pos)
+{
+	t_v2D	dir;
+	t_v2D	velocity;
+
+	dir.x = player->pos.x - spr_pos->x;
+	dir.y = player->pos.y - spr_pos->y;
+	dir = normalize_vector(dir);
+	velocity = multiply_vector(dir, SPEED * 0.1);
+	*spr_pos = add_vector(*spr_pos, velocity);
 }
 
 void	update(t_mlx *mlx)
