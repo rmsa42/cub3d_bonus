@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:27:35 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/03 16:18:21 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:35:43 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,12 @@ void	draw_sprite(t_v2D transform, double *dist_buffer, t_sprite *sprite, t_image
 	int spriteScreen_x = (int)(WIDTH / 2) * (1 + transform.x / transform.y);
 	int spriteHeight = abs((int)(HEIGHT / transform.y));
 	
-	// Y Axis
-	int drawStartY = HEIGHT / 2 - spriteHeight / 2;
+	int drawStartY = (-spriteHeight / 2 + HEIGHT / 2) + mlx->player.pitch;
 	if (drawStartY < 0)
 		drawStartY = 0;
-	int drawEndY = spriteHeight / 2 + HEIGHT / 2;
+	int drawEndY = (spriteHeight / 2 + HEIGHT / 2) + mlx->player.pitch;
 	if (drawEndY >= HEIGHT)	
 		drawEndY = HEIGHT;
-
-	// X Axis
 	int drawStartX = -spriteHeight / 2 + spriteScreen_x;
 	if (drawStartX < 0)
 		drawStartX = 0;
@@ -106,13 +103,15 @@ void	draw_sprite(t_v2D transform, double *dist_buffer, t_sprite *sprite, t_image
 		{
 			for (int y = drawStartY; y < drawEndY; y++)
 			{
-				int d = y * 256 - HEIGHT * 128 + spriteHeight * 128;
+				int d = y * 256 - HEIGHT * 128 + spriteHeight * 128 - player->pitch * 256;
 				int tex_y = ((d * SPRITE_SIZE) / spriteHeight) / 256;
-				int color = pixel_get(&sprite->img, tex_x, tex_y);
-				if (color != (int)0xFF00FF)
-					pixel_put(img, stripe, y, color);
+				
+				if (tex_y >= 0 && tex_y < SPRITE_SIZE) {
+					int color = pixel_get(&sprite->img, tex_x, tex_y);
+					if (color != (int)0xFF00FF)
+						pixel_put(img, stripe, y, color);
+				}
 			}
-			
 		}
 	}
 }
@@ -130,3 +129,5 @@ void	sprite_loop(t_mlx *mlx)
 		i++;
 	}
 }
+
+
