@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/03 12:03:13 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:10:54 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int main(int argc, char *argv[])
 	
 	
 	// Map init / Parser / Sprite Init
+	// mlx.sprite[5] = xpm_to_image(&mlx, "sprites/floor.xpm");
 	mlx.sprite[6] = xpm_to_image(&mlx, "sprites/door.xpm");
 	mlx.sprite[7] = xpm_to_image(&mlx, "sprites/open.xpm");
 	mlx.sprite[8] = xpm_to_image(&mlx, "sprites/open2.xpm");
@@ -137,9 +138,6 @@ int main(int argc, char *argv[])
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	assert(mlx.window != NULL);
 	
-	// mlx.map_width = 33;
-   /*  mlx.map_height = 36; */
-
 	map_draw(&mlx);
 
 	mlx_hook(mlx.window, 6, PointerMotionMask, handle_mouse, &mlx);

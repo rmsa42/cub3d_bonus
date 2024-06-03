@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/03 11:41:04 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:10:58 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ void minimap_tiles(t_mlx *mlx,int tile_size_x, int tile_size_y)
         {
             int color;
             if (mlx->map.game_map[y][x] == '0' && flag == 0)
-            {
-                // printf("x:%i,y:%i\n", x, y );
                 color = 0x000000;
-            }
             else if(mlx->map.game_map[y][x] == 'D' || mlx->map.game_map[y][x] == 'd')
                 color = 0x0050FF;
             else

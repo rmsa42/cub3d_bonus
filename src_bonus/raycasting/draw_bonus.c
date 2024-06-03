@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:27:35 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/29 12:43:20 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:12:09 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	draw_ceiling(t_image *img, t_draw *draw, int color, int x)
 	}
 }
 
-void	draw_walls(t_mlx *mlx, t_image *img, t_draw *draw, t_sprite *sprite, int x)
+void	draw_walls(t_image *img, t_draw *draw, t_sprite *sprite, int x)
 {
 	int	color;
 	int	y;
@@ -35,8 +35,6 @@ void	draw_walls(t_mlx *mlx, t_image *img, t_draw *draw, t_sprite *sprite, int x)
 		tex_y = (int)draw->tex_pos & (SPRITE_SIZE - 1);
 		draw->tex_pos += draw->scale;
 		color = pixel_get(&sprite->img, draw->tex_x, tex_y);
-		if (color == (int)0xFFFFFF)
-			color = mlx->sprite[1].color;
 		pixel_put(img, x, y, color);
 		y++;
 	}
@@ -57,7 +55,7 @@ void	draw_floor(t_image *img, t_draw *draw, int color, int x)
 void	draw_line(t_mlx *mlx, int x)
 {
 	draw_ceiling(&mlx->img, &mlx->draw, mlx->sprite[CEILING_S].color, x);
-	draw_walls(mlx, &mlx->img, &mlx->draw, &mlx->sprite[mlx->spr_index], x);
+	draw_walls(&mlx->img, &mlx->draw, &mlx->sprite[mlx->spr_index], x);
 	draw_floor(&mlx->img, &mlx->draw, mlx->sprite[FLOOR_S].color, x);
 }
 

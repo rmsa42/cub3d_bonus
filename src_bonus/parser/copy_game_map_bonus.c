@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:35:11 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/06/03 12:05:26 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:14:16 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ void	ft_copy_game_map(t_mlx *mlx)
 		line = get_next_line(fd);
 	}
 	mlx->map_height = i + 1;
-	printf("%i\n", mlx->map_width);
 	mlx->map.game_map[i + 1] = NULL;
-	// print_map(mlx->map.game_map);
 	close(fd);
 }
