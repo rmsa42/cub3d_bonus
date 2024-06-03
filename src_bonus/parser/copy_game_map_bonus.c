@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:35:11 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/05/31 14:54:49 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:11:52 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ft_copy_game_map(t_mlx *mlx)
 	int	fd;
 	char *line;
 
+	mlx->map_width = 0;
 	mlx->map.game_map = malloc((sizeof(char *) * mlx->map.total_lines) + 1);
 	if (!mlx->map.game_map) 
 		ft_perror ("ERROR\nMalloc for mlx->map.game_map failed\n", mlx);
@@ -50,11 +51,14 @@ void	ft_copy_game_map(t_mlx *mlx)
 			line = get_next_line(fd);
 			continue;
 		}
+		if ((int)ft_strlen(line) > mlx->map_width)
+			mlx->map_width = ft_strlen(line) - 1;
 		mlx->map.game_map[++i] = ft_strdup(line);
 		//mlx->map.game_map[i][ft_strlen(mlx->map.game_map[i]) + 1] = '\n';
 		free (line);
 		line = get_next_line(fd);
 	}
+	printf("%i\n", mlx->map_width);
 	mlx->map.game_map[i + 1] = NULL;
 	// print_map(mlx->map.game_map);
 	close(fd);

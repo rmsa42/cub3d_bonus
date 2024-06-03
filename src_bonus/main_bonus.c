@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/31 15:34:02 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:07:02 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int main(int argc, char *argv[])
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	assert(mlx.window != NULL);
 	
-	mlx.map_width = 33;
+	// mlx.map_width = 33;
     mlx.map_height = 36;
 
 	map_draw(&mlx);

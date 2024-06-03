@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/31 15:33:46 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:41:04 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ t_image	new_image(t_mlx *mlx)
 	return (img);
 }
 
-void put_tiles(t_mlx *mlx,int tile_size_x, int tile_size_y)
+void minimap_tiles(t_mlx *mlx,int tile_size_x, int tile_size_y)
 {
     int x;
     int y;
     int i;
     int j;
-
+    static int flag;
     i = -1;
     j = -1;
     x = -1;
@@ -36,22 +36,28 @@ void put_tiles(t_mlx *mlx,int tile_size_x, int tile_size_y)
     while (++y < mlx->map_height) 
     {
         x = -1;
+        flag = 0;
         while (++x < mlx->map_width) 
         {
             int color;
-            if (mlx->map.game_map[y][x] == '0')
+            if (mlx->map.game_map[y][x] == '0' && flag == 0)
+            {
+                // printf("x:%i,y:%i\n", x, y );
                 color = 0x000000;
+            }
             else if(mlx->map.game_map[y][x] == 'D' || mlx->map.game_map[y][x] == 'd')
                 color = 0x0050FF;
             else
                 color = 0xFFFFFF;
+            if (mlx->map.game_map[y][x] == '\n')
+                flag = 1;
             int tile_x = x * tile_size_x;
             int tile_y = y * tile_size_y;
             i = -1;
             while (++i < tile_size_x) 
             {
                 j = -1;
-                while (++j < tile_size_y) 
+                while (++j < tile_size_y)
                     mlx_pixel_put(mlx->lib, mlx->window, tile_x + i, tile_y + j, color);
             }
         }
@@ -64,7 +70,7 @@ void draw_minimap(t_mlx *mlx)
     int tile_size_x = minimap_size / mlx->map_width;
     int tile_size_y = minimap_size / mlx->map_height;
 
-    put_tiles(mlx, tile_size_x, tile_size_y);
+    minimap_tiles(mlx, tile_size_x, tile_size_y);
     int player_x = mlx->player.pos.x * tile_size_x;
     int player_y = mlx->player.pos.y * tile_size_y;
     int player_size = tile_size_x / 2;
@@ -72,7 +78,7 @@ void draw_minimap(t_mlx *mlx)
     while (i < player_size) {
         int j = -player_size;
         while (j < player_size) {
-            mlx_pixel_put(mlx->lib, mlx->window, player_x + i, player_y + j, 0xFF0000);
+            mlx_pixel_put(mlx->lib, mlx->window, player_x + i, player_y + j, 0x00FF00);
             j++;
         }
         i++;
