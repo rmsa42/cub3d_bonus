@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_events_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/03 16:33:29 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/03 23:03:38 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,21 +74,17 @@ void	player_move(t_player *player, char **game_map, t_v2D x, t_v2D y)
 		portal_calc(player, old_pos, check, velocity);
 }
 
-void	update(t_mlx *mlx)
+void	update(t_player *player, t_map *map)
 {
-	t_player	*player;
-	t_tile		tile;
 	t_v2D		y_axis;
 	t_v2D		x_axis;
 	
-	// Player Movement (x, y)
-	player = &mlx->player;
-	tile = get_next_tile(mlx->map.game_map, player);
 	if (player->key)
-		interact_door(&tile, mlx->map.game_map, &mlx->player);
+		interact_door(map->game_map, player);
+	// Player Movement (x, y)
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);
-	player_move(player, mlx->map.game_map, x_axis, y_axis);
+	player_move(player, map->game_map, x_axis, y_axis);
 	
 	// Player Camera Rotation
 	player->direction = add_vector(player->direction, rotate(player->direction, player->angle));

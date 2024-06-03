@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/03 15:55:40 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/03 23:24:54 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	check_map(t_mlx *mlx, char **conf_map)
 		{
 			if (check_path(conf_map[k]))
 				return (-1);
-			mlx->sprite[k] = xpm_to_image(mlx, conf_map[k]);
+			mlx->sprite[k] = xpm_to_image(mlx->lib, conf_map[k]);
 		}
 		else if (k >= 4)
 		{
@@ -116,19 +116,12 @@ int main(int argc, char *argv[])
 	
 	mlx.lib = mlx_init();
 	assert(mlx.lib != NULL);
-	
-	
-	// Map init / Parser / Sprite Init
-	mlx.sprite[6] = xpm_to_image(&mlx, "sprites/door.xpm");
-	mlx.sprite[7] = xpm_to_image(&mlx, "sprites/open.xpm");
-	mlx.sprite[8] = xpm_to_image(&mlx, "sprites/open2.xpm");
-	mlx.sprite[9] = xpm_to_image(&mlx, "sprites/open3.xpm");
-	mlx.sprite[10] = xpm_to_image(&mlx, "sprites/open4.xpm");
-	mlx.sprite[11] = xpm_to_image(&mlx, "sprites/open5.xpm");
-	mlx.sprite[12] = xpm_to_image(&mlx, "sprites/open6.xpm");
-	mlx.sprite[13] = xpm_to_image(&mlx, "sprites/barrel.xpm");
-	// mlx.map = init_map(argv[1]);
-	// mlx.map.config_map = teste(mlx.map.game_map);
+
+	// Sprite Init	
+	init_sprite(mlx.lib, mlx.sprite);
+	ft_memset(mlx.objs, 0, sizeof(t_objs) * MAX_OBJS);
+
+	// Map init / Parser
 	ft_check_b4_init(argc, argv, &mlx);
 
 	if (check_map(&mlx, mlx.map.config_map))

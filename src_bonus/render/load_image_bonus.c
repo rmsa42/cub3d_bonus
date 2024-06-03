@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_image_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:31:14 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/31 14:07:00 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/03 23:00:28 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,6 @@ void	pixel_put( t_image *img, int pixelX, int pixelY, int color)
 {
 	char	*dst;
 
-	/* if (color == (int)0xFFFFFF)
-		color = mlx->sprite[CEILING_S].color; */
 	dst = img->addr + (pixelY * img->line_length + pixelX * (img->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
-}
-
-t_sprite	xpm_to_image(t_mlx *mlx, char *texture)
-{
-	t_sprite	sprite;
-	
-	sprite.img.img_ptr = mlx_xpm_file_to_image(mlx->lib, texture,
-						&sprite.width, &sprite.height);
-	assert(sprite.img.img_ptr != NULL);
-	return (sprite);
-}
-
-void	image_to_window(t_mlx *mlx, void *img_ptr, int x, int y)
-{
-	mlx_put_image_to_window(mlx->lib, mlx->window, img_ptr,
-		x * SPRITE_SIZE, y * SPRITE_SIZE);
-	/* printf("Sprite Load\n"); */
 }

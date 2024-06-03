@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/03 16:36:45 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/03 22:57:26 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,21 +90,9 @@ void draw_minimap(t_mlx *mlx)
 
 int	render(t_mlx *mlx)
 {
-	int i = -1;
-	update(mlx);
-    update_sprites(mlx);
+	update(&mlx->player, &mlx->map);
+    update_sprites(&mlx->player, mlx->objs);
 	mlx->img = new_image(mlx);
-	while (++i < 4)
-	{
-		mlx->sprite[i].img.addr = mlx_get_data_addr(mlx->sprite[i].img.img_ptr,
-			&mlx->sprite[i].img.bits_per_pixel, &mlx->sprite[i].img.line_length, &mlx->sprite[i].img.endian);
-	}
-	i = 5;
-	while (++i < 14)
-	{
-		mlx->sprite[i].img.addr = mlx_get_data_addr(mlx->sprite[i].img.img_ptr,
-				&mlx->sprite[i].img.bits_per_pixel, &mlx->sprite[i].img.line_length, &mlx->sprite[i].img.endian);
-	}
 	ft_grua(mlx);
 	draw_minimap(mlx);
 	mlx_destroy_image(mlx->lib, mlx->img.img_ptr);

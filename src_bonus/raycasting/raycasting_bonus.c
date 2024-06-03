@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/03 16:01:05 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/03 23:20:33 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ void	step_rays(t_map map, t_v2D start_pos, t_ray *ray)
 void	launch_rays(t_mlx *mlx, t_v2D start_pos, int x)
 {
 	t_player	*player;
+	double		camera;
 
 	player = &mlx->player;
-	mlx->camera = 2 * x / (double)WIDTH - 1;
-	mlx->ray.dir.x = player->direction.x + player->plane.x * mlx->camera;
-	mlx->ray.dir.y = player->direction.y + player->plane.y * mlx->camera;
+	camera = 2 * x / (double)WIDTH - 1;
+	mlx->ray.dir.x = player->direction.x + player->plane.x * camera;
+	mlx->ray.dir.y = player->direction.y + player->plane.y * camera;
 	mlx->ray.delta.x = fabs(1 / mlx->ray.dir.x);
 	mlx->ray.delta.y = fabs(1 / mlx->ray.dir.y);
 	mlx->map.x = (int)start_pos.x;
@@ -102,5 +103,6 @@ void	ft_grua(t_mlx *mlx)
 		x++;
 	}
 	sprite_loop(mlx);
-	image_to_window(mlx, mlx->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(mlx->lib, mlx->window,
+								mlx->img.img_ptr, 0, 0);
 }

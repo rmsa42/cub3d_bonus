@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
+#    By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/06/03 15:41:05 by rumachad         ###   ########.fr        #
+#    Updated: 2024/06/03 22:57:52 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ BONUS = cub3D_bonus
 
 SRC_BONUS_PATH = src_bonus/
 SRC_PATH = src/
-VPATH = $(SRC_BONUS_PATH) $(SRC_BONUS_PATH)render $(SRC_BONUS_PATH)raycasting $(SRC_BONUS_PATH)map $(SRC_BONUS_PATH)vector $(SRC_BONUS_PATH)events $(SRC_BONUS_PATH)parser
+VPATH = $(SRC_BONUS_PATH) $(SRC_BONUS_PATH)render $(SRC_BONUS_PATH)raycasting \
+		$(SRC_BONUS_PATH)map $(SRC_BONUS_PATH)vector $(SRC_BONUS_PATH)events \
+		$(SRC_BONUS_PATH)parser $(SRC_BONUS_PATH)draw
 SRC_BONUS = main_bonus.c \
 	handle_events_bonus.c \
 	handle_events_sprite_bonus.c \
@@ -26,6 +28,7 @@ SRC_BONUS = main_bonus.c \
 	raycasting_bonus.c \
 	ray_hit_bonus.c \
 	init_map_bonus.c \
+	init_sprites_bonus.c \
 	map_draw_bonus.c \
 	v2D_math_bonus.c \
 	v2D_utils_bonus.c \
@@ -33,6 +36,7 @@ SRC_BONUS = main_bonus.c \
 	parser_bonus.c \
 	parser_utils_bonus.c \
 	draw_bonus.c \
+	draw_sprite_bonus.c \
 	interactions_bonus.c \
 	line_calcs_bonus.c \
 	check_b4_init_bonus.c \

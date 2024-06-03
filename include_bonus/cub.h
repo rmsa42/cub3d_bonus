@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/03 16:31:40 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/03 23:22:28 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@
 # define MAX_OBJS 100
 
 # define PI 3.14159265359
-# define GREEN 	0x0000FF00
 
 # define SPEED 0.02
 # define ROTATION_SPEED 3
@@ -44,20 +43,15 @@
 # define CEILING_S 4
 # define FLOOR_S 5
 
-#define NO 0
-#define SO 1
-#define EA 2
-#define WE 3
-#define F 4
-#define C 5
+# define NO 0
+# define SO 1
+# define EA 2
+# define WE 3
+# define F 4
+# define C 5
 
 typedef enum	s_type
 {
-	NORTH,
-	SOUTH,
-	WEST,
-	EAST,
-	CEILING,
 	FLOOR,
 	DOOR,
 	DOOR_OPEN,
@@ -156,17 +150,17 @@ typedef struct s_mlx
 	t_draw		draw;
 	char		**event_map;
 	int			spr_index;
-	double		camera;
 	int			side;
 	double		dist_buffer[WIDTH];
 	t_objs		objs[MAX_OBJS];
 	int			map_width;
 	int			map_height;
-	char **map2;
+	char		**map2;
 }	t_mlx;
 
 
 t_player	init_player(double x, double y, char tile);
+void		init_sprite(void *lib, t_sprite *sprite);
 //Raycast
 void		ft_grua(t_mlx *mlx);
 t_draw		calculus(t_ray *ray, t_player *player, double *buffer , int side);
@@ -176,8 +170,8 @@ void		door_hit(t_mlx *mlx, t_map *map);
 void		sprite_loop(t_mlx *mlx);
 
 // Update
-void		update(t_mlx *mlx);
-void		update_sprites(t_mlx *mlx);
+void		update(t_player *player, t_map *map);
+void		update_sprites(t_player *player, t_objs *objs);
 
 //Render
 int			render(t_mlx *mlx);
@@ -206,17 +200,16 @@ void    	ft_read_file_and_copy_map(char *file, t_mlx *mlx);
 // Image
 void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
 int			pixel_get(t_image *img, int pixel_x, int pixel_y);
-t_sprite	xpm_to_image(t_mlx *mlx, char *texture);
-void		image_to_window(t_mlx *mlx, void *img_ptr, int x, int y);
+t_sprite	xpm_to_image(void *lib, char *texture);
 
 // Events
 int			handle_keyPress(int keycode, t_mlx *mlx);
 int			handle_keyRelease(int keycode, t_player *player);
 
-t_tile	get_next_tile(char **game_map, t_player *player);
-void	interact_door(t_tile *tile, char **game_map, t_player *player);
+t_tile		get_next_tile(char **game_map, t_player *player);
+void		interact_door(char **game_map, t_player *player);
 
 void		close_game(t_mlx *mlx);
-void			ft_perror(char *msg, t_mlx *mlx);
+void		ft_perror(char *msg, t_mlx *mlx);
 
 #endif
