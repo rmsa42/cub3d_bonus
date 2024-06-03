@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/29 14:00:49 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:10:34 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ int main(int argc, char *argv[])
 	mlx.sprite[10] = xpm_to_image(&mlx, "sprites/open4.xpm");
 	mlx.sprite[11] = xpm_to_image(&mlx, "sprites/open5.xpm");
 	mlx.sprite[12] = xpm_to_image(&mlx, "sprites/open6.xpm");
+	mlx.sprite[13] = xpm_to_image(&mlx, "sprites/barrel.xpm");
 	mlx.map = init_map(argv[1]);
 	mlx.map.config_map = teste(mlx.map.game_map);
 	

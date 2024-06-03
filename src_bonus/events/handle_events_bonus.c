@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/29 14:59:46 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:19:11 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,18 @@ void	player_move(t_player *player, char **game_map, t_v2D x, t_v2D y)
 		player->pos = add_vector(player->pos, velocity);
 }
 
+void	sprite_move(t_player *player, t_v2D *spr_pos)
+{
+	t_v2D	dir;
+	t_v2D	velocity;
+
+	dir.x = player->pos.x - spr_pos->x;
+	dir.y = player->pos.y - spr_pos->y;
+	dir = normalize_vector(dir);
+	velocity = multiply_vector(dir, SPEED * 0.1);
+	*spr_pos = add_vector(*spr_pos, velocity);
+}
+
 void	update(t_mlx *mlx)
 {
 	t_player	*player;
@@ -55,6 +67,7 @@ void	update(t_mlx *mlx)
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);
 	player_move(player, mlx->map.game_map, x_axis, y_axis);
+	sprite_move(&mlx->player, &mlx->spr_pos);
 	
 	// Player Camera Rotation
 	player->direction = add_vector(player->direction, rotate(player->direction, player->angle));
