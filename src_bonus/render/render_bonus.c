@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/03 13:10:10 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:42:51 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,70 @@ t_image	new_image(t_mlx *mlx)
 			&img.line_length, &img.endian);
 	return (img);
 }
+
+void minimap_tiles(t_mlx *mlx,int tile_size_x, int tile_size_y)
+{
+    int x;
+    int y;
+    int i;
+    int j;
+    static int flag;
+    i = -1;
+    j = -1;
+    x = -1;
+    y = -1;
+    while (++y < mlx->map_height) 
+    {
+        x = -1;
+        flag = 0;
+        while (++x < mlx->map_width) 
+        {
+            int color;
+            if (mlx->map.game_map[y][x] == '0' && flag == 0)
+            {
+                // printf("x:%i,y:%i\n", x, y );
+                color = 0x000000;
+            }
+            else if(mlx->map.game_map[y][x] == 'D' || mlx->map.game_map[y][x] == 'd')
+                color = 0x0050FF;
+            else
+                color = 0xFFFFFF;
+            if (mlx->map.game_map[y][x] == '\n')
+                flag = 1;
+            int tile_x = x * tile_size_x;
+            int tile_y = y * tile_size_y;
+            i = -1;
+            while (++i < tile_size_x) 
+            {
+                j = -1;
+                while (++j < tile_size_y)
+                    mlx_pixel_put(mlx->lib, mlx->window, tile_x + i, tile_y + j, color);
+            }
+        }
+    }
+}
+
+void draw_minimap(t_mlx *mlx) 
+{
+    int minimap_size = 200;
+    int tile_size_x = minimap_size / mlx->map_width;
+    int tile_size_y = minimap_size / mlx->map_height;
+
+    minimap_tiles(mlx, tile_size_x, tile_size_y);
+    int player_x = mlx->player.pos.x * tile_size_x;
+    int player_y = mlx->player.pos.y * tile_size_y;
+    int player_size = tile_size_x / 2;
+    int i = -player_size;
+    while (i < player_size) {
+        int j = -player_size;
+        while (j < player_size) {
+            mlx_pixel_put(mlx->lib, mlx->window, player_x + i, player_y + j, 0x00FF00);
+            j++;
+        }
+        i++;
+    }
+}
+
 
 int	render(t_mlx *mlx)
 {
@@ -39,6 +103,7 @@ int	render(t_mlx *mlx)
 				&mlx->sprite[i].img.bits_per_pixel, &mlx->sprite[i].img.line_length, &mlx->sprite[i].img.endian);
 	}
 	ft_grua(mlx);
+	draw_minimap(mlx);
 	mlx_destroy_image(mlx->lib, mlx->img.img_ptr);
 	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/09 13:55:05 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:19:24 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	check_rgb(int **cc, char *line)
 	int		i;
 
 	i = 0;
-	line += advance_space(line);
 	rgb = ft_split(line, ',');
 	while (rgb[i])
 	{
@@ -61,7 +60,6 @@ int	check_path(char *line)
 {
 	int	fd;
 
-	line += advance_space(line);
 	fd = open(line, O_RDONLY);
 	if (fd == -1)
 		return (-1);

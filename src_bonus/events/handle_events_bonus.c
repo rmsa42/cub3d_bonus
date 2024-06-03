@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/03 13:19:11 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:43:34 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,44 @@ t_v2D	rotate(t_v2D vector, int degree)
 	return (newV);
 }
 
+void portal_calc(t_player *player, t_v2D old_pos, t_v2D check, t_v2D velocity)
+{
+		if (fabs(velocity.x) > fabs(velocity.y))
+		{
+			if(fabs(velocity.y) > 0.01)
+				player->pos = old_pos;
+			else
+			{
+				if (velocity.x > 0)
+					player->pos.x = check.x + 0.5;
+				else if (velocity.x < 0)
+					player->pos.x = check.x - 0.5;
+			}
+		}
+		else
+		{
+			if(fabs(velocity.x) > 0.01)
+				player->pos = old_pos;
+			else
+			{
+				if (velocity.y > 0)
+					player->pos.y = check.y + 0.5;
+				else if (velocity.y < 0)
+					player->pos.y = check.y - 0.5;
+
+			}
+		}
+}
+
 void	player_move(t_player *player, char **game_map, t_v2D x, t_v2D y)
 {
 	t_v2D	velocity;
 	t_v2D	new_pos;
 	t_v2D	check;
 	t_v2D	new_velo;
+	t_v2D	old_pos;
 
+	old_pos = player->pos;
 	new_pos = add_vector(x, y);
 	new_pos = normalize_vector(new_pos);
 	velocity = multiply_vector(new_pos, SPEED);
@@ -37,19 +68,11 @@ void	player_move(t_player *player, char **game_map, t_v2D x, t_v2D y)
 	check = add_vector(player->pos, new_velo);
 	if (game_map[(int)check.y][(int)check.x] != '1'
 		&& game_map[(int)check.y][(int)check.x] != 'D')
-		player->pos = add_vector(player->pos, velocity);
-}
-
-void	sprite_move(t_player *player, t_v2D *spr_pos)
-{
-	t_v2D	dir;
-	t_v2D	velocity;
-
-	dir.x = player->pos.x - spr_pos->x;
-	dir.y = player->pos.y - spr_pos->y;
-	dir = normalize_vector(dir);
-	velocity = multiply_vector(dir, SPEED * 0.1);
-	*spr_pos = add_vector(*spr_pos, velocity);
+		player->pos = new_pos;
+	if (game_map[(int)check.y][(int)check.x] == 'd')
+	{
+		player->pos = add_vector(new_pos,normalize_vector(velocity));
+	}
 }
 
 void	update(t_mlx *mlx)

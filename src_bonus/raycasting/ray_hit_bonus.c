@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:15:49 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/29 12:43:34 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/31 10:25:40 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,35 @@ int	select_sprite(t_ray *ray, int side)
 	return (sprite_index);
 }
 
+double time_passed(struct timespec *last, struct timespec *current) 
+{
+    return (current->tv_sec - last->tv_sec) + (current->tv_nsec - last->tv_nsec) / 1e9;
+}
+
+void update_time(struct timespec *time)
+{
+	clock_gettime(CLOCK_MONOTONIC, time);
+}
+
 void	door_hit(t_mlx *mlx, t_map	*map)
 {
 	static int i = 7;
 	mlx->spr_index = 6;
-	static struct timespec last_time = {0};
+	static struct timespec last_time;
 	struct timespec current_time;
 	double elapsed_time;
 
 	if (last_time.tv_sec == 0 && last_time.tv_nsec == 0)
-		clock_gettime(CLOCK_MONOTONIC, &last_time);
-	clock_gettime(CLOCK_MONOTONIC, &current_time);
-	elapsed_time = (current_time.tv_sec - last_time.tv_sec) +
-				(current_time.tv_nsec - last_time.tv_nsec) / 1e9;
+		update_time(&last_time);
+	update_time(&current_time);
+	elapsed_time = time_passed(&last_time, &current_time);
 	if (map->game_map[map->y][map->x] == 'd' )
 	{
 		mlx->spr_index = i;
 		if (elapsed_time >= 0.35)
 		{
 			i++;
-			clock_gettime(CLOCK_MONOTONIC, &last_time);
+			update_time(&last_time);
 		}
 	}
 	if (i == 12)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
+#    By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/05/28 16:02:03 by rumachad         ###   ########.fr        #
+#    Updated: 2024/05/31 12:31:38 by cacarval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ BONUS = cub3D_bonus
 
 SRC_BONUS_PATH = src_bonus/
 SRC_PATH = src/
-VPATH = $(SRC_BONUS_PATH) $(SRC_BONUS_PATH)render $(SRC_BONUS_PATH)raycasting $(SRC_BONUS_PATH)map $(SRC_BONUS_PATH)vector $(SRC_BONUS_PATH)events
+VPATH = $(SRC_BONUS_PATH) $(SRC_BONUS_PATH)render $(SRC_BONUS_PATH)raycasting $(SRC_BONUS_PATH)map $(SRC_BONUS_PATH)vector $(SRC_BONUS_PATH)events $(SRC_BONUS_PATH)parser
 SRC_BONUS = main_bonus.c \
 	handle_events_bonus.c \
 	render_bonus.c \
@@ -34,7 +34,11 @@ SRC_BONUS = main_bonus.c \
 	draw_bonus.c \
 	interactions_bonus.c \
 	line_calcs_bonus.c \
-	clean_bonus.c
+	check_b4_init_bonus.c \
+	check_game_map_bonus.c \
+	copy_config_map_bonus.c \
+	copy_game_map_bonus.c \
+	clean_bonus.c 
 
 OBJ_BONUS_PATH = obj_bonus/
 OBJ_BONUS_FILES = $(SRC_BONUS:.c=.o)
