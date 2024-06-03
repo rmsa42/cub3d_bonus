@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:27:35 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/29 12:43:20 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:34:58 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	draw_ceiling(t_image *img, t_draw *draw, int color, int x)
 	}
 }
 
-void	draw_walls(t_mlx *mlx, t_image *img, t_draw *draw, t_sprite *sprite, int x)
+void	draw_walls(t_image *img, t_draw *draw, t_sprite *sprite, int x)
 {
 	int	color;
 	int	y;
@@ -35,8 +35,6 @@ void	draw_walls(t_mlx *mlx, t_image *img, t_draw *draw, t_sprite *sprite, int x)
 		tex_y = (int)draw->tex_pos & (SPRITE_SIZE - 1);
 		draw->tex_pos += draw->scale;
 		color = pixel_get(&sprite->img, draw->tex_x, tex_y);
-		if (color == (int)0xFFFFFF)
-			color = mlx->sprite[1].color;
 		pixel_put(img, x, y, color);
 		y++;
 	}
@@ -57,27 +55,14 @@ void	draw_floor(t_image *img, t_draw *draw, int color, int x)
 void	draw_line(t_mlx *mlx, int x)
 {
 	draw_ceiling(&mlx->img, &mlx->draw, mlx->sprite[CEILING_S].color, x);
-	draw_walls(mlx, &mlx->img, &mlx->draw, &mlx->sprite[mlx->spr_index], x);
+	draw_walls(&mlx->img, &mlx->draw, &mlx->sprite[mlx->spr_index], x);
 	draw_floor(&mlx->img, &mlx->draw, mlx->sprite[FLOOR_S].color, x);
 }
 
-void	draw_sprite_init(t_draw *draw, t_v2D transform, int res)
-{	
-	draw->line_height = fabs(HEIGHT / transform.y);
-	draw->start = HEIGHT / 2 - res;
-	if (draw->start < 0)
-		draw->start = 0;
-	draw->end = HEIGHT / 2 + res;
-	if (draw->end > HEIGHT)
-		draw->end = HEIGHT;
-}
-
-
-/* void	draw_sprite(t_mlx *mlx)
+void	draw_sprite(t_mlx *mlx)
 {
 	t_player *player;
 	t_v2D	spr;
-	t_draw	draw[2];
 	double	inv;
 	t_v2D	transform;
 	
@@ -90,28 +75,38 @@ void	draw_sprite_init(t_draw *draw, t_v2D transform, int res)
 							- player->direction.x * spr.y);
 	transform.y = inv * (-player->plane.y * spr.x
 							+ player->plane.x * spr.y);
-	draw_sprite_init(&draw[0], transform, HEIGHT / 2);
-	int spr_scree_x = (WIDTH / 2) * (1 + transform.x / transform.y);
-	draw_sprite_init(&draw[1], transform, spr_scree_x);
+	int spriteScreen_x = (int)(WIDTH / 2) * (1 + transform.x / transform.y);
+	int spriteHeight = abs((int)(HEIGHT / transform.y));
 	
-	int stripe = draw[1].start;
-	int y = 0;
-	while (stripe < draw[1].end)
+	int drawStartY = -spriteHeight / 2 + HEIGHT / 2;
+	if (drawStartY < 0)
+		drawStartY = 0;
+	int drawEndY = spriteHeight / 2 + HEIGHT / 2;
+	if (drawEndY >= HEIGHT)	
+		drawEndY = HEIGHT;
+	
+	int drawStartX = -spriteHeight / 2 + spriteScreen_x;
+	if (drawStartX < 0)
+		drawStartX = 0;
+	int drawEndX = spriteHeight / 2 + spriteScreen_x;
+	if (drawEndX >= WIDTH)
+		drawEndX = WIDTH;
+	
+	for (int stripe = drawStartX; stripe < drawEndX; stripe++)
 	{
-		int tex_x = 256 * ((stripe - draw[1].start) * SPRITE_SIZE / draw[1].line_height) / 256;
-		y = draw[0].start;
-		if (transform.y > 0 && stripe > 0 && stripe < WIDTH)
+		int tex_x = (256 * (stripe - (-spriteHeight / 2 + spriteScreen_x)) * SPRITE_SIZE / spriteHeight) / 256;
+		if (transform.y > 0 && stripe > 0 && stripe < WIDTH && transform.y < mlx->dist_buffer[stripe])
 		{
-			while (y < draw[0].end)
+			for (int y = drawStartY; y < drawEndY; y++)
 			{
-				int d = y * 256 - HEIGHT + draw[0].line_height * 128;
-				int tex_y = ((d * SPRITE_SIZE) / draw[0].line_height) / 256;
-				int color = pixel_get(&mlx->sprite[0].img, tex_x, tex_y);
-				pixel_put(&mlx->img, y, stripe, color);
-				y++;
+				int d = y * 256 - HEIGHT * 128 + spriteHeight * 128;
+				int tex_y = ((d * SPRITE_SIZE) / spriteHeight) / 256;
+				int color = pixel_get(&mlx->sprite[13].img, tex_x, tex_y);
+				if (color != (int)0xFF00FF)
+					pixel_put(&mlx->img, stripe, y, color);
 			}
+			
 		}
-		stripe++;
 	}
-		
-} */
+	
+}

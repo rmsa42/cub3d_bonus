@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/29 12:45:29 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:17:58 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	launch_rays(t_mlx *mlx, t_v2D start_pos, int x)
 	step_rays(mlx->map, start_pos, &mlx->ray);
 }
 
-void	dda(t_mlx *mlx)
+void	dda(t_mlx *mlx, int x)
 {
 	int		hit;
 	t_map	*map;
@@ -85,7 +85,7 @@ void	dda(t_mlx *mlx)
 			door_hit(mlx, map);
 		}
 	}
-	mlx->draw = calculus(&mlx->ray, &mlx->player, mlx->side);
+	mlx->draw = calculus(&mlx->ray, &mlx->player, &mlx->dist_buffer[x], mlx->side);
 }
 
 void	ft_grua(t_mlx *mlx)
@@ -97,10 +97,10 @@ void	ft_grua(t_mlx *mlx)
 	while (x < (int)WIDTH)
 	{
 		launch_rays(mlx, mlx->player.pos, x);
-		dda(mlx);
+		dda(mlx, x);
 		draw_line(mlx, x);
 		x++;
 	}
-	/* draw_sprite(mlx); */
+	draw_sprite(mlx);
 	image_to_window(mlx, mlx->img.img_ptr, 0, 0);
 }

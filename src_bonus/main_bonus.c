@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/03 11:07:02 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:44:33 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int main(int argc, char *argv[])
 	mlx.sprite[10] = xpm_to_image(&mlx, "sprites/open4.xpm");
 	mlx.sprite[11] = xpm_to_image(&mlx, "sprites/open5.xpm");
 	mlx.sprite[12] = xpm_to_image(&mlx, "sprites/open6.xpm");
+	mlx.sprite[13] = xpm_to_image(&mlx, "sprites/barrel.xpm");
 	// mlx.map = init_map(argv[1]);
 	// mlx.map.config_map = teste(mlx.map.game_map);
 	ft_check_b4_init(argc, argv, &mlx);
