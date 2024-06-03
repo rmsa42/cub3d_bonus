@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/03 13:45:07 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:31:40 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define WIDTH 800
 # define FOV 90
 # define SPRITE_SIZE 64
-# define MAX_HITS 100
+# define MAX_OBJS 100
 
 # define PI 3.14159265359
 # define GREEN 	0x0000FF00
@@ -61,6 +61,7 @@ typedef enum	s_type
 	FLOOR,
 	DOOR,
 	DOOR_OPEN,
+	ENEMIE,
 	WALL
 }	t_type;
 
@@ -135,6 +136,13 @@ typedef struct	s_tile
 	t_v2D	pos;
 }	t_tile;
 
+typedef struct s_objs
+{
+	t_type	type;
+	t_v2D	pos;
+	int		state;
+}	t_objs;
+
 typedef struct s_mlx
 {
 	char		*file;
@@ -151,7 +159,7 @@ typedef struct s_mlx
 	double		camera;
 	int			side;
 	double		dist_buffer[WIDTH];
-	t_v2D		spr_pos;
+	t_objs		objs[MAX_OBJS];
 	int			map_width;
 	int			map_height;
 	char **map2;
@@ -165,10 +173,11 @@ t_draw		calculus(t_ray *ray, t_player *player, double *buffer , int side);
 int			select_sprite(t_ray *ray, int side);
 void		draw_line(t_mlx *mlx, int x);
 void		door_hit(t_mlx *mlx, t_map *map);
-void		draw_sprite(t_mlx *mlx);
+void		sprite_loop(t_mlx *mlx);
 
 // Update
 void		update(t_mlx *mlx);
+void		update_sprites(t_mlx *mlx);
 
 //Render
 int			render(t_mlx *mlx);

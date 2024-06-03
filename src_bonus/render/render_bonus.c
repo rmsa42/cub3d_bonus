@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/03 14:24:41 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:31:29 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void minimap_tiles(t_mlx *mlx,int tile_size_x, int tile_size_y)
             {
                 j = -1;
                 while (++j < tile_size_y)
-                    mlx_pixel_put(mlx->lib, mlx->window, tile_x + i, tile_y + j, color);
+                    pixel_put(&mlx->img, tile_x + i, tile_y + j, color);
             }
         }
     }
@@ -66,30 +66,30 @@ void minimap_tiles(t_mlx *mlx,int tile_size_x, int tile_size_y)
 
 void draw_minimap(t_mlx *mlx) 
 {
-    int minimap_size = 200;
-    int tile_size_x = minimap_size / mlx->map_width;
-    int tile_size_y = minimap_size / mlx->map_height;
+	int minimap_size = 200;
+	int tile_size_x = minimap_size / mlx->map_width;
+	int tile_size_y = minimap_size / mlx->map_height;
 
-    minimap_tiles(mlx, tile_size_x, tile_size_y);
-    int player_x = mlx->player.pos.x * tile_size_x;
-    int player_y = mlx->player.pos.y * tile_size_y;
-    int player_size = tile_size_x / 2;
-    int i = -player_size;
-    while (i < player_size) {
-        int j = -player_size;
-        while (j < player_size) {
-            mlx_pixel_put(mlx->lib, mlx->window, player_x + i, player_y + j, 0x00FF00);
-            j++;
-        }
-        i++;
-    }
+	minimap_tiles(mlx, tile_size_x, tile_size_y);
+	int player_x = mlx->player.pos.x * tile_size_x;
+	int player_y = mlx->player.pos.y * tile_size_y;
+	int player_size = tile_size_x / 2;
+	int i = -player_size;
+	while (i < player_size) {
+		int j = -player_size;
+		while (j < player_size) {
+			pixel_put(&mlx->img, player_x + i, player_y + j, 0x00FF00);
+			j++;
+		}
+		i++;
+	}
 }
-
 
 int	render(t_mlx *mlx)
 {
 	int i = -1;
 	update(mlx);
+    update_sprites(mlx);
 	mlx->img = new_image(mlx);
 	while (++i < 4)
 	{

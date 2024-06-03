@@ -6,13 +6,23 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/03 13:43:13 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:12:29 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	draw_map(t_mlx *mlx, char *tile, int x, int y)
+t_objs	init_obj(int x, int y)
+{
+	t_objs	obj;
+
+	obj.type = ENEMIE;
+	obj.state = 0;
+	obj.pos = (t_v2D){x, y};
+	return (obj);
+}
+
+void	draw_map(t_mlx *mlx, int *counter, char *tile, int x, int y)
 {
 	if ((*tile == 'N' || *tile == 'S' || *tile == 'W' || *tile == 'E'))
 	{
@@ -21,22 +31,25 @@ void	draw_map(t_mlx *mlx, char *tile, int x, int y)
 	}
 	else if (*tile == 's')
 	{
-		mlx->spr_pos = (t_v2D){x, y};
+		mlx->objs[*counter] = init_obj(x, y);
+		(*counter)++;
 	}
 }
 
 void	map_draw(t_mlx *mlx)
 {
 	t_map	*map;
+	int		obj_counter;
 
 	map = &mlx->map;
 	map->y = 0;
+	obj_counter = 0;
 	while (map->game_map[map->y])
 	{
 		map->x = 0;
 		while (map->game_map[map->y][map->x])
 		{
-			draw_map(mlx, &map->game_map[map->y][map->x], map->x, map->y);
+			draw_map(mlx, &obj_counter, &map->game_map[map->y][map->x], map->x, map->y);
 			map->x++;
 		}
 		map->y++;
