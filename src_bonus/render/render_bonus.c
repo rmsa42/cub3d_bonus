@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/03 16:34:19 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:36:45 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void draw_minimap(t_mlx *mlx)
     int tile_size = minimap_size / mlx->map_height;
 
     minimap_tiles(mlx, tile_size, tile_size);
-    int sprite_x = mlx->spr_pos.x * tile_size;
-    int sprite_y =mlx->spr_pos.y * tile_size;
+    /* int sprite_x = mlx->spr_pos.x * tile_size;
+    int sprite_y = mlx->spr_pos.y * tile_size; */
     int player_x = mlx->player.pos.x * tile_size;
     int player_y = mlx->player.pos.y * tile_size;
     int player_size = tile_size / 2;
@@ -80,7 +80,7 @@ void draw_minimap(t_mlx *mlx)
     while (i < player_size) {
         int j = -player_size;
         while (j < player_size) {
-            mlx_pixel_put(mlx->lib, mlx->window, sprite_x + i, sprite_y + j, 0xFF00FF);
+            /* mlx_pixel_put(mlx->lib, mlx->window, sprite_x + i, sprite_y + j, 0xFF00FF); */
             mlx_pixel_put(mlx->lib, mlx->window, player_x + i, player_y + j, 0x00FF00);
             j++;
         }

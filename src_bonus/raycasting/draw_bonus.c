@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:27:35 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/03 16:35:43 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:38:11 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_v2D	trans_calc(t_player *player, t_objs *obj)
 	return (transform);
 }
 
-void	draw_sprite(t_v2D transform, double *dist_buffer, t_sprite *sprite, t_image *img)
+void	draw_sprite(t_v2D transform, t_mlx *mlx)
 {
 	int spriteScreen_x = (int)(WIDTH / 2) * (1 + transform.x / transform.y);
 	int spriteHeight = abs((int)(HEIGHT / transform.y));
@@ -99,17 +99,17 @@ void	draw_sprite(t_v2D transform, double *dist_buffer, t_sprite *sprite, t_image
 	for (int stripe = drawStartX; stripe < drawEndX; stripe++)
 	{
 		int tex_x = (256 * (stripe - (-spriteHeight / 2 + spriteScreen_x)) * SPRITE_SIZE / spriteHeight) / 256;
-		if (transform.y > 0 && stripe > 0 && stripe < WIDTH && transform.y < dist_buffer[stripe])
+		if (transform.y > 0 && stripe > 0 && stripe < WIDTH && transform.y < mlx->dist_buffer[stripe])
 		{
 			for (int y = drawStartY; y < drawEndY; y++)
 			{
-				int d = y * 256 - HEIGHT * 128 + spriteHeight * 128 - player->pitch * 256;
+				int d = y * 256 - HEIGHT * 128 + spriteHeight * 128 - mlx->player.pitch * 256;
 				int tex_y = ((d * SPRITE_SIZE) / spriteHeight) / 256;
 				
 				if (tex_y >= 0 && tex_y < SPRITE_SIZE) {
-					int color = pixel_get(&sprite->img, tex_x, tex_y);
+					int color = pixel_get(&mlx->sprite[13].img, tex_x, tex_y);
 					if (color != (int)0xFF00FF)
-						pixel_put(img, stripe, y, color);
+						pixel_put(&mlx->img, stripe, y, color);
 				}
 			}
 		}
@@ -125,7 +125,7 @@ void	sprite_loop(t_mlx *mlx)
 	while (i < 6)
 	{
 		transform = trans_calc(&mlx->player, &mlx->objs[i]);
-		draw_sprite(transform, mlx->dist_buffer, &mlx->sprite[13], &mlx->img);
+		draw_sprite(transform, mlx);
 		i++;
 	}
 }
