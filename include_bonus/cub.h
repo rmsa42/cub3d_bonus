@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/04 10:42:50 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:47:23 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 # define HEIGHT 600
 # define WIDTH 800
-# define FOV 90
+# define FOV 60
 # define SPRITE_SIZE 64
 # define MAX_OBJS 100
 
@@ -76,6 +76,7 @@ typedef struct s_map
 	int		lines_to_map;
 	char	**game_map;
 	char	*config_map[6];
+	char	**map_copy;
 	char	**flood_map;
 	bool	NO_flag;
 	bool	SO_flag;
@@ -133,6 +134,13 @@ typedef struct s_objs
 	int		state;
 }	t_objs;
 
+typedef struct s_cell
+{
+    int x;
+    int y;
+}              t_cell;
+
+
 typedef struct s_mlx
 {
 	char		*file;
@@ -152,7 +160,8 @@ typedef struct s_mlx
 	int			nbr_sprites;
 	int			map_width;
 	int			map_height;
-	char		**map2;
+	t_cell 	marked_cells[WIDTH * HEIGHT];
+    int 	num_marked_cells;
 }	t_mlx;
 
 
