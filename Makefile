@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/06/04 10:33:13 by rumachad         ###   ########.fr        #
+#    Updated: 2024/06/04 16:26:53 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC_BONUS = main_bonus.c \
 	render_bonus.c \
 	raycasting_bonus.c \
 	ray_hit_bonus.c \
+	enemy_raycast_bonus.c \
 	init_map_bonus.c \
 	init_sprites_bonus.c \
 	map_draw_bonus.c \

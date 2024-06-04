@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/04 15:16:25 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:10:59 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,9 @@ int			select_sprite(t_ray *ray, int side);
 void		draw_line(t_mlx *mlx, int x);
 void		door_hit(t_mlx *mlx, t_map *map);
 void		sprite_loop(t_mlx *mlx);
+
+//Enemy Raycast
+void		enemy_ray(t_mlx *mlx);
 
 // Update
 void		update_player(t_player *player, t_map *map);
