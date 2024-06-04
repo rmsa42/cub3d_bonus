@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 20:34:30 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/31 14:51:22 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:13:08 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,13 @@ void	print_map(char **map)
 
 	while (map[i])
 		printf("%s", map[i++]);
+}
+
+int	shift_color(int *rgb)
+{
+	int	color;
+	
+	color = (rgb[0] << 16 | rgb[1] << 8
+		| rgb[2]);
+	return (color);
 }

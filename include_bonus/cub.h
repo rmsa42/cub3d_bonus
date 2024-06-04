@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/03 23:22:28 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:42:50 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@
 
 # define SPEED 0.02
 # define ROTATION_SPEED 3
-
-# define CEILING_S 4
-# define FLOOR_S 5
 
 # define NO 0
 # define SO 1
@@ -78,7 +75,6 @@ typedef struct s_map
 	int		total_lines;
 	int		lines_to_map;
 	char	**game_map;
-	char	**anim_map;
 	char	*config_map[6];
 	char	**flood_map;
 	bool	NO_flag;
@@ -153,6 +149,7 @@ typedef struct s_mlx
 	int			side;
 	double		dist_buffer[WIDTH];
 	t_objs		objs[MAX_OBJS];
+	int			nbr_sprites;
 	int			map_width;
 	int			map_height;
 	char		**map2;
@@ -160,7 +157,7 @@ typedef struct s_mlx
 
 
 t_player	init_player(double x, double y, char tile);
-void		init_sprite(void *lib, t_sprite *sprite);
+void		init_sprite(void *lib, char **conf_map, t_sprite *sprite);
 //Raycast
 void		ft_grua(t_mlx *mlx);
 t_draw		calculus(t_ray *ray, t_player *player, double *buffer , int side);
@@ -170,14 +167,14 @@ void		door_hit(t_mlx *mlx, t_map *map);
 void		sprite_loop(t_mlx *mlx);
 
 // Update
-void		update(t_player *player, t_map *map);
-void		update_sprites(t_player *player, t_objs *objs);
+void		update_player(t_player *player, t_map *map);
+void		update_sprites(t_player *player, t_objs *objs, int nbr_sprites);
 
 //Render
 int			render(t_mlx *mlx);
 
 // Map
-void		map_draw(t_mlx *mlx);
+void		prepare_map(t_mlx *mlx);
 t_map		init_map(char *map_name);
 void 		ft_check_b4_init(int ac, char **av, t_mlx *mlx);
 void    	ft_check_game_map(t_mlx *mlx);
@@ -190,7 +187,9 @@ void		ft_count_map_lines(t_mlx *mlx);
 int			check_element(char *line);
 int			check_path(char *line);
 int			check_rgb(int **cc, char *line);
+int			check_conf(void *lib, char **conf_map, t_sprite *sprite);
 int			color(int nbr);
+int			shift_color(int *rgb);
 int			advance_space(char *line);
 
 void		print_map(char **map);
@@ -205,6 +204,8 @@ t_sprite	xpm_to_image(void *lib, char *texture);
 // Events
 int			handle_keyPress(int keycode, t_mlx *mlx);
 int			handle_keyRelease(int keycode, t_player *player);
+int			handle_mouse(int x, int y, t_mlx *mlx);
+t_v2D		rotate(t_v2D vector, int degree);
 
 t_tile		get_next_tile(char **game_map, t_player *player);
 void		interact_door(char **game_map, t_player *player);

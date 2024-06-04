@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_hit_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:15:49 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/31 10:25:40 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:02:11 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ int	select_sprite(t_ray *ray, int side)
 	if (side == 1)
 	{
 		if (ray->dir.y < 0)
-			sprite_index = 0;
+			sprite_index = NO;
 		else
-			sprite_index = 1;
+			sprite_index = SO;
 	}
 	else if (side == 0)
 	{
 		if (ray->dir.x < 0)
-			sprite_index = 2;
+			sprite_index = EA;
 		else
-			sprite_index = 3;
+			sprite_index = WE;
 	}
 	return (sprite_index);
 }

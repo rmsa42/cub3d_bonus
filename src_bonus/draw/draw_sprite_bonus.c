@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/03 23:21:23 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 09:53:39 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	sprite_loop(t_mlx *mlx)
 	int	i;
 	
 	i = 0;
-	while (i < 6)
+	while (i < mlx->nbr_sprites)
 	{
 		transform = trans_calc(&mlx->player, &mlx->objs[i]);
 		draw_sprite(transform, mlx);

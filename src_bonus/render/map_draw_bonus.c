@@ -6,11 +6,35 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/03 16:12:29 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:14:35 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+t_player	init_player(double x, double y, char tile)
+{
+	t_player	player;
+	int			dir;
+
+	player.pitch = 0;
+	dir = 1;
+	player.pos = (t_v2D){x, y};
+	if (tile == 'N')
+		player.direction = (t_v2D){0, -dir};
+	else if (tile == 'S')
+		player.direction = (t_v2D){0, dir};
+	else if (tile == 'W')
+		player.direction = (t_v2D){-dir, 0};
+	else if (tile == 'E')
+		player.direction = (t_v2D){dir, 0};
+	player.movement = (t_v2D){0, 0};
+	player.plane = perp_vector(player.direction);
+	player.angle = 0.1;
+	player.fov = (double)FOV / 90;
+	player.key = false;
+	return (player);
+}
 
 t_objs	init_obj(int x, int y)
 {
@@ -22,7 +46,7 @@ t_objs	init_obj(int x, int y)
 	return (obj);
 }
 
-void	draw_map(t_mlx *mlx, int *counter, char *tile, int x, int y)
+void	draw_map(t_mlx *mlx, char *tile, int x, int y)
 {
 	if ((*tile == 'N' || *tile == 'S' || *tile == 'W' || *tile == 'E'))
 	{
@@ -31,25 +55,24 @@ void	draw_map(t_mlx *mlx, int *counter, char *tile, int x, int y)
 	}
 	else if (*tile == 's')
 	{
-		mlx->objs[*counter] = init_obj(x, y);
-		(*counter)++;
+		mlx->objs[mlx->nbr_sprites] = init_obj(x, y);
+		mlx->nbr_sprites++;
 	}
 }
 
-void	map_draw(t_mlx *mlx)
+void	prepare_map(t_mlx *mlx)
 {
-	t_map	*map;
-	int		obj_counter;
+	t_map		*map;
 
 	map = &mlx->map;
 	map->y = 0;
-	obj_counter = 0;
+	mlx->nbr_sprites = 0;
 	while (map->game_map[map->y])
 	{
 		map->x = 0;
 		while (map->game_map[map->y][map->x])
 		{
-			draw_map(mlx, &obj_counter, &map->game_map[map->y][map->x], map->x, map->y);
+			draw_map(mlx, &map->game_map[map->y][map->x], map->x, map->y);
 			map->x++;
 		}
 		map->y++;

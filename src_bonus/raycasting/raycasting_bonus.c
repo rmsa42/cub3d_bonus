@@ -3,40 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/03 23:20:33 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:02:02 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	step_rays(t_map map, t_v2D start_pos, t_ray *ray)
+void	step_rays(t_map map, t_player *player, t_ray *ray)
 {
 	if (ray->dir.x < 0)
 	{
 		ray->step.x = -1;
-		ray->side_d.x = (start_pos.x - map.x) * ray->delta.x;
+		ray->side_d.x = (player->pos.x - map.x) * ray->delta.x;
 	}
 	else
 	{
 		ray->step.x = 1;
-		ray->side_d.x = (map.x + 1.0 - start_pos.x) * ray->delta.x;
+		ray->side_d.x = (map.x + 1.0 - player->pos.x) * ray->delta.x;
 	}
 	if (ray->dir.y < 0)
 	{
 		ray->step.y = -1;
-		ray->side_d.y = (start_pos.y - map.y) * ray->delta.y;
+		ray->side_d.y = (player->pos.y - map.y) * ray->delta.y;
 	}
 	else
 	{
 		ray->step.y = 1;
-		ray->side_d.y = (map.y + 1.0 - start_pos.y) * ray->delta.y;
+		ray->side_d.y = (map.y + 1.0 - player->pos.y) * ray->delta.y;
 	}
 }
 
-void	launch_rays(t_mlx *mlx, t_v2D start_pos, int x)
+void	launch_rays(t_mlx *mlx, int x)
 {
 	t_player	*player;
 	double		camera;
@@ -47,9 +47,9 @@ void	launch_rays(t_mlx *mlx, t_v2D start_pos, int x)
 	mlx->ray.dir.y = player->direction.y + player->plane.y * camera;
 	mlx->ray.delta.x = fabs(1 / mlx->ray.dir.x);
 	mlx->ray.delta.y = fabs(1 / mlx->ray.dir.y);
-	mlx->map.x = (int)start_pos.x;
-	mlx->map.y = (int)start_pos.y;
-	step_rays(mlx->map, start_pos, &mlx->ray);
+	mlx->map.x = (int)player->pos.x;
+	mlx->map.y = (int)player->pos.y;
+	step_rays(mlx->map, &mlx->player, &mlx->ray);
 }
 
 void	dda(t_mlx *mlx, int x)
@@ -80,7 +80,7 @@ void	dda(t_mlx *mlx, int x)
 			hit = 1;
 			mlx->spr_index = select_sprite(ray, mlx->side);
 		}
-		if (map->game_map[map->y][map->x] == 'D' || map->game_map[map->y][map->x] == 'd')
+		else if (map->game_map[map->y][map->x] == 'D' || map->game_map[map->y][map->x] == 'd')
 		{
 			hit = 1;
 			door_hit(mlx, map);
@@ -97,7 +97,7 @@ void	ft_grua(t_mlx *mlx)
 	mlx->side = 0;
 	while (x < (int)WIDTH)
 	{
-		launch_rays(mlx, mlx->player.pos, x);
+		launch_rays(mlx, x);
 		dda(mlx, x);
 		draw_line(mlx, x);
 		x++;

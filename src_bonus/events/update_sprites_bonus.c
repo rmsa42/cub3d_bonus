@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_events_sprite_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/03 23:21:27 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 09:54:03 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	sprite_move(t_player *player, t_objs *obj)
 	obj->pos = add_vector(obj->pos, velocity);
 }
 
-void	update_sprites(t_player *player, t_objs *objs)
+void	update_sprites(t_player *player, t_objs *objs, int nbr_sprites)
 {
 	int	i;
 
 	i = 0;
-	while (i < 6)
+	while (i < nbr_sprites)
 	{
 		sprite_move(player, &objs[i]);
 		i++;

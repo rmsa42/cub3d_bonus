@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_sprites_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:38:56 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/03 23:17:10 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:18:12 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ t_sprite	xpm_to_image(void *lib, char *texture)
 	return (sprite);
 }
 
-void	init_sprite(void *lib, t_sprite *sprite)
+void	init_sprite(void *lib, char **conf_map, t_sprite *sprite)
 {
+	check_conf(lib, conf_map, sprite);
 	sprite[6] = xpm_to_image(lib, "sprites/door.xpm");
 	sprite[7] = xpm_to_image(lib, "sprites/open.xpm");
 	sprite[8] = xpm_to_image(lib, "sprites/open2.xpm");

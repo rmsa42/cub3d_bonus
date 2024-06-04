@@ -3,50 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/03 23:24:54 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:58:00 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "vector2D.h"
 
-t_player	init_player(double x, double y, char tile)
-{
-	t_player	player;
-	int			dir;
-
-	player.pitch = 0;
-	dir = 1;
-	player.pos = (t_v2D){x, y};
-	if (tile == 'N')
-		player.direction = (t_v2D){0, -dir};
-	else if (tile == 'S')
-		player.direction = (t_v2D){0, dir};
-	else if (tile == 'W')
-		player.direction = (t_v2D){-dir, 0};
-	else if (tile == 'E')
-		player.direction = (t_v2D){dir, 0};
-	player.movement = (t_v2D){0, 0};
-	player.plane = perp_vector(player.direction);
-	player.angle = 0.1;
-	player.fov = (double)FOV / 90;
-	player.key = false;
-	return (player);
-}
-
-int	shift_color(int *rgb)
-{
-	int	color;
-	
-	color = (rgb[0] << 16 | rgb[1] << 8
-		| rgb[2]);
-	return (color);
-}
-
-int	check_map(t_mlx *mlx, char **conf_map)
+int	check_conf(void *lib, char **conf_map, t_sprite *sprite)
 {
 	int	k;
 	int	*rgb;
@@ -61,54 +28,18 @@ int	check_map(t_mlx *mlx, char **conf_map)
 		{
 			if (check_path(conf_map[k]))
 				return (-1);
-			mlx->sprite[k] = xpm_to_image(mlx->lib, conf_map[k]);
+			sprite[k] = xpm_to_image(lib, conf_map[k]);
 		}
 		else if (k >= 4)
 		{
 			if (check_rgb(&rgb, conf_map[k]))
 				return (-1);
-			mlx->sprite[k].color = shift_color(rgb);
+			sprite[k].color = shift_color(rgb);
 		}
 	}
 	free(rgb);
 	return (0);
 }
-
-char **teste(char **map)
-{
-	char	**conf_map;
-
-	conf_map = (char **)malloc(sizeof(char *) * 7);
-	for (int i = 0; i < 6; i++)
-	{
-		conf_map[i] = map[i];
-	}
-	conf_map[6] = 0;
-	return (conf_map);
-}
-
-int handle_mouse(int x, int y, t_mlx *mlx)
-{
-    t_v2D center;
-    t_v2D vector;
-
-    center = (t_v2D){WIDTH / 2, HEIGHT / 2};
-    if ((x != WIDTH / 2 || y != HEIGHT / 2) && x < WIDTH/1.25)
-    {
-        vector = (t_v2D){x - center.x, center.y - y};
-        mlx->player.pitch += vector.y;
-        if (mlx->player.pitch > 200)
-            mlx->player.pitch = 200;
-        else if (mlx->player.pitch < -200)
-            mlx->player.pitch = -200;
-        mlx->player.angle = vector.x;
-        mlx_mouse_move(mlx->lib, mlx->window, WIDTH / 2, HEIGHT / 2);
-    }
-    else
-        mlx->player.angle = 0;
-    return (0);
-}
-
 
 int main(int argc, char *argv[])
 {	
@@ -117,25 +48,20 @@ int main(int argc, char *argv[])
 	mlx.lib = mlx_init();
 	assert(mlx.lib != NULL);
 
-	// Sprite Init	
-	init_sprite(mlx.lib, mlx.sprite);
 	ft_memset(mlx.objs, 0, sizeof(t_objs) * MAX_OBJS);
 
 	// Map init / Parser
 	ft_check_b4_init(argc, argv, &mlx);
-
-	if (check_map(&mlx, mlx.map.config_map))
-		return (printf("Check Error\n"), -1);
+	
+	// Sprite Init
+	init_sprite(mlx.lib, mlx.map.config_map, mlx.sprite);
 	
 	// Create Window
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	assert(mlx.window != NULL);
+
+	prepare_map(&mlx);
 	
-	// mlx.map_width = 33;
-    // mlx.map_height = 36;
-
-	map_draw(&mlx);
-
 	mlx_hook(mlx.window, 6, PointerMotionMask, handle_mouse, &mlx);
 	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
 	mlx_hook(mlx.window, KeyRelease, KeyReleaseMask, handle_keyRelease, &mlx.player);

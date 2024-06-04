@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+         #
+#    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/06/03 22:57:52 by rumachad         ###   ########.fr        #
+#    Updated: 2024/06/04 10:33:13 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ VPATH = $(SRC_BONUS_PATH) $(SRC_BONUS_PATH)render $(SRC_BONUS_PATH)raycasting \
 		$(SRC_BONUS_PATH)parser $(SRC_BONUS_PATH)draw
 SRC_BONUS = main_bonus.c \
 	handle_events_bonus.c \
-	handle_events_sprite_bonus.c \
+	update_player_bonus.c \
+	update_sprites_bonus.c \
 	render_bonus.c \
 	raycasting_bonus.c \
 	ray_hit_bonus.c \

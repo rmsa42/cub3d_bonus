@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_events_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/03 23:03:38 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:32:31 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,75 +23,26 @@ t_v2D	rotate(t_v2D vector, int degree)
 	return (newV);
 }
 
-void portal_calc(t_player *player, t_v2D old_pos, t_v2D check, t_v2D velocity)
+int handle_mouse(int x, int y, t_mlx *mlx)
 {
-		if (fabs(velocity.x) > fabs(velocity.y))
-		{
-			if(fabs(velocity.y) > 0.01)
-				player->pos = old_pos;
-			else
-			{
-				if (velocity.x > 0)
-					player->pos.x = check.x + 0.5;
-				else if (velocity.x < 0)
-					player->pos.x = check.x - 0.5;
-			}
-		}
-		else
-		{
-			if(fabs(velocity.x) > 0.01)
-				player->pos = old_pos;
-			else
-			{
-				if (velocity.y > 0)
-					player->pos.y = check.y + 0.5;
-				else if (velocity.y < 0)
-					player->pos.y = check.y - 0.5;
+	t_v2D center;
+	t_v2D vector;
 
-			}
-		}
-}
-
-void	player_move(t_player *player, char **game_map, t_v2D x, t_v2D y)
-{
-	t_v2D	velocity;
-	t_v2D	new_pos;
-	t_v2D	check;
-	t_v2D	new_velo;
-	t_v2D	old_pos;
-
-	old_pos = player->pos;
-	new_pos = add_vector(x, y);
-	new_pos = normalize_vector(new_pos);
-	velocity = multiply_vector(new_pos, SPEED);
-	new_velo = multiply_vector(new_pos, SPEED + 0.1);
-	check = add_vector(player->pos, new_velo);
-	new_pos = add_vector(player->pos, velocity);
-	if (game_map[(int)check.y][(int)check.x] != '1'
-		&& game_map[(int)check.y][(int)check.x] != 'D')
-		player->pos = new_pos;
-	if (game_map[(int)check.y][(int)check.x] == 'd')
-		portal_calc(player, old_pos, check, velocity);
-}
-
-void	update(t_player *player, t_map *map)
-{
-	t_v2D		y_axis;
-	t_v2D		x_axis;
-	
-	if (player->key)
-		interact_door(map->game_map, player);
-	// Player Movement (x, y)
-	y_axis = multiply_vector(player->direction, player->movement.y);
-	x_axis = multiply_vector(player->plane, player->movement.x);
-	player_move(player, map->game_map, x_axis, y_axis);
-	
-	// Player Camera Rotation
-	player->direction = add_vector(player->direction, rotate(player->direction, player->angle));
-	player->direction = normalize_vector(player->direction);
-	player->plane = add_vector(player->plane, rotate(player->plane, player->angle));
-	player->plane = normalize_vector(player->plane);
-	player->plane = multiply_vector(player->plane, player->fov);
+	center = (t_v2D){WIDTH / 2, HEIGHT / 2};
+	if ((x != WIDTH / 2 || y != HEIGHT / 2) && x < WIDTH/1.25)
+	{
+		vector = (t_v2D){x - center.x, center.y - y};
+		mlx->player.pitch += vector.y;
+		if (mlx->player.pitch > 200)
+			mlx->player.pitch = 200;
+		else if (mlx->player.pitch < -200)
+			mlx->player.pitch = -200;
+		mlx->player.angle = vector.x;
+		mlx_mouse_move(mlx->lib, mlx->window, WIDTH / 2, HEIGHT / 2);
+	}
+	else
+		mlx->player.angle = 0;
+	return (0);
 }
 
 int	handle_keyPress(int keycode, t_mlx *mlx)
