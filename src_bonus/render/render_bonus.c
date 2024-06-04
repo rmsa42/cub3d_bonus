@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 11:49:08 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:18:21 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,13 @@ void minimap_tiles(t_mlx *mlx,int tile_size_x, int tile_size_y)
 		{
 			int color;
 			if (mlx->map.game_map[y][x] == '0' && flag == 0)
-			{
-				// printf("x:%i,y:%i\n", x, y );
-				color = 0x000000;
-			}
+				color = 0x9c9c9c;
 			else if(mlx->map.game_map[y][x] == 'D' || mlx->map.game_map[y][x] == 'd')
 				color = 0x0050FF;
-			else
+			else if (mlx->map.game_map[y][x] == 'X')
 				color = 0xFFFFFF;
+			else
+				color = 0x000000;
 			if (mlx->map.game_map[y][x] == '\n')
 				flag = 1;
 			int tile_x = x * tile_size_x;
@@ -68,20 +67,27 @@ void draw_minimap(t_mlx *mlx)
 {
 	int minimap_size = 200;
 	// int tile_size_x = minimap_size / mlx->map_width;
-	int tile_size = minimap_size / mlx->map_height;
+	int tile_size = minimap_size / 36;
+	int k;
 
 	minimap_tiles(mlx, tile_size, tile_size);
-	/* int sprite_x = mlx->spr_pos.x * tile_size;
-	int sprite_y = mlx->spr_pos.y * tile_size; */
 	int player_x = mlx->player.pos.x * tile_size;
 	int player_y = mlx->player.pos.y * tile_size;
 	int player_size = tile_size / 2;
 	int i = -player_size;
-	while (i < player_size) {
+	while (i < player_size) 
+	{
 		int j = -player_size;
-		while (j < player_size) {
-			/* mlx_pixel_put(mlx->lib, mlx->window, sprite_x + i, sprite_y + j, 0xFF00FF); */
-			mlx_pixel_put(mlx->lib, mlx->window, player_x + i, player_y + j, 0x00FF00);
+		while (j < player_size) 
+		{
+			k = -1;
+			while(++k < mlx->nbr_sprites)
+			{
+				int sprite_x = mlx->objs[k].pos.x * tile_size;
+				int sprite_y = mlx->objs[k].pos.y * tile_size;
+				pixel_put(&mlx->img, sprite_x + i, sprite_y + j, 0xFF00FF);
+			}
+			pixel_put(&mlx->img, player_x + i, player_y + j, 0x00FF00);
 			j++;
 		}
 		i++;
@@ -95,6 +101,8 @@ int	render(t_mlx *mlx)
 	mlx->img = new_image(mlx);
 	ft_grua(mlx);
 	draw_minimap(mlx);
+	if (mlx->player.hp <= 0)
+		close_game(mlx);
 	mlx_destroy_image(mlx->lib, mlx->img.img_ptr);
 	return (0);
 }

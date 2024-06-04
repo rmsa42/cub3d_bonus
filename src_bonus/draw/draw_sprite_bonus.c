@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 14:03:01 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:18:17 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_v2D	trans_calc(t_player *player, t_objs *obj)
 	return (transform);
 }
 
-void	draw_sprite(t_v2D transform, t_mlx *mlx)
+void	draw_sprite(t_v2D transform, t_mlx *mlx, t_image *sprite)
 {
 	int spriteScreen_x = (int)(WIDTH / 2) * (1 + transform.x / transform.y);
 	int spriteHeight = abs((int)(HEIGHT / transform.y));
@@ -58,7 +58,7 @@ void	draw_sprite(t_v2D transform, t_mlx *mlx)
 				int tex_y = ((d * SPRITE_SIZE) / spriteHeight) / 256;
 				
 				if (tex_y >= 0 && tex_y < SPRITE_SIZE) {
-					int color = pixel_get(&mlx->sprite[13].img, tex_x, tex_y);
+					int color = pixel_get(sprite, tex_x, tex_y);
 					if (color != (int)0xFF00FF)
 						pixel_put(&mlx->img, stripe, y, color);
 				}
@@ -110,19 +110,46 @@ void	sprite_sort(t_objs *objs, double *dist, int nbr_sprites)
 	}
 }
 
+void	draw_staff(t_mlx *mlx)
+{
+	t_v2D	scr;
+	t_v2D	texture;
+	t_image	*img;
+	int		color;
+
+	img = &mlx->sprite[14].img;
+	scr.y = 200;
+	while (++scr.y < HEIGHT)
+	{
+		scr.x = 200;
+		while (++scr.x < WIDTH)
+		{
+			texture.x = (scr.x - 200) * 64 / WIDTH;
+			texture.y = (scr.y - 200) * 64 / HEIGHT;
+			color = pixel_get(&mlx->sprite[14].img, texture.x, texture.y);
+			if (color != (int)0xFF00FF)
+				pixel_put(&mlx->img, scr.x, scr.y, color);
+		}
+	}
+}
+
 void	sprite_loop(t_mlx *mlx)
 {
 	int		i;
 	double	*dist;
 	t_v2D	transform;
 	
-	i = 0;
+    i = 0;
+    // test = add_vector(mlx->player.pos, add_vector(mlx->player.direction, multiply_vector(mlx->player.plane, 0.60)));
+    // transform = trans_calc(&mlx->player, &(t_objs){.pos = test});
+    // draw_sprite(transform, mlx, &mlx->sprite[14].img);
 	while (i < mlx->nbr_sprites)
 	{
 		dist = dist_array(&mlx->player, mlx->objs, mlx->nbr_sprites);
 		sprite_sort(mlx->objs, dist, mlx->nbr_sprites);
 		transform = trans_calc(&mlx->player, &mlx->objs[i]);
-		draw_sprite(transform, mlx);
+		draw_sprite(transform, mlx, &mlx->sprite[13].img);
 		i++;
 	}
+	draw_staff(mlx);
 }

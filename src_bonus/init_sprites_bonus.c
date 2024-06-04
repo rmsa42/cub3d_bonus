@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:38:56 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 11:50:46 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:16:48 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,5 @@ void	init_sprite(void *lib, char **conf_map, t_sprite *sprite)
 	sprite[11] = xpm_to_image(lib, "sprites/open5.xpm");
 	sprite[12] = xpm_to_image(lib, "sprites/open6.xpm");
 	sprite[13] = xpm_to_image(lib, "sprites/barrel.xpm");
+	sprite[14] = xpm_to_image(lib, "sprites/staff.xpm");
 }

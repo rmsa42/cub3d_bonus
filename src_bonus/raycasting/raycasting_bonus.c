@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 10:02:02 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:27:43 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,40 +54,58 @@ void	launch_rays(t_mlx *mlx, int x)
 
 void	dda(t_mlx *mlx, int x)
 {
-	int		hit;
-	t_map	*map;
-	t_ray	*ray;
+    int		hit;
+    t_map	*map;
+    t_ray	*ray;
 
-	hit = 0;
-	map = &mlx->map;
-	ray = &mlx->ray;
-	while (!hit)
-	{
-		if (ray->side_d.x < ray->side_d.y)
-		{
-			ray->side_d.x += ray->delta.x;
-			map->x += ray->step.x;
-			mlx->side = 0;
-		}
-		else
-		{
-			ray->side_d.y += ray->delta.y;
-			map->y += ray->step.y;
-			mlx->side = 1;
-		}
-		if (map->game_map[map->y][map->x] == '1')
-		{
-			hit = 1;
-			mlx->spr_index = select_sprite(ray, mlx->side);
-		}
-		else if (map->game_map[map->y][map->x] == 'D' || map->game_map[map->y][map->x] == 'd')
-		{
-			hit = 1;
-			door_hit(mlx, map);
-		}
-	}
-	mlx->draw = calculus(&mlx->ray, &mlx->player, &mlx->dist_buffer[x], mlx->side);
+    hit = 0;
+    map = &mlx->map;
+    ray = &mlx->ray;
+    while (!hit)
+    {
+        if (ray->side_d.x < ray->side_d.y)
+        {
+            ray->side_d.x += ray->delta.x;
+            map->x += ray->step.x;
+            mlx->side = 0;
+        }
+        else
+        {
+            ray->side_d.y += ray->delta.y;
+            map->y += ray->step.y;
+            mlx->side = 1;
+        }
+        if (map->game_map[map->y][map->x] == '0' || map->game_map[map->y][map->x] == 'X')
+        {
+            map->game_map[map->y][map->x] = 'X';
+            mlx->marked_cells[mlx->num_marked_cells++] = (t_cell){map->x, map->y};
+        }
+        if (map->game_map[map->y][map->x] == '1')
+        {
+            hit = 1;
+            mlx->spr_index = select_sprite(ray, mlx->side);
+        }
+        else if (map->game_map[map->y][map->x] == 'D' || map->game_map[map->y][map->x] == 'd')
+        {
+            hit = 1;
+            door_hit(mlx, map);
+        }
+    }
+    mlx->draw = calculus(&mlx->ray, &mlx->player, &mlx->dist_buffer[x], mlx->side);
 }
+
+
+void reset_marked_cells(t_mlx *mlx)
+{
+    for (int i = 0; i < mlx->num_marked_cells; i++)
+    {
+        int x = mlx->marked_cells[i].x;
+        int y = mlx->marked_cells[i].y;
+            mlx->map.game_map[y][x] = '0';
+    }
+    mlx->num_marked_cells = 0;
+}
+
 
 void	ft_grua(t_mlx *mlx)
 {
@@ -95,6 +113,7 @@ void	ft_grua(t_mlx *mlx)
 
 	x = 0;
 	mlx->side = 0;
+	reset_marked_cells(mlx);
 	while (x < (int)WIDTH)
 	{
 		launch_rays(mlx, x);

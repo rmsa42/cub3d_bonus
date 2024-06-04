@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/04 12:46:22 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:16:25 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 # define HEIGHT 600
 # define WIDTH 800
-# define FOV 90
+# define FOV 60
 # define SPRITE_SIZE 64
 # define MAX_OBJS 100
 
@@ -62,6 +62,7 @@ typedef struct s_player
 	t_v2D	direction;
 	t_v2D	plane;
 	t_v2D	movement;
+	int		hp;
 	double	angle;
 	double	fov;
 	double	pitch;
@@ -76,6 +77,7 @@ typedef struct s_map
 	int		lines_to_map;
 	char	**game_map;
 	char	*config_map[6];
+	char	**map_copy;
 	char	**flood_map;
 	bool	NO_flag;
 	bool	SO_flag;
@@ -133,12 +135,19 @@ typedef struct s_objs
 	int		state;
 }	t_objs;
 
+typedef struct s_cell
+{
+    int x;
+    int y;
+}              t_cell;
+
+
 typedef struct s_mlx
 {
 	char		*file;
 	void		*lib;
 	void		*window;
-	t_sprite	sprite[14];
+	t_sprite	sprite[15];
 	t_player	player;
 	t_map		map;
 	t_image		img;
@@ -152,7 +161,8 @@ typedef struct s_mlx
 	int			nbr_sprites;
 	int			map_width;
 	int			map_height;
-	char		**map2;
+	t_cell 	marked_cells[WIDTH * HEIGHT];
+    int 	num_marked_cells;
 }	t_mlx;
 
 

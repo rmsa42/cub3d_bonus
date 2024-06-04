@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_draw_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 10:14:35 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 13:48:54 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_player	init_player(double x, double y, char tile)
 	player.angle = 0.1;
 	player.fov = (double)FOV / 90;
 	player.key = false;
+	player.hp = 100;
 	return (player);
 }
 
@@ -56,6 +57,7 @@ void	draw_map(t_mlx *mlx, char *tile, int x, int y)
 	else if (*tile == 's')
 	{
 		mlx->objs[mlx->nbr_sprites] = init_obj(x, y);
+		*tile = '0';
 		mlx->nbr_sprites++;
 	}
 }
