@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/04 12:47:23 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:22:37 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_player
 	t_v2D	direction;
 	t_v2D	plane;
 	t_v2D	movement;
+	int		hp;
 	double	angle;
 	double	fov;
 	double	pitch;
@@ -146,7 +147,7 @@ typedef struct s_mlx
 	char		*file;
 	void		*lib;
 	void		*window;
-	t_sprite	sprite[14];
+	t_sprite	sprite[15];
 	t_player	player;
 	t_map		map;
 	t_image		img;

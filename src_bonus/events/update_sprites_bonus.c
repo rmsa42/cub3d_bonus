@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 11:41:19 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/04 13:54:00 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ void	sprite_move(t_player *player, t_objs *obj)
 	dir = normalize_vector(dir);
 	velocity = multiply_vector(dir, SPEED * 0.3);
 	obj->pos = add_vector(obj->pos, velocity);
+	if ((int)obj->pos.x == (int)player->pos.x && (int)obj->pos.y == (int)player->pos.y)
+		player->hp -= 1;
+
+
 }
 
 void	update_sprites(t_player *player, t_objs *objs, int nbr_sprites)

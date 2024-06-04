@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 12:25:33 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/04 13:48:54 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_player	init_player(double x, double y, char tile)
 	player.angle = 0.1;
 	player.fov = (double)FOV / 90;
 	player.key = false;
+	player.hp = 100;
 	return (player);
 }
 

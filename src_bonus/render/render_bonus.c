@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 12:23:06 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/04 13:46:56 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ int	render(t_mlx *mlx)
 	mlx->img = new_image(mlx);
 	ft_grua(mlx);
 	draw_minimap(mlx);
+	if (mlx->player.hp <= 0)
+		close_game(mlx);
 	mlx_destroy_image(mlx->lib, mlx->img.img_ptr);
 	return (0);
 }
