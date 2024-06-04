@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 10:40:07 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:49:08 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void draw_minimap(t_mlx *mlx)
 		}
 		i++;
 	}
-	}
+}
 
 int	render(t_mlx *mlx)
 {

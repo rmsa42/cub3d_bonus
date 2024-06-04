@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:01:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/29 15:16:57 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:06:04 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ int	text_x(t_ray *ray, int side, double perp_wall, t_player *player)
 	return (tex_x);
 }
 
-t_draw	calculus(t_ray *ray, t_player *player, double *buffer , int side)
+t_draw	calculus(t_ray *ray, t_player *player, double *perp_wall_dist , int side)
 {
 	t_draw	draw;
 
 	if (side == 0)
-		*buffer = (ray->side_d.x - ray->delta.x);
+		*perp_wall_dist = (ray->side_d.x - ray->delta.x);
 	else
-		*buffer = (ray->side_d.y - ray->delta.y);
-	draw.tex_x = text_x(ray, side, *buffer, player);
-	draw.line_height = fabs(HEIGHT / *buffer);
+		*perp_wall_dist = (ray->side_d.y - ray->delta.y);
+	draw.tex_x = text_x(ray, side, *perp_wall_dist, player);
+	draw.line_height = fabs(HEIGHT / *perp_wall_dist);
 	draw.start = (HEIGHT / 2 - draw.line_height / 2) + player->pitch;
 	if (draw.start < 0)
 		draw.start = 0;

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 09:53:39 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:03:01 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,60 @@ void	draw_sprite(t_v2D transform, t_mlx *mlx)
 	}
 }
 
+double	*dist_array(t_player *player, t_objs *objs, int nbr_sprites)
+{
+	int		i;
+	double	*dist;
+	t_v2D	vector;
+
+	i = 0;
+	dist = malloc(sizeof(double) * nbr_sprites);
+	if (dist == NULL)
+		return (perror("Sprite Malloc"), NULL);
+	while (i < nbr_sprites)
+	{
+		vector = (t_v2D){player->pos.x - objs[i].pos.x,
+			player->pos.y - objs->pos.y};
+		dist[i++] = length_vector(vector);
+	}
+	return (dist);
+}
+
+void	sprite_sort(t_objs *objs, double *dist, int nbr_sprites)
+{
+	int		i;
+	int		j;
+	t_objs	temp;
+
+	i = 0;
+	while (i < nbr_sprites - 1)
+	{
+		j = i + 1;
+		while (j < nbr_sprites)
+		{
+			if (dist[i] < dist[j])
+			{
+				temp = objs[i];
+				objs[i] = objs[j];
+				objs[j] = temp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 void	sprite_loop(t_mlx *mlx)
 {
+	int		i;
+	double	*dist;
 	t_v2D	transform;
-	int	i;
 	
 	i = 0;
 	while (i < mlx->nbr_sprites)
 	{
+		dist = dist_array(&mlx->player, mlx->objs, mlx->nbr_sprites);
+		sprite_sort(mlx->objs, dist, mlx->nbr_sprites);
 		transform = trans_calc(&mlx->player, &mlx->objs[i]);
 		draw_sprite(transform, mlx);
 		i++;
