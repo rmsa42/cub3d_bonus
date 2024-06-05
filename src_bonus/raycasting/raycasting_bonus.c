@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 16:24:46 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:17:19 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,13 @@ void	dda(t_mlx *mlx, int x)
 
 void reset_marked_cells(t_mlx *mlx)
 {
-    for (int i = 0; i < mlx->num_marked_cells; i++)
-    {
-        int x = mlx->marked_cells[i].x;
-        int y = mlx->marked_cells[i].y;
-            mlx->map.game_map[y][x] = '0';
-    }
-    mlx->num_marked_cells = 0;
+	for (int i = 0; i < mlx->num_marked_cells; i++)
+	{
+		int x = mlx->marked_cells[i].x;
+		int y = mlx->marked_cells[i].y;
+		mlx->map.game_map[y][x] = '0';
+	}
+	mlx->num_marked_cells = 0;
 }
 
 

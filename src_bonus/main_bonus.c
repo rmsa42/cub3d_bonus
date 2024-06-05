@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/04 15:17:02 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:11:23 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,29 @@ int	check_conf(void *lib, char **conf_map, t_sprite *sprite)
 	return (0);
 }
 
+int	init_mlx(t_mlx *mlx)
+{
+	mlx->lib = mlx_init();
+	if (mlx->lib == NULL)
+	{
+		perror("MLX Error\n");
+		return (-1);
+	}
+	
+	mlx->objs = NULL;
+	mlx->num_marked_cells = 0;
+	if (mlx->objs == NULL)
+		return (-1);
+	ft_memset(mlx->sprite, 0, sizeof(t_sprite) * SPRITE_NBR);
+	return (0);
+}
+
 int main(int argc, char *argv[])
 {	
 	t_mlx	mlx;
-	
-	mlx.lib = mlx_init();
-	assert(mlx.lib != NULL);
 
-	ft_memset(mlx.objs, 0, sizeof(t_objs) * MAX_OBJS);
+	// MLX Init
+	init_mlx(&mlx);
 
 	// Map init / Parser
 	ft_check_b4_init(argc, argv, &mlx);
@@ -65,7 +80,7 @@ int main(int argc, char *argv[])
 	mlx_hook(mlx.window, MotionNotify, PointerMotionMask, handle_mouse, &mlx);
 	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
 	mlx_hook(mlx.window, KeyRelease, KeyReleaseMask, handle_keyRelease, &mlx.player);
-	mlx_mouse_hide(mlx.lib, mlx.window);
+	/* mlx_mouse_hide(mlx.lib, mlx.window); */
 	mlx_loop_hook(mlx.lib, render, &mlx);
 	mlx_loop(mlx.lib);
 	

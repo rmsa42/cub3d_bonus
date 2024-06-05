@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/04 16:10:59 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/05 13:32:48 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define WIDTH 800
 # define FOV 60
 # define SPRITE_SIZE 64
-# define MAX_OBJS 100
+# define SPRITE_NBR 16
 
 # define PI 3.14159265359
 
@@ -52,7 +52,8 @@ typedef enum	s_type
 	FLOOR,
 	DOOR,
 	DOOR_OPEN,
-	ENEMIE,
+	ENEMY,
+	KEY,
 	WALL
 }	t_type;
 
@@ -130,9 +131,10 @@ typedef struct	s_tile
 
 typedef struct s_objs
 {
-	t_type	type;
-	t_v2D	pos;
-	int		state;
+	t_type			type;
+	t_v2D			pos;
+	int				state;
+	struct s_objs	*next;
 }	t_objs;
 
 typedef struct s_cell
@@ -141,28 +143,25 @@ typedef struct s_cell
     int y;
 }              t_cell;
 
-
 typedef struct s_mlx
 {
 	char		*file;
 	void		*lib;
 	void		*window;
-	t_sprite	sprite[15];
+	t_sprite	sprite[SPRITE_NBR];
 	t_player	player;
 	t_map		map;
 	t_image		img;
 	t_ray		ray;
 	t_draw		draw;
-	char		**event_map;
 	int			spr_index;
 	int			side;
 	double		dist_buffer[WIDTH];
-	t_objs		objs[MAX_OBJS];
-	int			nbr_sprites;
+	t_objs		*objs;
 	int			map_width;
 	int			map_height;
 	t_cell 	marked_cells[WIDTH * HEIGHT];
-    int 	num_marked_cells;
+	int 	num_marked_cells;
 }	t_mlx;
 
 
@@ -180,8 +179,8 @@ void		sprite_loop(t_mlx *mlx);
 void		enemy_ray(t_mlx *mlx);
 
 // Update
-void		update_player(t_player *player, t_map *map);
-void		update_sprites(t_player *player, t_objs *objs, int nbr_sprites);
+void		update_player(t_mlx *mlx, t_player *player, t_map *map);
+void		update_sprites(t_player *player, t_objs *objs);
 
 //Render
 int			render(t_mlx *mlx);

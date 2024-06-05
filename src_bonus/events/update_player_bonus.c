@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 10:31:27 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:38:45 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,17 @@ void	player_move(t_player *player, char **game_map, t_v2D x, t_v2D y)
 		portal_calc(player, old_pos, check, velocity);
 }
 
-void	update_player(t_player *player, t_map *map)
+void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 {
 	t_v2D		y_axis;
 	t_v2D		x_axis;
 	
+	// Interactions
+	if (player->hp <= 0)
+		close_game(mlx);
 	if (player->key)
 		interact_door(map->game_map, player);
+
 	// Player Movement (x, y)
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);

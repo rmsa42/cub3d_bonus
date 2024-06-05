@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 16:11:05 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:10:24 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void draw_minimap(t_mlx *mlx)
 	// int tile_size_x = minimap_size / mlx->map_width;
 	int tile_size = minimap_size / 36;
 	int k;
+	t_objs	*objs;
 
 	minimap_tiles(mlx, tile_size, tile_size);
 	int player_x = mlx->player.pos.x * tile_size;
@@ -81,11 +82,13 @@ void draw_minimap(t_mlx *mlx)
 		while (j < player_size) 
 		{
 			k = -1;
-			while(++k < mlx->nbr_sprites)
+			objs = mlx->objs;
+			while (objs != NULL)
 			{
-				int sprite_x = mlx->objs[k].pos.x * tile_size;
-				int sprite_y = mlx->objs[k].pos.y * tile_size;
+				int sprite_x = objs->pos.x * tile_size;
+				int sprite_y = objs->pos.y * tile_size;
 				pixel_put(&mlx->img, sprite_x + i, sprite_y + j, 0xFF00FF);
+				objs = objs->next;
 			}
 			pixel_put(&mlx->img, player_x + i, player_y + j, 0x00FF00);
 			j++;
@@ -96,14 +99,12 @@ void draw_minimap(t_mlx *mlx)
 
 int	render(t_mlx *mlx)
 {
-	update_player(&mlx->player, &mlx->map);
-	update_sprites(&mlx->player, mlx->objs, mlx->nbr_sprites);
+	update_player(mlx, &mlx->player, &mlx->map);
+	update_sprites(&mlx->player, mlx->objs);
 	mlx->img = new_image(mlx);
 	ft_grua(mlx);
 	enemy_ray(mlx);
 	draw_minimap(mlx);
-	if (mlx->player.hp <= 0)
-		close_game(mlx);
 	mlx_destroy_image(mlx->lib, mlx->img.img_ptr);
 	return (0);
 }

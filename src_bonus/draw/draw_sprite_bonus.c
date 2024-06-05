@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 15:35:52 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/05 13:38:42 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	sprite_sort(t_objs *objs, double *dist, int nbr_sprites)
 		}
 		i++;
 	}
+	free(dist);
 }
 
 void	draw_staff(t_mlx *mlx)
@@ -136,17 +137,23 @@ void	draw_staff(t_mlx *mlx)
 void	sprite_loop(t_mlx *mlx)
 {
 	int		i;
-	double	*dist;
+	/* double	*dist; */
 	t_v2D	transform;
+	t_objs	*objs;
 
 	i = 0;
-	while (i < mlx->nbr_sprites)
+	objs = mlx->objs;
+	while (objs != NULL)
 	{
-		dist = dist_array(&mlx->player, mlx->objs, mlx->nbr_sprites);
-		sprite_sort(mlx->objs, dist, mlx->nbr_sprites);
-		transform = trans_calc(&mlx->player, &mlx->objs[i]);
-		draw_sprite(transform, mlx, &mlx->sprite[13].img);
-		i++;
+		/* dist = dist_array(&mlx->player, mlx->objs, mlx->nbr_sprites);
+		sprite_sort(mlx->objs, dist, mlx->nbr_sprites); */
+		transform = trans_calc(&mlx->player, objs);
+		if (objs->type == ENEMY)
+			mlx->spr_index = 13;
+		else if (objs->type == KEY)
+			mlx->spr_index = 15;
+		draw_sprite(transform, mlx, &mlx->sprite[mlx->spr_index].img);
+		objs = objs->next;
 	}
 	draw_staff(mlx);
 }

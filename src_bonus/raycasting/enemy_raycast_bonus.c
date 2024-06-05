@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:24:23 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 16:27:40 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:04:23 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	enemy_step_rays(t_map map, t_objs *obj, t_ray *ray)
 	}
 }
 
-void	enemy_dda(t_mlx *mlx, int i)
+void	enemy_dda(t_mlx *mlx, t_objs *obj)
 {
 	int		hit;
 	t_ray	*ray;
@@ -63,13 +63,13 @@ void	enemy_dda(t_mlx *mlx, int i)
 			map->game_map[map->y][map->x] == 'D' ||
 			map->game_map[map->y][map->x] == 'd')
 		{
-			mlx->objs[i].state = 0;
+			obj->state = 0;
 			hit = 1;
 		}
 		else if (map->x == (int)mlx->player.pos.x &&
 				map->y == (int)mlx->player.pos.y)
 		{
-			mlx->objs[i].state = 1;
+			obj->state = 1;
 			hit = 1;
 		}
 	}
@@ -77,23 +77,21 @@ void	enemy_dda(t_mlx *mlx, int i)
 
 void	enemy_ray(t_mlx *mlx)
 {
-	int			i;
 	t_player	*player;
 	t_objs		*objs;
 
-	i = 0;
-	player = &mlx->player;
 	objs = mlx->objs;
-	while (i < mlx->nbr_sprites)
+	player = &mlx->player;
+	while (objs != NULL)
 	{
-		mlx->ray.dir.x = player->pos.x - objs[i].pos.x;
-		mlx->ray.dir.y = player->pos.y - objs[i].pos.y;
+		mlx->ray.dir.x = player->pos.x - objs->pos.x;
+		mlx->ray.dir.y = player->pos.y - objs->pos.y;
 		mlx->ray.delta.x = fabs(1 / mlx->ray.dir.x);
 		mlx->ray.delta.y = fabs(1 / mlx->ray.dir.y);
-		mlx->map.x = (int)objs[i].pos.x;
-		mlx->map.y = (int)objs[i].pos.y;
-		enemy_step_rays(mlx->map, &mlx->objs[i], &mlx->ray);
-		enemy_dda(mlx, i);
-		i++;
+		mlx->map.x = (int)objs->pos.x;
+		mlx->map.y = (int)objs->pos.y;
+		enemy_step_rays(mlx->map, objs, &mlx->ray);
+		enemy_dda(mlx, objs);
+		objs = objs->next;
 	}
 }
