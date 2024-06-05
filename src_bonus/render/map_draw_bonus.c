@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 13:48:54 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:32:59 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	prepare_map(t_mlx *mlx)
 	map = &mlx->map;
 	map->y = 0;
 	mlx->nbr_sprites = 0;
+	mlx->num_marked_cells = 0;
+	mlx->marked_cells = (t_cell *)calloc(sizeof(t_cell), mlx->map_height * mlx->map_height);
 	while (map->game_map[map->y])
 	{
 		map->x = 0;

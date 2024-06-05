@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 12:27:43 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:12:11 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,9 @@ void	dda(t_mlx *mlx, int x)
         }
         if (map->game_map[map->y][map->x] == '0' || map->game_map[map->y][map->x] == 'X')
         {
+			if (map->game_map[map->y][map->x] == '0')
+            	mlx->marked_cells[mlx->num_marked_cells++] = (t_cell){map->x, map->y};
             map->game_map[map->y][map->x] = 'X';
-            mlx->marked_cells[mlx->num_marked_cells++] = (t_cell){map->x, map->y};
         }
         if (map->game_map[map->y][map->x] == '1')
         {
@@ -101,7 +102,8 @@ void reset_marked_cells(t_mlx *mlx)
     {
         int x = mlx->marked_cells[i].x;
         int y = mlx->marked_cells[i].y;
-            mlx->map.game_map[y][x] = '0';
+		/* printf("x: %i, y:%i \n", mlx->marked_cells[i].x, mlx->marked_cells[i].y); */
+        mlx->map.game_map[y][x] = '0';
     }
     mlx->num_marked_cells = 0;
 }

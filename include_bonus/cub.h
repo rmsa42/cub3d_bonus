@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/04 15:16:25 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:26:05 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define S 115
 # define D 100
 # define E 101
+# define Q 113
 # define LARROW 65361
 # define RARROW 65363
 
@@ -67,6 +68,7 @@ typedef struct s_player
 	double	fov;
 	double	pitch;
 	bool	key;
+	bool	mouse;
 }	t_player;
 
 typedef struct s_map
@@ -161,7 +163,7 @@ typedef struct s_mlx
 	int			nbr_sprites;
 	int			map_width;
 	int			map_height;
-	t_cell 	marked_cells[WIDTH * HEIGHT];
+	t_cell 	*marked_cells;
     int 	num_marked_cells;
 }	t_mlx;
 

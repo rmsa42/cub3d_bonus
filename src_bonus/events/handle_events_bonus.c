@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_events_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/04 10:32:31 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:30:43 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,22 @@ int handle_mouse(int x, int y, t_mlx *mlx)
 	t_v2D vector;
 
 	center = (t_v2D){WIDTH / 2, HEIGHT / 2};
-	if ((x != WIDTH / 2 || y != HEIGHT / 2) && x < WIDTH/1.25)
+	if (mlx->player.mouse == false)
 	{
-		vector = (t_v2D){x - center.x, center.y - y};
-		mlx->player.pitch += vector.y;
-		if (mlx->player.pitch > 200)
-			mlx->player.pitch = 200;
-		else if (mlx->player.pitch < -200)
-			mlx->player.pitch = -200;
-		mlx->player.angle = vector.x;
-		mlx_mouse_move(mlx->lib, mlx->window, WIDTH / 2, HEIGHT / 2);
+		if ((x != WIDTH / 2 || y != HEIGHT / 2) && x < WIDTH/1.25)
+		{
+			vector = (t_v2D){x - center.x, center.y - y};
+			mlx->player.pitch += vector.y;
+			if (mlx->player.pitch > 200)
+				mlx->player.pitch = 200;
+			else if (mlx->player.pitch < -200)
+				mlx->player.pitch = -200;
+			mlx->player.angle = vector.x;
+			mlx_mouse_move(mlx->lib, mlx->window, WIDTH / 2, HEIGHT / 2);
+		}
+		else
+			mlx->player.angle = 0;
 	}
-	else
-		mlx->player.angle = 0;
 	return (0);
 }
 
@@ -66,6 +69,8 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 		player->angle = 1;
 	else if (keycode == E)
 		player->key = true;
+	else if (keycode == Q)
+		player->mouse = true;
 	return (0);
 }
 
@@ -77,5 +82,7 @@ int	handle_keyRelease(int keycode, t_player *player)
 		player->movement.x = 0;
 	else if (keycode == LARROW || keycode == RARROW)
 		player->angle = 0;
+	else if (keycode == Q)
+		player->mouse = false;
 	return (0);
 }

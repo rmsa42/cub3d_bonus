@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/04 15:17:02 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:33:36 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 	assert(mlx.lib != NULL);
 
 	ft_memset(mlx.objs, 0, sizeof(t_objs) * MAX_OBJS);
-
+	ft_memset(&mlx.map, 0, sizeof(t_map));
 	// Map init / Parser
 	ft_check_b4_init(argc, argv, &mlx);
 	
