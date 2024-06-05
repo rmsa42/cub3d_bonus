@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/05 14:31:54 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:35:28 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,8 +162,8 @@ typedef struct s_mlx
 	t_objs		*objs;
 	int			map_width;
 	int			map_height;
-	t_cell 	*marked_cells;
-    int 	num_marked_cells;
+	t_cell 		*marked_cells;
+    int 		num_marked_cells;
 }	t_mlx;
 
 
