@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/05 10:17:19 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:32:51 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,52 +58,54 @@ void	dda(t_mlx *mlx, int x)
 	t_map	*map;
 	t_ray	*ray;
 
-	hit = 0;
-	map = &mlx->map;
-	ray = &mlx->ray;
-	while (!hit)
-	{
-		if (ray->side_d.x < ray->side_d.y)
-		{
-			ray->side_d.x += ray->delta.x;
-			map->x += ray->step.x;
-			mlx->side = 0;
-		}
-		else
-		{
-			ray->side_d.y += ray->delta.y;
-			map->y += ray->step.y;
-			mlx->side = 1;
-		}
-		if (map->game_map[map->y][map->x] == '0' || map->game_map[map->y][map->x] == 'X')
-		{
-			map->game_map[map->y][map->x] = 'X';
-			mlx->marked_cells[mlx->num_marked_cells++] = (t_cell){map->x, map->y};
-		}
-		if (map->game_map[map->y][map->x] == '1')
-		{
-			hit = 1;
-			mlx->spr_index = select_sprite(ray, mlx->side);
-		}
-		else if (map->game_map[map->y][map->x] == 'D' || map->game_map[map->y][map->x] == 'd')
-		{
-			hit = 1;
-			door_hit(mlx, map);
-		}
-	}
-	mlx->draw = calculus(&mlx->ray, &mlx->player, &mlx->dist_buffer[x], mlx->side);
+    hit = 0;
+    map = &mlx->map;
+    ray = &mlx->ray;
+    while (!hit)
+    {
+        if (ray->side_d.x < ray->side_d.y)
+        {
+            ray->side_d.x += ray->delta.x;
+            map->x += ray->step.x;
+            mlx->side = 0;
+        }
+        else
+        {
+            ray->side_d.y += ray->delta.y;
+            map->y += ray->step.y;
+            mlx->side = 1;
+        }
+        if (map->game_map[map->y][map->x] == '0' || map->game_map[map->y][map->x] == 'X')
+        {
+			if (map->game_map[map->y][map->x] == '0')
+            	mlx->marked_cells[mlx->num_marked_cells++] = (t_cell){map->x, map->y};
+            map->game_map[map->y][map->x] = 'X';
+        }
+        if (map->game_map[map->y][map->x] == '1')
+        {
+            hit = 1;
+            mlx->spr_index = select_sprite(ray, mlx->side);
+        }
+        else if (map->game_map[map->y][map->x] == 'D' || map->game_map[map->y][map->x] == 'd')
+        {
+            hit = 1;
+            door_hit(mlx, map);
+        }
+    }
+    mlx->draw = calculus(&mlx->ray, &mlx->player, &mlx->dist_buffer[x], mlx->side);
 }
 
 
 void reset_marked_cells(t_mlx *mlx)
 {
-	for (int i = 0; i < mlx->num_marked_cells; i++)
-	{
-		int x = mlx->marked_cells[i].x;
-		int y = mlx->marked_cells[i].y;
-		mlx->map.game_map[y][x] = '0';
-	}
-	mlx->num_marked_cells = 0;
+    for (int i = 0; i < mlx->num_marked_cells; i++)
+    {
+        int x = mlx->marked_cells[i].x;
+        int y = mlx->marked_cells[i].y;
+		/* printf("x: %i, y:%i \n", mlx->marked_cells[i].x, mlx->marked_cells[i].y); */
+        mlx->map.game_map[y][x] = '0';
+    }
+    mlx->num_marked_cells = 0;
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/05 14:10:24 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:33:16 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,21 @@ t_image	new_image(t_mlx *mlx)
 	return (img);
 }
 
-void minimap_tiles(t_mlx *mlx,int tile_size_x, int tile_size_y)
+void minimap_tiles(t_mlx *mlx,int tile_size)
 {
 	int x;
 	int y;
 	int i;
 	int j;
-	static int flag;
+	int flag;
 	i = -1;
 	j = -1;
-	x = -1;
 	y = -1;
 	while (++y < mlx->map_height) 
 	{
 		x = -1;
 		flag = 0;
-		while (++x < mlx->map_width) 
+		while (++x < (int)ft_strlen(mlx->map.game_map[y])) 
 		{
 			int color;
 			if (mlx->map.game_map[y][x] == '0' && flag == 0)
@@ -50,13 +49,13 @@ void minimap_tiles(t_mlx *mlx,int tile_size_x, int tile_size_y)
 				color = 0x000000;
 			if (mlx->map.game_map[y][x] == '\n')
 				flag = 1;
-			int tile_x = x * tile_size_x;
-			int tile_y = y * tile_size_y;
+			int tile_x = x * tile_size;
+			int tile_y = y * tile_size;
 			i = -1;
-			while (++i < tile_size_x) 
+			while (++i < tile_size) 
 			{
 				j = -1;
-				while (++j < tile_size_y)
+				while (++j < tile_size)
 					pixel_put(&mlx->img, tile_x + i, tile_y + j, color);
 			}
 		}
@@ -66,12 +65,11 @@ void minimap_tiles(t_mlx *mlx,int tile_size_x, int tile_size_y)
 void draw_minimap(t_mlx *mlx) 
 {
 	int minimap_size = 200;
-	// int tile_size_x = minimap_size / mlx->map_width;
 	int tile_size = minimap_size / 36;
 	int k;
 	t_objs	*objs;
 
-	minimap_tiles(mlx, tile_size, tile_size);
+	minimap_tiles(mlx, tile_size);
 	int player_x = mlx->player.pos.x * tile_size;
 	int player_y = mlx->player.pos.y * tile_size;
 	int player_size = tile_size / 2;

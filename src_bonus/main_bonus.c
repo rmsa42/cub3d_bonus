@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/05 14:11:23 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:32:24 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 
 	// MLX Init
 	init_mlx(&mlx);
-
+	ft_memset(&mlx.map, 0, sizeof(t_map));
 	// Map init / Parser
 	ft_check_b4_init(argc, argv, &mlx);
 	

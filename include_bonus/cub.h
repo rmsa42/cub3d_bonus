@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/05 13:32:48 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:31:54 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define S 115
 # define D 100
 # define E 101
+# define Q 113
 # define LARROW 65361
 # define RARROW 65363
 
@@ -68,6 +69,7 @@ typedef struct s_player
 	double	fov;
 	double	pitch;
 	bool	key;
+	bool	mouse;
 }	t_player;
 
 typedef struct s_map
@@ -160,8 +162,8 @@ typedef struct s_mlx
 	t_objs		*objs;
 	int			map_width;
 	int			map_height;
-	t_cell 	marked_cells[WIDTH * HEIGHT];
-	int 	num_marked_cells;
+	t_cell 	*marked_cells;
+    int 	num_marked_cells;
 }	t_mlx;
 
 
