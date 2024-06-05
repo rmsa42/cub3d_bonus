@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/05 12:56:30 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/05 13:29:37 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	render(t_mlx *mlx)
 	update_sprites(&mlx->player, mlx->objs, mlx->nbr_sprites);
 	mlx->img = new_image(mlx);
 	ft_grua(mlx);
+	enemy_ray(mlx);
 	draw_minimap(mlx);
 	if (mlx->player.hp <= 0)
 		close_game(mlx);

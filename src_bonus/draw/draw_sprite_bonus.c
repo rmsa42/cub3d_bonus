@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 15:18:17 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:35:52 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,11 +138,8 @@ void	sprite_loop(t_mlx *mlx)
 	int		i;
 	double	*dist;
 	t_v2D	transform;
-	
-    i = 0;
-    // test = add_vector(mlx->player.pos, add_vector(mlx->player.direction, multiply_vector(mlx->player.plane, 0.60)));
-    // transform = trans_calc(&mlx->player, &(t_objs){.pos = test});
-    // draw_sprite(transform, mlx, &mlx->sprite[14].img);
+
+	i = 0;
 	while (i < mlx->nbr_sprites)
 	{
 		dist = dist_array(&mlx->player, mlx->objs, mlx->nbr_sprites);

@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/05 11:26:05 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/05 13:28:38 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,9 @@ int			select_sprite(t_ray *ray, int side);
 void		draw_line(t_mlx *mlx, int x);
 void		door_hit(t_mlx *mlx, t_map *map);
 void		sprite_loop(t_mlx *mlx);
+
+//Enemy Raycast
+void		enemy_ray(t_mlx *mlx);
 
 // Update
 void		update_player(t_player *player, t_map *map);

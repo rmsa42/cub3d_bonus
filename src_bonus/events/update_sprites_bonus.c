@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_sprites_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 13:54:00 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:17:19 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	update_sprites(t_player *player, t_objs *objs, int nbr_sprites)
 	i = 0;
 	while (i < nbr_sprites)
 	{
-		sprite_move(player, &objs[i]);
+		if (objs[i].state == 1)
+			sprite_move(player, &objs[i]);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/05 12:12:11 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/05 13:29:22 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	launch_rays(t_mlx *mlx, int x)
 
 void	dda(t_mlx *mlx, int x)
 {
-    int		hit;
-    t_map	*map;
-    t_ray	*ray;
+	int		hit;
+	t_map	*map;
+	t_ray	*ray;
 
     hit = 0;
     map = &mlx->map;
