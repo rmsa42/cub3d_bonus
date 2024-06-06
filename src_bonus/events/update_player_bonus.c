@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_player_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/05 10:38:45 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:15:06 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 	
 	// Interactions
 	if (player->hp <= 0)
+	{
+		printf("YOU DIED\n");
 		close_game(mlx);
+	}
 	if (player->key)
 		interact_door(map->game_map, player);
 
@@ -77,7 +80,6 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);
 	player_move(player, map->game_map, x_axis, y_axis);
-	
 	// Player Camera Rotation
 	player->direction = add_vector(player->direction, rotate(player->direction, player->angle));
 	player->direction = normalize_vector(player->direction);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/06 10:37:28 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:39:01 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@
 
 # define HEIGHT 600
 # define WIDTH 800
-# define FOV 60
+# define FOV 90
 # define SPRITE_SIZE 64
-# define SPRITE_NBR 17
+# define SPRITE_NBR 18
 
 # define PI 3.14159265359
 
@@ -70,6 +70,7 @@ typedef struct s_player
 	double	pitch;
 	bool	key;
 	bool	mouse;
+	bool	shoot;
 }	t_player;
 
 typedef struct s_map
@@ -164,6 +165,8 @@ typedef struct s_mlx
 	int			map_height;
 	t_cell 		*marked_cells;
     int 		num_marked_cells;
+	t_v2D		ball_pos;
+	int			test;
 }	t_mlx;
 
 
@@ -214,6 +217,7 @@ void    	ft_read_file_and_copy_map(char *file, t_mlx *mlx);
 void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
 int			pixel_get(t_image *img, int pixel_x, int pixel_y);
 t_sprite	xpm_to_image(void *lib, char *texture);
+void		shoot_ball(t_mlx *mlx);
 
 // Events
 int			handle_keyPress(int keycode, t_mlx *mlx);

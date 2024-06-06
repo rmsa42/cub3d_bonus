@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/05 15:30:01 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:11:06 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,19 @@ int handle_mouse(int x, int y, t_mlx *mlx)
 
 void	shoot_ball(t_mlx *mlx)
 {
-	t_v2D ball_pos;
+	/* t_v2D ball_pos; */
 	t_objs *iterator;
 	t_objs *last;
 
 	iterator = mlx->objs;
-	ball_pos = mlx->player.pos;
 	last = iterator;
-	while(mlx->map.game_map[(int)ball_pos.y][(int)ball_pos.x] != '1' && mlx->map.game_map[(int)ball_pos.y][(int)ball_pos.x] != 'D' )
+	if(mlx->map.game_map[(int)mlx->ball_pos.y][(int)mlx->ball_pos.x] != '1' && mlx->map.game_map[(int)mlx->ball_pos.y][(int)mlx->ball_pos.x] != 'D' )
 	{
 		iterator = mlx->objs;
 		last = iterator;
 		while(iterator!= NULL)
 		{
-			if ((int)ball_pos.x == (int)iterator->pos.x && (int)ball_pos.y == (int)iterator->pos.y)
+			if ((int)mlx->ball_pos.x == (int)iterator->pos.x && (int)mlx->ball_pos.y == (int)iterator->pos.y)
 			{
 				if (last == iterator)
 					mlx->objs = mlx->objs->next;
@@ -75,14 +74,18 @@ void	shoot_ball(t_mlx *mlx)
 				free(iterator);
 				iterator = NULL;
 				iterator = mlx->objs;
+				mlx->player.shoot = false;
+				print_vector(mlx->ball_pos);
+				mlx->test = 17;
 				return ;
 			}
 			last = iterator;
 			iterator = iterator->next;
 		}
-		ball_pos = add_vector(ball_pos, multiply_vector(mlx->player.direction, SPEED));
+		mlx->ball_pos = add_vector(mlx->ball_pos, multiply_vector(mlx->player.direction, SPEED * 3));
 	}
-	
+	else
+		mlx->player.shoot = false;
 }
 
 int	handle_keyPress(int keycode, t_mlx *mlx)
@@ -108,8 +111,12 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 		player->key = true;
 	else if (keycode == Q)
 		player->mouse = true;
-	else if (keycode == 32)
-		shoot_ball(mlx);
+	else if (keycode == 32 && player->shoot == false)
+	{
+		mlx->test = 16;
+		mlx->ball_pos = add_vector(mlx->player.pos, multiply_vector(mlx->player.direction, 0.5));
+		player->shoot = true;
+	}
 	return (0);
 }
 
