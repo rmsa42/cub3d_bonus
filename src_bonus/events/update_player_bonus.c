@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/06 11:07:27 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:26:48 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,15 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 	
 	// Interactions
 	if (player->hp <= 0)
+	{
+		printf("YOU DIED\n");
 		close_game(mlx);
+	}
 
 	// Player Movement (x, y)
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);
 	player_move(player, map->game_map, x_axis, y_axis);
-	
 	// Player Camera Rotation
 	player->direction = add_vector(player->direction, rotate(player->direction, player->angle));
 	player->direction = normalize_vector(player->direction);

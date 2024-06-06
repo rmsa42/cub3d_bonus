@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/05 13:38:42 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:10:40 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-t_v2D	trans_calc(t_player *player, t_objs *obj)
+t_v2D	trans_calc(t_player *player, t_v2D pos)
 {
 	t_v2D	spr_vector;
 	t_v2D	transform;
 	double	inv;
 	
-	spr_vector.x = obj->pos.x - player->pos.x;
-	spr_vector.y = obj->pos.y - player->pos.y;
+	spr_vector.x = pos.x - player->pos.x;
+	spr_vector.y = pos.y - player->pos.y;
 	inv = 1 / (player->plane.x * player->direction.y
 				- player->plane.y * player->direction.x);
 	transform.x = inv * (player->direction.y * spr_vector.x
@@ -147,7 +147,7 @@ void	sprite_loop(t_mlx *mlx)
 	{
 		/* dist = dist_array(&mlx->player, mlx->objs, mlx->nbr_sprites);
 		sprite_sort(mlx->objs, dist, mlx->nbr_sprites); */
-		transform = trans_calc(&mlx->player, objs);
+		transform = trans_calc(&mlx->player, objs->pos);
 		if (objs->type == ENEMY)
 			mlx->spr_index = 13;
 		else if (objs->type == KEY)
@@ -155,5 +155,12 @@ void	sprite_loop(t_mlx *mlx)
 		draw_sprite(transform, mlx, &mlx->sprite[mlx->spr_index].img);
 		objs = objs->next;
 	}
-	draw_staff(mlx);
+	if(mlx->player.shoot == true)
+	{
+		shoot_ball(mlx);
+		transform = trans_calc(&mlx->player, mlx->ball_pos);
+		draw_sprite(transform, mlx, &mlx->sprite[mlx->test].img);
+	}
+	// draw_staff(mlx);
+	// print_vector(mlx->ball_pos);
 }

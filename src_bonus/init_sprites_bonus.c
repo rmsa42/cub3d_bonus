@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_sprites_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:38:56 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/06 09:55:25 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:16:19 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,6 @@ void	init_sprite(void *lib, char **conf_map, t_sprite *sprite)
 	sprite[13] = xpm_to_image(lib, "sprites/barrel.xpm");
 	sprite[14] = xpm_to_image(lib, "sprites/staff.xpm");
 	sprite[15] = xpm_to_image(lib, "sprites/key.xpm");
+	sprite[16] = xpm_to_image(lib, "sprites/ball.xpm");
+	sprite[17] = xpm_to_image(lib, "sprites/teste.xpm");
 }
