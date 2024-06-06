@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/06 14:39:01 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:14:10 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,15 @@ typedef struct	s_tile
 	t_v2D	pos;
 }	t_tile;
 
+typedef struct	s_entity
+{
+	t_sprite		*sprite;
+	t_v2D			pos;
+	int				state;
+	int				hp;
+	struct s_entity	*next;
+}	t_entity;
+
 typedef struct s_objs
 {
 	t_type			type;
@@ -161,6 +170,7 @@ typedef struct s_mlx
 	int			side;
 	double		dist_buffer[WIDTH];
 	t_objs		*objs;
+	t_entity	*entities;
 	int			map_width;
 	int			map_height;
 	t_cell 		*marked_cells;
