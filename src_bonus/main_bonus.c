@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/05 15:43:32 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:27:17 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,18 @@ int	init_mlx(t_mlx *mlx)
 		perror("MLX Error\n");
 		return (-1);
 	}
-	
 	mlx->objs = NULL;
 	mlx->num_marked_cells = 0;
-	if (mlx->objs == NULL)
-		return (-1);
+	mlx->side = 0;
+	mlx->spr_index = 0;
+	mlx->map_width = 0;
+	mlx->map_height = 0;
 	ft_memset(mlx->sprite, 0, sizeof(t_sprite) * SPRITE_NBR);
+	ft_memset(&mlx->map, 0, sizeof(t_map));
+	ft_memset(&mlx->ray, 0, sizeof(t_ray));
+	ft_memset(&mlx->player, 0, sizeof(t_player));
+	ft_memset(&mlx->draw, 0, sizeof(t_draw));
+	ft_memset(mlx->dist_buffer, 0, sizeof(double) * WIDTH);
 	return (0);
 }
 
@@ -64,7 +70,7 @@ int main(int argc, char *argv[])
 
 	// MLX Init
 	init_mlx(&mlx);
-	ft_memset(&mlx.map, 0, sizeof(t_map));
+	
 	// Map init / Parser
 	ft_check_b4_init(argc, argv, &mlx);
 	
@@ -80,7 +86,7 @@ int main(int argc, char *argv[])
 	mlx_hook(mlx.window, MotionNotify, PointerMotionMask, handle_mouse, &mlx);
 	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
 	mlx_hook(mlx.window, KeyRelease, KeyReleaseMask, handle_keyRelease, &mlx.player);
-	mlx_mouse_hide(mlx.lib, mlx.window);
+	/* mlx_mouse_hide(mlx.lib, mlx.window); */
 	mlx_loop_hook(mlx.lib, render, &mlx);
 	mlx_loop(mlx.lib);
 	

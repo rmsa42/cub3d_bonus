@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/05 14:35:28 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:37:28 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define WIDTH 800
 # define FOV 60
 # define SPRITE_SIZE 64
-# define SPRITE_NBR 16
+# define SPRITE_NBR 17
 
 # define PI 3.14159265359
 
@@ -79,7 +79,7 @@ typedef struct s_map
 	int		total_lines;
 	int		lines_to_map;
 	char	**game_map;
-	char	*config_map[6];
+	char	*config_map[7];
 	char	**map_copy;
 	char	**flood_map;
 	bool	NO_flag;

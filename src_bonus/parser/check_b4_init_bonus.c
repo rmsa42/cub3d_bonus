@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_b4_init_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:40:18 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/05/31 14:17:53 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:14:01 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	ft_count_map_lines(t_mlx *mlx)
 	int	fd;
 	char *line;
 
-	mlx->map.total_lines = 0;
 	fd = open(mlx->file, O_RDONLY);
 	if (fd < 0)
 		ft_perror("Error\nCouldn't open requested file\n", mlx);
@@ -35,7 +34,7 @@ void	ft_count_map_lines(t_mlx *mlx)
 void ft_check_b4_init(int ac, char **av, t_mlx *mlx)
 {
 	mlx->file = av[1];
-	mlx->map.config_map[5] = NULL;
+	mlx->map.config_map[6] = NULL;
 	mlx->map.NO_flag = false;
 	mlx->map.SO_flag = false;
 	mlx->map.EA_flag = false;

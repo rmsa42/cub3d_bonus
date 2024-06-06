@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   copy_config_map_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 15:48:23 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/05/31 14:12:31 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:40:26 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,16 +107,13 @@ void	ft_copy_config_map(t_mlx *mlx)
 			k = 0;
 		clean_line[k + 1] = '\0';
 		ft_check_for_configs(mlx, clean_line);
-		if(line)
-			free (line); 	
+		if (line)
+			free (line);
 		free (clean_line);
 		if (!ft_check_all_config_flags(mlx))
 			break ;
 		line = get_next_line(fd);
 		mlx->map.lines_to_map++;
 	}
-	while (line)
-		line = get_next_line(fd);
-	free (line);
 	close(fd);
 }
