@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_events_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/05 15:30:01 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:54:25 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 	else if (keycode == RARROW)
 		player->angle = 1;
 	else if (keycode == E)
-		player->key = true;
+		interact_door(mlx->map.game_map, player);
 	else if (keycode == Q)
 		player->mouse = true;
 	else if (keycode == 32)

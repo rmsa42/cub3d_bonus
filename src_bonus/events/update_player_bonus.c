@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/05 10:38:45 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:07:27 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 	// Interactions
 	if (player->hp <= 0)
 		close_game(mlx);
-	if (player->key)
-		interact_door(map->game_map, player);
 
 	// Player Movement (x, y)
 	y_axis = multiply_vector(player->direction, player->movement.y);

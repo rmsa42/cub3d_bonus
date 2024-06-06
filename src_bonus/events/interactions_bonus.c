@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interactions_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:07:09 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/03 23:03:19 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:00:51 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	interact_door(char **game_map, t_player *player)
 		game_map[check_y][check_x] = 'd';
 	else if (tile.type == DOOR_OPEN)
 		game_map[check_y][check_x] = 'D';
-	player->key = false;
 }
 
 t_tile	get_next_tile(char **game_map, t_player *player)
