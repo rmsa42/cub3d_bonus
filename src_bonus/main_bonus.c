@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/07 15:34:25 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:46:16 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	init_mlx(t_mlx *mlx)
 		return (-1);
 	}
 	mlx->objs = NULL;
+	mlx->entities = NULL;
 	mlx->num_marked_cells = 0;
 	mlx->side = 0;
 	mlx->spr_index = 0;

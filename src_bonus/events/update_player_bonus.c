@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_player_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/06 13:15:06 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:26:48 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 		printf("YOU DIED\n");
 		close_game(mlx);
 	}
-	if (player->key)
-		interact_door(map->game_map, player);
 
 	// Player Movement (x, y)
 	y_axis = multiply_vector(player->direction, player->movement.y);
