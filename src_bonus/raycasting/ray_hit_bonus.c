@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_hit_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:15:49 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/04 10:02:11 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:38:54 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,21 @@ void	door_hit(t_mlx *mlx, t_map	*map)
 {
 	static int i = 7;
 	mlx->spr_index = 6;
-	static struct timespec last_time;
-	struct timespec current_time;
-	double elapsed_time;
+	// static struct timespec last_time;
+	// struct timespec current_time;
+	// double elapsed_time;
 
-	if (last_time.tv_sec == 0 && last_time.tv_nsec == 0)
-		update_time(&last_time);
-	update_time(&current_time);
-	elapsed_time = time_passed(&last_time, &current_time);
+	// if (last_time.tv_sec == 0 && last_time.tv_nsec == 0)
+	// 	update_time(&last_time);
+	// // update_time(&current_time);
+	// elapsed_time = time_passed(&last_time, &current_time);
 	if (map->game_map[map->y][map->x] == 'd' )
 	{
 		mlx->spr_index = i;
-		if (elapsed_time >= 0.35)
+		if (mlx->elapsed_time >= 0.10)
 		{
 			i++;
-			update_time(&last_time);
+			update_time(&mlx->last_time);
 		}
 	}
 	if (i == 12)

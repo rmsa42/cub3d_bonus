@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/06 13:19:44 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:34:25 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,21 @@ int	init_mlx(t_mlx *mlx)
 	ft_memset(&mlx->player, 0, sizeof(t_player));
 	ft_memset(&mlx->draw, 0, sizeof(t_draw));
 	ft_memset(mlx->dist_buffer, 0, sizeof(double) * WIDTH);
+	ft_memset(&mlx->last_time, 0, sizeof(struct timespec));
 	return (0);
+}
+
+int handle_mouse_press(int button, int x, int y, t_mlx *mlx)
+{
+	(void)x;
+	(void)y;
+	if (button == 1 && mlx->player.shoot == false)
+	{
+		mlx->test = 16;
+		mlx->ball_pos = add_vector(mlx->player.pos, multiply_vector(mlx->player.direction, 0.5));
+		mlx->player.shoot = true;
+	}
+	return(0);
 }
 
 int main(int argc, char *argv[])
@@ -85,8 +99,9 @@ int main(int argc, char *argv[])
 
 	mlx_hook(mlx.window, MotionNotify, PointerMotionMask, handle_mouse, &mlx);
 	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
+	mlx_mouse_hook(mlx.window, handle_mouse_press, &mlx);
 	mlx_hook(mlx.window, KeyRelease, KeyReleaseMask, handle_keyRelease, &mlx.player);
-	/* mlx_mouse_hide(mlx.lib, mlx.window); */
+	mlx_mouse_hide(mlx.lib, mlx.window);
 	mlx_loop_hook(mlx.lib, render, &mlx);
 	mlx_loop(mlx.lib);
 	

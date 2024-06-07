@@ -6,13 +6,13 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/06 13:10:40 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:43:39 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-t_v2D	trans_calc(t_player *player, t_v2D pos)
+t_v2D	sprite_dist(t_player *player, t_v2D pos)
 {
 	t_v2D	spr_vector;
 	t_v2D	transform;
@@ -111,25 +111,94 @@ void	sprite_sort(t_objs *objs, double *dist, int nbr_sprites)
 	free(dist);
 }
 
-void	draw_staff(t_mlx *mlx)
+void	draw_hp(t_mlx *mlx)
 {
 	t_v2D	scr;
 	t_v2D	texture;
-	t_image	*img;
 	int		color;
 
-	img = &mlx->sprite[14].img;
-	scr.y = 200;
-	while (++scr.y < HEIGHT)
+	scr.y = HEIGHT - 175;
+	int new_size = (int)(SPRITE_SIZE * 2);
+	int i;
+	i = 0;
+	if (mlx->player.hp > 75)
+		i = 26;
+	else if (mlx->player.hp <= 75 && mlx->player.hp > 50)
+		i = 27;
+	else if (mlx->player.hp <= 50 && mlx->player.hp > 25)
+		i = 28;
+	else
+		i = 29;
+	while (++scr.y < HEIGHT - 175 + new_size) {
+		scr.x = 20;
+		while (++scr.x < 20 + new_size) {
+			texture.x = (int)((scr.x - 20) / 2);
+			texture.y = (int)((scr.y - (HEIGHT - 175)) / 2);
+
+			if (texture.x >= 0 && texture.x < SPRITE_SIZE && texture.y >= 0 && texture.y < SPRITE_SIZE) {
+				color = pixel_get(&mlx->sprite[i].img, texture.x, texture.y);
+				if (color != (int)0xFF00FF) {
+					pixel_put(&mlx->img, scr.x, scr.y, color);
+				}
+			}
+		}
+	}
+}
+
+
+int	calc_char_anim(t_mlx *mlx)
+{
+	// static struct timespec last_time;
+	// struct timespec current_time;
+	// double elapsed_time;
+	static int char_anim = 18;
+	double chosen_time = 0.10;
+	static int i = 0;
+
+	if(mlx->player.shoot == true && i == 0 && mlx->player.anim == true)
 	{
-		scr.x = 200;
-		while (++scr.x < WIDTH)
-		{
-			texture.x = (scr.x - 200) * 64 / WIDTH;
-			texture.y = (scr.y - 200) * 64 / HEIGHT;
-			color = pixel_get(&mlx->sprite[14].img, texture.x, texture.y);
-			if (color != (int)0xFF00FF)
-				pixel_put(&mlx->img, scr.x, scr.y, color);
+		i = 1;
+		char_anim = 30;
+	}
+/* 	if (last_time.tv_sec == 0 && last_time.tv_nsec == 0)
+		update_time(&last_time);
+	update_time(&current_time);
+	elapsed_time = time_passed(&last_time, &current_time); */
+	if (mlx->elapsed_time >= chosen_time)
+	{
+		char_anim++;
+		update_time(&mlx->last_time);
+	}
+	if (char_anim == 26 || char_anim == 38)
+	{
+		mlx->player.anim = false;
+		i = 0;
+		char_anim = 18;
+	}
+	return(char_anim);
+}
+
+void	draw_char(t_mlx *mlx, int char_anim)
+{
+	t_v2D	scr;
+	t_v2D	texture;
+	int		color;
+
+	scr.y = HEIGHT - 110;
+	int new_size = (int)(SPRITE_SIZE * 2);
+
+	while (++scr.y < HEIGHT - 110 + new_size) {
+		scr.x = 20;
+		while (++scr.x < 20 + new_size) {
+			texture.x = (int)((scr.x - 20) / 2);
+			texture.y = (int)((scr.y - (HEIGHT - 110)) / 2);
+
+			if (texture.x >= 0 && texture.x < SPRITE_SIZE && texture.y >= 0 && texture.y < SPRITE_SIZE) {
+				color = pixel_get(&mlx->sprite[char_anim].img, texture.x, texture.y);
+				if (color != (int)0xFF00FF) {
+					pixel_put(&mlx->img, scr.x, scr.y, color);
+				}
+			}
 		}
 	}
 }
@@ -137,30 +206,29 @@ void	draw_staff(t_mlx *mlx)
 void	sprite_loop(t_mlx *mlx)
 {
 	int		i;
-	/* double	*dist; */
-	t_v2D	transform;
+	t_v2D	s_dist;
 	t_objs	*objs;
-
+	int		char_anim;
 	i = 0;
 	objs = mlx->objs;
 	while (objs != NULL)
 	{
-		/* dist = dist_array(&mlx->player, mlx->objs, mlx->nbr_sprites);
-		sprite_sort(mlx->objs, dist, mlx->nbr_sprites); */
-		transform = trans_calc(&mlx->player, objs->pos);
+		s_dist = sprite_dist(&mlx->player, objs->pos);
 		if (objs->type == ENEMY)
 			mlx->spr_index = 13;
 		else if (objs->type == KEY)
 			mlx->spr_index = 15;
-		draw_sprite(transform, mlx, &mlx->sprite[mlx->spr_index].img);
+		draw_sprite(s_dist, mlx, &mlx->sprite[mlx->spr_index].img);
 		objs = objs->next;
 	}
+	char_anim = calc_char_anim(mlx);
+	draw_char(mlx, char_anim);
+	draw_hp(mlx);
 	if(mlx->player.shoot == true)
 	{
 		shoot_ball(mlx);
-		transform = trans_calc(&mlx->player, mlx->ball_pos);
-		draw_sprite(transform, mlx, &mlx->sprite[mlx->test].img);
+		s_dist = sprite_dist(&mlx->player, mlx->ball_pos);
+		draw_sprite(s_dist, mlx, &mlx->sprite[mlx->test].img);
 	}
-	// draw_staff(mlx);
 	// print_vector(mlx->ball_pos);
 }

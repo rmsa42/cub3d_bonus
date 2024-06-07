@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/06 13:11:06 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:10:14 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int handle_mouse(int x, int y, t_mlx *mlx)
 				mlx->player.pitch = 200;
 			else if (mlx->player.pitch < -200)
 				mlx->player.pitch = -200;
-			mlx->player.angle = vector.x;
+			mlx->player.angle = vector.x * 0.5;
 			mlx_mouse_move(mlx->lib, mlx->window, WIDTH / 2, HEIGHT / 2);
 		}
 		else
@@ -116,6 +116,7 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 		mlx->test = 16;
 		mlx->ball_pos = add_vector(mlx->player.pos, multiply_vector(mlx->player.direction, 0.5));
 		player->shoot = true;
+		player->anim = true;
 	}
 	return (0);
 }

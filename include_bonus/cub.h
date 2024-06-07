@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/06 14:39:01 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:30:54 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "vector2D.h"
 # include <assert.h>
 # include <stdbool.h>
+#include <time.h>
 
 # define ESC 65307
 # define W 119
@@ -34,7 +35,7 @@
 # define WIDTH 800
 # define FOV 90
 # define SPRITE_SIZE 64
-# define SPRITE_NBR 18
+# define SPRITE_NBR 38
 
 # define PI 3.14159265359
 
@@ -71,6 +72,7 @@ typedef struct s_player
 	bool	key;
 	bool	mouse;
 	bool	shoot;
+	bool	anim;
 }	t_player;
 
 typedef struct s_map
@@ -167,6 +169,9 @@ typedef struct s_mlx
     int 		num_marked_cells;
 	t_v2D		ball_pos;
 	int			test;
+	struct timespec last_time;
+	// struct timespec current_time;
+	double elapsed_time;
 }	t_mlx;
 
 
@@ -230,5 +235,10 @@ void		interact_door(char **game_map, t_player *player);
 
 void		close_game(t_mlx *mlx);
 void		ft_perror(char *msg, t_mlx *mlx);
+
+// Time
+
+void update_time(struct timespec *time);
+double time_passed(struct timespec *last, struct timespec *current);
 
 #endif
