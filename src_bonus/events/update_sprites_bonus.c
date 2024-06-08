@@ -3,46 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   update_sprites_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/07 10:51:31 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/08 15:13:49 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	sprite_move(t_player *player, t_objs *obj)
+void	sprite_move(t_player *player, t_entity *entity)
 {
 	t_v2D	dir;
 	t_v2D	velocity;
 
-	dir.x = player->pos.x - obj->pos.x;
-	dir.y = player->pos.y - obj->pos.y;
+	dir.x = player->pos.x - entity->base.pos.x;
+	dir.y = player->pos.y - entity->base.pos.y;
 	dir = normalize_vector(dir);
 	velocity = multiply_vector(dir, SPEED * 0.3);
-	obj->pos = add_vector(obj->pos, velocity);
+	entity->base.pos = add_vector(entity->base.pos, velocity);
 }
 
-void	damage_player(t_player *player, t_objs *obj)
+void	damage_player(t_player *player, t_entity *entity)
 {
-	if ((int)obj->pos.x == (int)player->pos.x && (int)obj->pos.y == (int)player->pos.y)
+	if ((int)entity->base.pos.x == (int)player->pos.x && (int)entity->base.pos.y == (int)player->pos.y)
 		player->hp -= 1;	
 }
 
-void	update_sprites(t_player *player, t_objs *objs)
+void	update_sprites(t_player *player, t_lst *entities)
 {
-	int	i;
-
-	i = 0;
-	while (objs != NULL)
+	t_entity	*entity;
+	
+	while (entities != NULL)
 	{
-		if (objs->type == ENEMY)
-		{
-			if (objs->state == 1)
-				sprite_move(player, objs);
-			damage_player(player, objs);
-		}
-		objs = objs->next;
+		entity = (t_entity *)entities->data;
+		if (entity->state == 1)
+			sprite_move(player, entity);
+		damage_player(player, entity);
+		entities = entities->next;
 	}
 }

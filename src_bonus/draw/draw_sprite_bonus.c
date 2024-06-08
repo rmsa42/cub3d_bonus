@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/07 15:43:39 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/08 15:26:40 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,160 +67,108 @@ void	draw_sprite(t_v2D transform, t_mlx *mlx, t_image *sprite)
 	}
 }
 
-double	*dist_array(t_player *player, t_objs *objs, int nbr_sprites)
+t_game_obj	**dist_array(t_lst *lst)
 {
-	int		i;
-	double	*dist;
-	t_v2D	vector;
+	t_game_obj	**dist;
+	int			i;
 
 	i = 0;
-	dist = malloc(sizeof(double) * nbr_sprites);
+	dist = malloc(sizeof(t_game_obj *) * (lst_size(lst) + 1));
 	if (dist == NULL)
 		return (perror("Sprite Malloc"), NULL);
-	while (i < nbr_sprites)
+	while (lst != NULL)
 	{
-		vector = (t_v2D){player->pos.x - objs[i].pos.x,
-			player->pos.y - objs->pos.y};
-		dist[i++] = length_vector(vector);
+		dist[i++] = (t_game_obj *)lst->data;
+		lst = lst->next;
 	}
+	dist[i] = 0;
 	return (dist);
 }
 
-void	sprite_sort(t_objs *objs, double *dist, int nbr_sprites)
+double	player_obj_dist(t_v2D *pl_pos, t_v2D *spr_pos)
 {
-	int		i;
-	int		j;
-	t_objs	temp;
+	double	dist;
+	double	x;
+	double	y;
+
+	x = (pl_pos->x - spr_pos->x);
+	y = (pl_pos->y - spr_pos->y);
+	dist = (x * x) + (y * y);
+	return (dist);
+}
+
+int	compare_dist(t_v2D *pl_pos, t_game_obj *obj1, t_game_obj *obj2)
+{
+	double	dist1;
+	double	dist2;
+	
+	dist1 = player_obj_dist(pl_pos, &obj1->pos);
+	dist2 = player_obj_dist(pl_pos, &obj2->pos);
+	return (dist2 > dist1);
+}
+
+void	dist_sort(t_game_obj **dist, t_v2D *pl_pos)
+{
+	t_game_obj	*temp;
+	int			i;
+	int			j;
 
 	i = 0;
-	while (i < nbr_sprites - 1)
+	while (dist[i] != NULL)
 	{
 		j = i + 1;
-		while (j < nbr_sprites)
+		while (dist[j] != NULL)
 		{
-			if (dist[i] < dist[j])
+			if (compare_dist(pl_pos, dist[i], dist[j]))
 			{
-				temp = objs[i];
-				objs[i] = objs[j];
-				objs[j] = temp;
+				temp = dist[i];
+				dist[i] = dist[j];
+				dist[j] = temp;
 			}
 			j++;
 		}
 		i++;
 	}
-	free(dist);
 }
 
-void	draw_hp(t_mlx *mlx)
+void	update_list(t_lst *union_lst, t_game_obj **dist)
 {
-	t_v2D	scr;
-	t_v2D	texture;
-	int		color;
-
-	scr.y = HEIGHT - 175;
-	int new_size = (int)(SPRITE_SIZE * 2);
-	int i;
-	i = 0;
-	if (mlx->player.hp > 75)
-		i = 26;
-	else if (mlx->player.hp <= 75 && mlx->player.hp > 50)
-		i = 27;
-	else if (mlx->player.hp <= 50 && mlx->player.hp > 25)
-		i = 28;
-	else
-		i = 29;
-	while (++scr.y < HEIGHT - 175 + new_size) {
-		scr.x = 20;
-		while (++scr.x < 20 + new_size) {
-			texture.x = (int)((scr.x - 20) / 2);
-			texture.y = (int)((scr.y - (HEIGHT - 175)) / 2);
-
-			if (texture.x >= 0 && texture.x < SPRITE_SIZE && texture.y >= 0 && texture.y < SPRITE_SIZE) {
-				color = pixel_get(&mlx->sprite[i].img, texture.x, texture.y);
-				if (color != (int)0xFF00FF) {
-					pixel_put(&mlx->img, scr.x, scr.y, color);
-				}
-			}
-		}
+	while (union_lst != NULL)
+	{
+		union_lst->data = (void *)dist;
+		union_lst = union_lst->next;
 	}
+	free(*dist);
 }
 
-
-int	calc_char_anim(t_mlx *mlx)
+void	lst_loop(t_mlx *mlx, t_lst *union_lst)
 {
-	// static struct timespec last_time;
-	// struct timespec current_time;
-	// double elapsed_time;
-	static int char_anim = 18;
-	double chosen_time = 0.10;
-	static int i = 0;
-
-	if(mlx->player.shoot == true && i == 0 && mlx->player.anim == true)
+	t_v2D		s_dist;
+	t_game_obj	*obj;
+	
+	s_dist = (t_v2D){0, 0};
+	while (union_lst != NULL)
 	{
-		i = 1;
-		char_anim = 30;
-	}
-/* 	if (last_time.tv_sec == 0 && last_time.tv_nsec == 0)
-		update_time(&last_time);
-	update_time(&current_time);
-	elapsed_time = time_passed(&last_time, &current_time); */
-	if (mlx->elapsed_time >= chosen_time)
-	{
-		char_anim++;
-		update_time(&mlx->last_time);
-	}
-	if (char_anim == 26 || char_anim == 38)
-	{
-		mlx->player.anim = false;
-		i = 0;
-		char_anim = 18;
-	}
-	return(char_anim);
-}
-
-void	draw_char(t_mlx *mlx, int char_anim)
-{
-	t_v2D	scr;
-	t_v2D	texture;
-	int		color;
-
-	scr.y = HEIGHT - 110;
-	int new_size = (int)(SPRITE_SIZE * 2);
-
-	while (++scr.y < HEIGHT - 110 + new_size) {
-		scr.x = 20;
-		while (++scr.x < 20 + new_size) {
-			texture.x = (int)((scr.x - 20) / 2);
-			texture.y = (int)((scr.y - (HEIGHT - 110)) / 2);
-
-			if (texture.x >= 0 && texture.x < SPRITE_SIZE && texture.y >= 0 && texture.y < SPRITE_SIZE) {
-				color = pixel_get(&mlx->sprite[char_anim].img, texture.x, texture.y);
-				if (color != (int)0xFF00FF) {
-					pixel_put(&mlx->img, scr.x, scr.y, color);
-				}
-			}
-		}
+		obj = (t_game_obj *)union_lst->data;
+		s_dist = sprite_dist(&mlx->player, obj->pos);
+		draw_sprite(s_dist, mlx, &mlx->sprite[13].img);
+		union_lst = union_lst->next;
 	}
 }
 
 void	sprite_loop(t_mlx *mlx)
 {
-	int		i;
-	t_v2D	s_dist;
-	t_objs	*objs;
+	t_v2D		s_dist;
+	t_game_obj	**dist;
 	int		char_anim;
-	i = 0;
-	objs = mlx->objs;
-	while (objs != NULL)
-	{
-		s_dist = sprite_dist(&mlx->player, objs->pos);
-		if (objs->type == ENEMY)
-			mlx->spr_index = 13;
-		else if (objs->type == KEY)
-			mlx->spr_index = 15;
-		draw_sprite(s_dist, mlx, &mlx->sprite[mlx->spr_index].img);
-		objs = objs->next;
-	}
+	
+	s_dist = (t_v2D){0, 0};
+	lst_add_back(&mlx->union_list, mlx->objs_lst);
+	lst_add_back(&mlx->union_list, mlx->entities_lst);
+	dist = dist_array(mlx->union_list);
+	dist_sort(dist, &mlx->player.pos);
+	update_list(mlx->union_list, dist);
+	lst_loop(mlx, mlx->union_list);
 	char_anim = calc_char_anim(mlx);
 	draw_char(mlx, char_anim);
 	draw_hp(mlx);

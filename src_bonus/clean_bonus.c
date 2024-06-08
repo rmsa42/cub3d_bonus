@@ -6,20 +6,21 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/06 10:32:04 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/08 14:21:52 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	free_objs_list(t_objs *objs)
+void	free_list(t_lst *lst)
 {
-	t_objs	*temp;
+	t_lst	*temp;
 
-	while (objs != NULL)
+	while (lst != NULL)
 	{
-		temp = objs;
-		objs = objs->next;
+		temp = lst;
+		lst = lst->next;
+		free(temp->data);
 		free(temp);
 	}
 }
@@ -47,7 +48,7 @@ void	close_game(t_mlx *mlx)
 	ft_free_dp((void **)mlx->map.game_map);
 	free(mlx->marked_cells);
 	// Objs
-	free_objs_list(mlx->objs);
+	free_list(mlx->union_list);
 	// MLX
 	free(mlx->lib);
 	exit(0);

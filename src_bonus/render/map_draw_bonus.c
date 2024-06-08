@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_draw_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/06 11:22:39 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/08 15:34:00 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,63 +33,55 @@ t_player	init_player(double x, double y, char tile)
 	player.angle = 0.1;
 	player.fov = (double)FOV / 90;
 	player.key = false;
+	player.anim = false;
+	player.shoot = false;
 	player.hp = 100;
 	return (player);
 }
 
-t_objs	*init_obj(int x, int y, char tile)
+t_entity	*init_entity(double x, double y, t_type type)
+{
+	t_entity	*entity;
+
+	entity = ft_calloc(1, sizeof(t_entity));
+	entity->base.type = type;
+	entity->base.pos = (t_v2D){x, y};
+	entity->state = 0;
+	entity->hp = 2;
+	return (entity);
+}
+
+t_objs	*init_obj(double x, double y, t_type type)
 {
 	t_objs	*obj;
 
-	obj = malloc(sizeof(t_objs) * 1);
-	if (obj == NULL)
-		return (NULL);
-	if (tile == 's')
-		obj->type = ENEMY;
-	else if (tile == 'k')
-		obj->type = KEY;
+	obj = ft_calloc(1, sizeof(t_objs));
+	obj->base.type = type;
+	obj->base.pos = (t_v2D){x, y};
 	obj->state = 0;
-	obj->pos = (t_v2D){x, y};
-	obj->next = NULL;
 	return (obj);
-}
-
-t_objs	*lst_last(t_objs *lst)
-{
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
-}
-
-void	lst_add_back(t_objs **lst, t_objs *new)
-{
-	t_objs	*temp;
-
-	if (*lst)
-	{
-		temp = lst_last(*lst);
-		temp->next = new;
-	}
-	else
-	{
-		*lst = new;
-	}
 }
 
 void	draw_map(t_mlx *mlx, char *tile, int x, int y)
 {
-	t_objs	*node;
-	
+	t_lst	*node;
+
 	node = NULL;
 	if ((*tile == 'N' || *tile == 'S' || *tile == 'W' || *tile == 'E'))
 	{
 		mlx->player = init_player(x + 0.5, y + 0.5, *tile);
 		*tile = '0';
 	}
-	else if (*tile == 's' || *tile == 'k')
+	else if (*tile == 's')
 	{
-		node = init_obj(x, y, *tile);
-		lst_add_back(&mlx->objs, node);
+		node = create_node((void *)init_obj(x + 0.5, y + 0.5, SPRITE));
+		lst_add_back(&mlx->objs_lst, node);
+		*tile = '0';
+	}
+	else if (*tile == 'e')
+	{
+		node = create_node((void *)init_entity(x + 0.5, y + 0.5, ENEMY));
+		lst_add_back(&mlx->entities_lst, node);
 		*tile = '0';
 	}
 }
@@ -112,4 +104,7 @@ void	prepare_map(t_mlx *mlx)
 		}
 		map->y++;
 	}
+	print_lst(mlx->objs_lst);
+	print_lst(mlx->entities_lst);
+	exit(0);
 }

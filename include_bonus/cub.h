@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/07 15:46:04 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/08 15:32:54 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef enum	s_type
 	DOOR,
 	DOOR_OPEN,
 	ENEMY,
-	KEY,
+	SPRITE,
 	WALL
 }	t_type;
 
@@ -128,28 +128,30 @@ typedef struct	s_draw
 	int			end;
 }	t_draw;
 
-typedef struct	s_tile
+typedef struct	s_game_obj
 {
 	t_type	type;
 	t_v2D	pos;
-}	t_tile;
+}	t_game_obj;
 
 typedef struct	s_entity
 {
-	t_sprite		*sprite;
-	t_v2D			pos;
+	t_game_obj		base;
 	int				state;
 	int				hp;
-	struct s_entity	*next;
 }	t_entity;
 
 typedef struct s_objs
 {
-	t_type			type;
-	t_v2D			pos;
+	t_game_obj		base;
 	int				state;
-	struct s_objs	*next;
 }	t_objs;
+
+typedef struct	s_lst
+{
+	void			*data;
+	struct s_lst	*next;
+}	t_lst;
 
 typedef struct s_cell
 {
@@ -171,8 +173,9 @@ typedef struct s_mlx
 	int			spr_index;
 	int			side;
 	double		dist_buffer[WIDTH];
-	t_objs		*objs;
-	t_entity	*entities;
+	t_lst	*objs_lst;
+	t_lst	*entities_lst;
+	t_lst	*union_list;
 	int			map_width;
 	int			map_height;
 	t_cell 		*marked_cells;
@@ -200,7 +203,7 @@ void		enemy_ray(t_mlx *mlx);
 
 // Update
 void		update_player(t_mlx *mlx, t_player *player, t_map *map);
-void		update_sprites(t_player *player, t_objs *objs);
+void		update_sprites(t_player *player, t_lst *entities);
 
 //Render
 int			render(t_mlx *mlx);
@@ -240,11 +243,24 @@ int			handle_keyRelease(int keycode, t_player *player);
 int			handle_mouse(int x, int y, t_mlx *mlx);
 t_v2D		rotate(t_v2D vector, int degree);
 
-t_tile		get_next_tile(char **game_map, t_player *player);
+// Interactions
+t_game_obj	get_next_tile(char **game_map, t_player *player);
 void		interact_door(char **game_map, t_player *player);
 
 void		close_game(t_mlx *mlx);
 void		ft_perror(char *msg, t_mlx *mlx);
+
+// Draw Hud
+void	draw_hp(t_mlx *mlx);
+void	draw_char(t_mlx *mlx, int char_anim);
+int		calc_char_anim(t_mlx *mlx);
+
+// lst utils
+t_lst	*create_node(void *data);
+void	lst_add_back(t_lst **lst, t_lst *new);
+t_lst	*lst_last(t_lst *lst);
+int		lst_size(t_lst *lst);
+void	print_lst(t_lst *lst);
 
 // Time
 
