@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/08 15:34:00 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/08 16:05:03 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,32 +39,32 @@ t_player	init_player(double x, double y, char tile)
 	return (player);
 }
 
-t_entity	*init_entity(double x, double y, t_type type)
+t_entity	init_entity(double x, double y, t_type type)
 {
-	t_entity	*entity;
+	t_entity	entity;
 
-	entity = ft_calloc(1, sizeof(t_entity));
-	entity->base.type = type;
-	entity->base.pos = (t_v2D){x, y};
-	entity->state = 0;
-	entity->hp = 2;
+	entity.base.type = type;
+	entity.base.pos = (t_v2D){x, y};
+	entity.state = 0;
+	entity.hp = 2;
 	return (entity);
 }
 
-t_objs	*init_obj(double x, double y, t_type type)
+t_objs	init_obj(double x, double y, t_type type)
 {
-	t_objs	*obj;
+	t_objs	obj;
 
-	obj = ft_calloc(1, sizeof(t_objs));
-	obj->base.type = type;
-	obj->base.pos = (t_v2D){x, y};
-	obj->state = 0;
+	obj.base.type = type;
+	obj.base.pos = (t_v2D){x, y};
+	obj.state = 0;
 	return (obj);
 }
 
 void	draw_map(t_mlx *mlx, char *tile, int x, int y)
 {
-	t_lst	*node;
+	t_lst		*node;
+	t_objs		obj;
+	t_entity	ent;
 
 	node = NULL;
 	if ((*tile == 'N' || *tile == 'S' || *tile == 'W' || *tile == 'E'))
@@ -74,13 +74,15 @@ void	draw_map(t_mlx *mlx, char *tile, int x, int y)
 	}
 	else if (*tile == 's')
 	{
-		node = create_node((void *)init_obj(x + 0.5, y + 0.5, SPRITE));
+		obj = init_obj(x + 0.5, y + 0.5, SPRITE);
+		node = create_node((void *)&obj);
 		lst_add_back(&mlx->objs_lst, node);
 		*tile = '0';
 	}
 	else if (*tile == 'e')
 	{
-		node = create_node((void *)init_entity(x + 0.5, y + 0.5, ENEMY));
+		ent = init_entity(x + 0.5, y + 0.5, ENEMY);
+		node = create_node((void *)&ent);
 		lst_add_back(&mlx->entities_lst, node);
 		*tile = '0';
 	}
@@ -104,7 +106,6 @@ void	prepare_map(t_mlx *mlx)
 		}
 		map->y++;
 	}
-	print_lst(mlx->objs_lst);
-	print_lst(mlx->entities_lst);
-	exit(0);
+	lst_add_back(&mlx->union_list, mlx->objs_lst);
+	lst_add_back(&mlx->union_list, mlx->entities_lst);
 }

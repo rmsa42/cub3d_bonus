@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/08 15:32:54 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/08 15:36:01 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,7 @@ void	print_lst(t_lst *lst);
 
 // Time
 
-void update_time(struct timespec *time);
-double time_passed(struct timespec *last, struct timespec *current);
+void	update_time(struct timespec *time);
+double	time_passed(struct timespec *last, struct timespec *current);
 
 #endif

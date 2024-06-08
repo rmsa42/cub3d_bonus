@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/08 15:26:40 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/08 16:04:38 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,11 @@ int	compare_dist(t_v2D *pl_pos, t_game_obj *obj1, t_game_obj *obj2)
 {
 	double	dist1;
 	double	dist2;
-	
+
 	dist1 = player_obj_dist(pl_pos, &obj1->pos);
 	dist2 = player_obj_dist(pl_pos, &obj2->pos);
+	printf("Dist1: %f\n", dist1);
+	printf("Dist2: %f\n", dist2);
 	return (dist2 > dist1);
 }
 
@@ -133,12 +135,15 @@ void	dist_sort(t_game_obj **dist, t_v2D *pl_pos)
 
 void	update_list(t_lst *union_lst, t_game_obj **dist)
 {
+	int	i;
+	
+	i = 0;
 	while (union_lst != NULL)
 	{
-		union_lst->data = (void *)dist;
+		union_lst->data = dist[i++];
 		union_lst = union_lst->next;
 	}
-	free(*dist);
+	free(dist);
 }
 
 void	lst_loop(t_mlx *mlx, t_lst *union_lst)
@@ -163,8 +168,6 @@ void	sprite_loop(t_mlx *mlx)
 	int		char_anim;
 	
 	s_dist = (t_v2D){0, 0};
-	lst_add_back(&mlx->union_list, mlx->objs_lst);
-	lst_add_back(&mlx->union_list, mlx->entities_lst);
 	dist = dist_array(mlx->union_list);
 	dist_sort(dist, &mlx->player.pos);
 	update_list(mlx->union_list, dist);

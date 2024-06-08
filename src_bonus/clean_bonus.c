@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/08 14:21:52 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/08 15:56:32 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	free_list(t_lst *lst)
 	{
 		temp = lst;
 		lst = lst->next;
-		free(temp->data);
 		free(temp);
 	}
 }

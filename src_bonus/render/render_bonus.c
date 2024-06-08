@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/08 15:15:06 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/08 15:48:11 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void draw_minimap(t_mlx *mlx)
 	int minimap_size = 200;
 	int tile_size = minimap_size / 36;
 	int k;
-	t_lst	*lst;
+	t_lst		*lst;
+	t_game_obj	*temp;
 	int ball_x;
 	int ball_y;
 
@@ -88,19 +89,12 @@ void draw_minimap(t_mlx *mlx)
 		while (j < player_size) 
 		{
 			k = -1;
-			lst = mlx->objs_lst;
+			lst = mlx->union_list;
 			while (lst != NULL)
 			{
-				int sprite_x = ((t_objs *)lst->data)->base.pos.x * tile_size;
-				int sprite_y = ((t_objs *)lst->data)->base.pos.y * tile_size;
-				pixel_put(&mlx->img, sprite_x + i, sprite_y + j, 0xFF0000);
-				lst = lst->next;
-			}
-			lst = mlx->entities_lst;
-			while (lst != NULL)
-			{
-				int sprite_x = ((t_entity *)lst->data)->base.pos.x * tile_size;
-				int sprite_y = ((t_entity *)lst->data)->base.pos.y * tile_size;
+				temp = (t_game_obj *)lst->data;
+				int sprite_x = temp->pos.x * tile_size;
+				int sprite_y = temp->pos.y * tile_size;
 				pixel_put(&mlx->img, sprite_x + i, sprite_y + j, 0xFF0000);
 				lst = lst->next;
 			}
