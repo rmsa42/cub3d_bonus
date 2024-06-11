@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/11 11:23:16 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:41:13 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	init_mlx(t_mlx *mlx)
 	ft_memset(&mlx->draw, 0, sizeof(t_draw));
 	ft_memset(mlx->dist_buffer, 0, sizeof(double) * WIDTH);
 	ft_memset(&mlx->last_time, 0, sizeof(struct timespec));
+	update_time(&mlx->door_time);
+	update_time(&mlx->last_time);
 	return (0);
 }
 
@@ -73,7 +75,6 @@ int handle_mouse_press(int button, int x, int y, t_mlx *mlx)
 	(void)y;
 	if (button == 1 && mlx->player.shoot == false)
 	{
-		mlx->test = 16;
 		mlx->ball_pos = add_vector(mlx->player.pos, multiply_vector(mlx->player.direction, 0.5));
 		mlx->player.shoot = true;
 	}

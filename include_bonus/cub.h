@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/11 12:40:29 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:39:11 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,9 +166,11 @@ typedef struct s_mlx
     int 		num_marked_cells;
 	t_v2D		ball_pos;
 	int			test;
+	struct timespec door_time;
 	struct timespec last_time;
 	struct timespec current_time;
 	double elapsed_time;
+	double elapsed_door;
 }	t_mlx;
 
 

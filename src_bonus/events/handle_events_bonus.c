@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_events_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/11 11:37:09 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:23:13 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ void	shoot_ball(t_mlx *mlx)
 	t_list	*last;
 	t_objs	*obj;
 
-	iterator = mlx->objs_lst;
-	last = iterator;
 	if (mlx->map.game_map[(int)mlx->ball_pos.y][(int)mlx->ball_pos.x] != '1' && mlx->map.game_map[(int)mlx->ball_pos.y][(int)mlx->ball_pos.x] != 'D' )
 	{
 		iterator = mlx->objs_lst;
@@ -66,20 +64,23 @@ void	shoot_ball(t_mlx *mlx)
 			obj = (t_objs *)iterator->content;
 			if ((int)mlx->ball_pos.x == (int)obj->pos.x && (int)mlx->ball_pos.y == (int)obj->pos.y)
 			{
-				if (last == iterator)
-					mlx->objs_lst = mlx->objs_lst->next;
-				else if (iterator->next && last)
-					last->next = iterator->next;
-				else if(iterator->next == NULL)
-					last->next = NULL;
-				free(iterator->content);
-				free(iterator);
-				iterator = NULL;
-				iterator = mlx->objs_lst;
+				if (obj->hp == 0)
+				{
+					if (last == iterator)
+						mlx->objs_lst = mlx->objs_lst->next;
+					else if (iterator->next && last)
+						last->next = iterator->next;
+					else if(iterator->next == NULL)
+						last->next = NULL;
+					free(iterator->content);
+					free(iterator);
+					mlx->player.shoot = false;
+					iterator = NULL;
+					iterator = mlx->objs_lst;
+					return ;
+				}
+				obj->hp--;
 				mlx->player.shoot = false;
-				print_vector(mlx->ball_pos);
-				mlx->test = 17;
-				return ;
 			}
 			last = iterator;
 			iterator = iterator->next;

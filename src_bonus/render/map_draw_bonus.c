@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 12:47:10 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:31:14 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ t_objs	*init_obj(double x, double y, t_type type)
 	obj->spr_index = 38;
 	obj->type = type;
 	obj->pos = (t_v2D){x, y};
-	obj->hp = 2;
+	obj->hp = 1;
+	if(type == SPRITE)
+		obj->hp = 9;
 	obj->state = 0;
 	return (obj);
 }

@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 12:47:54 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:04:55 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ void	sprite_loop(t_mlx *mlx)
 	draw_hp(mlx);
 	if(mlx->player.shoot == true)
 	{
-		shoot_ball(mlx);
 		s_dist = sprite_dist(&mlx->player, mlx->ball_pos);
+		shoot_ball(mlx);
 		draw_sprite(s_dist, mlx, &mlx->sprite[mlx->test].img);
 	}
 	// print_vector(mlx->ball_pos);
