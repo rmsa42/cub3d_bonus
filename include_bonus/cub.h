@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/08 15:36:01 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:27:43 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,30 +128,13 @@ typedef struct	s_draw
 	int			end;
 }	t_draw;
 
-typedef struct	s_game_obj
+typedef struct s_objs
 {
 	t_type	type;
 	t_v2D	pos;
-}	t_game_obj;
-
-typedef struct	s_entity
-{
-	t_game_obj		base;
-	int				state;
-	int				hp;
-}	t_entity;
-
-typedef struct s_objs
-{
-	t_game_obj		base;
-	int				state;
+	int		state;
+	int		hp;
 }	t_objs;
-
-typedef struct	s_lst
-{
-	void			*data;
-	struct s_lst	*next;
-}	t_lst;
 
 typedef struct s_cell
 {
@@ -173,9 +156,7 @@ typedef struct s_mlx
 	int			spr_index;
 	int			side;
 	double		dist_buffer[WIDTH];
-	t_lst	*objs_lst;
-	t_lst	*entities_lst;
-	t_lst	*union_list;
+	t_list		*objs_lst;
 	int			map_width;
 	int			map_height;
 	t_cell 		*marked_cells;
@@ -199,11 +180,11 @@ void		door_hit(t_mlx *mlx, t_map *map);
 void		sprite_loop(t_mlx *mlx);
 
 //Enemy Raycast
-void		enemy_ray(t_mlx *mlx);
+void		enemy_ray(t_mlx *mlx, t_list *objs_lst);
 
 // Update
 void		update_player(t_mlx *mlx, t_player *player, t_map *map);
-void		update_sprites(t_player *player, t_lst *entities);
+void		update_sprites(t_player *player, t_list *objs_lst);
 
 //Render
 int			render(t_mlx *mlx);
@@ -244,7 +225,7 @@ int			handle_mouse(int x, int y, t_mlx *mlx);
 t_v2D		rotate(t_v2D vector, int degree);
 
 // Interactions
-t_game_obj	get_next_tile(char **game_map, t_player *player);
+t_type		get_next_tile(char **game_map, t_player *player);
 void		interact_door(char **game_map, t_player *player);
 
 void		close_game(t_mlx *mlx);
@@ -254,13 +235,6 @@ void		ft_perror(char *msg, t_mlx *mlx);
 void	draw_hp(t_mlx *mlx);
 void	draw_char(t_mlx *mlx, int char_anim);
 int		calc_char_anim(t_mlx *mlx);
-
-// lst utils
-t_lst	*create_node(void *data);
-void	lst_add_back(t_lst **lst, t_lst *new);
-t_lst	*lst_last(t_lst *lst);
-int		lst_size(t_lst *lst);
-void	print_lst(t_lst *lst);
 
 // Time
 

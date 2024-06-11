@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/08 14:24:50 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:23:16 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ int	init_mlx(t_mlx *mlx)
 		return (-1);
 	}
 	mlx->objs_lst = NULL;
-	mlx->entities_lst = NULL;
-	mlx->union_list = NULL;
 	mlx->marked_cells = NULL;
 	mlx->ball_pos = (t_v2D){0, 0};
 	mlx->num_marked_cells = 0;

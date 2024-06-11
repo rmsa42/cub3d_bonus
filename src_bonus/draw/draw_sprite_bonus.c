@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/08 16:04:38 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:36:53 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,111 +67,28 @@ void	draw_sprite(t_v2D transform, t_mlx *mlx, t_image *sprite)
 	}
 }
 
-t_game_obj	**dist_array(t_lst *lst)
-{
-	t_game_obj	**dist;
-	int			i;
-
-	i = 0;
-	dist = malloc(sizeof(t_game_obj *) * (lst_size(lst) + 1));
-	if (dist == NULL)
-		return (perror("Sprite Malloc"), NULL);
-	while (lst != NULL)
-	{
-		dist[i++] = (t_game_obj *)lst->data;
-		lst = lst->next;
-	}
-	dist[i] = 0;
-	return (dist);
-}
-
-double	player_obj_dist(t_v2D *pl_pos, t_v2D *spr_pos)
-{
-	double	dist;
-	double	x;
-	double	y;
-
-	x = (pl_pos->x - spr_pos->x);
-	y = (pl_pos->y - spr_pos->y);
-	dist = (x * x) + (y * y);
-	return (dist);
-}
-
-int	compare_dist(t_v2D *pl_pos, t_game_obj *obj1, t_game_obj *obj2)
-{
-	double	dist1;
-	double	dist2;
-
-	dist1 = player_obj_dist(pl_pos, &obj1->pos);
-	dist2 = player_obj_dist(pl_pos, &obj2->pos);
-	printf("Dist1: %f\n", dist1);
-	printf("Dist2: %f\n", dist2);
-	return (dist2 > dist1);
-}
-
-void	dist_sort(t_game_obj **dist, t_v2D *pl_pos)
-{
-	t_game_obj	*temp;
-	int			i;
-	int			j;
-
-	i = 0;
-	while (dist[i] != NULL)
-	{
-		j = i + 1;
-		while (dist[j] != NULL)
-		{
-			if (compare_dist(pl_pos, dist[i], dist[j]))
-			{
-				temp = dist[i];
-				dist[i] = dist[j];
-				dist[j] = temp;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-void	update_list(t_lst *union_lst, t_game_obj **dist)
-{
-	int	i;
-	
-	i = 0;
-	while (union_lst != NULL)
-	{
-		union_lst->data = dist[i++];
-		union_lst = union_lst->next;
-	}
-	free(dist);
-}
-
-void	lst_loop(t_mlx *mlx, t_lst *union_lst)
+void	lst_loop(t_mlx *mlx, t_list *objs_lst)
 {
 	t_v2D		s_dist;
-	t_game_obj	*obj;
+	t_objs		*obj;
 	
 	s_dist = (t_v2D){0, 0};
-	while (union_lst != NULL)
+	while (objs_lst != NULL)
 	{
-		obj = (t_game_obj *)union_lst->data;
+		obj = (t_objs *)objs_lst->content;
 		s_dist = sprite_dist(&mlx->player, obj->pos);
 		draw_sprite(s_dist, mlx, &mlx->sprite[13].img);
-		union_lst = union_lst->next;
+		objs_lst = objs_lst->next;
 	}
 }
 
 void	sprite_loop(t_mlx *mlx)
 {
 	t_v2D		s_dist;
-	t_game_obj	**dist;
 	int		char_anim;
 	
 	s_dist = (t_v2D){0, 0};
-	dist = dist_array(mlx->union_list);
-	dist_sort(dist, &mlx->player.pos);
-	update_list(mlx->union_list, dist);
-	lst_loop(mlx, mlx->union_list);
+	lst_loop(mlx, mlx->objs_lst);
 	char_anim = calc_char_anim(mlx);
 	draw_char(mlx, char_anim);
 	draw_hp(mlx);

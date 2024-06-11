@@ -6,40 +6,41 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/08 15:45:29 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:37:30 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	sprite_move(t_player *player, t_entity *entity)
+void	sprite_move(t_player *player, t_objs *obj)
 {
 	t_v2D	dir;
 	t_v2D	velocity;
 
-	dir.x = player->pos.x - entity->base.pos.x;
-	dir.y = player->pos.y - entity->base.pos.y;
+	dir.x = player->pos.x - obj->pos.x;
+	dir.y = player->pos.y - obj->pos.y;
 	dir = normalize_vector(dir);
 	velocity = multiply_vector(dir, SPEED * 0.3);
-	entity->base.pos = add_vector(entity->base.pos, velocity);
+	obj->pos = add_vector(obj->pos, velocity);
 }
 
-void	damage_player(t_player *player, t_entity *entity)
+void	damage_player(t_player *player, t_objs *obj)
 {
-	if ((int)entity->base.pos.x == (int)player->pos.x && (int)entity->base.pos.y == (int)player->pos.y)
+	if ((int)obj->pos.x == (int)player->pos.x && (int)obj->pos.y == (int)player->pos.y)
 		player->hp -= 1;	
 }
 
-void	update_sprites(t_player *player, t_lst *entities)
+void	update_sprites(t_player *player, t_list *objs_lst)
 {
-	t_entity	*entity;
+	t_objs	*obj;
 	
-	while (entities != NULL)
+	obj = NULL;
+	while (objs_lst != NULL)
 	{
-		entity = (t_entity *)entities->data;
-		if (entity->state == 1)
-			sprite_move(player, entity);
-		damage_player(player, entity);
-		entities = entities->next;
+		obj = (t_objs *)objs_lst->content;
+		if (obj->state == 1)
+			sprite_move(player, obj);
+		damage_player(player, obj);
+		objs_lst = objs_lst->next;
 	}
 }

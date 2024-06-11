@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/08 15:48:11 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:38:19 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,14 @@ void minimap_tiles(t_mlx *mlx,int tile_size)
 	}
 }
 
-void draw_minimap(t_mlx *mlx) 
+void draw_minimap(t_mlx *mlx, t_list *objs_lst) 
 {
 	int minimap_size = 200;
 	int tile_size = minimap_size / 36;
-	int k;
-	t_lst		*lst;
-	t_game_obj	*temp;
+	t_objs		*obj;
 	int ball_x;
 	int ball_y;
-
-	lst = NULL;
+	
 	minimap_tiles(mlx, tile_size);
 	if (mlx->player.shoot == true)
 	{
@@ -88,15 +85,14 @@ void draw_minimap(t_mlx *mlx)
 		int j = -player_size;
 		while (j < player_size) 
 		{
-			k = -1;
-			lst = mlx->union_list;
-			while (lst != NULL)
+			objs_lst = mlx->objs_lst;
+			while (objs_lst != NULL)
 			{
-				temp = (t_game_obj *)lst->data;
-				int sprite_x = temp->pos.x * tile_size;
-				int sprite_y = temp->pos.y * tile_size;
+				obj = (t_objs *)objs_lst->content;
+				int sprite_x = obj->pos.x * tile_size;
+				int sprite_y = obj->pos.y * tile_size;
 				pixel_put(&mlx->img, sprite_x + i, sprite_y + j, 0xFF0000);
-				lst = lst->next;
+				objs_lst = objs_lst->next;
 			}
 			if (mlx->player.shoot == true)
 				pixel_put(&mlx->img, ball_x + i, ball_y + j, 0x0000FF);
@@ -110,17 +106,21 @@ void draw_minimap(t_mlx *mlx)
 int	render(t_mlx *mlx)
 {
 	struct timespec current_time;
+/* 	double	fps; */
 
+	mlx->img = new_image(mlx);
 	if (mlx->last_time.tv_sec == 0 && mlx->last_time.tv_nsec == 0)
 		update_time(&mlx->last_time);
 	update_time(&current_time);
 	mlx->elapsed_time = time_passed(&mlx->last_time, &current_time);
 	update_player(mlx, &mlx->player, &mlx->map);
-	update_sprites(&mlx->player, mlx->entities_lst);
-	mlx->img = new_image(mlx);
+	update_sprites(&mlx->player, mlx->objs_lst);
 	ft_grua(mlx);
-	enemy_ray(mlx);
-	draw_minimap(mlx);
+	enemy_ray(mlx, mlx->objs_lst);
+	draw_minimap(mlx, mlx->objs_lst);
+	mlx_put_image_to_window(mlx->lib, mlx->window,
+			mlx->img.img_ptr, 0, 0);
+	/* fps = clock() - ; */
 	mlx_destroy_image(mlx->lib, mlx->img.img_ptr);
 	return (0);
 }
