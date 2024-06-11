@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_sprites_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/07 10:51:31 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:37:30 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,17 @@ void	damage_player(t_player *player, t_objs *obj)
 		player->hp -= 1;	
 }
 
-void	update_sprites(t_player *player, t_objs *objs)
+void	update_sprites(t_player *player, t_list *objs_lst)
 {
-	int	i;
-
-	i = 0;
-	while (objs != NULL)
+	t_objs	*obj;
+	
+	obj = NULL;
+	while (objs_lst != NULL)
 	{
-		if (objs->type == ENEMY)
-		{
-			if (objs->state == 1)
-				sprite_move(player, objs);
-			damage_player(player, objs);
-		}
-		objs = objs->next;
+		obj = (t_objs *)objs_lst->content;
+		if (obj->state == 1)
+			sprite_move(player, obj);
+		damage_player(player, obj);
+		objs_lst = objs_lst->next;
 	}
 }

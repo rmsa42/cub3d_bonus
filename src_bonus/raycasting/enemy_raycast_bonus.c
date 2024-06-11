@@ -6,33 +6,33 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:24:23 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/05 14:04:23 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:36:59 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	enemy_step_rays(t_map map, t_objs *obj, t_ray *ray)
+void	enemy_step_rays(t_map map, t_v2D *pos, t_ray *ray)
 {
 	if (ray->dir.x < 0)
 	{
 		ray->step.x = -1;
-		ray->side_d.x = (obj->pos.x - map.x) * ray->delta.x;
+		ray->side_d.x = (pos->x - map.x) * ray->delta.x;
 	}
 	else
 	{
 		ray->step.x = 1;
-		ray->side_d.x = (map.x + 1.0 - obj->pos.x) * ray->delta.x;
+		ray->side_d.x = (map.x + 1.0 - pos->x) * ray->delta.x;
 	}
 	if (ray->dir.y < 0)
 	{
 		ray->step.y = -1;
-		ray->side_d.y = (obj->pos.y - map.y) * ray->delta.y;
+		ray->side_d.y = (pos->y - map.y) * ray->delta.y;
 	}
 	else
 	{
 		ray->step.y = 1;
-		ray->side_d.y = (map.y + 1.0 - obj->pos.y) * ray->delta.y;
+		ray->side_d.y = (map.y + 1.0 - pos->y) * ray->delta.y;
 	}
 }
 
@@ -75,23 +75,23 @@ void	enemy_dda(t_mlx *mlx, t_objs *obj)
 	}
 }
 
-void	enemy_ray(t_mlx *mlx)
+void	enemy_ray(t_mlx *mlx, t_list *objs_lst)
 {
 	t_player	*player;
-	t_objs		*objs;
-
-	objs = mlx->objs;
+	t_objs		*obj;
+	
 	player = &mlx->player;
-	while (objs != NULL)
+	while (objs_lst != NULL)
 	{
-		mlx->ray.dir.x = player->pos.x - objs->pos.x;
-		mlx->ray.dir.y = player->pos.y - objs->pos.y;
+		obj = (t_objs *)objs_lst->content;
+		mlx->ray.dir.x = player->pos.x - obj->pos.x;
+		mlx->ray.dir.y = player->pos.y - obj->pos.y;
 		mlx->ray.delta.x = fabs(1 / mlx->ray.dir.x);
 		mlx->ray.delta.y = fabs(1 / mlx->ray.dir.y);
-		mlx->map.x = (int)objs->pos.x;
-		mlx->map.y = (int)objs->pos.y;
-		enemy_step_rays(mlx->map, objs, &mlx->ray);
-		enemy_dda(mlx, objs);
-		objs = objs->next;
+		mlx->map.x = (int)obj->pos.x;
+		mlx->map.y = (int)obj->pos.y;
+		enemy_step_rays(mlx->map, &obj->pos, &mlx->ray);
+		enemy_dda(mlx, obj);
+		objs_lst = objs_lst->next;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/07 15:46:16 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:23:16 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ int	init_mlx(t_mlx *mlx)
 		perror("MLX Error\n");
 		return (-1);
 	}
-	mlx->objs = NULL;
-	mlx->entities = NULL;
+	mlx->objs_lst = NULL;
+	mlx->marked_cells = NULL;
+	mlx->ball_pos = (t_v2D){0, 0};
 	mlx->num_marked_cells = 0;
 	mlx->side = 0;
 	mlx->spr_index = 0;
