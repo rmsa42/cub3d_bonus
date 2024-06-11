@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/11 11:27:43 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:21:13 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define WIDTH 800
 # define FOV 90
 # define SPRITE_SIZE 64
-# define SPRITE_NBR 38
+# define SPRITE_NBR 43
 
 # define PI 3.14159265359
 
@@ -130,6 +130,7 @@ typedef struct	s_draw
 
 typedef struct s_objs
 {
+	int		spr_index;
 	t_type	type;
 	t_v2D	pos;
 	int		state;
@@ -184,7 +185,7 @@ void		enemy_ray(t_mlx *mlx, t_list *objs_lst);
 
 // Update
 void		update_player(t_mlx *mlx, t_player *player, t_map *map);
-void		update_sprites(t_player *player, t_list *objs_lst);
+void		update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst);
 
 //Render
 int			render(t_mlx *mlx);

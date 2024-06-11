@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 11:38:19 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:16:28 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	render(t_mlx *mlx)
 	update_time(&current_time);
 	mlx->elapsed_time = time_passed(&mlx->last_time, &current_time);
 	update_player(mlx, &mlx->player, &mlx->map);
-	update_sprites(&mlx->player, mlx->objs_lst);
+	update_sprites(mlx, &mlx->player, mlx->objs_lst);
 	ft_grua(mlx);
 	enemy_ray(mlx, mlx->objs_lst);
 	draw_minimap(mlx, mlx->objs_lst);

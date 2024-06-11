@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_draw_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 11:34:49 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:26:15 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_objs	*init_obj(double x, double y, t_type type)
 	t_objs	*obj;
 
 	obj = ft_calloc(1, sizeof(t_objs));
+	obj->spr_index = 38;
 	obj->type = type;
 	obj->pos = (t_v2D){x, y};
 	obj->hp = 2;

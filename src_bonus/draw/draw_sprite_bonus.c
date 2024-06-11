@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 11:36:53 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:25:03 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	lst_loop(t_mlx *mlx, t_list *objs_lst)
 	{
 		obj = (t_objs *)objs_lst->content;
 		s_dist = sprite_dist(&mlx->player, obj->pos);
-		draw_sprite(s_dist, mlx, &mlx->sprite[13].img);
+		draw_sprite(s_dist, mlx, &mlx->sprite[obj->spr_index].img);
 		objs_lst = objs_lst->next;
 	}
 }

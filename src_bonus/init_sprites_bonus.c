@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:38:56 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/07 15:25:44 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:21:05 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,9 @@ void	init_sprite(void *lib, char **conf_map, t_sprite *sprite)
 	sprite[35] = xpm_to_image(lib, "sprites/sprite/attack5.xpm");
 	sprite[36] = xpm_to_image(lib, "sprites/sprite/attack6.xpm");
 	sprite[37] = xpm_to_image(lib, "sprites/sprite/attack7.xpm");
-	
+	sprite[38] = xpm_to_image(lib, "sprites/enemy/enemy2.xpm");
+	sprite[39] = xpm_to_image(lib, "sprites/enemy/enemy3.xpm");
+	sprite[40] = xpm_to_image(lib, "sprites/enemy/enemy4.xpm");
+	sprite[41] = xpm_to_image(lib, "sprites/enemy/enemy5.xpm");
+	sprite[42] = xpm_to_image(lib, "sprites/enemy/enemy6.xpm");
 }

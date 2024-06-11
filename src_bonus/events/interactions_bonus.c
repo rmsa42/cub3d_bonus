@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interactions_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:07:09 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 11:19:19 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:02:53 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	interact_door(char **game_map, t_player *player)
 	int		check_y;
 
 	tile = get_next_tile(game_map, player);
-	check_x = (int)player->pos.x + player->direction.x;
-	check_y = (int)player->pos.y + player->direction.y;
+	check_x = (int)(player->pos.x + player->direction.x);
+	check_y = (int)(player->pos.y + player->direction.y);
 	if (tile == DOOR)
 		game_map[check_y][check_x] = 'd';
 	else if (tile == DOOR_OPEN)

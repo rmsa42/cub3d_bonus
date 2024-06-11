@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_sprites_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 11:37:30 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:28:19 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	damage_player(t_player *player, t_objs *obj)
 		player->hp -= 1;	
 }
 
-void	update_sprites(t_player *player, t_list *objs_lst)
+void	update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst)
 {
 	t_objs	*obj;
 	
@@ -39,7 +39,16 @@ void	update_sprites(t_player *player, t_list *objs_lst)
 	{
 		obj = (t_objs *)objs_lst->content;
 		if (obj->state == 1)
+		{
 			sprite_move(player, obj);
+			if(mlx->elapsed_time >= 0.10 && obj->spr_index != 40)
+				obj->spr_index++;
+			
+		}
+		else if (obj->spr_index >= 40 && obj->spr_index != 42 && mlx->elapsed_time >= 0.10)
+			obj->spr_index++;
+		if(obj->spr_index == 42)
+			obj->spr_index = 38;
 		damage_player(player, obj);
 		objs_lst = objs_lst->next;
 	}
