@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/06/11 11:21:48 by rumachad         ###   ########.fr        #
+#    Updated: 2024/06/11 16:57:47 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ VPATH = $(SRC_BONUS_PATH) $(SRC_BONUS_PATH)render $(SRC_BONUS_PATH)raycasting \
 SRC_BONUS = main_bonus.c \
 	handle_events_bonus.c \
 	update_player_bonus.c \
+	update_ball_bonus.c \
 	update_sprites_bonus.c \
 	render_bonus.c \
 	raycasting_bonus.c \
@@ -71,7 +72,7 @@ $(BONUS):	$(OBJ_BONUS)
 			@echo "$(GREEN)MLX Compiled$(RESET)"
 			@make -C $(LIBFT_PATH) > /dev/null
 			@echo "$(GREEN)Libft Compiled$(RESET)"
-			@$(CC) -o $(BONUS) $(OBJ_BONUS) $(MLXFLAGS) $(LIBFTFLAGS) $(MATHFLAGS)
+			@$(CC) -o $(BONUS) $(OBJ_BONUS) $(MLXFLAGS) $(LIBFTFLAGS) $(MATHFLAGS) -fsanitize=address
 			@echo "$(GREEN)Cub3d Bonus Compiled$(RESET)"
 
 $(OBJ_BONUS_PATH)%.o: %.c

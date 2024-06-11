@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_events_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/11 14:23:13 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:59:19 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,47 +48,18 @@ int handle_mouse(int x, int y, t_mlx *mlx)
 	return (0);
 }
 
-
-void	shoot_ball(t_mlx *mlx)
+int handle_mouse_press(int button, int x, int y, t_mlx *mlx)
 {
-	t_list	*iterator;
-	t_list	*last;
-	t_objs	*obj;
-
-	if (mlx->map.game_map[(int)mlx->ball_pos.y][(int)mlx->ball_pos.x] != '1' && mlx->map.game_map[(int)mlx->ball_pos.y][(int)mlx->ball_pos.x] != 'D' )
+	(void)x;
+	(void)y;
+	if (button == 1 && mlx->player.shoot == false)
 	{
-		iterator = mlx->objs_lst;
-		last = iterator;
-		while (iterator!= NULL)
-		{
-			obj = (t_objs *)iterator->content;
-			if ((int)mlx->ball_pos.x == (int)obj->pos.x && (int)mlx->ball_pos.y == (int)obj->pos.y)
-			{
-				if (obj->hp == 0)
-				{
-					if (last == iterator)
-						mlx->objs_lst = mlx->objs_lst->next;
-					else if (iterator->next && last)
-						last->next = iterator->next;
-					else if(iterator->next == NULL)
-						last->next = NULL;
-					free(iterator->content);
-					free(iterator);
-					mlx->player.shoot = false;
-					iterator = NULL;
-					iterator = mlx->objs_lst;
-					return ;
-				}
-				obj->hp--;
-				mlx->player.shoot = false;
-			}
-			last = iterator;
-			iterator = iterator->next;
-		}
-		mlx->ball_pos = add_vector(mlx->ball_pos, multiply_vector(mlx->player.direction, SPEED * 3));
+		mlx->player.ball_pos = add_vector(mlx->player.pos, multiply_vector(mlx->player.direction, 0.5));
+		mlx->test = 16;
+		mlx->player.shoot = true;
+		mlx->player.anim = true;
 	}
-	else
-		mlx->player.shoot = false;
+	return(0);
 }
 
 int	handle_keyPress(int keycode, t_mlx *mlx)
@@ -117,7 +88,7 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 	else if (keycode == 32 && player->shoot == false)
 	{
 		mlx->test = 16;
-		mlx->ball_pos = add_vector(mlx->player.pos, multiply_vector(mlx->player.direction, 0.5));
+		player->ball_pos = add_vector(mlx->player.pos, multiply_vector(mlx->player.direction, 0.5));
 		player->shoot = true;
 		player->anim = true;
 	}

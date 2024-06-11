@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_draw_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 14:31:14 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:03:23 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ t_player	init_player(double x, double y, char tile)
 	player.plane = perp_vector(player.direction);
 	player.angle = 0.1;
 	player.fov = (double)FOV / 90;
-	player.key = false;
 	player.anim = false;
 	player.shoot = false;
+	player.ball_pos = (t_v2D){0, 0};
 	player.hp = 100;
 	return (player);
 }

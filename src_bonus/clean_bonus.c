@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 11:36:44 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:50:29 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	close_game(t_mlx *mlx)
 
 	i = 0;
 	// Sprites
-	while (i < SPRITE_NBR - 1)
+	while (i < SPRITE_NBR)
 	{
 		if (mlx->sprite[i].img.img_ptr != NULL)
 			mlx_destroy_image(mlx->lib, mlx->sprite[i].img.img_ptr);

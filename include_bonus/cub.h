@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/11 14:39:11 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:59:41 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ typedef struct s_player
 	t_v2D	direction;
 	t_v2D	plane;
 	t_v2D	movement;
+	t_v2D	ball_pos;
 	int		hp;
 	double	angle;
 	double	fov;
 	double	pitch;
-	bool	key;
 	bool	mouse;
 	bool	shoot;
 	bool	anim;
@@ -164,7 +164,6 @@ typedef struct s_mlx
 	int			map_height;
 	t_cell 		*marked_cells;
     int 		num_marked_cells;
-	t_v2D		ball_pos;
 	int			test;
 	struct timespec door_time;
 	struct timespec last_time;
@@ -189,6 +188,7 @@ void		enemy_ray(t_mlx *mlx, t_list *objs_lst);
 
 // Update
 void		update_player(t_mlx *mlx, t_player *player, t_map *map);
+void		update_ball(t_player *player, t_list **objs_lst, char **game_map);
 void		update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst);
 
 //Render
@@ -227,6 +227,7 @@ void		shoot_ball(t_mlx *mlx);
 int			handle_keyPress(int keycode, t_mlx *mlx);
 int			handle_keyRelease(int keycode, t_player *player);
 int			handle_mouse(int x, int y, t_mlx *mlx);
+int			handle_mouse_press(int button, int x, int y, t_mlx *mlx);
 t_v2D		rotate(t_v2D vector, int degree);
 
 // Interactions
