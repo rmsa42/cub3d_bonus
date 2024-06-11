@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 12:25:03 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:47:54 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,10 @@ void	lst_loop(t_mlx *mlx, t_list *objs_lst)
 	while (objs_lst != NULL)
 	{
 		obj = (t_objs *)objs_lst->content;
+		if (obj->last_time.tv_sec == 0 && obj->last_time.tv_nsec == 0)
+			update_time(&obj->last_time);
+		update_time(&mlx->current_time);
+		obj->elapsed_time = time_passed(&obj->last_time, &mlx->current_time);
 		s_dist = sprite_dist(&mlx->player, obj->pos);
 		draw_sprite(s_dist, mlx, &mlx->sprite[obj->spr_index].img);
 		objs_lst = objs_lst->next;

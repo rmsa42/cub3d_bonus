@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/11 12:21:13 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:40:29 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ typedef struct	s_draw
 
 typedef struct s_objs
 {
+	struct timespec last_time;
+	double elapsed_time;
 	int		spr_index;
 	t_type	type;
 	t_v2D	pos;
@@ -165,7 +167,7 @@ typedef struct s_mlx
 	t_v2D		ball_pos;
 	int			test;
 	struct timespec last_time;
-	// struct timespec current_time;
+	struct timespec current_time;
 	double elapsed_time;
 }	t_mlx;
 

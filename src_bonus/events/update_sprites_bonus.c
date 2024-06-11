@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 12:28:19 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:57:36 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	sprite_move(t_player *player, t_objs *obj)
 	dir.x = player->pos.x - obj->pos.x;
 	dir.y = player->pos.y - obj->pos.y;
 	dir = normalize_vector(dir);
-	velocity = multiply_vector(dir, SPEED * 0.3);
+	velocity = multiply_vector(dir, SPEED * 0.5);
 	obj->pos = add_vector(obj->pos, velocity);
 }
 
@@ -34,6 +34,7 @@ void	update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst)
 {
 	t_objs	*obj;
 	
+	(void)mlx;
 	obj = NULL;
 	while (objs_lst != NULL)
 	{
@@ -41,12 +42,17 @@ void	update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst)
 		if (obj->state == 1)
 		{
 			sprite_move(player, obj);
-			if(mlx->elapsed_time >= 0.10 && obj->spr_index != 40)
+			if(obj->elapsed_time >= 0.30 && obj->spr_index != 40)
+			{
 				obj->spr_index++;
-			
+				update_time(&obj->last_time);
+			}
 		}
-		else if (obj->spr_index >= 40 && obj->spr_index != 42 && mlx->elapsed_time >= 0.10)
+		else if (obj->spr_index >= 40 && obj->spr_index != 42 && obj->elapsed_time >= 0.30)
+		{
 			obj->spr_index++;
+			update_time(&obj->last_time);
+		}
 		if(obj->spr_index == 42)
 			obj->spr_index = 38;
 		damage_player(player, obj);

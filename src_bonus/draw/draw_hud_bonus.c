@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_hud_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:27:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/08 15:30:43 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:42:08 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,6 @@ void	draw_hp(t_mlx *mlx)
 
 int	calc_char_anim(t_mlx *mlx)
 {
-	// static struct timespec last_time;
-	// struct timespec current_time;
-	// double elapsed_time;
 	static int char_anim = 18;
 	double chosen_time = 0.10;
 	static int i = 0;
@@ -60,10 +57,7 @@ int	calc_char_anim(t_mlx *mlx)
 		i = 1;
 		char_anim = 30;
 	}
-/* 	if (last_time.tv_sec == 0 && last_time.tv_nsec == 0)
-		update_time(&last_time);
-	update_time(&current_time);
-	elapsed_time = time_passed(&last_time, &current_time); */
+
 	if (mlx->elapsed_time >= chosen_time)
 	{
 		char_anim++;

@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:15:49 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/07 15:38:54 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:53:06 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,17 @@ void update_time(struct timespec *time)
 
 void	door_hit(t_mlx *mlx, t_map	*map)
 {
+	t_objs *obj = mlx->objs_lst->content;
 	static int i = 7;
 	mlx->spr_index = 6;
-	// static struct timespec last_time;
-	// struct timespec current_time;
-	// double elapsed_time;
 
-	// if (last_time.tv_sec == 0 && last_time.tv_nsec == 0)
-	// 	update_time(&last_time);
-	// // update_time(&current_time);
-	// elapsed_time = time_passed(&last_time, &current_time);
 	if (map->game_map[map->y][map->x] == 'd' )
 	{
 		mlx->spr_index = i;
-		if (mlx->elapsed_time >= 0.10)
+		if (obj->elapsed_time >= 0.30)
 		{
 			i++;
-			update_time(&mlx->last_time);
+			update_time(&obj->last_time);
 		}
 	}
 	if (i == 12)

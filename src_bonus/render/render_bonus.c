@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 12:16:28 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:40:39 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +105,13 @@ void draw_minimap(t_mlx *mlx, t_list *objs_lst)
 
 int	render(t_mlx *mlx)
 {
-	struct timespec current_time;
 /* 	double	fps; */
 
 	mlx->img = new_image(mlx);
 	if (mlx->last_time.tv_sec == 0 && mlx->last_time.tv_nsec == 0)
 		update_time(&mlx->last_time);
-	update_time(&current_time);
-	mlx->elapsed_time = time_passed(&mlx->last_time, &current_time);
+	update_time(&mlx->current_time);
+	mlx->elapsed_time = time_passed(&mlx->last_time, &mlx->current_time);
 	update_player(mlx, &mlx->player, &mlx->map);
 	update_sprites(mlx, &mlx->player, mlx->objs_lst);
 	ft_grua(mlx);
