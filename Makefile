@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/06/11 16:57:47 by rumachad         ###   ########.fr        #
+#    Updated: 2024/06/12 12:04:39 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ $(BONUS):	$(OBJ_BONUS)
 			@echo "$(GREEN)MLX Compiled$(RESET)"
 			@make -C $(LIBFT_PATH) > /dev/null
 			@echo "$(GREEN)Libft Compiled$(RESET)"
-			@$(CC) -o $(BONUS) $(OBJ_BONUS) $(MLXFLAGS) $(LIBFTFLAGS) $(MATHFLAGS) -fsanitize=address
+			@$(CC) -o $(BONUS) $(OBJ_BONUS) $(MLXFLAGS) $(LIBFTFLAGS) $(MATHFLAGS)
 			@echo "$(GREEN)Cub3d Bonus Compiled$(RESET)"
 
 $(OBJ_BONUS_PATH)%.o: %.c

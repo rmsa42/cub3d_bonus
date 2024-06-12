@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/11 16:59:41 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:03:54 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,20 @@ typedef enum	s_type
 	DOOR_OPEN,
 	ENEMY,
 	SPRITE,
+	BALL,
 	WALL
 }	t_type;
+
+typedef struct s_objs
+{
+	struct timespec last_time;
+	double elapsed_time;
+	int		spr_index;
+	t_type	type;
+	t_v2D	pos;
+	int		state;
+	int		hp;
+}	t_objs;
 
 typedef struct s_player
 {
@@ -65,7 +77,7 @@ typedef struct s_player
 	t_v2D	direction;
 	t_v2D	plane;
 	t_v2D	movement;
-	t_v2D	ball_pos;
+	t_list	*ball_node;
 	int		hp;
 	double	angle;
 	double	fov;
@@ -128,17 +140,6 @@ typedef struct	s_draw
 	int			end;
 }	t_draw;
 
-typedef struct s_objs
-{
-	struct timespec last_time;
-	double elapsed_time;
-	int		spr_index;
-	t_type	type;
-	t_v2D	pos;
-	int		state;
-	int		hp;
-}	t_objs;
-
 typedef struct s_cell
 {
     int x;
@@ -175,6 +176,8 @@ typedef struct s_mlx
 
 t_player	init_player(double x, double y, char tile);
 void		init_sprite(void *lib, char **conf_map, t_sprite *sprite);
+t_objs		*init_obj(double x, double y, int spr_index, t_type type);
+t_list		*init_ball(t_list **head, t_player *player);
 //Raycast
 void		ft_grua(t_mlx *mlx);
 t_draw		calculus(t_ray *ray, t_player *player, double *buffer , int side);

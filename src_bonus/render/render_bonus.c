@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 15:39:39 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/12 10:32:05 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,9 @@ void draw_minimap(t_mlx *mlx, t_list *objs_lst)
 	minimap_tiles(mlx, tile_size);
 	if (mlx->player.shoot == true)
 	{
-		ball_x = mlx->player.ball_pos.x * tile_size;
-		ball_y = mlx->player.ball_pos.y * tile_size;
+		obj = (t_objs *)mlx->player.ball_node->content;
+		ball_x = obj->pos.x * tile_size;
+		ball_y = obj->pos.y * tile_size;
 	}
 	int player_x = mlx->player.pos.x * tile_size;
 	int player_y = mlx->player.pos.y * tile_size;

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/11 16:59:19 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:03:40 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,7 @@ int handle_mouse_press(int button, int x, int y, t_mlx *mlx)
 	(void)x;
 	(void)y;
 	if (button == 1 && mlx->player.shoot == false)
-	{
-		mlx->player.ball_pos = add_vector(mlx->player.pos, multiply_vector(mlx->player.direction, 0.5));
-		mlx->test = 16;
-		mlx->player.shoot = true;
-		mlx->player.anim = true;
-	}
+		mlx->player.ball_node = init_ball(&mlx->objs_lst, &mlx->player);
 	return(0);
 }
 
@@ -86,12 +81,7 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 	else if (keycode == Q)
 		player->mouse = true;
 	else if (keycode == 32 && player->shoot == false)
-	{
-		mlx->test = 16;
-		player->ball_pos = add_vector(mlx->player.pos, multiply_vector(mlx->player.direction, 0.5));
-		player->shoot = true;
-		player->anim = true;
-	}
+		player->ball_node = init_ball(&mlx->objs_lst, &mlx->player);
 	return (0);
 }
 

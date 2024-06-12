@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 16:56:00 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:23:01 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 		close_game(mlx);
 	}
 
+	// Ball Update
 	if (player->shoot == true)
 		update_ball(player, &mlx->objs_lst, map->game_map);
+
 	// Player Movement (x, y)
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);

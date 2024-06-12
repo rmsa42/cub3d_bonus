@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 17:03:23 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:18:30 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,24 @@ t_player	init_player(double x, double y, char tile)
 	player.fov = (double)FOV / 90;
 	player.anim = false;
 	player.shoot = false;
-	player.ball_pos = (t_v2D){0, 0};
+	player.ball_node = NULL;
 	player.hp = 100;
 	return (player);
 }
 
-t_objs	*init_obj(double x, double y, t_type type)
+t_objs	*init_obj(double x, double y, int spr_index, t_type type)
 {
 	t_objs	*obj;
 
 	obj = ft_calloc(1, sizeof(t_objs));
-	obj->spr_index = 38;
+	obj->spr_index = spr_index;
 	obj->type = type;
 	obj->pos = (t_v2D){x, y};
-	obj->hp = 1;
+	obj->hp = 2;
 	if(type == SPRITE)
 		obj->hp = 9;
 	obj->state = 0;
+	update_time(&obj->last_time);
 	return (obj);
 }
 
@@ -66,13 +67,13 @@ void	draw_map(t_mlx *mlx, char *tile, int x, int y)
 	}
 	else if (*tile == 's')
 	{
-		node = ft_lstnew((void *)init_obj(x + 0.5, y + 0.5, SPRITE));
+		node = ft_lstnew((void *)init_obj(x + 0.5, y + 0.5, 13, SPRITE));
 		ft_lstadd_back(&mlx->objs_lst, node);
 		*tile = '0';
 	}
 	else if (*tile == 'e')
 	{
-		node = ft_lstnew((void *)init_obj(x + 0.5, y + 0.5, ENEMY));
+		node = ft_lstnew((void *)init_obj(x + 0.5, y + 0.5, 38, ENEMY));
 		ft_lstadd_back(&mlx->objs_lst, node);
 		*tile = '0';
 	}
