@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/11 15:37:51 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:52:16 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	init_mlx(t_mlx *mlx)
 	}
 	mlx->objs_lst = NULL;
 	mlx->marked_cells = NULL;
-	mlx->ball_pos = (t_v2D){0, 0};
 	mlx->num_marked_cells = 0;
 	mlx->side = 0;
 	mlx->spr_index = 0;
@@ -69,38 +68,24 @@ int	init_mlx(t_mlx *mlx)
 	return (0);
 }
 
-int handle_mouse_press(int button, int x, int y, t_mlx *mlx)
-{
-	(void)x;
-	(void)y;
-	if (button == 1 && mlx->player.shoot == false)
-	{
-		mlx->test = 16;
-		mlx->ball_pos = add_vector(mlx->player.pos, multiply_vector(mlx->player.direction, 0.5));
-		mlx->player.shoot = true;
-		mlx->player.anim = true;
-	}
-	return(0);
-}
-
 int main(int argc, char *argv[])
 {	
 	t_mlx	mlx;
 
-	// MLX Init
+	 // MLX Init
 	init_mlx(&mlx);
 	
-	// Map init / Parser
+	 // Map init / Parser
 	ft_check_b4_init(argc, argv, &mlx);
 	
-	// Sprite Init
+	 // Sprite Init
 	init_sprite(mlx.lib, mlx.map.config_map, mlx.sprite);
 	
-	// Create Window
+	prepare_map(&mlx);
+
+	 // Create Window
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	assert(mlx.window != NULL);
-
-	prepare_map(&mlx);
 
 	mlx_hook(mlx.window, MotionNotify, PointerMotionMask, handle_mouse, &mlx);
 	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);

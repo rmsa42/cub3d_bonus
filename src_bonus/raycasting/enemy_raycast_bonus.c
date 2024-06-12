@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:24:23 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 11:36:59 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/12 10:50:38 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,17 @@ void	enemy_ray(t_mlx *mlx, t_list *objs_lst)
 	while (objs_lst != NULL)
 	{
 		obj = (t_objs *)objs_lst->content;
-		mlx->ray.dir.x = player->pos.x - obj->pos.x;
-		mlx->ray.dir.y = player->pos.y - obj->pos.y;
-		mlx->ray.delta.x = fabs(1 / mlx->ray.dir.x);
-		mlx->ray.delta.y = fabs(1 / mlx->ray.dir.y);
-		mlx->map.x = (int)obj->pos.x;
-		mlx->map.y = (int)obj->pos.y;
-		enemy_step_rays(mlx->map, &obj->pos, &mlx->ray);
-		enemy_dda(mlx, obj);
+		if (obj->type == ENEMY)
+		{
+			mlx->ray.dir.x = player->pos.x - obj->pos.x;
+			mlx->ray.dir.y = player->pos.y - obj->pos.y;
+			mlx->ray.delta.x = fabs(1 / mlx->ray.dir.x);
+			mlx->ray.delta.y = fabs(1 / mlx->ray.dir.y);
+			mlx->map.x = (int)obj->pos.x;
+			mlx->map.y = (int)obj->pos.y;
+			enemy_step_rays(mlx->map, &obj->pos, &mlx->ray);
+			enemy_dda(mlx, obj);
+		}
 		objs_lst = objs_lst->next;
 	}
 }

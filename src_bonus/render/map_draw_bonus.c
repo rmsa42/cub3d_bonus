@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_draw_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 15:40:34 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:57:05 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,26 @@ t_player	init_player(double x, double y, char tile)
 	player.plane = perp_vector(player.direction);
 	player.angle = 0.1;
 	player.fov = (double)FOV / 90;
-	player.key = false;
 	player.anim = false;
 	player.shoot = false;
-	player.mouse = false;
+	player.ball_node = NULL;
 	player.hp = 100;
 	return (player);
 }
 
-t_objs	*init_obj(double x, double y, t_type type)
+t_objs	*init_obj(double x, double y, int spr_index, t_type type)
 {
 	t_objs	*obj;
 
 	obj = ft_calloc(1, sizeof(t_objs));
-	obj->spr_index = 38;
+	obj->spr_index = spr_index;
 	obj->type = type;
 	obj->pos = (t_v2D){x, y};
 	obj->hp = 2;
 	if(type == SPRITE)
 		obj->hp = 10;
 	obj->state = 0;
+	update_time(&obj->last_time);
 	return (obj);
 }
 
@@ -67,13 +67,13 @@ void	draw_map(t_mlx *mlx, char *tile, int x, int y)
 	}
 	else if (*tile == 's')
 	{
-		node = ft_lstnew((void *)init_obj(x + 0.5, y + 0.5, SPRITE));
+		node = ft_lstnew((void *)init_obj(x + 0.5, y + 0.5, 13, SPRITE));
 		ft_lstadd_back(&mlx->objs_lst, node);
 		*tile = '0';
 	}
 	else if (*tile == 'e')
 	{
-		node = ft_lstnew((void *)init_obj(x + 0.5, y + 0.5, ENEMY));
+		node = ft_lstnew((void *)init_obj(x + 0.5, y + 0.5, 38, ENEMY));
 		ft_lstadd_back(&mlx->objs_lst, node);
 		*tile = '0';
 	}

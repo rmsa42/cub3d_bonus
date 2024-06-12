@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/12 11:37:33 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:51:10 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,20 @@ typedef enum	s_type
 	DOOR_OPEN,
 	ENEMY,
 	SPRITE,
+	BALL,
 	WALL
 }	t_type;
+
+typedef struct s_objs
+{
+	struct timespec last_time;
+	double elapsed_time;
+	int		spr_index;
+	t_type	type;
+	t_v2D	pos;
+	int		state;
+	int		hp;
+}	t_objs;
 
 typedef struct s_player
 {
@@ -65,11 +77,11 @@ typedef struct s_player
 	t_v2D	direction;
 	t_v2D	plane;
 	t_v2D	movement;
+	t_list	*ball_node;
 	int		hp;
 	double	angle;
 	double	fov;
 	double	pitch;
-	bool	key;
 	bool	mouse;
 	bool	shoot;
 	bool	anim;
@@ -128,17 +140,6 @@ typedef struct	s_draw
 	int			end;
 }	t_draw;
 
-typedef struct s_objs
-{
-	struct timespec last_time;
-	double elapsed_time;
-	int		spr_index;
-	t_type	type;
-	t_v2D	pos;
-	int		state;
-	int		hp;
-}	t_objs;
-
 typedef struct s_cell
 {
     int x;
@@ -164,7 +165,6 @@ typedef struct s_mlx
 	int			map_height;
 	t_cell 		*marked_cells;
     int 		num_marked_cells;
-	t_v2D		ball_pos;
 	int			test;
 	struct timespec door_time;
 	struct timespec last_time;
@@ -176,6 +176,8 @@ typedef struct s_mlx
 
 t_player	init_player(double x, double y, char tile);
 void		init_sprite(void *lib, char **conf_map, t_sprite *sprite);
+t_objs		*init_obj(double x, double y, int spr_index, t_type type);
+t_list		*init_ball(t_list **head, t_player *player);
 //Raycast
 void		ft_grua(t_mlx *mlx);
 t_draw		calculus(t_ray *ray, t_player *player, double *buffer , int side);
@@ -189,6 +191,7 @@ void		enemy_ray(t_mlx *mlx, t_list *objs_lst);
 
 // Update
 void		update_player(t_mlx *mlx, t_player *player, t_map *map);
+void		update_ball(t_player *player, t_list **objs_lst, char **game_map);
 void		update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst);
 
 //Render
@@ -227,6 +230,7 @@ void		shoot_ball(t_mlx *mlx);
 int			handle_keyPress(int keycode, t_mlx *mlx);
 int			handle_keyRelease(int keycode, t_player *player);
 int			handle_mouse(int x, int y, t_mlx *mlx);
+int			handle_mouse_press(int button, int x, int y, t_mlx *mlx);
 t_v2D		rotate(t_v2D vector, int degree);
 
 // Interactions

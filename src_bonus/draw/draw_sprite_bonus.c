@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/12 11:50:55 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:53:05 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ void	lst_loop(t_mlx *mlx, t_list *objs_lst)
 	while (objs_lst != NULL)
 	{
 		obj = (t_objs *)objs_lst->content;
-		if (obj->last_time.tv_sec == 0 && obj->last_time.tv_nsec == 0)
-			update_time(&obj->last_time);
 		update_time(&mlx->current_time);
 		obj->elapsed_time = time_passed(&obj->last_time, &mlx->current_time);
 		s_dist = sprite_dist(&mlx->player, obj->pos);
@@ -106,12 +104,6 @@ void	sprite_loop(t_mlx *mlx)
 	{
 		draw_char(mlx, char_anim, sprite_pos);
 		draw_hp(mlx);
-		if(mlx->player.shoot == true)
-		{
-			s_dist = sprite_dist(&mlx->player, mlx->ball_pos);
-			shoot_ball(mlx);
-			draw_sprite(s_dist, mlx, &mlx->sprite[mlx->test].img);
-		}
 	}
 	// print_vector(mlx->ball_pos);
 }

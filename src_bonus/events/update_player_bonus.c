@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_player_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 15:17:20 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:53:47 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,17 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 	t_v2D		y_axis;
 	t_v2D		x_axis;
 	
-	(void)mlx;
-	// // Interactions
-	// if (player->hp <= 0)
-	// {
-	// 	printf("YOU DIED\n");
-	// 	close_game(mlx);
-	// }
+	// Interactions
+	if (player->hp <= 0)
+	{
+		printf("YOU DIED\n");
+		close_game(mlx);
+	}
+
+	// Ball Update
+	if (player->shoot == true)
+		update_ball(player, &mlx->objs_lst, map->game_map);
+
 	// Player Movement (x, y)
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);
@@ -85,3 +89,4 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 	player->plane = normalize_vector(player->plane);
 	player->plane = multiply_vector(player->plane, player->fov);
 }
+
