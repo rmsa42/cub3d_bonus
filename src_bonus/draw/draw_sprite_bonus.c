@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/12 12:18:12 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:53:05 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,22 @@ void	sprite_loop(t_mlx *mlx)
 {
 	t_v2D		s_dist;
 	int		char_anim;
-	
+	t_v2D		sprite_pos;
+
 	s_dist = (t_v2D){0, 0};
+	sprite_pos = (t_v2D){20, HEIGHT - 110};
 	lst_loop(mlx, mlx->objs_lst);
 	char_anim = calc_char_anim(mlx);
-	draw_char(mlx, char_anim);
-	draw_hp(mlx);
+	if (mlx->player.hp <= 0)
+	{
+		sprite_pos = (t_v2D){(WIDTH/2) - 50, HEIGHT/2};
+		draw_end_game(mlx);
+		draw_char(mlx, char_anim, sprite_pos);
+	}
+	else
+	{
+		draw_char(mlx, char_anim, sprite_pos);
+		draw_hp(mlx);
+	}
+	// print_vector(mlx->ball_pos);
 }

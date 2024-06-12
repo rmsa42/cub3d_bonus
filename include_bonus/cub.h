@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/12 12:03:54 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:51:10 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define WIDTH 800
 # define FOV 90
 # define SPRITE_SIZE 64
-# define SPRITE_NBR 43
+# define SPRITE_NBR 52
 
 # define PI 3.14159265359
 
@@ -242,8 +242,9 @@ void		ft_perror(char *msg, t_mlx *mlx);
 
 // Draw Hud
 void	draw_hp(t_mlx *mlx);
-void	draw_char(t_mlx *mlx, int char_anim);
+void	draw_char(t_mlx *mlx, int char_anim, t_v2D sprite_pos);
 int		calc_char_anim(t_mlx *mlx);
+void draw_end_game(t_mlx *mlx);
 
 // Time
 
