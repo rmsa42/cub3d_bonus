@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_sprites_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/12 12:55:23 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:03:07 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	sprite_move(t_player *player, t_objs *obj)
 	dir = normalize_vector(dir);
 	check = dir;
 	velocity = multiply_vector(dir, SPEED * 0.7);
-	check = add_vector(obj->pos, multiply_vector(check, SPEED + 0.6));
+	check = add_vector(obj->pos, multiply_vector(check, SPEED + 0.7));
 	if ((int)check.x != (int)player->pos.x || (int)check.y != (int)player->pos.y)
 	{
 		obj->spr_index = 38;
@@ -43,11 +43,6 @@ void	sprite_move(t_player *player, t_objs *obj)
 	}
 }
 
-// void	damage_player(t_player *player, t_objs *obj)
-// {
-// 	if ((int)obj->pos.x == (int)player->pos.x && (int)obj->pos.y == (int)player->pos.y && obj->spr_index == 40)
-// 		player->hp -= 1;	
-// }
 
 void	update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst)
 {
@@ -58,10 +53,13 @@ void	update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst)
 	while (objs_lst != NULL)
 	{
 		obj = (t_objs *)objs_lst->content;
-		if (obj->state == 1)
-			sprite_move(player, obj);
-		else
-			obj->spr_index = 38;
+		if(obj->type == ENEMY)
+		{
+			if (obj->state == 1)
+				sprite_move(player, obj);
+			else
+				obj->spr_index = 38;
+		}
 /* 		damage_player(player, obj); */
 		objs_lst = objs_lst->next;
 	}

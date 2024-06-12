@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/12 12:57:11 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:05:55 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,8 @@ int	render(t_mlx *mlx)
 	update_time(&mlx->current_time);
 	mlx->elapsed_time = time_passed(&mlx->last_time, &mlx->current_time);
 	mlx->elapsed_door = time_passed(&mlx->door_time, &mlx->current_time);
-	update_player(mlx, &mlx->player, &mlx->map);
 	update_sprites(mlx, &mlx->player, mlx->objs_lst);
+	update_player(mlx, &mlx->player, &mlx->map);
 	ft_grua(mlx);
 	enemy_ray(mlx, mlx->objs_lst);
 	if (mlx->player.hp > 0)

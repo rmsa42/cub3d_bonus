@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_ball_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:56:03 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/12 12:11:32 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:01:51 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,18 @@ void	update_ball(t_player *player, t_list **objs_lst, char **game_map)
 {
 	t_v2D	velocity;
 	t_objs	*ball;
-	
+	t_objs	*obj;
+	static int i;
+
+	obj = (*objs_lst)->content;
 	velocity = (t_v2D){0, 0};
 	ball = (t_objs *)player->ball_node->content;
+	if(i++ >= 45)
+		ball->spr_index = 17;
+	else
+		ball->spr_index = 16;
+	if (i == 91)
+		i = 0;
 	if (ball_hit_obj(objs_lst, player->ball_node))
 	{
 		player->shoot = false;
