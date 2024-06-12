@@ -6,28 +6,11 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:56:03 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/12 12:11:32 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:42:59 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-void	print_list(t_list *lst)
-{
-	t_objs	*obj;
-	
-	while (lst != NULL)
-	{
-		obj = (t_objs *)lst->content;
-		if (obj->type == ENEMY)
-			printf("Enemy\n");
-		else if (obj->type == BALL)
-			printf("Ball\n");
-		else
-			printf("Sprite\n");
-		lst = lst->next;
-	}
-}
 
 void	elim_obj(t_list **head, t_list *elim_obj)
 {

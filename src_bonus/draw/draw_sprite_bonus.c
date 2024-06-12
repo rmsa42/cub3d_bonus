@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/12 12:53:05 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:36:07 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,12 @@ void	lst_loop(t_mlx *mlx, t_list *objs_lst)
 void	sprite_loop(t_mlx *mlx)
 {
 	t_v2D		s_dist;
-	int		char_anim;
+	int			char_anim;
 	t_v2D		sprite_pos;
 
 	s_dist = (t_v2D){0, 0};
 	sprite_pos = (t_v2D){20, HEIGHT - 110};
+	sort_sprites(&mlx->player, mlx->objs_lst);
 	lst_loop(mlx, mlx->objs_lst);
 	char_anim = calc_char_anim(mlx);
 	if (mlx->player.hp <= 0)
