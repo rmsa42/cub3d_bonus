@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_player_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/08 12:44:46 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:17:20 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 	t_v2D		y_axis;
 	t_v2D		x_axis;
 	
-	// Interactions
-	if (player->hp <= 0)
-	{
-		printf("YOU DIED\n");
-		close_game(mlx);
-	}
-
+	(void)mlx;
+	// // Interactions
+	// if (player->hp <= 0)
+	// {
+	// 	printf("YOU DIED\n");
+	// 	close_game(mlx);
+	// }
 	// Player Movement (x, y)
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);

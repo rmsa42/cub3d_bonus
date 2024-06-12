@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 14:40:24 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:26:56 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ int	render(t_mlx *mlx)
 	update_sprites(mlx, &mlx->player, mlx->objs_lst);
 	ft_grua(mlx);
 	enemy_ray(mlx, mlx->objs_lst);
-	draw_minimap(mlx, mlx->objs_lst);
+	if (mlx->player.hp > 0)
+		draw_minimap(mlx, mlx->objs_lst);
 	mlx_put_image_to_window(mlx->lib, mlx->window,
 			mlx->img.img_ptr, 0, 0);
 	/* fps = clock() - ; */

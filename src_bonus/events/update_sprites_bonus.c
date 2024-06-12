@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 12:57:36 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:56:18 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,14 @@ void	update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst)
 		if (obj->state == 1)
 		{
 			sprite_move(player, obj);
-			if(obj->elapsed_time >= 0.30 && obj->spr_index != 40)
+			if(obj->elapsed_time >= 0.30 && obj->spr_index != 41)
 			{
 				obj->spr_index++;
+				update_time(&obj->last_time);
+			}
+			else if(obj->elapsed_time >= 0.30 && obj->spr_index == 41)
+			{
+				obj->spr_index = 40;
 				update_time(&obj->last_time);
 			}
 		}

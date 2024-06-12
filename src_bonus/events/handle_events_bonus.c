@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/11 14:23:13 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:39:36 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	shoot_ball(t_mlx *mlx)
 			obj = (t_objs *)iterator->content;
 			if ((int)mlx->ball_pos.x == (int)obj->pos.x && (int)mlx->ball_pos.y == (int)obj->pos.y)
 			{
+				obj->hp--;
 				if (obj->hp == 0)
 				{
 					if (last == iterator)
@@ -79,7 +80,6 @@ void	shoot_ball(t_mlx *mlx)
 					iterator = mlx->objs_lst;
 					return ;
 				}
-				obj->hp--;
 				mlx->player.shoot = false;
 			}
 			last = iterator;
@@ -119,7 +119,7 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 		mlx->test = 16;
 		mlx->ball_pos = add_vector(mlx->player.pos, multiply_vector(mlx->player.direction, 0.5));
 		player->shoot = true;
-		player->anim = true;
+		mlx->player.anim = true;
 	}
 	return (0);
 }

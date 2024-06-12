@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 13:04:55 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:50:55 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,17 +90,28 @@ void	sprite_loop(t_mlx *mlx)
 {
 	t_v2D		s_dist;
 	int		char_anim;
-	
+	t_v2D		sprite_pos;
+
 	s_dist = (t_v2D){0, 0};
+	sprite_pos = (t_v2D){20, HEIGHT - 110};
 	lst_loop(mlx, mlx->objs_lst);
 	char_anim = calc_char_anim(mlx);
-	draw_char(mlx, char_anim);
-	draw_hp(mlx);
-	if(mlx->player.shoot == true)
+	if (mlx->player.hp <= 0)
 	{
-		s_dist = sprite_dist(&mlx->player, mlx->ball_pos);
-		shoot_ball(mlx);
-		draw_sprite(s_dist, mlx, &mlx->sprite[mlx->test].img);
+		sprite_pos = (t_v2D){(WIDTH/2) - 50, HEIGHT/2};
+		draw_end_game(mlx);
+		draw_char(mlx, char_anim, sprite_pos);
+	}
+	else
+	{
+		draw_char(mlx, char_anim, sprite_pos);
+		draw_hp(mlx);
+		if(mlx->player.shoot == true)
+		{
+			s_dist = sprite_dist(&mlx->player, mlx->ball_pos);
+			shoot_ball(mlx);
+			draw_sprite(s_dist, mlx, &mlx->sprite[mlx->test].img);
+		}
 	}
 	// print_vector(mlx->ball_pos);
 }

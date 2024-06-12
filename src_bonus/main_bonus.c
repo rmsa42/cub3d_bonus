@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/11 14:41:13 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:37:51 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,10 @@ int handle_mouse_press(int button, int x, int y, t_mlx *mlx)
 	(void)y;
 	if (button == 1 && mlx->player.shoot == false)
 	{
+		mlx->test = 16;
 		mlx->ball_pos = add_vector(mlx->player.pos, multiply_vector(mlx->player.direction, 0.5));
 		mlx->player.shoot = true;
+		mlx->player.anim = true;
 	}
 	return(0);
 }

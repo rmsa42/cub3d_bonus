@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:15:49 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 14:41:45 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:52:05 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	door_hit(t_mlx *mlx, t_map	*map)
 	if (map->game_map[map->y][map->x] == 'd' )
 	{
 		mlx->spr_index = i;
-		if (mlx->elapsed_door >= 0.20)
+		if (mlx->elapsed_door >= 0.25)
 		{
 			i++;
 			update_time(&mlx->door_time);

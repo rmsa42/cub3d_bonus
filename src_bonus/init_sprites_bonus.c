@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:38:56 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 12:21:05 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:31:28 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,16 @@ void	init_sprite(void *lib, char **conf_map, t_sprite *sprite)
 	sprite[38] = xpm_to_image(lib, "sprites/enemy/enemy2.xpm");
 	sprite[39] = xpm_to_image(lib, "sprites/enemy/enemy3.xpm");
 	sprite[40] = xpm_to_image(lib, "sprites/enemy/enemy4.xpm");
-	sprite[41] = xpm_to_image(lib, "sprites/enemy/enemy5.xpm");
-	sprite[42] = xpm_to_image(lib, "sprites/enemy/enemy6.xpm");
+	sprite[41] = xpm_to_image(lib, "sprites/enemy/enemy_down.xpm");
+	sprite[42] = xpm_to_image(lib, "sprites/enemy/enemy5.xpm");
+	sprite[43] = xpm_to_image(lib, "sprites/enemy/enemy6.xpm");
+	sprite[44] = xpm_to_image(lib, "sprites/end_game.xpm");
+	sprite[45] = xpm_to_image(lib, "sprites/sprite/dying.xpm");
+	sprite[46] = xpm_to_image(lib, "sprites/sprite/dying2.xpm");
+	sprite[47] = xpm_to_image(lib, "sprites/sprite/dying3.xpm");
+	sprite[48] = xpm_to_image(lib, "sprites/sprite/dying4.xpm");
+	sprite[49] = xpm_to_image(lib, "sprites/sprite/dying5.xpm");
+	sprite[50] = xpm_to_image(lib, "sprites/sprite/dying6.xpm");
+	sprite[51] = xpm_to_image(lib, "sprites/sprite/dying7.xpm");
+
 }
