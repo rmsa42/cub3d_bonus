@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/13 11:58:45 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/13 12:12:24 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,9 @@ void	lst_loop(t_mlx *mlx, t_list *objs_lst)
 	t_objs		*obj;
 	
 	s_dist = (t_v2D){0, 0};
-	print_list(mlx->objs_lst);
-	printf("\n");
 	while (objs_lst != NULL)
 	{
 		obj = (t_objs *)objs_lst->content;
-		/* printf("%d\n", );
-		exit(0); */
 		update_time(&mlx->current_time);
 		obj->elapsed_time = time_passed(&obj->last_time, &mlx->current_time);
 		s_dist = sprite_dist(&mlx->player, obj->pos);

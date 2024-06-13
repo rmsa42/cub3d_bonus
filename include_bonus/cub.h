@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/13 12:05:58 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:29:53 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 # include "../minilibx-linux/mlx.h"
 # include "../minilibx-linux/mlx_int.h"
 # include "vector2D.h"
+/* # include "sprite_enum.h" */
 # include <assert.h>
 # include <stdbool.h>
-#include <time.h>
+# include <time.h>
 
 # define ESC 65307
 # define W 119
@@ -39,8 +40,9 @@
 
 # define PI 3.14159265359
 
-# define SPEED 0.02
-# define ROTATION_SPEED 3
+# define BALL_SPEED 9
+# define PL_SPEED 3
+# define ROTATION_SPEED 250
 
 # define NO 0
 # define SO 1
@@ -49,7 +51,7 @@
 # define F 4
 # define C 5
 
-typedef enum	s_type
+typedef enum	e_type
 {
 	FLOOR,
 	DOOR,
@@ -169,14 +171,16 @@ typedef struct s_mlx
 	struct timespec door_time;
 	struct timespec last_time;
 	struct timespec current_time;
+	struct timespec prev_time;
 	double elapsed_time;
 	double elapsed_door;
+	double	delta;
 }	t_mlx;
 
 
 t_player	init_player(double x, double y, char tile);
 void		init_sprite(void *lib, char **conf_map, t_sprite *sprite);
-t_objs		*init_obj(double x, double y, int spr_index, t_type type);
+t_objs		*init_obj(t_v2D pos, int spr_index, int hp, t_type type);
 t_list		*init_ball(t_list **head, t_player *player);
 //Raycast
 void		ft_grua(t_mlx *mlx);
@@ -191,7 +195,7 @@ void		enemy_ray(t_mlx *mlx, t_list *objs_lst);
 
 // Update
 void		update_player(t_mlx *mlx, t_player *player, t_map *map);
-void		update_ball(t_player *player, t_list **objs_lst, char **game_map);
+void		update_ball(t_mlx *mlx, t_player *player, char **game_map);
 void		update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst);
 
 //Render
@@ -231,7 +235,7 @@ int			handle_keyPress(int keycode, t_mlx *mlx);
 int			handle_keyRelease(int keycode, t_player *player);
 int			handle_mouse(int x, int y, t_mlx *mlx);
 int			handle_mouse_press(int button, int x, int y, t_mlx *mlx);
-t_v2D		rotate(t_v2D vector, int degree);
+t_v2D		rotate(t_v2D vector, double degree);
 
 // Interactions
 t_type		get_next_tile(char **game_map, t_player *player);

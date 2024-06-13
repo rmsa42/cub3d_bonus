@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/12 12:52:16 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:35:37 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	init_mlx(t_mlx *mlx)
 	mlx->lib = mlx_init();
 	if (mlx->lib == NULL)
 	{
-		perror("MLX Error\n");
+		ft_fprintf(STDERR_FILENO, "mlx_init Failed\n");
 		return (-1);
 	}
 	mlx->objs_lst = NULL;
@@ -56,6 +56,7 @@ int	init_mlx(t_mlx *mlx)
 	mlx->spr_index = 0;
 	mlx->map_width = 0;
 	mlx->map_height = 0;
+	mlx->delta = 0;
 	ft_memset(mlx->sprite, 0, sizeof(t_sprite) * SPRITE_NBR);
 	ft_memset(&mlx->map, 0, sizeof(t_map));
 	ft_memset(&mlx->ray, 0, sizeof(t_ray));
@@ -65,6 +66,7 @@ int	init_mlx(t_mlx *mlx)
 	ft_memset(&mlx->last_time, 0, sizeof(struct timespec));
 	update_time(&mlx->door_time);
 	update_time(&mlx->last_time);
+	update_time(&mlx->prev_time);
 	return (0);
 }
 

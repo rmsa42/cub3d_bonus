@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/13 12:07:08 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:04:40 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ void portal_calc(t_player *player, t_v2D old_pos, t_v2D check, t_v2D velocity)
 	}
 }
 
-
-void	print_list(t_list *lst);
-
-void	player_move(t_list *objs_lst,t_player *player, char **game_map, t_v2D x, t_v2D y)
+void	player_move(t_list *objs_lst, t_player *player, char **game_map, t_v2D x, t_v2D y, double delta)
 {
 	t_v2D	velocity;
 	t_v2D	new_pos;
@@ -57,11 +54,11 @@ void	player_move(t_list *objs_lst,t_player *player, char **game_map, t_v2D x, t_
 	old_pos = player->pos;
 	new_pos = add_vector(x, y);
 	new_pos = normalize_vector(new_pos);
-	velocity = multiply_vector(new_pos, SPEED);
-	offset = multiply_vector(new_pos, SPEED + 0.1);
+	velocity = multiply_vector(new_pos, PL_SPEED * delta);
+	offset = multiply_vector(new_pos, (PL_SPEED + 0.1) * delta);
 	check = add_vector(player->pos, offset);
 	new_pos = add_vector(player->pos, velocity);
-	while(objs_lst)
+	while (objs_lst)
 	{
 		obj = (t_objs *)objs_lst->content;
 		if (((int)check.x ==  (int)obj->pos.x && (int)check.y ==  (int)obj->pos.y))
@@ -82,17 +79,15 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 	
 	// Ball Update
 	if (player->shoot == true)
-		update_ball(player, &mlx->objs_lst, map->game_map);
+		update_ball(mlx, player, map->game_map);
 
 	// Player Movement (x, y)
 	y_axis = multiply_vector(player->direction, player->movement.y);
 	x_axis = multiply_vector(player->plane, player->movement.x);
-	player_move(mlx->objs_lst, player, map->game_map, x_axis, y_axis);
+	player_move(mlx->objs_lst, player, map->game_map, x_axis, y_axis, mlx->delta);
 	// Player Camera Rotation
-	player->direction = add_vector(player->direction, rotate(player->direction, player->angle));
-	player->direction = normalize_vector(player->direction);
-	player->plane = add_vector(player->plane, rotate(player->plane, player->angle));
-	player->plane = normalize_vector(player->plane);
+	player->direction = rotate(player->direction, player->angle * mlx->delta * ROTATION_SPEED);
+	player->plane = rotate(player->plane, player->angle * mlx->delta * ROTATION_SPEED);
 	player->plane = multiply_vector(player->plane, player->fov);
 }
 

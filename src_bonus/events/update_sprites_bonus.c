@@ -6,13 +6,13 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/13 12:07:50 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:06:07 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	sprite_move(t_player *player, t_objs *obj)
+void	sprite_move(t_player *player, t_objs *obj, double delta)
 {
 	t_v2D	dir;
 	t_v2D	velocity;
@@ -22,8 +22,8 @@ void	sprite_move(t_player *player, t_objs *obj)
 	dir.y = player->pos.y - obj->pos.y;
 	dir = normalize_vector(dir);
 	check = dir;
-	velocity = multiply_vector(dir, SPEED * 0.7);
-	check = add_vector(obj->pos, multiply_vector(check, SPEED + 0.7));
+	velocity = multiply_vector(dir, (PL_SPEED * 0.7) * delta);
+	check = add_vector(obj->pos, multiply_vector(check, (PL_SPEED + 0.7) * delta));
 	if ((int)check.x != (int)player->pos.x || (int)check.y != (int)player->pos.y)
 	{
 		obj->spr_index = 38;
@@ -55,7 +55,7 @@ void	update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst)
 		if(obj->type == ENEMY)
 		{
 			if (obj->state == 1)
-				sprite_move(player, obj);
+				sprite_move(player, obj, mlx->delta);
 			else
 				obj->spr_index = 38;
 		}
