@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/12 14:23:20 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/13 12:05:58 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,9 +246,16 @@ void	draw_char(t_mlx *mlx, int char_anim, t_v2D sprite_pos);
 int		calc_char_anim(t_mlx *mlx);
 void draw_end_game(t_mlx *mlx);
 
+// Sort Sprite
+t_list	*sort_sprites(t_player *player, t_list *objs_lst);
+
 // Time
 
 void	update_time(struct timespec *time);
 double	time_passed(struct timespec *last, struct timespec *current);
+
+// Free Mem
+void	free_list(t_list *lst);
+void	print_list(t_list *lst);
 
 #endif

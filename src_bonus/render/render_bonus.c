@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/12 14:05:55 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/13 12:08:03 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,6 @@ void draw_minimap(t_mlx *mlx, t_list *objs_lst)
 
 int	render(t_mlx *mlx)
 {
-/* 	double	fps; */
-
 	mlx->img = new_image(mlx);
 	update_time(&mlx->current_time);
 	mlx->elapsed_time = time_passed(&mlx->last_time, &mlx->current_time);
@@ -120,7 +118,6 @@ int	render(t_mlx *mlx)
 		draw_minimap(mlx, mlx->objs_lst);
 	mlx_put_image_to_window(mlx->lib, mlx->window,
 			mlx->img.img_ptr, 0, 0);
-	/* fps = clock() - ; */
 	mlx_destroy_image(mlx->lib, mlx->img.img_ptr);
 	return (0);
 }

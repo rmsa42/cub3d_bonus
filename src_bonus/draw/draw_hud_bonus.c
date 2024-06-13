@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_hud_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:27:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/12 11:53:46 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:19:04 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	draw_char(t_mlx *mlx, int char_anim, t_v2D sprite_pos)
 
 void draw_end_game(t_mlx *mlx) 
 {
-    t_v2D	scr;
+	t_v2D	scr;
 	t_v2D	texture;
 	int		color;
 

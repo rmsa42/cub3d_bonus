@@ -3,31 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   update_ball_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:56:03 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/12 15:01:51 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/13 12:06:20 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-void	print_list(t_list *lst)
-{
-	t_objs	*obj;
-	
-	while (lst != NULL)
-	{
-		obj = (t_objs *)lst->content;
-		if (obj->type == ENEMY)
-			printf("Enemy\n");
-		else if (obj->type == BALL)
-			printf("Ball\n");
-		else
-			printf("Sprite\n");
-		lst = lst->next;
-	}
-}
 
 void	elim_obj(t_list **head, t_list *elim_obj)
 {

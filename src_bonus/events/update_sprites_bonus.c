@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_sprites_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/12 13:03:07 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/13 12:07:50 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	sprite_move(t_player *player, t_objs *obj)
 	}
 }
 
-
 void	update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst)
 {
 	t_objs	*obj;
@@ -60,7 +59,6 @@ void	update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst)
 			else
 				obj->spr_index = 38;
 		}
-/* 		damage_player(player, obj); */
 		objs_lst = objs_lst->next;
 	}
 }
