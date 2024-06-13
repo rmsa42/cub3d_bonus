@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/13 12:08:03 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:59:42 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,46 +62,62 @@ void minimap_tiles(t_mlx *mlx,int tile_size)
 	}
 }
 
-void draw_minimap(t_mlx *mlx, t_list *objs_lst) 
+void	map_objs(t_mlx *mlx, t_list *objs_lst, int tile_size, int i, int j)
 {
-	int minimap_size = 200;
-	int tile_size = minimap_size / 36;
+	t_v2D	sprite;
 	t_objs		*obj;
-	int ball_x;
-	int ball_y;
+
+	while (objs_lst != NULL)
+	{
+		obj = (t_objs *)objs_lst->content;
+		sprite = multiply_vector(obj->pos, tile_size);
+		if (obj->type == ENEMY)
+			pixel_put(&mlx->img, sprite.x + i, sprite.y + j, 0xFF0000);
+		else
+			pixel_put(&mlx->img, sprite.x + i, sprite.y + j, 0xFFFF00);
+		objs_lst = objs_lst->next;
+	}	
+}
+
+void	draw_map_sprites(t_mlx *mlx, t_list *objs_lst, int tile_size)
+{
+	t_v2D	player;
+	t_v2D	ball;
+	t_objs	*obj;
+	int sprite_size = tile_size / 2;
+	int i;
+	int	j;
 	
-	minimap_tiles(mlx, tile_size);
+	i = -sprite_size;
+	player = multiply_vector(mlx->player.pos, tile_size);
 	if (mlx->player.shoot == true)
 	{
 		obj = (t_objs *)mlx->player.ball_node->content;
-		ball_x = obj->pos.x * tile_size;
-		ball_y = obj->pos.y * tile_size;
+		ball = multiply_vector(obj->pos, tile_size);
 	}
-	int player_x = mlx->player.pos.x * tile_size;
-	int player_y = mlx->player.pos.y * tile_size;
-	int player_size = tile_size / 2;
-	int i = -player_size;
-	while (i < player_size) 
+	while (i < sprite_size) 
 	{
-		int j = -player_size;
-		while (j < player_size) 
+		j = -sprite_size;
+		while (j < sprite_size) 
 		{
 			objs_lst = mlx->objs_lst;
-			while (objs_lst != NULL)
-			{
-				obj = (t_objs *)objs_lst->content;
-				int sprite_x = obj->pos.x * tile_size;
-				int sprite_y = obj->pos.y * tile_size;
-				pixel_put(&mlx->img, sprite_x + i, sprite_y + j, 0xFF0000);
-				objs_lst = objs_lst->next;
-			}
+			map_objs(mlx, objs_lst, tile_size, i , j);
 			if (mlx->player.shoot == true)
-				pixel_put(&mlx->img, ball_x + i, ball_y + j, 0x0000FF);
-			pixel_put(&mlx->img, player_x + i, player_y + j, 0x00FF00);
+				pixel_put(&mlx->img, ball.x + i, ball.y + j, 0x0000FF);
+			pixel_put(&mlx->img, player.x + i, player.y + j, 0x00FF00);
 			j++;
 		}
 		i++;
 	}
+}
+
+void draw_minimap(t_mlx *mlx, t_list *objs_lst) 
+{
+	int minimap_size = 200;
+	int tile_size = minimap_size / 36;
+	
+	minimap_tiles(mlx, tile_size);
+	draw_map_sprites(mlx, objs_lst, tile_size);
 }
 
 int	render(t_mlx *mlx)

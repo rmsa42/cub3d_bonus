@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/13 13:25:12 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:54:46 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 # define HEIGHT 600
 # define WIDTH 800
-# define FOV 90
+# define FOV 60
 # define SPRITE_SIZE 64
 # define SPRITE_NBR 58
 

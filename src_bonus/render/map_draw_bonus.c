@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/13 13:21:41 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:13:55 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ t_objs	*init_obj(double x, double y, int spr_index, t_type type)
 	obj->spr_index = spr_index;
 	obj->type = type;
 	obj->pos = (t_v2D){x, y};
-	obj->hp = 2;
-	if(type == SPRITE)
-		obj->hp = 20;
+	obj->hp = 20;
+	if(type == ENEMY)
+		obj->hp = 2;
 	obj->state = 0;
 	update_time(&obj->last_time);
 	return (obj);
