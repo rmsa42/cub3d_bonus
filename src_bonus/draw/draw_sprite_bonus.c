@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/13 11:58:45 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:22:39 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ void	lst_loop(t_mlx *mlx, t_list *objs_lst)
 	t_objs		*obj;
 	
 	s_dist = (t_v2D){0, 0};
-	print_list(mlx->objs_lst);
-	printf("\n");
 	while (objs_lst != NULL)
 	{
 		obj = (t_objs *)objs_lst->content;
@@ -87,6 +85,7 @@ void	lst_loop(t_mlx *mlx, t_list *objs_lst)
 		objs_lst = objs_lst->next;
 	}
 }
+
 
 void	sprite_loop(t_mlx *mlx)
 {
@@ -110,5 +109,7 @@ void	sprite_loop(t_mlx *mlx)
 		draw_char(mlx, char_anim, sprite_pos);
 		draw_hp(mlx);
 	}
+	sprite_pos = (t_v2D){WIDTH - 150, -30};
+	draw_char(mlx, 52 + mlx->player.coins, sprite_pos);
 	// print_vector(mlx->ball_pos);
 }

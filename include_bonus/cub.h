@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/13 12:05:58 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:25:12 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define WIDTH 800
 # define FOV 90
 # define SPRITE_SIZE 64
-# define SPRITE_NBR 52
+# define SPRITE_NBR 58
 
 # define PI 3.14159265359
 
@@ -57,6 +57,7 @@ typedef enum	s_type
 	ENEMY,
 	SPRITE,
 	BALL,
+	COLLECT,
 	WALL
 }	t_type;
 
@@ -79,6 +80,7 @@ typedef struct s_player
 	t_v2D	movement;
 	t_list	*ball_node;
 	int		hp;
+	int		coins;
 	double	angle;
 	double	fov;
 	double	pitch;
@@ -257,5 +259,6 @@ double	time_passed(struct timespec *last, struct timespec *current);
 // Free Mem
 void	free_list(t_list *lst);
 void	print_list(t_list *lst);
+void	elim_obj(t_list **head, t_list *elim_obj);
 
 #endif
