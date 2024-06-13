@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/12 12:55:23 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/13 10:24:47 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,14 @@ void	update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst)
 	while (objs_lst != NULL)
 	{
 		obj = (t_objs *)objs_lst->content;
-		if (obj->state == 1)
-			sprite_move(player, obj);
-		else
-			obj->spr_index = 38;
-/* 		damage_player(player, obj); */
+		if (obj->type == ENEMY)
+		{
+			if (obj->state == 1)
+				sprite_move(player, obj);
+			else
+				obj->spr_index = 38;
+	/* 		damage_player(player, obj); */	
+		}
 		objs_lst = objs_lst->next;
 	}
 }

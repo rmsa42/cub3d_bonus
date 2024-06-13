@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/12 12:53:47 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/13 12:01:38 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,6 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 {
 	t_v2D		y_axis;
 	t_v2D		x_axis;
-	
-	// Interactions
-	if (player->hp <= 0)
-	{
-		printf("YOU DIED\n");
-		close_game(mlx);
-	}
 
 	// Ball Update
 	if (player->shoot == true)

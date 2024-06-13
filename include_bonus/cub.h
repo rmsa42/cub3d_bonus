@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/12 15:40:30 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:19:44 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,12 +146,6 @@ typedef struct s_cell
     int y;
 }              t_cell;
 
-typedef struct	s_sort
-{
-	int		order;
-	double	dist;
-}	t_sort;
-
 typedef struct s_mlx
 {
 	char		*file;
@@ -253,11 +247,15 @@ int		calc_char_anim(t_mlx *mlx);
 void draw_end_game(t_mlx *mlx);
 
 // Sort Sprite
-void	sort_sprites(t_player *player, t_list *objs_lst);
+t_list	*sort_sprites(t_player *player, t_list *objs_lst);
 
 // Time
 
 void	update_time(struct timespec *time);
 double	time_passed(struct timespec *last, struct timespec *current);
+
+// Free Mem
+void	free_list(t_list *lst);
+void	print_list(t_list *lst);
 
 #endif
