@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/14 10:35:15 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:43:24 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ t_v2D	get_position(t_player *player, double speed)
 	x = multiply_vector(player->plane, player->movement.x);
 	new_pos = add_vector(x, y);
 	new_pos = normalize_vector(new_pos);
-	velocity = multiply_vector(new_pos, PL_SPEED * delta);
-	offset = multiply_vector(new_pos, (PL_SPEED + 0.1) * delta);
-	check = add_vector(player->pos, offset);
+	velocity = multiply_vector(new_pos, PL_SPEED);
 	new_pos = add_vector(player->pos, velocity);
 	return(new_pos);
 }
@@ -115,8 +113,8 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 		update_ball(mlx, player, map->game_map);
 
 	// Player Movement (x, y)
-	new_pos = get_position(player, SPEED);
-	check = get_position(player, SPEED + 0.1);
+	new_pos = get_position(player, PL_SPEED * mlx->delta);
+	check = get_position(player, (PL_SPEED + 0.1) * mlx->delta);
 	collision = object_check(mlx, mlx->objs_lst, map->game_map, check);
 	if (collision == false)
 		player_move(player, map->game_map, new_pos, check);
