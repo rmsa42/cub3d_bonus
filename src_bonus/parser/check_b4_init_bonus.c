@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_b4_init_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:40:18 by jmarinho          #+#    #+#             */
-/*   Updated: 2024/06/06 10:14:01 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:29:25 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,6 @@ void	ft_perror(char *msg, t_mlx *mlx)
 {
     ft_fprintf(2, "%s", msg);
 	(void) mlx;
-	/*if (*mlx->map.file_map)
-		ft_free_dp((void**)mlx->map.file_map);
-	if (*mlx->map.game_map)
-		ft_free_dp((void**)mlx->map.game_map);
-	//ft_free_dp((void**)mlx->map.config_map);*/
     exit (EXIT_SUCCESS);
 }
 

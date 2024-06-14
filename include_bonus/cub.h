@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/14 12:43:17 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:09:43 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,7 @@ t_v2D		rotate(t_v2D vector, double degree);
 // Interactions
 t_type		get_next_tile(char **game_map, t_player *player);
 void		interact_door(char **game_map, t_player *player);
-
+bool		check_objs_collision(t_mlx *mlx, t_list *objs_lst, t_v2D check);
 void		close_game(t_mlx *mlx);
 void		ft_perror(char *msg, t_mlx *mlx);
 

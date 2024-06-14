@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/14 14:09:06 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:12:19 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,32 +58,13 @@ t_v2D	get_position(t_player *player, double speed)
 
 bool	object_check(t_mlx *mlx, t_list *objs_lst, char **game_map, t_v2D check)
 {
-	t_objs	*obj;
-	t_list	*delete;
-	bool	i;
+	bool	collision;
 
-	i = false;
-	while(objs_lst)
-	{
-		obj = (t_objs *)objs_lst->content;
-		if (((int)check.x ==  (int)obj->pos.x && (int)check.y ==  (int)obj->pos.y))
-		{
-			if(obj->type == COLLECT && mlx->player.coins < 4)
-			{
-				delete = objs_lst;
-				objs_lst = objs_lst->next;
-				elim_obj(&mlx->objs_lst, delete);
-				mlx->player.coins++;
-				continue ;
-			}
-			i = true;
-		}
-		objs_lst = objs_lst->next;
-	}
+	collision = check_objs_collision(mlx, objs_lst, check);
 	if (game_map[(int)check.y][(int)check.x] == '1'
 			|| game_map[(int)check.y][(int)check.x] == 'D')
-			i = true;
-	return(i);
+			collision = true;
+	return(collision);
 }
 
 void	player_move(t_player *player, char **game_map, t_v2D new_pos, t_v2D check)

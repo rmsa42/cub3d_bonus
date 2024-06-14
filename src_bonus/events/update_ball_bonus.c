@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_ball_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:56:03 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/13 16:30:47 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:34:29 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,11 @@ int	ball_hit_obj(t_list **objs_lst, t_list *ball_node)
 	return (0);
 }
 
-void	update_ball(t_mlx *mlx, t_player *player, char **game_map)
+void	ball_movement(t_mlx *mlx, t_player *player, char **game_map, t_objs *ball)
 {
 	t_v2D	velocity;
-	t_objs	*ball;
-	static int i;
 
 	velocity = (t_v2D){0, 0};
-	ball = (t_objs *)player->ball_node->content;
-	if(i++ >= 45)
-		ball->spr_index = 17;
-	else
-		ball->spr_index = 16;
-	if (i == 91)
-		i = 0;
 	if (ball_hit_obj(&mlx->objs_lst, player->ball_node))
 	{
 		player->shoot = false;
@@ -89,6 +80,22 @@ void	update_ball(t_mlx *mlx, t_player *player, char **game_map)
 		player->shoot = false;
 		elim_obj(&mlx->objs_lst, player->ball_node);
 	}
+
+}
+
+void	update_ball(t_mlx *mlx, t_player *player, char **game_map)
+{
+	t_objs	*ball;
+	static int i;
+
+	ball = (t_objs *)player->ball_node->content;
+	if(i++ >= 45)
+		ball->spr_index = BALL2;
+	else
+		ball->spr_index = BALL1;
+	if (i == 91)
+		i = 0;
+	ball_movement(mlx, player, game_map, ball);
 }
 
 t_list	*init_ball(t_list **head, t_player *player)

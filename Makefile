@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
+#    By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/06/14 10:06:48 by rumachad         ###   ########.fr        #
+#    Updated: 2024/06/14 15:10:03 by cacarval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRC_BONUS = main_bonus.c \
 	copy_config_map_bonus.c \
 	copy_game_map_bonus.c \
 	clean_bonus.c \
+	check_objs_bonus.c \
 	map_parser.c
 
 OBJ_BONUS_PATH = obj_bonus/
