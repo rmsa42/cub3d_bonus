@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/14 10:32:20 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:12:49 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ typedef struct s_player
 	int		hp;
 	int		coins;
 	double	angle;
-	double	fov;
 	double	pitch;
 	bool	mouse;
 	bool	shoot;
@@ -216,7 +215,7 @@ void		ft_count_map_lines(t_mlx *mlx);
 // Parser (MAP)
 int			check_element(char *line);
 int			check_path(char *line);
-int			check_rgb(int **cc, char *line);
+int			check_rgb(int **c, char *line);
 int			check_conf(void *lib, char **conf_map, t_sprite *sprite);
 int			color(int nbr);
 int			shift_color(int *rgb);
@@ -227,6 +226,8 @@ int			ft_check_filename(t_mlx *mlx);
 void    	ft_read_file_and_copy_map(char *file, t_mlx *mlx);
 
 int			map_parser(char *file_name, t_mlx *mlx);
+int			create_config_map(t_map *map, char **full_map);
+int			create_content_map(t_map *map, char **full_map, int after, int len);
 
 // Image
 void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
@@ -252,7 +253,7 @@ void		ft_perror(char *msg, t_mlx *mlx);
 void	draw_hp(t_mlx *mlx);
 void	draw_char(t_mlx *mlx, int char_anim, t_v2D sprite_pos);
 int		calc_char_anim(t_mlx *mlx);
-void draw_end_game(t_mlx *mlx);
+void	draw_end_game(t_mlx *mlx);
 
 // Sort Sprite
 t_list	*sort_sprites(t_player *player, t_list *objs_lst);

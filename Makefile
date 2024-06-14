@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/06/14 10:06:48 by rumachad         ###   ########.fr        #
+#    Updated: 2024/06/14 16:03:51 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,8 @@ SRC_BONUS = main_bonus.c \
 	copy_config_map_bonus.c \
 	copy_game_map_bonus.c \
 	clean_bonus.c \
-	map_parser.c
+	map_parser.c \
+	parse_elements_bonus.c
 
 OBJ_BONUS_PATH = obj_bonus/
 OBJ_BONUS_FILES = $(SRC_BONUS:.c=.o)

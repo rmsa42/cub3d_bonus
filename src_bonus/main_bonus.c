@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/14 10:32:31 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:32:43 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,22 @@ int	check_conf(void *lib, char **conf_map, t_sprite *sprite)
 	rgb = (int *)malloc(sizeof(int) * 3);
 	if (rgb == NULL)
 		return (0);
+	ft_memset(rgb, 0, sizeof(int) * 3);
 	while (++k < 6)
 	{
 		if (k >= 0 && k < 4)
 		{
-			if (check_path(conf_map[k]))
+			if (check_path(conf_map[k] + 2))
 				return (-1);
-			sprite[k] = xpm_to_image(lib, conf_map[k]);
+			sprite[k] = xpm_to_image(lib, conf_map[k] + 3);
 		}
 		else if (k >= 4)
 		{
-			if (check_rgb(&rgb, conf_map[k]))
+			if (check_rgb(&rgb, conf_map[k] + 2))
 				return (-1);
+			printf("%d\n", rgb[0]);
+			printf("%d\n", rgb[1]);
+			printf("%d\n", rgb[2]);
 			sprite[k].color = shift_color(rgb);
 		}
 	}
@@ -84,12 +88,10 @@ int main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	}
 	map_parser(argv[1], &mlx);
-	exit(0);
-	ft_check_b4_init(argc, argv, &mlx);
-	
+
 	 // Sprite Init
 	init_sprite(mlx.lib, mlx.map.config_map, mlx.sprite);
-	
+
 	prepare_map(&mlx);
 
 	 // Create Window

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_sprites_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:38:56 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/13 13:16:46 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:19:43 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	get_sprite_img(t_image *img)
 t_sprite	xpm_to_image(void *lib, char *texture)
 {
 	t_sprite	sprite;
-	
+
 	sprite.img.img_ptr = mlx_xpm_file_to_image(lib, texture,
 						&sprite.width, &sprite.height);
 	assert(sprite.img.img_ptr != NULL);
@@ -95,4 +95,5 @@ void	init_sprite(void *lib, char **conf_map, t_sprite *sprite)
 	sprite[23] = xpm_to_image(lib, "sprites/sprite/character6.xpm");
 	init_sprite2(lib, sprite);
 	init_sprite3(lib, sprite);
+	(void)conf_map;
 }

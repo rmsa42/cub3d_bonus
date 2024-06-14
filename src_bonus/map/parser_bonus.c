@@ -3,14 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   parser_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/31 15:19:24 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:12:58 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+int	check_rgb(int **c, char *line)
+{
+	char	**rgb;
+	int		i;
+	int		ele_color;
+
+	i = 0;
+	rgb = ft_split(line, ',');
+	while (rgb[i])
+	{
+		ele_color = ft_atoi(rgb[i]);
+		if (!color(ele_color))
+		{
+			c[0][i] = ele_color;
+			break;
+		}
+		i++;
+	}
+	ft_free_dp((void **)rgb);
+	if (i != 3)
+		return (-1);
+	return (0);
+}
+
+int	check_path(char *line)
+{
+	int	fd;
+
+	line += advance_space(line);
+	fd = open(line, O_RDONLY);
+	if (fd == -1)
+		return (-1);
+	close(fd);
+	line += 1;
+	if (ft_strncmp(ft_strchr(line, '.'), ".xpm", 5))
+		return (-1);
+	return (0);
+}
 
 int	check_element(char *line)
 {
@@ -36,42 +75,7 @@ int	check_element(char *line)
 	return (-1);
 }
 
-int	check_rgb(int **cc, char *line)
-{
-	char	**rgb;
-	int		i;
-
-	i = 0;
-	rgb = ft_split(line, ',');
-	while (rgb[i])
-	{
-		cc[0][i] = ft_atoi(rgb[i]);
-		if (!color(cc[0][i]))
-			break;
-		i++;
-	}
-	ft_free_dp((void **)rgb);
-	if (i == 3)
-		return (0);
-	return (-1);
-}
-
-int	check_path(char *line)
-{
-	int	fd;
-
-	fd = open(line, O_RDONLY);
-	if (fd == -1)
-		return (-1);
-	close(fd);
-	line += 1;
-	if (ft_strncmp(ft_strchr(line, '.'), ".xpm", 5))
-		return (-1);
-	return (0);
-}
-
-
-/* int	check_line(t_sprite *sprite, char *line)
+/* int	check_line(char *line, int *ret)
 {
 	int	i;
 
@@ -80,7 +84,7 @@ int	check_path(char *line)
 	if (i >= 0 && i < 4)
 		i = check_path(line + 2);
 	else if (i >= 4)
-		i = check_rgb(&sprite[i], line + 2);
+		i = check_rgb(line + 2);
 	if (i == -1)
 		return (1);
 	return (0);
