@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/14 10:32:31 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/14 11:17:56 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	}
 	map_parser(argv[1], &mlx);
-	exit(0);
 	ft_check_b4_init(argc, argv, &mlx);
 	
 	 // Sprite Init

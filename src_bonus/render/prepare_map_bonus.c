@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_map_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/14 10:38:08 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:51:13 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ t_player	init_player(double x, double y, char tile)
 	player.movement = (t_v2D){0, 0};
 	player.plane = perp_vector(player.direction);
 	player.angle = 0;
-	player.fov = (double)FOV / 90;
 	player.coins = 0;
+	player.plane = multiply_vector(player.plane, (double)FOV / 90);
 	player.anim = false;
 	player.shoot = false;
 	player.ball_node = NULL;
@@ -66,11 +66,11 @@ void	draw_map(t_mlx *mlx, char *tile, int x, int y)
 		*tile = '0';
 	}
 	else if (*tile == 's')
-		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, 13, 20, SPRITE));
+		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, BARREL, 20, SPRITE));
 	else if (*tile == 'e')
-		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, 38, 2, ENEMY));
+		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, ENEMY1, 2, ENEMY));
 	else if (*tile == 'C')
-		node = ft_lstnew((void *)init_obj(x + 0.5, y + 0.5, 57, COLLECT));
+		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, COLLEC, 1000, COLLECT));
 	if (node != NULL)
 	{
 		ft_lstadd_back(&mlx->objs_lst, node);

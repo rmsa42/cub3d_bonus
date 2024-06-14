@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:38:56 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/13 13:16:46 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:39:54 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	init_sprite3(void *lib, t_sprite *sprite)
 	sprite[55] = xpm_to_image(lib, "sprites/coins4.xpm");
 	sprite[56] = xpm_to_image(lib, "sprites/coins5.xpm");
 	sprite[57] = xpm_to_image(lib, "sprites/collec.xpm");
+	sprite[58] = xpm_to_image(lib, "sprites/win_game.xpm");
 }
 
 void	init_sprite2(void *lib, t_sprite *sprite)

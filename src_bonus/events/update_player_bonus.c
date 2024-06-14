@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_player_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/14 10:43:24 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:09:06 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_v2D	get_position(t_player *player, double speed)
 	x = multiply_vector(player->plane, player->movement.x);
 	new_pos = add_vector(x, y);
 	new_pos = normalize_vector(new_pos);
-	velocity = multiply_vector(new_pos, PL_SPEED);
+	velocity = multiply_vector(new_pos, speed);
 	new_pos = add_vector(player->pos, velocity);
 	return(new_pos);
 }
@@ -113,14 +113,15 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 		update_ball(mlx, player, map->game_map);
 
 	// Player Movement (x, y)
+	if(player->hp < 0)
+		player->hp = 0;
 	new_pos = get_position(player, PL_SPEED * mlx->delta);
 	check = get_position(player, (PL_SPEED + 0.1) * mlx->delta);
 	collision = object_check(mlx, mlx->objs_lst, map->game_map, check);
-	if (collision == false)
+	if (collision == false && player->hp > 0)
 		player_move(player, map->game_map, new_pos, check);
 
 	// Player Camera Rotation
 	player->direction = rotate(player->direction, player->angle * mlx->delta * ROTATION_SPEED);
 	player->plane = rotate(player->plane, player->angle * mlx->delta * ROTATION_SPEED);
-	player->plane = multiply_vector(player->plane, player->fov);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_enum.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:09:33 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/14 10:26:30 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:46:22 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef enum	e_spr_index
 	WE,
 	F,
 	C,
-	DOOR,
+	DOOR1,
 	OPEN_DOOR1,
 	OPEN_DOOR2,
 	OPEN_DOOR3,
@@ -31,8 +31,8 @@ typedef enum	e_spr_index
 	BARREL,
 	STAFF,
 	KEY,
-	BALL,
-	TESTE,
+	BALL1,
+	BALL2,
 	CHARACTER1,
 	CHARACTER2,
 	CHARACTER3,
@@ -52,13 +52,13 @@ typedef enum	e_spr_index
 	ATTACK5,
 	ATTACK6,
 	ATTACK7,
+	ATTACK8,
 	ENEMY1,
 	ENEMY2,
 	ENEMY3,
 	ENEMY4,
 	ENEMY_DOWN,
 	ENEMY5,
-	ENEMY6,
 	END_GAME,
 	DYING1,
 	DYING2,
@@ -67,6 +67,13 @@ typedef enum	e_spr_index
 	DYING5,
 	DYING6,
 	DYING7,
+	COINS1,
+	COINS2,
+	COINS3,
+	COINS4,
+	COINS5,
+	COLLEC,
+	WIN_GAME,
 }	t_spr_index;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/14 10:32:20 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:43:17 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../minilibx-linux/mlx.h"
 # include "../minilibx-linux/mlx_int.h"
 # include "vector2D.h"
+#include "sprite_enum.h"
 /* # include "sprite_enum.h" */
 # include <assert.h>
 # include <stdbool.h>
@@ -36,13 +37,13 @@
 # define WIDTH 800
 # define FOV 60
 # define SPRITE_SIZE 64
-# define SPRITE_NBR 58
+# define SPRITE_NBR 59
 
 # define PI 3.14159265359
 
 # define BALL_SPEED 9
 # define PL_SPEED 3
-# define ROTATION_SPEED 250
+# define ROTATION_SPEED 200
 
 # define NO 0
 # define SO 1
@@ -252,7 +253,7 @@ void		ft_perror(char *msg, t_mlx *mlx);
 void	draw_hp(t_mlx *mlx);
 void	draw_char(t_mlx *mlx, int char_anim, t_v2D sprite_pos);
 int		calc_char_anim(t_mlx *mlx);
-void draw_end_game(t_mlx *mlx);
+void	draw_end_game(t_mlx *mlx, int sprite);
 
 // Sort Sprite
 t_list	*sort_sprites(t_player *player, t_list *objs_lst);
