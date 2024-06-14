@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/13 16:06:07 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:35:19 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	sprite_move(t_player *player, t_objs *obj, double delta)
 	}
 	else
 	{
-		if(obj->elapsed_time >= 0.30 && obj->spr_index  !=42)
+		if(obj->elapsed_time >= 0.20 && obj->spr_index  !=42)
 		{
 			obj->spr_index++;
 			update_time(&obj->last_time);
@@ -39,7 +39,7 @@ void	sprite_move(t_player *player, t_objs *obj, double delta)
 		if(obj->spr_index == 42)
 			obj->spr_index = 38;
 		if(obj->spr_index == 40 && obj->elapsed_time >= 0.10)	
-			player->hp -= 1;
+			player->hp -= 2;
 	}
 }
 

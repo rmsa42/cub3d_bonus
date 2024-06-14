@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/13 12:12:24 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:32:35 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	lst_loop(t_mlx *mlx, t_list *objs_lst)
 	}
 }
 
+
 void	sprite_loop(t_mlx *mlx)
 {
 	t_v2D		s_dist;
@@ -106,5 +107,7 @@ void	sprite_loop(t_mlx *mlx)
 		draw_char(mlx, char_anim, sprite_pos);
 		draw_hp(mlx);
 	}
+	sprite_pos = (t_v2D){WIDTH - 150, -30};
+	draw_char(mlx, 52 + mlx->player.coins, sprite_pos);
 	// print_vector(mlx->ball_pos);
 }

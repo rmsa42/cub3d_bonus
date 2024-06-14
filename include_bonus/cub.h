@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/14 10:14:58 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:32:20 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@
 
 # define HEIGHT 600
 # define WIDTH 800
-# define FOV 90
+# define FOV 60
 # define SPRITE_SIZE 64
-# define SPRITE_NBR 52
+# define SPRITE_NBR 58
 
 # define PI 3.14159265359
 
@@ -59,6 +59,7 @@ typedef enum	e_type
 	ENEMY,
 	SPRITE,
 	BALL,
+	COLLECT,
 	WALL
 }	t_type;
 
@@ -81,6 +82,7 @@ typedef struct s_player
 	t_v2D	movement;
 	t_list	*ball_node;
 	int		hp;
+	int		coins;
 	double	angle;
 	double	fov;
 	double	pitch;
@@ -263,6 +265,7 @@ double	time_passed(struct timespec *last, struct timespec *current);
 // Free Mem
 void	free_list(t_list *lst);
 void	print_list(t_list *lst);
+void	elim_obj(t_list **head, t_list *elim_obj);
 void	print_error(char *str);
 
 #endif

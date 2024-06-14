@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_hud_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:27:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/13 11:19:04 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:16:30 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,19 @@ void	draw_hp(t_mlx *mlx)
 		i = 28;
 	else
 		i = 29;
-	while (++scr.y < HEIGHT - 175 + new_size) {
+	while (++scr.y < HEIGHT - 175 + new_size)
+	{
 		scr.x = 20;
-		while (++scr.x < 20 + new_size) {
+		while (++scr.x < 20 + new_size)
+		{
 			texture.x = (int)((scr.x - 20) / 2);
 			texture.y = (int)((scr.y - (HEIGHT - 175)) / 2);
 
-			if (texture.x >= 0 && texture.x < SPRITE_SIZE && texture.y >= 0 && texture.y < SPRITE_SIZE) {
+			if (texture.x >= 0 && texture.x < SPRITE_SIZE && texture.y >= 0 && texture.y < SPRITE_SIZE)
+			{
 				color = pixel_get(&mlx->sprite[i].img, texture.x, texture.y);
-				if (color != (int)0xFF00FF) {
+				if (color != (int)0xFF00FF) 
 					pixel_put(&mlx->img, scr.x, scr.y, color);
-				}
 			}
 		}
 	}
