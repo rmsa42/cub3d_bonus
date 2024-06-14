@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_draw_bonus.c                                   :+:      :+:    :+:   */
+/*   prepare_map_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/13 15:13:55 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:38:08 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,15 @@ t_player	init_player(double x, double y, char tile)
 	return (player);
 }
 
-t_objs	*init_obj(double x, double y, int spr_index, t_type type)
+t_objs	*init_obj(t_v2D pos, int spr_index, int hp, t_type type)
 {
 	t_objs	*obj;
 
 	obj = ft_calloc(1, sizeof(t_objs));
 	obj->spr_index = spr_index;
 	obj->type = type;
-	obj->pos = (t_v2D){x, y};
-	obj->hp = 20;
-	if(type == ENEMY)
-		obj->hp = 2;
+	obj->pos = pos;
+	obj->hp = hp;
 	obj->state = 0;
 	update_time(&obj->last_time);
 	return (obj);
@@ -68,20 +66,13 @@ void	draw_map(t_mlx *mlx, char *tile, int x, int y)
 		*tile = '0';
 	}
 	else if (*tile == 's')
-	{
-		node = ft_lstnew((void *)init_obj(x + 0.5, y + 0.5, 13, SPRITE));
-		ft_lstadd_back(&mlx->objs_lst, node);
-		*tile = '0';
-	}
+		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, 13, 20, SPRITE));
 	else if (*tile == 'e')
-	{
-		node = ft_lstnew((void *)init_obj(x + 0.5, y + 0.5, 38, ENEMY));
-		ft_lstadd_back(&mlx->objs_lst, node);
-		*tile = '0';
-	}
+		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, 38, 2, ENEMY));
 	else if (*tile == 'C')
-	{
 		node = ft_lstnew((void *)init_obj(x + 0.5, y + 0.5, 57, COLLECT));
+	if (node != NULL)
+	{
 		ft_lstadd_back(&mlx->objs_lst, node);
 		*tile = '0';
 	}

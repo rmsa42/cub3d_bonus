@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/13 12:55:47 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:32:31 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	init_mlx(t_mlx *mlx)
 	mlx->lib = mlx_init();
 	if (mlx->lib == NULL)
 	{
-		perror("MLX Error\n");
+		ft_fprintf(STDERR_FILENO, "mlx_init Failed\n");
 		return (-1);
 	}
 	mlx->objs_lst = NULL;
@@ -56,6 +56,7 @@ int	init_mlx(t_mlx *mlx)
 	mlx->spr_index = 0;
 	mlx->map_width = 0;
 	mlx->map_height = 0;
+	mlx->delta = 0;
 	ft_memset(mlx->sprite, 0, sizeof(t_sprite) * SPRITE_NBR);
 	ft_memset(&mlx->map, 0, sizeof(t_map));
 	ft_memset(&mlx->ray, 0, sizeof(t_ray));
@@ -65,6 +66,7 @@ int	init_mlx(t_mlx *mlx)
 	ft_memset(&mlx->last_time, 0, sizeof(struct timespec));
 	update_time(&mlx->door_time);
 	update_time(&mlx->last_time);
+	update_time(&mlx->prev_time);
 	return (0);
 }
 
@@ -76,6 +78,13 @@ int main(int argc, char *argv[])
 	init_mlx(&mlx);
 	
 	 // Map init / Parser
+	if (argc > 2)
+	{
+		ft_fprintf(STDERR_FILENO, "Error\nInvalid number of arguments\n");
+		return (EXIT_FAILURE);
+	}
+	map_parser(argv[1], &mlx);
+	exit(0);
 	ft_check_b4_init(argc, argv, &mlx);
 	
 	 // Sprite Init
@@ -94,7 +103,6 @@ int main(int argc, char *argv[])
 	// mlx_mouse_hide(mlx.lib, mlx.window);
 	mlx_loop_hook(mlx.lib, render, &mlx);
 	mlx_loop(mlx.lib);
-	
-	(void)argc;
+
 	return (0);	
 }

@@ -6,20 +6,20 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/13 10:27:16 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:41:44 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-t_v2D	rotate(t_v2D vector, int degree)
+t_v2D	rotate(t_v2D vector, double degree)
 {
 	t_v2D	newV;
 	double	angle;
 	
 	angle = degree * ((double)PI / 180);
-	newV.x = (vector.x * cos(angle) - vector.y * sin(angle)) * ROTATION_SPEED;
-	newV.y = (vector.x * sin(angle) + vector.y * cos(angle)) * ROTATION_SPEED;
+	newV.x = (vector.x * cos(angle) - vector.y * sin(angle));
+	newV.y = (vector.x * sin(angle) + vector.y * cos(angle));
 	return (newV);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:56:03 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/13 12:06:20 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:30:47 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,12 @@ int	ball_hit_obj(t_list **objs_lst, t_list *ball_node)
 	return (0);
 }
 
-void	update_ball(t_player *player, t_list **objs_lst, char **game_map)
+void	update_ball(t_mlx *mlx, t_player *player, char **game_map)
 {
 	t_v2D	velocity;
 	t_objs	*ball;
-	t_objs	*obj;
 	static int i;
 
-	obj = (*objs_lst)->content;
 	velocity = (t_v2D){0, 0};
 	ball = (t_objs *)player->ball_node->content;
 	if(i++ >= 45)
@@ -75,21 +73,21 @@ void	update_ball(t_player *player, t_list **objs_lst, char **game_map)
 		ball->spr_index = 16;
 	if (i == 91)
 		i = 0;
-	if (ball_hit_obj(objs_lst, player->ball_node))
+	if (ball_hit_obj(&mlx->objs_lst, player->ball_node))
 	{
 		player->shoot = false;
-		elim_obj(objs_lst, player->ball_node);
+		elim_obj(&mlx->objs_lst, player->ball_node);
 	}
 	else if (game_map[(int)ball->pos.y][(int)ball->pos.x] != '1' &&
 		game_map[(int)ball->pos.y][(int)ball->pos.x] != 'D')
 	{
-		velocity = multiply_vector(player->direction, SPEED * 3);
+		velocity = multiply_vector(player->direction, BALL_SPEED * mlx->delta);
 		ball->pos = add_vector(ball->pos, velocity);
 	}
 	else
 	{
 		player->shoot = false;
-		elim_obj(objs_lst, player->ball_node);
+		elim_obj(&mlx->objs_lst, player->ball_node);
 	}
 }
 
@@ -100,7 +98,7 @@ t_list	*init_ball(t_list **head, t_player *player)
 	
 	player->shoot = true;
 	player->anim = true;
-	ball = init_obj(0, 0, 16, BALL);
+	ball = init_obj((t_v2D){0, 0}, 16, 20, BALL);
 	ball->pos.x = player->pos.x + player->direction.x * 0.5;
 	ball->pos.y = player->pos.y + player->direction.y * 0.5;
 	node = ft_lstnew((void *)ball);

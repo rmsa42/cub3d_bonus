@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/13 15:59:42 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:38:13 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,10 @@ void draw_minimap(t_mlx *mlx, t_list *objs_lst)
 
 int	render(t_mlx *mlx)
 {
-	mlx->img = new_image(mlx);
 	update_time(&mlx->current_time);
+	mlx->delta = time_passed(&mlx->prev_time, &mlx->current_time);
+	mlx->prev_time = mlx->current_time;
+	mlx->img = new_image(mlx);
 	mlx->elapsed_time = time_passed(&mlx->last_time, &mlx->current_time);
 	mlx->elapsed_door = time_passed(&mlx->door_time, &mlx->current_time);
 	update_sprites(mlx, &mlx->player, mlx->objs_lst);
