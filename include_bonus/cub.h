@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/13 16:29:53 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:14:58 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,8 @@ void		print_map(char **map);
 int			ft_check_filename(t_mlx *mlx);
 void    	ft_read_file_and_copy_map(char *file, t_mlx *mlx);
 
+int			map_parser(char *file_name, t_mlx *mlx);
+
 // Image
 void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
 int			pixel_get(t_image *img, int pixel_x, int pixel_y);
@@ -261,5 +263,6 @@ double	time_passed(struct timespec *last, struct timespec *current);
 // Free Mem
 void	free_list(t_list *lst);
 void	print_list(t_list *lst);
+void	print_error(char *str);
 
 #endif

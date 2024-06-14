@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/13 16:35:37 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:07:13 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,13 @@ int main(int argc, char *argv[])
 	init_mlx(&mlx);
 	
 	 // Map init / Parser
+	if (argc > 2)
+	{
+		ft_fprintf(STDERR_FILENO, "Error\nInvalid number of arguments\n");
+		return (EXIT_FAILURE);
+	}
+	map_parser(argv[1], &mlx);
+	exit(0);
 	ft_check_b4_init(argc, argv, &mlx);
 	
 	 // Sprite Init
@@ -96,7 +103,6 @@ int main(int argc, char *argv[])
 	mlx_mouse_hide(mlx.lib, mlx.window);
 	mlx_loop_hook(mlx.lib, render, &mlx);
 	mlx_loop(mlx.lib);
-	
-	(void)argc;
+
 	return (0);	
 }

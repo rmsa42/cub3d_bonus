@@ -6,11 +6,16 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/13 10:13:56 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:23:16 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+void	print_error(char *str)
+{
+	ft_fprintf(STDERR_FILENO, "Error\n%s", str);
+}
 
 void	print_list(t_list *lst)
 {
@@ -29,7 +34,7 @@ void	print_list(t_list *lst)
 	}
 }
 
-void	free_list(t_list *lst)
+void	obj_destructor(t_list *lst)
 {
 	t_list	*temp;
 
@@ -47,26 +52,27 @@ void	close_game(t_mlx *mlx)
 	int	i;
 
 	i = 0;
-	// Sprites
+	 // Sprites
+	
 	while (i < SPRITE_NBR)
 	{
 		if (mlx->sprite[i].img.img_ptr != NULL)
 			mlx_destroy_image(mlx->lib, mlx->sprite[i].img.img_ptr);
 		i++;
 	}
-	// Window
+	 // Window
 	mlx_clear_window(mlx->lib, mlx->window);
 	mlx_destroy_window(mlx->lib, mlx->window);
 	mlx_destroy_display(mlx->lib);
-	// Map
+	 // Map
 	i = 0;
 	while (i < 6)
 		free(mlx->map.config_map[i++]);
 	ft_free_dp((void **)mlx->map.game_map);
 	free(mlx->marked_cells);
-	// Objs
-	free_list(mlx->objs_lst);
-	// MLX
+	 // Objs
+	obj_destructor(mlx->objs_lst);
+	 // MLX
 	free(mlx->lib);
 	exit(0);
 }
