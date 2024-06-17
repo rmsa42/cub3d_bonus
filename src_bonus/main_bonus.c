@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/17 10:52:13 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:58:06 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,7 @@ int main(int argc, char *argv[])
 {	
 	t_mlx	mlx;
 
-	 // MLX Init
 	init_mlx(&mlx);
-	
-	 // Map init / Parser
 	if (argc > 2)
 	{
 		ft_fprintf(STDERR_FILENO, "Error\nInvalid number of arguments\n");
@@ -91,11 +88,8 @@ int main(int argc, char *argv[])
 	init_sprite(mlx.lib, mlx.map.config_map, mlx.sprite);
 
 	prepare_map(&mlx);
-
-	 // Create Window
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	assert(mlx.window != NULL);
-
 	mlx_hook(mlx.window, MotionNotify, PointerMotionMask, handle_mouse, &mlx);
 	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
 	mlx_mouse_hook(mlx.window, handle_mouse_press, &mlx);

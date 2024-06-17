@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/14 10:32:35 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:47:08 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,18 +96,20 @@ void	sprite_loop(t_mlx *mlx)
 	mlx->objs_lst = sort_sprites(&mlx->player, mlx->objs_lst);
 	lst_loop(mlx, mlx->objs_lst);
 	char_anim = calc_char_anim(mlx);
-	if (mlx->player.hp <= 0)
+	if (mlx->player.coins == 4)
+		draw_end_game(mlx, WIN_GAME);
+	else if (mlx->player.hp <= 0)
 	{
 		sprite_pos = (t_v2D){(WIDTH/2) - 50, HEIGHT/2};
-		draw_end_game(mlx);
+		draw_end_game(mlx, END_GAME);
 		draw_char(mlx, char_anim, sprite_pos);
 	}
 	else
 	{
 		draw_char(mlx, char_anim, sprite_pos);
 		draw_hp(mlx);
+		sprite_pos = (t_v2D){WIDTH - 150, -30};
+		draw_char(mlx, COINS1 + mlx->player.coins, sprite_pos);
 	}
-	sprite_pos = (t_v2D){WIDTH - 150, -30};
-	draw_char(mlx, 52 + mlx->player.coins, sprite_pos);
 	// print_vector(mlx->ball_pos);
 }

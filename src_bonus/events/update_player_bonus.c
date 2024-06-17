@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/14 11:15:49 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:58:11 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,32 +58,13 @@ t_v2D	get_position(t_player *player, double speed)
 
 bool	object_check(t_mlx *mlx, t_list *objs_lst, char **game_map, t_v2D check)
 {
-	t_objs	*obj;
-	t_list	*delete;
-	bool	i;
+	bool	collision;
 
-	i = false;
-	while(objs_lst)
-	{
-		obj = (t_objs *)objs_lst->content;
-		if (((int)check.x ==  (int)obj->pos.x && (int)check.y ==  (int)obj->pos.y))
-		{
-			if(obj->type == COLLECT && mlx->player.coins < 4)
-			{
-				delete = objs_lst;
-				objs_lst = objs_lst->next;
-				elim_obj(&mlx->objs_lst, delete);
-				mlx->player.coins++;
-				continue ;
-			}
-			i = true;
-		}
-		objs_lst = objs_lst->next;
-	}
+	collision = check_objs_collision(mlx, objs_lst, check);
 	if (game_map[(int)check.y][(int)check.x] == '1'
 			|| game_map[(int)check.y][(int)check.x] == 'D')
-			i = true;
-	return(i);
+			collision = true;
+	return(collision);
 }
 
 void	player_move(t_player *player, char **game_map, t_v2D new_pos, t_v2D check)
@@ -113,10 +94,12 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 		update_ball(mlx, player, map->game_map);
 
 	// Player Movement (x, y)
+	if(player->hp < 0)
+		player->hp = 0;
 	new_pos = get_position(player, PL_SPEED * mlx->delta);
 	check = get_position(player, (PL_SPEED + 0.1) * mlx->delta);
 	collision = object_check(mlx, mlx->objs_lst, map->game_map, check);
-	if (collision == false)
+	if (collision == false && player->hp > 0)
 		player_move(player, map->game_map, new_pos, check);
 
 	// Player Camera Rotation

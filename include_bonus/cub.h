@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/17 10:26:52 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:57:03 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../minilibx-linux/mlx.h"
 # include "../minilibx-linux/mlx_int.h"
 # include "vector2D.h"
+#include "sprite_enum.h"
 /* # include "sprite_enum.h" */
 # include <assert.h>
 # include <stdbool.h>
@@ -36,13 +37,13 @@
 # define WIDTH 800
 # define FOV 60
 # define SPRITE_SIZE 64
-# define SPRITE_NBR 58
+# define SPRITE_NBR 59
 
 # define PI 3.14159265359
 
 # define BALL_SPEED 9
 # define PL_SPEED 3
-# define ROTATION_SPEED 250
+# define ROTATION_SPEED 200
 
 # define NO 0
 # define SO 1
@@ -228,12 +229,14 @@ t_v2D		rotate(t_v2D vector, double degree);
 // Interactions
 t_type		get_next_tile(char **game_map, t_player *player);
 void		interact_door(char **game_map, t_player *player);
+bool		check_objs_collision(t_mlx *mlx, t_list *objs_lst, t_v2D check);
+void		close_game(t_mlx *mlx);
 
 // Draw Hud
 void	draw_hp(t_mlx *mlx);
 void	draw_char(t_mlx *mlx, int char_anim, t_v2D sprite_pos);
 int		calc_char_anim(t_mlx *mlx);
-void	draw_end_game(t_mlx *mlx);
+void	draw_end_game(t_mlx *mlx, int sprite);
 
 // Sort Sprite
 t_list	*sort_sprites(t_player *player, t_list *objs_lst);

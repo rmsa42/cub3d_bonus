@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/14 17:20:34 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:59:02 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int	render(t_mlx *mlx)
 	update_player(mlx, &mlx->player, &mlx->map);
 	ft_grua(mlx);
 	enemy_ray(mlx, mlx->objs_lst);
-	if (mlx->player.hp > 0)
+	if (mlx->player.hp > 0 && mlx->player.coins < 4)
 		draw_minimap(mlx, mlx->objs_lst);
 	mlx_put_image_to_window(mlx->lib, mlx->window,
 			mlx->img.img_ptr, 0, 0);

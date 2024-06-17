@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/11 11:09:05 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:29:04 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ void reset_marked_cells(t_mlx *mlx)
     {
         int x = mlx->marked_cells[i].x;
         int y = mlx->marked_cells[i].y;
-		/* printf("x: %i, y:%i \n", mlx->marked_cells[i].x, mlx->marked_cells[i].y); */
         mlx->map.game_map[y][x] = '0';
     }
     mlx->num_marked_cells = 0;
