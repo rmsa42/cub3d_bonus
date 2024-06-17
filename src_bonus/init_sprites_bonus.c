@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:38:56 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/14 17:19:43 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:30:23 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	init_sprite2(void *lib, t_sprite *sprite)
 void	init_sprite(void *lib, char **conf_map, t_sprite *sprite)
 {
 	if (check_conf(lib, conf_map, sprite) == -1)
-		ft_fprintf(STDERR_FILENO, "Error\n");
+		print_error("Can't Load Sprites\n");
 	sprite[6] = xpm_to_image(lib, "sprites/door.xpm");
 	sprite[7] = xpm_to_image(lib, "sprites/open.xpm");
 	sprite[8] = xpm_to_image(lib, "sprites/open2.xpm");

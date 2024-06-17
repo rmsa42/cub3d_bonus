@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/14 17:12:58 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:12:27 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,10 @@ int	check_rgb(int **c, char *line)
 	while (rgb[i])
 	{
 		ele_color = ft_atoi(rgb[i]);
-		if (!color(ele_color))
-		{
+		if (color(ele_color))
 			c[0][i] = ele_color;
-			break;
-		}
+		else
+			break ;
 		i++;
 	}
 	ft_free_dp((void **)rgb);

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/14 17:32:43 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:52:13 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,13 @@ int	check_conf(void *lib, char **conf_map, t_sprite *sprite)
 		{
 			if (check_path(conf_map[k] + 2))
 				return (-1);
+			printf("123\n");
 			sprite[k] = xpm_to_image(lib, conf_map[k] + 3);
 		}
 		else if (k >= 4)
 		{
 			if (check_rgb(&rgb, conf_map[k] + 2))
 				return (-1);
-			printf("%d\n", rgb[0]);
-			printf("%d\n", rgb[1]);
-			printf("%d\n", rgb[2]);
 			sprite[k].color = shift_color(rgb);
 		}
 	}
@@ -102,7 +100,7 @@ int main(int argc, char *argv[])
 	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
 	mlx_mouse_hook(mlx.window, handle_mouse_press, &mlx);
 	mlx_hook(mlx.window, KeyRelease, KeyReleaseMask, handle_keyRelease, &mlx.player);
-	// mlx_mouse_hide(mlx.lib, mlx.window);
+	mlx_mouse_hide(mlx.lib, mlx.window);
 	mlx_loop_hook(mlx.lib, render, &mlx);
 	mlx_loop(mlx.lib);
 

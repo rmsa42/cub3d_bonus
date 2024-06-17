@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:02:04 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/14 17:28:44 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:05:40 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ int	map_parser(char *map_name, t_mlx *mlx)
 		return (1);
 	}
 	mlx->map_height = create_content_map(&mlx->map, full_map, config_lines, nbr_lines);
+	ft_free_dp((void **)full_map);
 	return (0);
 }

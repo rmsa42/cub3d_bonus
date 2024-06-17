@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/06/14 16:03:51 by rumachad         ###   ########.fr        #
+#    Updated: 2024/06/17 10:13:30 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,10 +44,6 @@ SRC_BONUS = main_bonus.c \
 	sort_sprites.c \
 	interactions_bonus.c \
 	line_calcs_bonus.c \
-	check_b4_init_bonus.c \
-	check_game_map_bonus.c \
-	copy_config_map_bonus.c \
-	copy_game_map_bonus.c \
 	clean_bonus.c \
 	map_parser.c \
 	parse_elements_bonus.c

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/14 10:23:16 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:00:44 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	close_game(t_mlx *mlx)
 	mlx_destroy_display(mlx->lib);
 	 // Map
 	i = 0;
-	while (i < 6)
+	while (mlx->map.config_map[i])
 		free(mlx->map.config_map[i++]);
 	ft_free_dp((void **)mlx->map.game_map);
 	free(mlx->marked_cells);
