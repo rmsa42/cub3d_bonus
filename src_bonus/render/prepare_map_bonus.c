@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_map_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/17 10:58:55 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:15:56 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	prepare_map(t_mlx *mlx)
 	map = &mlx->map;
 	map->y = 0;
 	mlx->num_marked_cells = 0;
-	mlx->marked_cells = (t_cell *)ft_calloc(mlx->map_height * mlx->map_height, sizeof(t_cell));
+	mlx->marked_cells = (t_cell *)ft_calloc(map->height * map->height, sizeof(t_cell));
 	while (map->game_map[map->y])
 	{
 		map->x = 0;

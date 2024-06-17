@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_map_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:07:33 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/17 10:25:23 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:16:21 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_map	init_map(char *map_name)
 
 	map.x = 0;
 	map.y = 0;
+	map.height = 0;
+	map.width = 0;
 	map.game_map = clone_map(map_name);
 	return (map);
 }

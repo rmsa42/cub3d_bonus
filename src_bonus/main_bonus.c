@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/17 10:58:06 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/17 13:18:30 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,13 @@ int	check_conf(void *lib, char **conf_map, t_sprite *sprite)
 	{
 		if (k >= 0 && k < 4)
 		{
-			if (check_path(conf_map[k] + 2))
+			if (check_path((conf_map[k] + 2) + advance_space(conf_map[k] + 2)))
 				return (-1);
-			printf("123\n");
-			sprite[k] = xpm_to_image(lib, conf_map[k] + 3);
+			sprite[k] = xpm_to_image(lib, (conf_map[k] + 2) + advance_space(conf_map[k] + 2));
 		}
 		else if (k >= 4)
 		{
-			if (check_rgb(&rgb, conf_map[k] + 2))
+			if (check_rgb(&rgb, conf_map[k] + 1 + advance_space(conf_map[k] + 1)))
 				return (-1);
 			sprite[k].color = shift_color(rgb);
 		}

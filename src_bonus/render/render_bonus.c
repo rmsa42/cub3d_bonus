@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/17 10:59:02 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:37:44 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void minimap_tiles(t_mlx *mlx,int tile_size)
 	i = -1;
 	j = -1;
 	y = -1;
-	while (++y < mlx->map_height) 
+	while (++y < mlx->map.height) 
 	{
 		x = -1;
 		flag = 0;

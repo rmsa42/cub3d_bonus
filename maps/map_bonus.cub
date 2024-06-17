@@ -5,7 +5,6 @@ WE ./sprites/wall.xpm
 F 125,200,100
 NO ./sprites/north_wall.xpm
 
- 1 1 1 1 1 1 1
-
+11111111111111
 1100000000N011
 11111111111111
