@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/14 15:09:43 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:57:03 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef struct s_player
 	int		hp;
 	int		coins;
 	double	angle;
-	double	fov;
 	double	pitch;
 	bool	mouse;
 	bool	shoot;
@@ -96,18 +95,10 @@ typedef struct s_map
 {
 	int		x;
 	int		y;
-	int		total_lines;
-	int		lines_to_map;
+	/* int		total_lines; */
+	/* int		lines_to_map; */
 	char	**game_map;
 	char	*config_map[7];
-	char	**map_copy;
-	char	**flood_map;
-	bool	NO_flag;
-	bool	SO_flag;
-	bool	EA_flag;
-	bool	WE_flag;
-	bool	F_flag;
-	bool	C_flag;
 }	t_map;
 
 typedef struct s_image
@@ -207,27 +198,20 @@ int			render(t_mlx *mlx);
 // Map
 void		prepare_map(t_mlx *mlx);
 t_map		init_map(char *map_name);
-void 		ft_check_b4_init(int ac, char **av, t_mlx *mlx);
-void    	ft_check_game_map(t_mlx *mlx);
-void		ft_copy_config_map(t_mlx *mlx);
-void 		ft_copy_game_map(t_mlx *mlx);
-int			ft_check_all_config_flags(t_mlx *mlx);
-void		ft_count_map_lines(t_mlx *mlx);
 
 // Parser (MAP)
 int			check_element(char *line);
 int			check_path(char *line);
-int			check_rgb(int **cc, char *line);
+int			check_rgb(int **c, char *line);
 int			check_conf(void *lib, char **conf_map, t_sprite *sprite);
 int			color(int nbr);
 int			shift_color(int *rgb);
 int			advance_space(char *line);
 
 void		print_map(char **map);
-int			ft_check_filename(t_mlx *mlx);
-void    	ft_read_file_and_copy_map(char *file, t_mlx *mlx);
-
 int			map_parser(char *file_name, t_mlx *mlx);
+int			create_config_map(t_map *map, char **full_map);
+int			create_content_map(t_map *map, char **full_map, int after, int len);
 
 // Image
 void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
@@ -247,7 +231,6 @@ t_type		get_next_tile(char **game_map, t_player *player);
 void		interact_door(char **game_map, t_player *player);
 bool		check_objs_collision(t_mlx *mlx, t_list *objs_lst, t_v2D check);
 void		close_game(t_mlx *mlx);
-void		ft_perror(char *msg, t_mlx *mlx);
 
 // Draw Hud
 void	draw_hp(t_mlx *mlx);
@@ -268,5 +251,6 @@ void	free_list(t_list *lst);
 void	print_list(t_list *lst);
 void	elim_obj(t_list **head, t_list *elim_obj);
 void	print_error(char *str);
+void	close_game(t_mlx *mlx);
 
 #endif

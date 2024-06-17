@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/14 14:35:48 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:58:06 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,19 @@ int	check_conf(void *lib, char **conf_map, t_sprite *sprite)
 	rgb = (int *)malloc(sizeof(int) * 3);
 	if (rgb == NULL)
 		return (0);
+	ft_memset(rgb, 0, sizeof(int) * 3);
 	while (++k < 6)
 	{
 		if (k >= 0 && k < 4)
 		{
-			if (check_path(conf_map[k]))
+			if (check_path(conf_map[k] + 2))
 				return (-1);
-			sprite[k] = xpm_to_image(lib, conf_map[k]);
+			printf("123\n");
+			sprite[k] = xpm_to_image(lib, conf_map[k] + 3);
 		}
 		else if (k >= 4)
 		{
-			if (check_rgb(&rgb, conf_map[k]))
+			if (check_rgb(&rgb, conf_map[k] + 2))
 				return (-1);
 			sprite[k].color = shift_color(rgb);
 		}
@@ -81,8 +83,10 @@ int main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	}
 	map_parser(argv[1], &mlx);
-	ft_check_b4_init(argc, argv, &mlx);
+
+	 // Sprite Init
 	init_sprite(mlx.lib, mlx.map.config_map, mlx.sprite);
+
 	prepare_map(&mlx);
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	assert(mlx.window != NULL);
@@ -90,6 +94,7 @@ int main(int argc, char *argv[])
 	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
 	mlx_mouse_hook(mlx.window, handle_mouse_press, &mlx);
 	mlx_hook(mlx.window, KeyRelease, KeyReleaseMask, handle_keyRelease, &mlx.player);
+	mlx_mouse_hide(mlx.lib, mlx.window);
 	mlx_loop_hook(mlx.lib, render, &mlx);
 	mlx_loop(mlx.lib);
 

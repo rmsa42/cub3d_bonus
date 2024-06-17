@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+         #
+#    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/06/14 15:10:03 by cacarval         ###   ########.fr        #
+#    Updated: 2024/06/17 10:56:15 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,13 +44,10 @@ SRC_BONUS = main_bonus.c \
 	sort_sprites.c \
 	interactions_bonus.c \
 	line_calcs_bonus.c \
-	check_b4_init_bonus.c \
-	check_game_map_bonus.c \
-	copy_config_map_bonus.c \
-	copy_game_map_bonus.c \
 	clean_bonus.c \
 	check_objs_bonus.c \
-	map_parser.c
+	map_parser.c \
+	parse_elements_bonus.c
 
 OBJ_BONUS_PATH = obj_bonus/
 OBJ_BONUS_FILES = $(SRC_BONUS:.c=.o)

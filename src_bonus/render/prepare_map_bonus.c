@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_map_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/14 12:51:13 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:58:55 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_player	init_player(double x, double y, char tile)
 	else if (tile == 'E')
 		player.direction = (t_v2D){dir, 0};
 	player.movement = (t_v2D){0, 0};
-	player.plane = perp_vector(player.direction);
+	player.plane = multiply_vector(perp_vector(player.direction), (double)FOV / 90);
 	player.angle = 0;
 	player.coins = 0;
 	player.plane = multiply_vector(player.plane, (double)FOV / 90);
