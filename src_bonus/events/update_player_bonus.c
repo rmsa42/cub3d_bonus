@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/17 10:58:11 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:00:13 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,22 +80,26 @@ void	player_move(t_player *player, char **game_map, t_v2D new_pos, t_v2D check)
 		return ;
 	}
 	player->pos = new_pos;
-	
 }
-
 
 void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 {
 	t_v2D		new_pos;
 	t_v2D		check;
 	bool		collision;
-	// Ball Update
+	
+	 // Ball Update
 	if (player->shoot == true)
 		update_ball(mlx, player, map->game_map);
 
-	// Player Movement (x, y)
-	if(player->hp < 0)
-		player->hp = 0;
+	 // Player Status
+	if (mlx->game_state == GAME_STATE && player->hp < 0)
+		mlx->game_state = DIED_STATE;
+	if (mlx->game_state == GAME_STATE && player->coins == 4)
+		mlx->game_state = WIN_STATE;
+	mlx->spr_hp_index = HP4 - (player->hp / HP1);
+	
+	 // Player Movement (x, y)
 	new_pos = get_position(player, PL_SPEED * mlx->delta);
 	check = get_position(player, (PL_SPEED + 0.1) * mlx->delta);
 	collision = object_check(mlx, mlx->objs_lst, map->game_map, check);

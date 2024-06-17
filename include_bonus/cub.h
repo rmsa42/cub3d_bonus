@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/17 10:57:03 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:48:05 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 # include "../minilibx-linux/mlx.h"
 # include "../minilibx-linux/mlx_int.h"
 # include "vector2D.h"
-#include "sprite_enum.h"
-/* # include "sprite_enum.h" */
+# include "sprite_enum.h"
 # include <assert.h>
 # include <stdbool.h>
 # include <time.h>
@@ -45,12 +44,12 @@
 # define PL_SPEED 3
 # define ROTATION_SPEED 200
 
-# define NO 0
-# define SO 1
-# define EA 2
-# define WE 3
-# define F 4
-# define C 5
+enum	e_state
+{
+	DIED_STATE,
+	WIN_STATE,
+	GAME_STATE
+};
 
 typedef enum	e_type
 {
@@ -154,6 +153,7 @@ typedef struct s_mlx
 	t_ray		ray;
 	t_draw		draw;
 	int			spr_index;
+	int			spr_hp_index;
 	int			side;
 	double		dist_buffer[WIDTH];
 	t_list		*objs_lst;
@@ -161,7 +161,7 @@ typedef struct s_mlx
 	int			map_height;
 	t_cell 		*marked_cells;
     int 		num_marked_cells;
-	int			test;
+	enum e_state	game_state;
 	struct timespec door_time;
 	struct timespec last_time;
 	struct timespec current_time;
@@ -252,5 +252,9 @@ void	print_list(t_list *lst);
 void	elim_obj(t_list **head, t_list *elim_obj);
 void	print_error(char *str);
 void	close_game(t_mlx *mlx);
+
+void	end_game_screen(t_mlx *mlx);
+void	win_game_screen(t_mlx *mlx);
+t_image	new_image(t_mlx *mlx);
 
 #endif

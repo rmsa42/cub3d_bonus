@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_hud_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:27:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/14 12:43:04 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/17 12:27:47 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,10 @@ void	draw_hp(t_mlx *mlx)
 	t_v2D	scr;
 	t_v2D	texture;
 	int		color;
+	int		new_size;
 
 	scr.y = HEIGHT - 175;
-	int new_size = (int)(SPRITE_SIZE * 2);
-	int i;
-	i = 0;
-	if (mlx->player.hp > 75)
-		i = HP1;
-	else if (mlx->player.hp <= 75 && mlx->player.hp > 50)
-		i = HP2;
-	else if (mlx->player.hp <= 50 && mlx->player.hp > 25)
-		i = HP3;
-	else
-		i = HP4;
+	new_size = (int)(SPRITE_SIZE * 2);
 	while (++scr.y < HEIGHT - 175 + new_size)
 	{
 		scr.x = 20;
@@ -37,10 +28,9 @@ void	draw_hp(t_mlx *mlx)
 		{
 			texture.x = (int)((scr.x - 20) / 2);
 			texture.y = (int)((scr.y - (HEIGHT - 175)) / 2);
-
 			if (texture.x >= 0 && texture.x < SPRITE_SIZE && texture.y >= 0 && texture.y < SPRITE_SIZE)
 			{
-				color = pixel_get(&mlx->sprite[i].img, texture.x, texture.y);
+				color = pixel_get(&mlx->sprite[mlx->spr_hp_index].img, texture.x, texture.y);
 				if (color != (int)0xFF00FF) 
 					pixel_put(&mlx->img, scr.x, scr.y, color);
 			}
@@ -86,7 +76,6 @@ void	draw_char(t_mlx *mlx, int char_anim, t_v2D sprite_pos)
 
 	scr.y = sprite_pos.y;
 	int new_size = (int)(SPRITE_SIZE * 2);
-
 	while (++scr.y < sprite_pos.y + new_size) {
 		scr.x = sprite_pos.x;
 		while (++scr.x < sprite_pos.x + new_size) {

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/17 10:58:06 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:17:25 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	check_conf(void *lib, char **conf_map, t_sprite *sprite)
 		{
 			if (check_path(conf_map[k] + 2))
 				return (-1);
-			printf("123\n");
 			sprite[k] = xpm_to_image(lib, conf_map[k] + 3);
 		}
 		else if (k >= 4)
@@ -47,25 +46,23 @@ int	init_mlx(t_mlx *mlx)
 {
 	mlx->lib = mlx_init();
 	if (mlx->lib == NULL)
-	{
-		ft_fprintf(STDERR_FILENO, "mlx_init Failed\n");
-		return (-1);
-	}
+		print_error("Mlx Failed Init\n");
 	mlx->objs_lst = NULL;
 	mlx->marked_cells = NULL;
 	mlx->num_marked_cells = 0;
+	mlx->spr_hp_index = 0;
 	mlx->side = 0;
 	mlx->spr_index = 0;
 	mlx->map_width = 0;
 	mlx->map_height = 0;
 	mlx->delta = 0;
+	mlx->game_state = GAME_STATE;
 	ft_memset(mlx->sprite, 0, sizeof(t_sprite) * SPRITE_NBR);
 	ft_memset(&mlx->map, 0, sizeof(t_map));
 	ft_memset(&mlx->ray, 0, sizeof(t_ray));
 	ft_memset(&mlx->player, 0, sizeof(t_player));
 	ft_memset(&mlx->draw, 0, sizeof(t_draw));
 	ft_memset(mlx->dist_buffer, 0, sizeof(double) * WIDTH);
-	ft_memset(&mlx->last_time, 0, sizeof(struct timespec));
 	update_time(&mlx->door_time);
 	update_time(&mlx->last_time);
 	update_time(&mlx->prev_time);

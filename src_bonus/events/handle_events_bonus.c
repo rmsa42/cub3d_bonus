@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/14 11:12:52 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:53:38 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int handle_mouse(int x, int y, t_mlx *mlx)
 				mlx->player.pitch = 200;
 			else if (mlx->player.pitch < -200)
 				mlx->player.pitch = -200;
-			mlx->player.angle = vector.x * 0.5;
+			mlx->player.angle = vector.x * 0.1;
 			mlx_mouse_move(mlx->lib, mlx->window, WIDTH / 2, HEIGHT / 2);
 		}
 		else
