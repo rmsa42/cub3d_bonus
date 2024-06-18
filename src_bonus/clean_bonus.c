@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/17 12:43:34 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:31:23 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	print_error(char *str)
 {
 	ft_fprintf(STDERR_FILENO, "Error\n%s", str);
+	exit(EXIT_FAILURE);
 }
 
 void	print_list(t_list *lst)

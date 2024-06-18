@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:38:56 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/17 10:57:39 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:34:16 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ t_sprite	xpm_to_image(void *lib, char *texture)
 
 	sprite.img.img_ptr = mlx_xpm_file_to_image(lib, texture,
 						&sprite.width, &sprite.height);
-	assert(sprite.img.img_ptr != NULL);
+	if (sprite.img.img_ptr != NULL)
+		print_error("Invalid Sprite\n");
 	get_sprite_img(&sprite.img);
+	if (sprite.img.addr == NULL)
+		print_error("Invalid Sprite address\n");
 	return (sprite);
 }
 
@@ -96,5 +99,4 @@ void	init_sprite(void *lib, char **conf_map, t_sprite *sprite)
 	sprite[23] = xpm_to_image(lib, "sprites/sprite/character6.xpm");
 	init_sprite2(lib, sprite);
 	init_sprite3(lib, sprite);
-	(void)conf_map;
 }

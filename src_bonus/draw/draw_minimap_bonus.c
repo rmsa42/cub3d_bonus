@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_bonus.c                                     :+:      :+:    :+:   */
+/*   draw_minimap_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/17 20:16:03 by rumachad         ###   ########.fr       */
+/*   Created: 2024/06/18 15:05:17 by rumachad          #+#    #+#             */
+/*   Updated: 2024/06/18 15:13:24 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-t_image	new_image(t_mlx *mlx)
-{
-	t_image	img;
-
-	img.img_ptr = mlx_new_image(mlx->lib, WIDTH, HEIGHT);
-	img.addr = mlx_get_data_addr(img.img_ptr, &img.bits_per_pixel,
-			&img.line_length, &img.endian);
-	return (img);
-}
 
 void minimap_tiles(t_mlx *mlx,int tile_size)
 {
@@ -111,47 +101,11 @@ void	draw_map_sprites(t_mlx *mlx, t_list *objs_lst, int tile_size)
 	}
 }
 
-void draw_minimap(t_mlx *mlx, t_list *objs_lst) 
+void draw_minimap(t_mlx *mlx, t_list *objs_lst)
 {
 	int minimap_size = 200;
 	int tile_size = minimap_size / 36;
 	
 	minimap_tiles(mlx, tile_size);
 	draw_map_sprites(mlx, objs_lst, tile_size);
-}
-
-int	render(t_mlx *mlx);
-
-void	end_game(t_mlx *mlx)
-{
-	if (mlx->game_state == DIED_STATE)
-		end_game_screen(mlx);
-	else if (mlx->game_state == WIN_STATE)
-		win_game_screen(mlx);
-	mlx_put_image_to_window(mlx->lib, mlx->window,
-			mlx->img.img_ptr, 0, 0);
-	mlx_destroy_image(mlx->lib, mlx->img.img_ptr);
-	render(mlx);
-}
-
-int	render(t_mlx *mlx)
-{
-	update_time(&mlx->current_time);
-	mlx->delta = time_passed(&mlx->prev_time, &mlx->current_time);
-	mlx->prev_time = mlx->current_time;
-	mlx->elapsed_time = time_passed(&mlx->last_time, &mlx->current_time);
-	mlx->elapsed_door = time_passed(&mlx->door_time, &mlx->current_time);
-	printf("%f\n", 1 / mlx->delta);
-	update_player(mlx, &mlx->player, &mlx->map);
-	update_sprites(mlx, &mlx->player, mlx->objs_lst);
-	mlx->img = new_image(mlx);
-	if (mlx->game_state != GAME_STATE)
-		end_game(mlx);
-	ft_grua(mlx);
-	enemy_ray(mlx, mlx->objs_lst);
-	draw_minimap(mlx, mlx->objs_lst);
-	mlx_put_image_to_window(mlx->lib, mlx->window,
-			mlx->img.img_ptr, 0, 0);
-	mlx_destroy_image(mlx->lib, mlx->img.img_ptr);
-	return (0);
 }

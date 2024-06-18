@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/17 16:00:13 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:22:39 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,6 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 	if (player->shoot == true)
 		update_ball(mlx, player, map->game_map);
 
-	 // Player Status
-	if (mlx->game_state == GAME_STATE && player->hp < 0)
-		mlx->game_state = DIED_STATE;
-	if (mlx->game_state == GAME_STATE && player->coins == 4)
-		mlx->game_state = WIN_STATE;
-	mlx->spr_hp_index = HP4 - (player->hp / HP1);
-	
 	 // Player Movement (x, y)
 	new_pos = get_position(player, PL_SPEED * mlx->delta);
 	check = get_position(player, (PL_SPEED + 0.1) * mlx->delta);
@@ -106,7 +99,7 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 	if (collision == false && player->hp > 0)
 		player_move(player, map->game_map, new_pos, check);
 
-	// Player Camera Rotation
+	 // Player Camera Rotation
 	player->direction = rotate(player->direction, player->angle * mlx->delta * ROTATION_SPEED);
 	player->plane = rotate(player->plane, player->angle * mlx->delta * ROTATION_SPEED);
 }

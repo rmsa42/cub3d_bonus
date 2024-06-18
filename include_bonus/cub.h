@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/17 15:48:05 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:34:38 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include "../minilibx-linux/mlx_int.h"
 # include "vector2D.h"
 # include "sprite_enum.h"
-# include <assert.h>
 # include <stdbool.h>
 # include <time.h>
 
@@ -34,7 +33,7 @@
 
 # define HEIGHT 600
 # define WIDTH 800
-# define FOV 60
+# define FOV 90
 # define SPRITE_SIZE 64
 # define SPRITE_NBR 59
 
@@ -66,12 +65,12 @@ typedef enum	e_type
 typedef struct s_objs
 {
 	struct timespec last_time;
-	double elapsed_time;
-	int		spr_index;
-	t_type	type;
-	t_v2D	pos;
-	int		state;
-	int		hp;
+	double 			elapsed_time;
+	int				spr_index;
+	t_type			type;
+	t_v2D			pos;
+	int				state;
+	int				hp;
 }	t_objs;
 
 typedef struct s_player
@@ -154,6 +153,9 @@ typedef struct s_mlx
 	t_draw		draw;
 	int			spr_index;
 	int			spr_hp_index;
+	int			spr_character_index;
+	int			spr_coins_index;
+	int			max_coins;
 	int			side;
 	double		dist_buffer[WIDTH];
 	t_list		*objs_lst;
@@ -191,9 +193,12 @@ void		enemy_ray(t_mlx *mlx, t_list *objs_lst);
 void		update_player(t_mlx *mlx, t_player *player, t_map *map);
 void		update_ball(t_mlx *mlx, t_player *player, char **game_map);
 void		update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst);
+void		update_animations(t_mlx *mlx);
+void		update_state(t_mlx *mlx);
+void		end_game(t_mlx *mlx);
 
-//Render
-int			render(t_mlx *mlx);
+// Game Loop
+int			game_loop(t_mlx *mlx);
 
 // Map
 void		prepare_map(t_mlx *mlx);
@@ -218,6 +223,7 @@ void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
 int			pixel_get(t_image *img, int pixel_x, int pixel_y);
 t_sprite	xpm_to_image(void *lib, char *texture);
 void		shoot_ball(t_mlx *mlx);
+t_image		image_buffer(t_mlx *mlx);
 
 // Events
 int			handle_keyPress(int keycode, t_mlx *mlx);
@@ -233,10 +239,13 @@ bool		check_objs_collision(t_mlx *mlx, t_list *objs_lst, t_v2D check);
 void		close_game(t_mlx *mlx);
 
 // Draw Hud
-void	draw_hp(t_mlx *mlx);
-void	draw_char(t_mlx *mlx, int char_anim, t_v2D sprite_pos);
+void	draw_hud(t_mlx *mlx, int char_anim, t_v2D sprite_pos);
+void	draw_char(t_mlx *mlx);
+void	draw_coins(t_mlx *mlx);
+void	draw_hearts(t_mlx *mlx);
 int		calc_char_anim(t_mlx *mlx);
 void	draw_end_game(t_mlx *mlx, int sprite);
+void	draw_minimap(t_mlx *mlx, t_list *objs_lst);
 
 // Sort Sprite
 t_list	*sort_sprites(t_player *player, t_list *objs_lst);
@@ -255,6 +264,5 @@ void	close_game(t_mlx *mlx);
 
 void	end_game_screen(t_mlx *mlx);
 void	win_game_screen(t_mlx *mlx);
-t_image	new_image(t_mlx *mlx);
 
 #endif
