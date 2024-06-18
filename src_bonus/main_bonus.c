@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/18 15:34:00 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 00:49:26 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,8 @@ int	check_conf(void *lib, char **conf_map, t_sprite *sprite)
 	return (0);
 }
 
-int	init_mlx(t_mlx *mlx)
+void	init_mlx(t_mlx *mlx)
 {
-	mlx->lib = mlx_init();
-	if (mlx->lib == NULL)
-		return (1);
 	mlx->objs_lst = NULL;
 	mlx->marked_cells = NULL;
 	mlx->num_marked_cells = 0;
@@ -68,26 +65,20 @@ int	init_mlx(t_mlx *mlx)
 	update_time(&mlx->door_time);
 	update_time(&mlx->last_time);
 	update_time(&mlx->prev_time);
-	return (0);
-}
-
-void	update_state(t_mlx *mlx)
-{
-	/* printf("%d\n", mlx->max_coins); */
-	if (mlx->player.hp <= 0)
-		mlx->game_state = DIED_STATE;
-	else if (mlx->player.coins == mlx->max_coins)
-		mlx->game_state = WIN_STATE;
 }
 
 int main(int argc, char *argv[])
 {	
 	t_mlx	mlx;
 
-	if (init_mlx(&mlx))
-		print_error("Mlx init failure\n");
 	if (argc > 2)
 		print_error("Invalid number of arguments\n");
+	mlx.lib = mlx_init();
+	if (mlx.lib == NULL)
+		print_error("Mlx init failure\n");
+	init_mlx(&mlx);
+
+	 // Map Parser
 	map_parser(argv[1], &mlx);
 
 	 // Sprite Init

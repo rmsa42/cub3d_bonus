@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_hud_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:27:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/18 14:02:14 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 00:14:20 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	draw_hud(t_mlx *mlx, int char_anim, t_v2D sprite_pos)
+void	draw_hud(t_mlx *mlx, int spr_index, t_v2D sprite_pos)
 {
 	t_v2D	scr;
 	t_v2D	texture;
@@ -28,10 +28,9 @@ void	draw_hud(t_mlx *mlx, int char_anim, t_v2D sprite_pos)
 		{
 			texture.x = (int)((scr.x - sprite_pos.x) / 2);
 			texture.y = (int)((scr.y - (sprite_pos.y)) / 2);
-
 			if (texture.x >= 0 && texture.x < SPRITE_SIZE && texture.y >= 0 && texture.y < SPRITE_SIZE)
 			{
-				color = pixel_get(&mlx->sprite[char_anim].img, texture.x, texture.y);
+				color = pixel_get(&mlx->sprite[spr_index].img, texture.x, texture.y);
 				if (color != (int)0xFF00FF)
 					pixel_put(&mlx->img, scr.x, scr.y, color);
 			}

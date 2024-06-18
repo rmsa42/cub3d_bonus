@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/18 15:31:23 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 00:40:31 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_error(char *str)
 	exit(EXIT_FAILURE);
 }
 
-void	print_list(t_list *lst)
+/* void	print_list(t_list *lst)
 {
 	t_objs	*obj;
 	
@@ -33,7 +33,7 @@ void	print_list(t_list *lst)
 			printf("Sprite\n");
 		lst = lst->next;
 	}
-}
+} */
 
 void	obj_destructor(t_list *lst)
 {
@@ -48,32 +48,44 @@ void	obj_destructor(t_list *lst)
 	}
 }
 
-void	close_game(t_mlx *mlx)
+void	sprite_destructor(void *lib, t_sprite *sprite)
 {
 	int	i;
 
 	i = 0;
-	 // Sprites
-	
 	while (i < SPRITE_NBR)
 	{
-		if (mlx->sprite[i].img.img_ptr != NULL)
-			mlx_destroy_image(mlx->lib, mlx->sprite[i].img.img_ptr);
+		if (sprite[i].img.img_ptr != NULL)
+			mlx_destroy_image(lib, sprite[i].img.img_ptr);
 		i++;
 	}
-	 // Window
-	mlx_clear_window(mlx->lib, mlx->window);
-	mlx_destroy_window(mlx->lib, mlx->window);
-	mlx_destroy_display(mlx->lib);
-	 // Map
+}
+
+void	map_destructor(t_map *map)
+{
+	int	i;
+
 	i = 0;
-	while (mlx->map.config_map[i])
-		free(mlx->map.config_map[i++]);
-	ft_free_dp((void **)mlx->map.game_map);
+	while (map->config_map[i])
+		free(map->config_map[i++]);
+	ft_free_dp((void **)map->game_map);
+}
+
+void	mlx_destructor(void *lib, void *window)
+{
+	mlx_clear_window(lib, window);
+	mlx_destroy_window(lib, window);
+	mlx_destroy_display(lib);
+	free(lib);
+}
+
+void	close_game(t_mlx *mlx)
+{
+	sprite_destructor(mlx->lib, mlx->sprite);
+	map_destructor(&mlx->map);
+	// ??
 	free(mlx->marked_cells);
-	 // Objs
 	obj_destructor(mlx->objs_lst);
-	 // MLX
-	free(mlx->lib);
+	mlx_destructor(mlx->lib, mlx->window);
 	exit(0);
 }

@@ -3,32 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   init_sprites_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:38:56 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/18 15:34:16 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 00:30:26 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	get_sprite_img(t_image *img)
-{
-	img->addr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel,
-			&img->line_length, &img->endian);
-}
-
 t_sprite	xpm_to_image(void *lib, char *texture)
 {
 	t_sprite	sprite;
+	t_image		img;
 
-	sprite.img.img_ptr = mlx_xpm_file_to_image(lib, texture,
+	img.img_ptr = mlx_xpm_file_to_image(lib, texture,
 						&sprite.width, &sprite.height);
-	if (sprite.img.img_ptr != NULL)
+	if (img.img_ptr == NULL)
 		print_error("Invalid Sprite\n");
-	get_sprite_img(&sprite.img);
-	if (sprite.img.addr == NULL)
+	img.addr = mlx_get_data_addr(img.img_ptr, &img.bits_per_pixel,
+			&img.line_length, &img.endian);
+	if (img.addr == NULL)
 		print_error("Invalid Sprite address\n");
+	sprite.img = img;
 	return (sprite);
 }
 

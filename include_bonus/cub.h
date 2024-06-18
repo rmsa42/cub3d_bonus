@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/18 15:34:38 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 00:54:22 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define D 100
 # define E 101
 # define Q 113
+# define SPACE 32
+# define LEFT_CLICK 1
 # define LARROW 65361
 # define RARROW 65363
 
@@ -239,7 +241,7 @@ bool		check_objs_collision(t_mlx *mlx, t_list *objs_lst, t_v2D check);
 void		close_game(t_mlx *mlx);
 
 // Draw Hud
-void	draw_hud(t_mlx *mlx, int char_anim, t_v2D sprite_pos);
+void	draw_hud(t_mlx *mlx, int spr_index, t_v2D sprite_pos);
 void	draw_char(t_mlx *mlx);
 void	draw_coins(t_mlx *mlx);
 void	draw_hearts(t_mlx *mlx);

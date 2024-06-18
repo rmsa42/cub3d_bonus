@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/18 15:26:55 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 00:53:52 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+void	update_state(t_mlx *mlx)
+{
+	if (mlx->player.hp <= 0)
+		mlx->game_state = DIED_STATE;
+	else if (mlx->player.coins == mlx->max_coins)
+		mlx->game_state = WIN_STATE;
+}
 
 void	draw(t_mlx *mlx)
 {

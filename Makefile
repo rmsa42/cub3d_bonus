@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
+#    By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/06/18 15:16:30 by rumachad         ###   ########.fr        #
+#    Updated: 2024/06/19 00:41:41 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ SRC_BONUS = main_bonus.c \
 	raycasting_bonus.c \
 	ray_hit_bonus.c \
 	enemy_raycast_bonus.c \
-	init_map_bonus.c \
 	init_sprites_bonus.c \
 	prepare_map_bonus.c \
 	v2D_math_bonus.c \
@@ -45,7 +44,6 @@ SRC_BONUS = main_bonus.c \
 	draw_extra_bonus.c \
 	draw_minimap_bonus.c \
 	sort_sprites.c \
-	interactions_bonus.c \
 	line_calcs_bonus.c \
 	clean_bonus.c \
 	check_objs_bonus.c \

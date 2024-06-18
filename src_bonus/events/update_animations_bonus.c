@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_animations_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:39:53 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/18 14:28:06 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 00:01:39 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ int	calc_char_anim(t_mlx *mlx)
 void	update_animations(t_mlx *mlx)
 {
 	t_player	*player;
-	double		chosen_time;
 
-	chosen_time = 0.10;
 	player = &mlx->player;
 	mlx->spr_character_index = calc_char_anim(mlx);
 	mlx->spr_hp_index = HP4 - (player->hp / HP1);
