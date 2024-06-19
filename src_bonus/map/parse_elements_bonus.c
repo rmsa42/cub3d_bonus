@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:01:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/17 11:42:56 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:38:46 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,35 @@ int	begining_of_map(char *line, char *set)
 	return (0);
 }
 
+int	get_game_map(t_map *map, char **full_map,int i)
+{
+	char	*trimed_line;
+	int		j;
+
+	j = 0;
+	trimed_line = NULL;
+	while (full_map[i])
+	{
+		trimed_line = ft_strtrim(full_map[i], "\n");
+		if (!trimed_line)
+			return (-1);
+		else
+		{
+			map->game_map[j] = ft_strdup(trimed_line);
+			if ((int)ft_strlen(map->game_map[j]) > map->width)
+				map->width = ft_strlen(map->game_map[j]);
+			i++;
+			j++;
+		}
+		free(trimed_line);
+	}
+	return(j);
+}
+
 int	create_content_map(t_map *map, char **full_map, int after, int len)
 {
 	int		i;
 	int		j;
-	char	*trimed_line;
 
 	i = after;
 	while (full_map[i])
@@ -72,20 +96,8 @@ int	create_content_map(t_map *map, char **full_map, int after, int len)
 		i++;
 	}
 	j = 0;
-	trimed_line = NULL;
 	map->game_map = malloc(sizeof(char *) * (len - after + 1));
-	while (full_map[i])
-	{
-		trimed_line = ft_strtrim(full_map[i], "\n");
-		if (!trimed_line)
-			return (-1);
-		else
-		{
-			map->game_map[j++] = ft_strdup(trimed_line);
-			i++;
-		}
-		free(trimed_line);
-	}
+	j = get_game_map(map, full_map, i);
 	map->game_map[j] = 0;
 	return (j);
 }

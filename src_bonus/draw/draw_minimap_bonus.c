@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/18 15:05:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/19 11:07:24 by rumachad         ###   ########.fr       */
+/*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
+/*   Updated: 2024/06/19 11:38:29 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void minimap_tiles(t_mlx *mlx,int tile_size)
 	i = -1;
 	j = -1;
 	y = -1;
-	while (++y < mlx->map_height) 
+	while (++y < mlx->map.height) 
 	{
 		x = -1;
 		while (++x < (int)ft_strlen(mlx->map.game_map[y])) 

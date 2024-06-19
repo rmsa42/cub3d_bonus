@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/17 14:20:48 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:38:50 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,16 @@ int	check_rgb(int **c, char *line)
 	char	**rgb;
 	int		i;
 	int		ele_color;
+	int		j;
 
 	i = 0;
 	rgb = ft_split(line, ',');
 	while (rgb[i])
 	{
+		j = 0;
+		while(rgb[i][j])
+			if(ft_isdigit(rgb[i][j++]) == 0)
+				return(-1);
 		ele_color = ft_atoi(rgb[i]);
 		if (color(ele_color))
 			c[0][i] = ele_color;

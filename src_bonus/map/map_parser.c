@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:02:04 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/17 11:32:07 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:38:42 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,39 @@ char	**cpy_map(int fd, int len)
 	return (map);
 }
 
+void	check_config_map2(t_mlx *mlx, char *dir, int pos)
+{
+	char *swap;
+	int i;
+
+	i = -1;
+	while(mlx->map.config_map[++i])
+	{
+		if(ft_strncmp(mlx->map.config_map[i], dir, ft_strlen(dir)) == 0)
+		{
+			swap = mlx->map.config_map[pos];
+			mlx->map.config_map[pos] = mlx->map.config_map[i];
+			mlx->map.config_map[i] = swap;
+			return ;
+		}
+	}
+	print_error("Invalid Configurations");
+}
+
+void	check_config_map(t_mlx *mlx)
+{
+	int i;
+
+	i = -1;
+	check_config_map2(mlx, "NO ", 0);
+	check_config_map2(mlx, "SO ", 1);
+	check_config_map2(mlx, "WE ", 2);
+	check_config_map2(mlx, "EA ", 3);
+	check_config_map2(mlx, "F ", 4);
+	check_config_map2(mlx, "C ", 5);
+	
+}
+
 int	map_parser(char *map_name, t_mlx *mlx)
 {
 	int		fd;
@@ -74,7 +107,8 @@ int	map_parser(char *map_name, t_mlx *mlx)
 		print_error("Invalid map elements\n");
 		return (1);
 	}
-	mlx->map_height = create_content_map(&mlx->map, full_map, config_lines, nbr_lines);
+	check_config_map(mlx);
+	mlx->map.height = create_content_map(&mlx->map, full_map, config_lines, nbr_lines);
 	ft_free_dp((void **)full_map);
 	return (0);
 }

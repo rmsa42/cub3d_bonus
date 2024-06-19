@@ -1,11 +1,10 @@
-NO ./sprites/wall2.xpm  
-SO ./sprites/wall2.xpm
+WE ./sprites/wall.xpm
+NO ./sprites/north_wall.xpm
+SO ./sprites/south_wall.xpm
+EA ./sprites/east_wall.xpm
 
-WE ./sprites/wall2.xpm
-EA ./sprites/wall2.xpm
-
-F 0,0,0
 C 225,255,255
+F 0,0,0
 
 
 1111111111111111111111111
