@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_objs_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:00:52 by cacarval          #+#    #+#             */
-/*   Updated: 2024/06/19 00:16:12 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:01:24 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	check_objs_collision(t_mlx *mlx, t_list *objs_lst, t_v2D check)
 		if (((int)check.x == (int)obj->pos.x
 				&& (int)check.y == (int)obj->pos.y))
 		{
-			if (obj->type == COLLECT && mlx->player.coins <= mlx->max_coins)
+			if (obj->type == COLLECT)
 			{
 				delete = objs_lst;
 				objs_lst = objs_lst->next;

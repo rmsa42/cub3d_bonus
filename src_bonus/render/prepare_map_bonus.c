@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/18 15:21:54 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 10:58:18 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,7 @@ void	draw_map(t_mlx *mlx, char *tile, int x, int y)
 	else if (*tile == 'e')
 		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, ENEMY1, 2, ENEMY));
 	else if (*tile == 'C')
-	{
 		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, COLLEC, 1000, COLLECT));
-		mlx->max_coins++;
-	}
 	if (node != NULL)
 	{
 		ft_lstadd_back(&mlx->objs_lst, node);

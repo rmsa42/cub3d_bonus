@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/19 00:54:22 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:00:51 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 # define BALL_SPEED 9
 # define PL_SPEED 3
 # define ROTATION_SPEED 200
+# define MAX_COINS 4
 
 enum	e_state
 {
@@ -95,8 +96,6 @@ typedef struct s_map
 {
 	int		x;
 	int		y;
-	/* int		total_lines; */
-	/* int		lines_to_map; */
 	char	**game_map;
 	char	*config_map[7];
 }	t_map;
@@ -157,7 +156,6 @@ typedef struct s_mlx
 	int			spr_hp_index;
 	int			spr_character_index;
 	int			spr_coins_index;
-	int			max_coins;
 	int			side;
 	double		dist_buffer[WIDTH];
 	t_list		*objs_lst;

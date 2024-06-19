@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/19 00:53:52 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:00:09 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	update_state(t_mlx *mlx)
 {
 	if (mlx->player.hp <= 0)
 		mlx->game_state = DIED_STATE;
-	else if (mlx->player.coins == mlx->max_coins)
+	else if (mlx->player.coins == MAX_COINS)
 		mlx->game_state = WIN_STATE;
 }
 
