@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/19 11:36:14 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:29:45 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ typedef struct s_map
 {
 	int		x;
 	int		y;
+	int		width;
+	int		height;
 	char	**game_map;
 	char	*config_map[7];
 }	t_map;
@@ -175,7 +177,7 @@ typedef struct s_mlx
 
 
 t_player	init_player(double x, double y, char tile);
-void		init_sprite(void *lib, char **conf_map, t_sprite *sprite);
+void		init_sprite(t_mlx *mlx, char **conf_map, t_sprite *sprite);
 t_objs		*init_obj(t_v2D pos, int spr_index, int hp, t_type type);
 t_list		*init_ball(t_list **head, t_player *player);
 //Raycast
@@ -204,11 +206,12 @@ int			game_loop(t_mlx *mlx);
 void		prepare_map(t_mlx *mlx);
 t_map		init_map(char *map_name);
 
+
 // Parser (MAP)
 int			check_element(char *line);
 int			check_path(char *line);
 int			check_rgb(int **c, char *line);
-int			check_conf(void *lib, char **conf_map, t_sprite *sprite);
+int			check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite);
 int			color(int nbr);
 int			shift_color(int *rgb);
 int			advance_space(char *line);
@@ -221,7 +224,7 @@ int			create_content_map(t_map *map, char **full_map, int after, int len);
 // Image
 void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
 int			pixel_get(t_image *img, int pixel_x, int pixel_y);
-t_sprite	xpm_to_image(void *lib, char *texture);
+t_sprite	xpm_to_image(t_mlx *mlx, char *texture);
 void		shoot_ball(t_mlx *mlx);
 t_image		image_buffer(t_mlx *mlx);
 
@@ -236,7 +239,6 @@ t_v2D		rotate(t_v2D vector, double degree);
 t_type		get_next_tile(char **game_map, t_player *player);
 void		interact_door(char **game_map, t_player *player);
 bool		check_objs_collision(t_mlx *mlx, t_list *objs_lst, t_v2D check);
-void		close_game(t_mlx *mlx);
 
 // Draw Hud
 void	draw_hud(t_mlx *mlx, int spr_index, t_v2D sprite_pos);
@@ -259,8 +261,8 @@ double	time_passed(struct timespec *last, struct timespec *current);
 void	free_list(t_list *lst);
 void	print_list(t_list *lst);
 void	elim_obj(t_list **head, t_list *elim_obj);
-void	print_error(char *str);
-void	close_game(t_mlx *mlx);
+void	print_error(char *str, int statusm, t_mlx *mlx);
+void	close_game(t_mlx *mlx, int status);
 
 void	end_game_screen(t_mlx *mlx);
 void	win_game_screen(t_mlx *mlx);

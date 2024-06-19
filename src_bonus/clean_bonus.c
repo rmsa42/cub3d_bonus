@@ -6,16 +6,17 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/19 11:38:08 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:34:45 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	print_error(char *str)
+void	print_error(char *str, int status, t_mlx *mlx)
 {
-	ft_fprintf(STDERR_FILENO, "Error\n%s", str);
-	exit(EXIT_FAILURE);
+	ft_fprintf(STDERR_FILENO, "Error\n");
+	perror(str);
+	close_game(mlx, status);
 }
 
 /* void	print_list(t_list *lst)
@@ -73,19 +74,28 @@ void	map_destructor(t_map *map)
 
 void	mlx_destructor(void *lib, void *window)
 {
-	mlx_clear_window(lib, window);
-	mlx_destroy_window(lib, window);
-	mlx_destroy_display(lib);
-	free(lib);
+	if (window != NULL)
+	{
+		mlx_clear_window(lib, window);
+		mlx_destroy_window(lib, window);
+	}
+	if (lib != NULL)
+	{
+		mlx_destroy_display(lib);
+		free(lib);
+	}
 }
 
-void	close_game(t_mlx *mlx)
+void	close_game(t_mlx *mlx, int status)
 {
-	sprite_destructor(mlx->lib, mlx->sprite);
-	map_destructor(&mlx->map);
-	// ??
-	free(mlx->marked_cells);
-	obj_destructor(mlx->objs_lst);
+	if (mlx->sprite->img.img_ptr != NULL)
+		sprite_destructor(mlx->lib, mlx->sprite);
+	if (mlx->map.game_map != NULL)
+		map_destructor(&mlx->map);
+	if (mlx->marked_cells != NULL)
+		free(mlx->marked_cells);
+	if (mlx->objs_lst != NULL)
+		obj_destructor(mlx->objs_lst);
 	mlx_destructor(mlx->lib, mlx->window);
-	exit(0);
+	exit(status);
 }
