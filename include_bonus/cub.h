@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/17 11:15:41 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:36:14 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@
 # include "../minilibx-linux/mlx.h"
 # include "../minilibx-linux/mlx_int.h"
 # include "vector2D.h"
-#include "sprite_enum.h"
-/* # include "sprite_enum.h" */
-# include <assert.h>
+# include "sprite_enum.h"
 # include <stdbool.h>
 # include <time.h>
 
@@ -30,12 +28,14 @@
 # define D 100
 # define E 101
 # define Q 113
+# define SPACE 32
+# define LEFT_CLICK 1
 # define LARROW 65361
 # define RARROW 65363
 
 # define HEIGHT 600
 # define WIDTH 800
-# define FOV 60
+# define FOV 90
 # define SPRITE_SIZE 64
 # define SPRITE_NBR 59
 
@@ -44,13 +44,14 @@
 # define BALL_SPEED 9
 # define PL_SPEED 3
 # define ROTATION_SPEED 200
+# define MAX_COINS 4
 
-# define NO 0
-# define SO 1
-# define EA 2
-# define WE 3
-# define F 4
-# define C 5
+enum	e_state
+{
+	DIED_STATE,
+	WIN_STATE,
+	GAME_STATE
+};
 
 typedef enum	e_type
 {
@@ -67,12 +68,12 @@ typedef enum	e_type
 typedef struct s_objs
 {
 	struct timespec last_time;
-	double elapsed_time;
-	int		spr_index;
-	t_type	type;
-	t_v2D	pos;
-	int		state;
-	int		hp;
+	double 			elapsed_time;
+	int				spr_index;
+	t_type			type;
+	t_v2D			pos;
+	int				state;
+	int				hp;
 }	t_objs;
 
 typedef struct s_player
@@ -95,10 +96,6 @@ typedef struct s_map
 {
 	int		x;
 	int		y;
-	/* int		total_lines; */
-	/* int		lines_to_map; */
-	int		height;
-	int		width;
 	char	**game_map;
 	char	*config_map[7];
 }	t_map;
@@ -156,6 +153,9 @@ typedef struct s_mlx
 	t_ray		ray;
 	t_draw		draw;
 	int			spr_index;
+	int			spr_hp_index;
+	int			spr_character_index;
+	int			spr_coins_index;
 	int			side;
 	double		dist_buffer[WIDTH];
 	t_list		*objs_lst;
@@ -163,7 +163,7 @@ typedef struct s_mlx
 	int			map_height;
 	t_cell 		*marked_cells;
     int 		num_marked_cells;
-	int			test;
+	enum e_state	game_state;
 	struct timespec door_time;
 	struct timespec last_time;
 	struct timespec current_time;
@@ -193,9 +193,12 @@ void		enemy_ray(t_mlx *mlx, t_list *objs_lst);
 void		update_player(t_mlx *mlx, t_player *player, t_map *map);
 void		update_ball(t_mlx *mlx, t_player *player, char **game_map);
 void		update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst);
+void		update_animations(t_mlx *mlx);
+void		update_state(t_mlx *mlx);
+void		end_game(t_mlx *mlx);
 
-//Render
-int			render(t_mlx *mlx);
+// Game Loop
+int			game_loop(t_mlx *mlx);
 
 // Map
 void		prepare_map(t_mlx *mlx);
@@ -220,6 +223,7 @@ void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
 int			pixel_get(t_image *img, int pixel_x, int pixel_y);
 t_sprite	xpm_to_image(void *lib, char *texture);
 void		shoot_ball(t_mlx *mlx);
+t_image		image_buffer(t_mlx *mlx);
 
 // Events
 int			handle_keyPress(int keycode, t_mlx *mlx);
@@ -235,10 +239,13 @@ bool		check_objs_collision(t_mlx *mlx, t_list *objs_lst, t_v2D check);
 void		close_game(t_mlx *mlx);
 
 // Draw Hud
-void	draw_hp(t_mlx *mlx);
-void	draw_char(t_mlx *mlx, int char_anim, t_v2D sprite_pos);
+void	draw_hud(t_mlx *mlx, int spr_index, t_v2D sprite_pos);
+void	draw_char(t_mlx *mlx);
+void	draw_coins(t_mlx *mlx);
+void	draw_hearts(t_mlx *mlx);
 int		calc_char_anim(t_mlx *mlx);
 void	draw_end_game(t_mlx *mlx, int sprite);
+void	draw_minimap(t_mlx *mlx, t_list *objs_lst);
 
 // Sort Sprite
 t_list	*sort_sprites(t_player *player, t_list *objs_lst);
@@ -254,5 +261,8 @@ void	print_list(t_list *lst);
 void	elim_obj(t_list **head, t_list *elim_obj);
 void	print_error(char *str);
 void	close_game(t_mlx *mlx);
+
+void	end_game_screen(t_mlx *mlx);
+void	win_game_screen(t_mlx *mlx);
 
 #endif

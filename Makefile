@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
+#    By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/06/17 10:56:15 by rumachad         ###   ########.fr        #
+#    Updated: 2024/06/19 00:41:41 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,15 +22,15 @@ VPATH = $(SRC_BONUS_PATH) $(SRC_BONUS_PATH)render $(SRC_BONUS_PATH)raycasting \
 		$(SRC_BONUS_PATH)map $(SRC_BONUS_PATH)vector $(SRC_BONUS_PATH)events \
 		$(SRC_BONUS_PATH)parser $(SRC_BONUS_PATH)draw
 SRC_BONUS = main_bonus.c \
+	game_loop_bonus.c \
 	handle_events_bonus.c \
 	update_player_bonus.c \
 	update_ball_bonus.c \
 	update_sprites_bonus.c \
-	render_bonus.c \
+	update_animations_bonus.c \
 	raycasting_bonus.c \
 	ray_hit_bonus.c \
 	enemy_raycast_bonus.c \
-	init_map_bonus.c \
 	init_sprites_bonus.c \
 	prepare_map_bonus.c \
 	v2D_math_bonus.c \
@@ -41,8 +41,9 @@ SRC_BONUS = main_bonus.c \
 	draw_bonus.c \
 	draw_sprite_bonus.c \
 	draw_hud_bonus.c \
+	draw_extra_bonus.c \
+	draw_minimap_bonus.c \
 	sort_sprites.c \
-	interactions_bonus.c \
 	line_calcs_bonus.c \
 	clean_bonus.c \
 	check_objs_bonus.c \

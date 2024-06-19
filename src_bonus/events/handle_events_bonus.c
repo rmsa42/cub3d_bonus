@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_events_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/14 11:12:52 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 00:44:38 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int handle_mouse(int x, int y, t_mlx *mlx)
 	center = (t_v2D){WIDTH / 2, HEIGHT / 2};
 	if (mlx->player.mouse == false)
 	{
-		if ((x != WIDTH / 2 || y != HEIGHT / 2) && x < WIDTH/1.25)
+		if ((x != WIDTH / 2 || y != HEIGHT / 2) && x < WIDTH / 1.25)
 		{
 			vector = (t_v2D){x - center.x, center.y - y};
 			mlx->player.pitch += vector.y;
@@ -39,7 +39,7 @@ int handle_mouse(int x, int y, t_mlx *mlx)
 				mlx->player.pitch = 200;
 			else if (mlx->player.pitch < -200)
 				mlx->player.pitch = -200;
-			mlx->player.angle = vector.x * 0.5;
+			mlx->player.angle = vector.x * 0.1;
 			mlx_mouse_move(mlx->lib, mlx->window, WIDTH / 2, HEIGHT / 2);
 		}
 		else
@@ -52,7 +52,7 @@ int handle_mouse_press(int button, int x, int y, t_mlx *mlx)
 {
 	(void)x;
 	(void)y;
-	if (button == 1 && mlx->player.shoot == false)
+	if (button == LEFT_CLICK && mlx->player.shoot == false)
 		mlx->player.ball_node = init_ball(&mlx->objs_lst, &mlx->player);
 	return(0);
 }
@@ -80,7 +80,7 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 		interact_door(mlx->map.game_map, player);
 	else if (keycode == Q)
 		player->mouse = true;
-	else if (keycode == 32 && player->shoot == false)
+	else if (keycode == SPACE && player->shoot == false)
 		player->ball_node = init_ball(&mlx->objs_lst, &mlx->player);
 	return (0);
 }

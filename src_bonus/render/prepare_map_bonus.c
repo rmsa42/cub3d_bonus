@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_map_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/17 11:15:56 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:38:54 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_player	init_player(double x, double y, char tile)
 	player.plane = multiply_vector(perp_vector(player.direction), (double)FOV / 90);
 	player.angle = 0;
 	player.coins = 0;
-	player.plane = multiply_vector(player.plane, (double)FOV / 90);
 	player.anim = false;
 	player.shoot = false;
 	player.ball_node = NULL;

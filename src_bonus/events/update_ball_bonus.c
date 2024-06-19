@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_ball_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:56:03 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/14 14:34:29 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:14:19 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ball_hit_obj(t_list **objs_lst, t_list *ball_node)
 	t_objs	*obj;
 	t_objs	*ball;
 	t_list	*iter;
-
+ 
 	obj = NULL;
 	ball = (t_objs *)ball_node->content;
 	iter = *objs_lst;
@@ -50,7 +50,7 @@ int	ball_hit_obj(t_list **objs_lst, t_list *ball_node)
 			&& (int)ball->pos.y == (int)obj->pos.y)
 		{
 			obj->hp--;
-			if (obj->hp == 0)
+			if (obj->hp <= 0)
 				elim_obj(objs_lst, iter);
 			return (1);
 		}
@@ -80,7 +80,6 @@ void	ball_movement(t_mlx *mlx, t_player *player, char **game_map, t_objs *ball)
 		player->shoot = false;
 		elim_obj(&mlx->objs_lst, player->ball_node);
 	}
-
 }
 
 void	update_ball(t_mlx *mlx, t_player *player, char **game_map)
@@ -89,7 +88,7 @@ void	update_ball(t_mlx *mlx, t_player *player, char **game_map)
 	static int i;
 
 	ball = (t_objs *)player->ball_node->content;
-	if(i++ >= 45)
+	if (i++ >= 45)
 		ball->spr_index = BALL2;
 	else
 		ball->spr_index = BALL1;
@@ -105,7 +104,7 @@ t_list	*init_ball(t_list **head, t_player *player)
 	
 	player->shoot = true;
 	player->anim = true;
-	ball = init_obj((t_v2D){0, 0}, 16, 20, BALL);
+	ball = init_obj((t_v2D){0, 0}, BALL1, 20, BALL);
 	ball->pos.x = player->pos.x + player->direction.x * 0.5;
 	ball->pos.y = player->pos.y + player->direction.y * 0.5;
 	node = ft_lstnew((void *)ball);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/17 13:26:13 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:38:50 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,45 +54,6 @@ int	check_path(char *line)
 		return (-1);
 	return (0);
 }
-
-int	check_element(char *line)
-{
-	int		i;
-	char	*ele[7];
-	
-	ele[0] = "NO";
-	ele[1] = "SO";
-	ele[2] = "WE";
-	ele[3] = "EA";
-	ele[4] = "C";
-	ele[5] = "F";
-	ele[6] = 0;
-	i = 0;
-	while (ele[i])
-	{
-		if (i < 4 && !ft_strncmp(line, ele[i], 2))
-			return (i);
-		else if (i >= 4 && !ft_strncmp(line, ele[i], 1))
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-/* int	check_line(char *line, int *ret)
-{
-	int	i;
-
-	i = 0;
-	i = check_element(line);
-	if (i >= 0 && i < 4)
-		i = check_path(line + 2);
-	else if (i >= 4)
-		i = check_rgb(line + 2);
-	if (i == -1)
-		return (1);
-	return (0);
-} */
 
 int	check_row(char *line)
 {
