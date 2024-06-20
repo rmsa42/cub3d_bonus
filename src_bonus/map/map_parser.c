@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:02:04 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/19 15:07:29 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:20:40 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	map_parser(char *map_name, t_mlx *mlx)
 		print_error("", EXIT_FAILURE, mlx);
 	check_config_map(mlx);
 	mlx->map.height = create_content_map(&mlx->map, full_map, config_lines, nbr_lines);
-	if (mlx->map_height == -1)
+	if (mlx->map.height == -1)
 		print_error("", EXIT_FAILURE, mlx);
 	ft_free_dp((void **)full_map);
 	return (0);

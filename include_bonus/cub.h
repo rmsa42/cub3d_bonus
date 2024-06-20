@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/19 15:29:45 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:27:58 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@
 # define ROTATION_SPEED 200
 # define MAX_COINS 4
 
-enum	e_state
+typedef enum	e_state
 {
 	DIED_STATE,
 	WIN_STATE,
 	GAME_STATE
-};
+}	t_state;
 
 typedef enum	e_type
 {
@@ -145,27 +145,24 @@ typedef struct s_cell
 
 typedef struct s_mlx
 {
-	char		*file;
-	void		*lib;
-	void		*window;
-	t_sprite	sprite[SPRITE_NBR];
-	t_player	player;
-	t_map		map;
-	t_image		img;
-	t_ray		ray;
-	t_draw		draw;
-	int			spr_index;
-	int			spr_hp_index;
-	int			spr_character_index;
-	int			spr_coins_index;
-	int			side;
-	double		dist_buffer[WIDTH];
-	t_list		*objs_lst;
-	int			map_width;
-	int			map_height;
-	t_cell 		*marked_cells;
-    int 		num_marked_cells;
-	enum e_state	game_state;
+	void			*lib;
+	void			*window;
+	t_sprite		sprite[SPRITE_NBR];
+	t_player		player;
+	t_map			map;
+	t_image			img;
+	t_ray			ray;
+	t_draw			draw;
+	t_list			*objs_lst;
+	t_cell 			*marked_cells;
+	t_state			game_state;
+	int				side;
+	double			dist_buffer[WIDTH];
+    int 			num_marked_cells;
+	int				spr_index;
+	int				spr_hp_index;
+	int				spr_character_index;
+	int				spr_coins_index;
 	struct timespec door_time;
 	struct timespec last_time;
 	struct timespec current_time;

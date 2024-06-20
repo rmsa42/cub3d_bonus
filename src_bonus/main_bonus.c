@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/19 15:36:35 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:46:26 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,11 @@ void	init_mlx(t_mlx *mlx)
 	mlx->side = 0;
 	mlx->spr_index = 0;
 	mlx->spr_hp_index = 0;
+	mlx->spr_character_index = 0;
 	mlx->spr_coins_index = 0;
-	mlx->map_width = 0;
-	mlx->map_height = 0;
 	mlx->delta = 0;
+	mlx->elapsed_time = 0;
+	mlx->elapsed_door = 0;
 	mlx->game_state = GAME_STATE;
 	ft_memset(mlx->sprite, 0, sizeof(t_sprite) * SPRITE_NBR);
 	ft_memset(&mlx->map, 0, sizeof(t_map));
@@ -65,12 +66,16 @@ void	init_mlx(t_mlx *mlx)
 	update_time(&mlx->door_time);
 	update_time(&mlx->last_time);
 	update_time(&mlx->prev_time);
+	update_time(&mlx->current_time);
 }
 
 int	flood_fill(t_mlx *mlx, t_map map, char **flood_map, t_cell coor)
 {
-	if (flood_map[coor.y][coor.x] == 32 || coor.x > map.width || coor.y > map.height
-		|| coor.x < 0 || coor.y < 0)
+/* 	printf("%d, %d\n", coor.x, coor.y);
+	printf("%s\n", flood_map[coor.y]); */
+	if (coor.x < 0 || coor.y < 0 || flood_map[coor.y][coor.x] == 32
+		|| coor.x >= (int)ft_strlen(flood_map[coor.y])
+		|| coor.y > map.height)
 	{
 		ft_free_dp((void **)flood_map);
 		print_error("Invalid Map\n", EXIT_FAILURE, mlx);
@@ -79,9 +84,9 @@ int	flood_fill(t_mlx *mlx, t_map map, char **flood_map, t_cell coor)
 		return (1);
 	flood_map[coor.y][coor.x] = '1';
 	flood_fill(mlx, map, flood_map, (t_cell){coor.x + 1, coor.y});
-	flood_fill(mlx, map, flood_map, (t_cell){coor.x + 1, coor.y});
-	flood_fill(mlx, map, flood_map, (t_cell){coor.x + 1, coor.y});
-	flood_fill(mlx, map, flood_map, (t_cell){coor.x + 1, coor.y});
+	flood_fill(mlx, map, flood_map, (t_cell){coor.x - 1, coor.y});
+	flood_fill(mlx, map, flood_map, (t_cell){coor.x, coor.y + 1});
+	flood_fill(mlx, map, flood_map, (t_cell){coor.x, coor.y - 1});
 	return (0);
 }
 
@@ -107,7 +112,10 @@ int main(int argc, char *argv[])
 	t_mlx	mlx;
 
 	if (argc > 2)
-		print_error("Invalid number of arguments\n", EXIT_FAILURE, &mlx);
+	{
+		ft_fprintf(STDERR_FILENO, "Error\nInvalid arguments\n");
+		return (1);
+	}
 	init_mlx(&mlx);
 	mlx.lib = mlx_init();
 	if (mlx.lib == NULL)

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/18 15:22:39 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:19:29 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ t_v2D	get_position(t_player *player, double speed)
 bool	object_check(t_mlx *mlx, t_list *objs_lst, char **game_map, t_v2D check)
 {
 	bool	collision;
+	t_player	*player;
 
+	player = &mlx->player;
 	collision = check_objs_collision(mlx, objs_lst, check);
 	if (game_map[(int)check.y][(int)check.x] == '1'
 			|| game_map[(int)check.y][(int)check.x] == 'D')
-			collision = true;
+		collision = true;
 	return(collision);
 }
 
@@ -94,7 +96,7 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 
 	 // Player Movement (x, y)
 	new_pos = get_position(player, PL_SPEED * mlx->delta);
-	check = get_position(player, (PL_SPEED + 0.1) * mlx->delta);
+	check = get_position(player, (PL_SPEED + 0.1 ) * mlx->delta);
 	collision = object_check(mlx, mlx->objs_lst, map->game_map, check);
 	if (collision == false && player->hp > 0)
 		player_move(player, map->game_map, new_pos, check);

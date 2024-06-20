@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/19 15:34:45 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:08:33 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,7 @@ void	close_game(t_mlx *mlx, int status)
 		map_destructor(&mlx->map);
 	if (mlx->marked_cells != NULL)
 		free(mlx->marked_cells);
-	if (mlx->objs_lst != NULL)
-		obj_destructor(mlx->objs_lst);
+	obj_destructor(mlx->objs_lst);
 	mlx_destructor(mlx->lib, mlx->window);
 	exit(status);
 }
