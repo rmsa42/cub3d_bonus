@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/20 14:24:24 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:07:15 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ t_v2D	get_position(t_player *player, double speed)
 
 	y = multiply_vector(player->direction, player->movement.y);
 	x = multiply_vector(player->plane, player->movement.x);
+	/* print_vector(x);
+	print_vector(y); */
 	new_pos = add_vector(x, y);
 	new_pos = normalize_vector(new_pos);
 	velocity = multiply_vector(new_pos, speed);
@@ -56,27 +58,26 @@ t_v2D	get_position(t_player *player, double speed)
 	return(new_pos);
 }
 
-bool is_collision(t_map map, float x, float y) {
-    int map_x = (int)x;
-    int map_y = (int)y;
+bool is_collision(t_map map, float x, float y)
+{
+	int map_x = (int)x;
+	int map_y = (int)y;
 
-    if (map.game_map[map_y][map_x] == '1' || map.game_map[map_y][map_x] == 'D')
-        return true;
-    return false;
+	if (map.game_map[map_y][map_x] == '1' || map.game_map[map_y][map_x] == 'D')
+		return true;
+	return false;
 }
 
 bool	object_check(t_mlx *mlx, t_list *objs_lst, t_v2D check)
 {
 	bool collision;
 
-	collision = false;
 	collision = check_objs_collision(mlx, objs_lst, check);
-
-    if (is_collision(mlx->map, check.x - 0.1, check.y - 0.1) ||
-        is_collision(mlx->map, check.x + 0.1, check.y - 0.1) ||
-        is_collision(mlx->map, check.x - 0.1, check.y + 0.1) ||
-        is_collision(mlx->map, check.x + 0.1, check.y + 0.1))
-        collision = true;
+	if (is_collision(mlx->map, check.x - 0.1, check.y - 0.1) ||
+		is_collision(mlx->map, check.x + 0.1, check.y - 0.1) ||
+		is_collision(mlx->map, check.x - 0.1, check.y + 0.1) ||
+		is_collision(mlx->map, check.x + 0.1, check.y + 0.1))
+		collision = true;
     return (collision);
 }
 
@@ -108,7 +109,7 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 	 // Player Movement (x, y)
 	new_pos = get_position(player, PL_SPEED * mlx->delta);
 	check = get_position(player, (PL_SPEED + 0.1 ) * mlx->delta);
-	collision = object_check(mlx, mlx->objs_lst, map->game_map, check);
+	collision = object_check(mlx, mlx->objs_lst, check);
 	if (collision == false && player->hp > 0)
 		player_move(player, map->game_map, new_pos, check);
 

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/20 14:23:24 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:05:54 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 
 # define HEIGHT 600
 # define WIDTH 800
-# define FOV 90
+# define FOV 60
 # define SPRITE_SIZE 64
 # define SPRITE_NBR 60
 

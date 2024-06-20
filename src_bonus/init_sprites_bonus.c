@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:38:56 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/20 14:23:37 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:41:33 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	init_sprite3(t_mlx *mlx, t_sprite *sprite)
 	sprite[56] = xpm_to_image(mlx, "sprites/coins5.xpm");
 	sprite[57] = xpm_to_image(mlx, "sprites/collec.xpm");
 	sprite[58] = xpm_to_image(mlx, "sprites/win_game.xpm");
+	sprite[59] = xpm_to_image(mlx, "sprites/hp_collect1.xpm");
 }
 
 void	init_sprite2(t_mlx *mlx, t_sprite *sprite)
