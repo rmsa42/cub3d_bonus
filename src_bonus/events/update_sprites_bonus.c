@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/19 12:40:46 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:24:30 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	sprite_move(t_player *player, t_objs *obj, double delta)
 	dir.y = player->pos.y - obj->pos.y;
 	dir = normalize_vector(dir);
 	check = dir;
-	velocity = multiply_vector(dir, (PL_SPEED * 0.7) * delta);
-	check = add_vector(obj->pos, multiply_vector(check, (PL_SPEED + 0.7) * delta));
+	velocity = multiply_vector(dir, (PL_SPEED * 1) * delta);
+	check = add_vector(obj->pos, multiply_vector(check, (PL_SPEED + 1) * delta));
 	if ((int)check.x != (int)player->pos.x || (int)check.y != (int)player->pos.y)
 	{
 		obj->spr_index = ENEMY1;

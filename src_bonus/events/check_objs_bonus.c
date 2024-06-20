@@ -3,19 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   check_objs_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:00:52 by cacarval          #+#    #+#             */
-/*   Updated: 2024/06/19 11:01:24 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:01:23 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
+int	collectable_delete(t_mlx *mlx, t_list **objs_lst, t_objs *obj)
+{
+	t_list	*delete;
+
+	if (obj->type == COLLECT || obj->type == HP_COLLECT)
+	{
+		if(obj->type == HP_COLLECT && mlx->player.hp < 100)
+		{
+			mlx->player.hp +=25;
+			if (mlx->player.hp > 100)
+				mlx->player.hp = 100;
+		}
+		else if (obj->type == COLLECT)
+			mlx->player.coins++;
+		else
+			return (0);
+		delete = (*objs_lst);
+		(*objs_lst) = (*objs_lst)->next;
+		elim_obj(&mlx->objs_lst, delete);
+		return (1);
+	}
+	return(0);
+}
+
 bool	check_objs_collision(t_mlx *mlx, t_list *objs_lst, t_v2D check)
 {
 	t_objs	*obj;
-	t_list	*delete;
 	bool	collision;
 
 	collision = false;
@@ -25,14 +48,8 @@ bool	check_objs_collision(t_mlx *mlx, t_list *objs_lst, t_v2D check)
 		if (((int)check.x == (int)obj->pos.x
 				&& (int)check.y == (int)obj->pos.y))
 		{
-			if (obj->type == COLLECT)
-			{
-				delete = objs_lst;
-				objs_lst = objs_lst->next;
-				elim_obj(&mlx->objs_lst, delete);
-				mlx->player.coins++;
-				continue ;
-			}
+			if (collectable_delete(mlx, &objs_lst, obj))
+				continue;
 			collision = true;
 		}
 		objs_lst = objs_lst->next;

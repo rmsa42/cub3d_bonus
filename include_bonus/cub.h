@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/20 10:27:58 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:23:24 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define WIDTH 800
 # define FOV 90
 # define SPRITE_SIZE 64
-# define SPRITE_NBR 59
+# define SPRITE_NBR 60
 
 # define PI 3.14159265359
 
@@ -62,7 +62,8 @@ typedef enum	e_type
 	SPRITE,
 	BALL,
 	COLLECT,
-	WALL
+	WALL,
+	HP_COLLECT
 }	t_type;
 
 typedef struct s_objs
@@ -96,8 +97,8 @@ typedef struct s_map
 {
 	int		x;
 	int		y;
-	int		width;
 	int		height;
+	int		width;
 	char	**game_map;
 	char	*config_map[7];
 }	t_map;

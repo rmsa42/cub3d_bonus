@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_animations_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:39:53 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/19 00:01:39 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:06:57 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	calc_char_anim(t_mlx *mlx)
 {
 	static int char_anim = CHARACTER1;
-	double chosen_time = 0.10;
 	static int i = 0;
 
 	if (mlx->game_state == DIED_STATE && i == 0)
@@ -28,7 +27,7 @@ int	calc_char_anim(t_mlx *mlx)
 		i = 1;
 		char_anim = ATTACK1;
 	}
-	else if (mlx->elapsed_time >= chosen_time && char_anim < 51)
+	else if (mlx->elapsed_time >= 0.10 && char_anim < 51)
 	{
 		char_anim++;
 		update_time(&mlx->last_time);

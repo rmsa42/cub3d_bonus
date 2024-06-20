@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/20 14:19:29 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:24:24 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,28 @@ t_v2D	get_position(t_player *player, double speed)
 	return(new_pos);
 }
 
-bool	object_check(t_mlx *mlx, t_list *objs_lst, char **game_map, t_v2D check)
-{
-	bool	collision;
-	t_player	*player;
+bool is_collision(t_map map, float x, float y) {
+    int map_x = (int)x;
+    int map_y = (int)y;
 
-	player = &mlx->player;
+    if (map.game_map[map_y][map_x] == '1' || map.game_map[map_y][map_x] == 'D')
+        return true;
+    return false;
+}
+
+bool	object_check(t_mlx *mlx, t_list *objs_lst, t_v2D check)
+{
+	bool collision;
+
+	collision = false;
 	collision = check_objs_collision(mlx, objs_lst, check);
-	if (game_map[(int)check.y][(int)check.x] == '1'
-			|| game_map[(int)check.y][(int)check.x] == 'D')
-		collision = true;
-	return(collision);
+
+    if (is_collision(mlx->map, check.x - 0.1, check.y - 0.1) ||
+        is_collision(mlx->map, check.x + 0.1, check.y - 0.1) ||
+        is_collision(mlx->map, check.x - 0.1, check.y + 0.1) ||
+        is_collision(mlx->map, check.x + 0.1, check.y + 0.1))
+        collision = true;
+    return (collision);
 }
 
 void	player_move(t_player *player, char **game_map, t_v2D new_pos, t_v2D check)
