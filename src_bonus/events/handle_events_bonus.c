@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_events_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/19 00:44:38 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:31:47 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 	
 	player = &mlx->player;
 	if (keycode == ESC)
-		close_game(mlx);
+		close_game(mlx, 0);
 	else if (keycode == W)
 		player->movement.y = 1;
 	else if (keycode == S)

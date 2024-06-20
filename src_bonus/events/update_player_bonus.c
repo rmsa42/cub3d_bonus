@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_player_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/20 14:17:12 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:24:24 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 
 	 // Player Movement (x, y)
 	new_pos = get_position(player, PL_SPEED * mlx->delta);
-	check = get_position(player, (PL_SPEED + 0.1) * mlx->delta);
+	check = get_position(player, (PL_SPEED + 0.1 ) * mlx->delta);
 	collision = object_check(mlx, mlx->objs_lst, map->game_map, check);
 	if (collision == false && player->hp > 0)
 		player_move(player, map->game_map, new_pos, check);

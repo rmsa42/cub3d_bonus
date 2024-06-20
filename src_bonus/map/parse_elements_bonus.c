@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:01:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/19 11:38:46 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:53:03 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	get_game_map(t_map *map, char **full_map,int i)
 		}
 		free(trimed_line);
 	}
+	map->game_map[j] = 0;
 	return(j);
 }
 
@@ -98,6 +99,5 @@ int	create_content_map(t_map *map, char **full_map, int after, int len)
 	j = 0;
 	map->game_map = malloc(sizeof(char *) * (len - after + 1));
 	j = get_game_map(map, full_map, i);
-	map->game_map[j] = 0;
 	return (j);
 }

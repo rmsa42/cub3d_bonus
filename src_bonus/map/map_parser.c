@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:02:04 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/19 11:38:42 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:20:40 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	check_config_map2(t_mlx *mlx, char *dir, int pos)
 	int i;
 
 	i = -1;
-	while(mlx->map.config_map[++i])
+	while (mlx->map.config_map[++i])
 	{
-		if(ft_strncmp(mlx->map.config_map[i], dir, ft_strlen(dir)) == 0)
+		if (ft_strncmp(mlx->map.config_map[i], dir, ft_strlen(dir)) == 0)
 		{
 			swap = mlx->map.config_map[pos];
 			mlx->map.config_map[pos] = mlx->map.config_map[i];
@@ -65,7 +65,7 @@ void	check_config_map2(t_mlx *mlx, char *dir, int pos)
 			return ;
 		}
 	}
-	print_error("Invalid Configurations");
+	print_error("Invalid Configurations", EXIT_FAILURE, mlx);
 }
 
 void	check_config_map(t_mlx *mlx)
@@ -91,24 +91,24 @@ int	map_parser(char *map_name, t_mlx *mlx)
 	
 	fd = 0;
 	if (!ft_strnstr(map_name, ".cub", ft_strlen(map_name)))
-	{
-		print_error("Invalid map extension\n");
-		return (1);
-	}
+		print_error("Invalid map extension\n", EXIT_FAILURE, mlx);
 	fd = open(map_name, O_RDONLY);
+	if (fd == -1)
+		print_error("", EXIT_FAILURE, mlx);
 	nbr_lines = map_nbr_lines(fd);
 	close(fd);
 	fd = open(map_name, O_RDONLY);
+	if (fd == -1)
+		print_error("", EXIT_FAILURE, mlx);
 	full_map = cpy_map(fd, nbr_lines);
 	close(fd);
 	config_lines = create_config_map(&mlx->map, full_map);
 	if (config_lines == -1)
-	{
-		print_error("Invalid map elements\n");
-		return (1);
-	}
+		print_error("", EXIT_FAILURE, mlx);
 	check_config_map(mlx);
 	mlx->map.height = create_content_map(&mlx->map, full_map, config_lines, nbr_lines);
+	if (mlx->map.height == -1)
+		print_error("", EXIT_FAILURE, mlx);
 	ft_free_dp((void **)full_map);
 	return (0);
 }

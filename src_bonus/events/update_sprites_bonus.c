@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_sprites_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/19 14:27:42 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:24:30 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	sprite_move(t_player *player, t_objs *obj, double delta)
 	{
 		update_sprite_anim(obj);
 		if (obj->spr_index == ENEMY3 && obj->elapsed_time >= 0.10)
-			player->hp -= 2;
+			player->hp -= 2 * delta;
 	}
 }
 

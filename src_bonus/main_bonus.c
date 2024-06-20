@@ -6,14 +6,14 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/19 11:38:26 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:46:26 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "vector2D.h"
 
-int	check_conf(void *lib, char **conf_map, t_sprite *sprite)
+int	check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite)
 {
 	int	k;
 	int	*rgb;
@@ -29,7 +29,7 @@ int	check_conf(void *lib, char **conf_map, t_sprite *sprite)
 		{
 			if (check_path((conf_map[k] + 2) + advance_space(conf_map[k] + 2)))
 				return (-1);
-			sprite[k] = xpm_to_image(lib, (conf_map[k] + 2) + advance_space(conf_map[k] + 2));
+			sprite[k] = xpm_to_image(mlx, (conf_map[k] + 2) + advance_space(conf_map[k] + 2));
 		}
 		else if (k >= 4)
 		{
@@ -44,16 +44,18 @@ int	check_conf(void *lib, char **conf_map, t_sprite *sprite)
 
 void	init_mlx(t_mlx *mlx)
 {
+	mlx->window = NULL;
 	mlx->objs_lst = NULL;
 	mlx->marked_cells = NULL;
 	mlx->num_marked_cells = 0;
 	mlx->side = 0;
 	mlx->spr_index = 0;
 	mlx->spr_hp_index = 0;
+	mlx->spr_character_index = 0;
 	mlx->spr_coins_index = 0;
-	mlx->map_width = 0;
-	mlx->map_height = 0;
 	mlx->delta = 0;
+	mlx->elapsed_time = 0;
+	mlx->elapsed_door = 0;
 	mlx->game_state = GAME_STATE;
 	ft_memset(mlx->sprite, 0, sizeof(t_sprite) * SPRITE_NBR);
 	ft_memset(&mlx->map, 0, sizeof(t_map));
@@ -64,36 +66,79 @@ void	init_mlx(t_mlx *mlx)
 	update_time(&mlx->door_time);
 	update_time(&mlx->last_time);
 	update_time(&mlx->prev_time);
+	update_time(&mlx->current_time);
 }
+
+int	flood_fill(t_mlx *mlx, t_map map, char **flood_map, t_cell coor)
+{
+/* 	printf("%d, %d\n", coor.x, coor.y);
+	printf("%s\n", flood_map[coor.y]); */
+	if (coor.x < 0 || coor.y < 0 || flood_map[coor.y][coor.x] == 32
+		|| coor.x >= (int)ft_strlen(flood_map[coor.y])
+		|| coor.y > map.height)
+	{
+		ft_free_dp((void **)flood_map);
+		print_error("Invalid Map\n", EXIT_FAILURE, mlx);
+	}
+	if (flood_map[coor.y][coor.x] == '1')
+		return (1);
+	flood_map[coor.y][coor.x] = '1';
+	flood_fill(mlx, map, flood_map, (t_cell){coor.x + 1, coor.y});
+	flood_fill(mlx, map, flood_map, (t_cell){coor.x - 1, coor.y});
+	flood_fill(mlx, map, flood_map, (t_cell){coor.x, coor.y + 1});
+	flood_fill(mlx, map, flood_map, (t_cell){coor.x, coor.y - 1});
+	return (0);
+}
+
+void	call_flood_fill(t_mlx *mlx, t_v2D pl_pos)
+{
+	t_cell	coor;
+	char	**flood_map;
+	int		i;
+
+	i = -1;
+	coor = (t_cell){(int)pl_pos.x, (int)pl_pos.y};
+	flood_map = malloc(sizeof(char *) * (mlx->map.height + 1));
+	while (mlx->map.game_map[++i])
+		flood_map[i] = ft_strdup(mlx->map.game_map[i]);
+	flood_map[i] = 0;
+	flood_fill(mlx, mlx->map, flood_map, coor);
+	ft_free_dp((void **)flood_map);
+}
+
 
 int main(int argc, char *argv[])
 {	
 	t_mlx	mlx;
 
 	if (argc > 2)
-		print_error("Invalid number of arguments\n");
+	{
+		ft_fprintf(STDERR_FILENO, "Error\nInvalid arguments\n");
+		return (1);
+	}
+	init_mlx(&mlx);
 	mlx.lib = mlx_init();
 	if (mlx.lib == NULL)
-		print_error("Mlx init failure\n");
-	init_mlx(&mlx);
+		print_error("Mlx init failure\n", EXIT_FAILURE, &mlx);
 
 	 // Map Parser
 	map_parser(argv[1], &mlx);
 
 	 // Sprite Init
-	init_sprite(mlx.lib, mlx.map.config_map, mlx.sprite);
+	init_sprite(&mlx, mlx.map.config_map, mlx.sprite);
 
 	prepare_map(&mlx);
+	call_flood_fill(&mlx, mlx.player.pos);
 	
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	if (mlx.window == NULL)
-		print_error("Mlx window creation failure\n");
-	
+		print_error("Mlx window creation failure\n", EXIT_FAILURE, &mlx);
+
 	mlx_hook(mlx.window, MotionNotify, PointerMotionMask, handle_mouse, &mlx);
 	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
 	mlx_mouse_hook(mlx.window, handle_mouse_press, &mlx);
 	mlx_hook(mlx.window, KeyRelease, KeyReleaseMask, handle_keyRelease, &mlx.player);
-	mlx_mouse_hide(mlx.lib, mlx.window);
+	/* mlx_mouse_hide(mlx.lib, mlx.window); */
 	mlx_loop_hook(mlx.lib, game_loop, &mlx);
 	mlx_loop(mlx.lib);
 	return (0);	
