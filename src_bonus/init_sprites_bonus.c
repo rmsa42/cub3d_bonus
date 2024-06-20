@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_sprites_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:38:56 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/19 00:30:26 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:15:25 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	init_sprite3(void *lib, t_sprite *sprite)
 	sprite[56] = xpm_to_image(lib, "sprites/coins5.xpm");
 	sprite[57] = xpm_to_image(lib, "sprites/collec.xpm");
 	sprite[58] = xpm_to_image(lib, "sprites/win_game.xpm");
+	sprite[59] = xpm_to_image(lib, "sprites/hp_collect1.xpm");
 }
 
 void	init_sprite2(void *lib, t_sprite *sprite)

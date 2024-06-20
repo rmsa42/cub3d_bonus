@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_map_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/19 11:38:54 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:26:10 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	draw_map(t_mlx *mlx, char *tile, int x, int y)
 		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, ENEMY1, 2, ENEMY));
 	else if (*tile == 'C')
 		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, COLLEC, 1000, COLLECT));
+	else if (*tile == 'H')
+		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, HP_COLLECT1, 1000, HP_COLLECT));
 	if (node != NULL)
 	{
 		ft_lstadd_back(&mlx->objs_lst, node);
@@ -84,7 +86,7 @@ void	prepare_map(t_mlx *mlx)
 	map = &mlx->map;
 	map->y = 0;
 	mlx->num_marked_cells = 0;
-	mlx->marked_cells = (t_cell *)ft_calloc(map->height * map->height, sizeof(t_cell));
+	mlx->marked_cells = (t_cell *)ft_calloc(map->width * map->height, sizeof(t_cell));
 	while (map->game_map[map->y])
 	{
 		map->x = 0;

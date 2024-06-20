@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_minimap_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/19 11:38:29 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:09:21 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	map_objs(t_mlx *mlx, t_list *objs_lst, int tile_size, int i, int j)
 			color = 0xFFFF00;
 		else if (obj->type == BALL)
 			color = 0x0000FF;
+		else if (obj->type == HP_COLLECT)
+			color = 0x00FF00;
 		pixel_put(&mlx->img, sprite.x + i, sprite.y + j, color);
 		objs_lst = objs_lst->next;
 	}	
@@ -86,7 +88,7 @@ void	draw_map_sprites(t_mlx *mlx, t_list *objs_lst, int tile_size)
 		{
 			objs_lst = mlx->objs_lst;
 			map_objs(mlx, objs_lst, tile_size, i , j);
-			pixel_put(&mlx->img, player.x + i, player.y + j, 0x00FF00);
+			pixel_put(&mlx->img, player.x + i, player.y + j, 0x00FFFF);
 			j++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:09:33 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/14 12:46:22 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:15:41 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef enum	e_spr_index
 	COINS5,
 	COLLEC,
 	WIN_GAME,
+	HP_COLLECT1,
 }	t_spr_index;
 
 #endif
