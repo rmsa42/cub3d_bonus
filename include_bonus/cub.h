@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/21 00:55:53 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:30:10 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef enum	e_state
 {
 	DIED_STATE,
 	WIN_STATE,
-	GAME_STATE
+	GAME_STATE,
 }	t_state;
 
 typedef enum	e_type
@@ -90,7 +90,7 @@ typedef struct s_player
 	double	pitch;
 	bool	mouse;
 	bool	shoot;
-	bool	anim;
+	bool	shoot_anim;
 }	t_player;
 
 typedef struct s_map
@@ -259,7 +259,6 @@ void	draw_minimap(t_mlx *mlx, t_list *objs_lst);
 t_list	*sort_sprites(t_player *player, t_list *objs_lst);
 
 // Time
-
 void	update_time(struct timespec *time);
 double	time_passed(struct timespec *last, struct timespec *current);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_player_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 01:00:23 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:30:47 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,18 +88,21 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 {
 	t_v2D		new_pos;
 	t_v2D		check;
+	double		speed;
 	
 	 // Ball Update
 	if (player->shoot == true)
 		update_ball(mlx, player);
 
 	 // Player Movement (x, y)
-	new_pos = get_position(player, PL_SPEED * mlx->delta);
-	check = get_position(player, (PL_SPEED + 0.1) * mlx->delta);
+	speed = PL_SPEED * mlx->delta;
+	new_pos = get_position(player, speed);
+	check = get_position(player, speed + 0.1);
 	if (!move_check(mlx, mlx->objs_lst, check))
 		player_move(player, map->game_map, new_pos, new_pos);
 
 	 // Player Camera Rotation
-	player->direction = rotate(player->direction, player->angle * mlx->delta * ROTATION_SPEED);
-	player->plane = rotate(player->plane, player->angle * mlx->delta * ROTATION_SPEED);
+	speed = player->angle * mlx->delta * ROTATION_SPEED;
+	player->direction = rotate(player->direction, speed);
+	player->plane = rotate(player->plane, speed);
 }

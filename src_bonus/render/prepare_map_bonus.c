@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/20 16:55:43 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:02:04 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,22 @@
 t_player	init_player(double x, double y, char tile)
 {
 	t_player	player;
-	int			dir;
 
-	player.pitch = 0;
-	dir = 1;
 	player.pos = (t_v2D){x, y};
 	if (tile == 'N')
-		player.direction = (t_v2D){0, -dir};
+		player.direction = (t_v2D){0, -1};
 	else if (tile == 'S')
-		player.direction = (t_v2D){0, dir};
+		player.direction = (t_v2D){0, 1};
 	else if (tile == 'W')
-		player.direction = (t_v2D){-dir, 0};
+		player.direction = (t_v2D){-1, 0};
 	else if (tile == 'E')
-		player.direction = (t_v2D){dir, 0};
+		player.direction = (t_v2D){1, 0};
 	player.movement = (t_v2D){0, 0};
+	player.pitch = 0;
 	player.plane = multiply_vector(perp_vector(player.direction), (double)FOV / 90);
 	player.angle = 0;
 	player.coins = 0;
-	player.anim = false;
+	player.shoot_anim = false;
 	player.shoot = false;
 	player.ball_node = NULL;
 	player.mouse = false;
@@ -54,15 +52,16 @@ t_objs	*init_obj(t_v2D pos, int spr_index, int hp, t_type type)
 	return (obj);
 }
 
-void	draw_map(t_mlx *mlx, char *tile, int x, int y)
+int	draw_map(t_mlx *mlx, char *tile, int x, int y)
 {
-	t_list	*node;
+	t_list		*node;
 
 	node = NULL;
 	if ((*tile == 'N' || *tile == 'S' || *tile == 'W' || *tile == 'E'))
 	{
 		mlx->player = init_player(x + 0.5, y + 0.5, *tile);
 		*tile = '0';
+		return (1);
 	}
 	else if (*tile == 's')
 		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, BARREL, 20, SPRITE));
@@ -77,22 +76,27 @@ void	draw_map(t_mlx *mlx, char *tile, int x, int y)
 		ft_lstadd_back(&mlx->objs_lst, node);
 		*tile = '0';
 	}
+	return (0);
 }
 
 void	prepare_map(t_mlx *mlx)
 {
 	t_map		*map;
+	int			pl_count;
 
 	map = &mlx->map;
 	map->y = 0;
 	mlx->num_marked_cells = 0;
+	pl_count = 0;
 	mlx->marked_cells = (t_cell *)ft_calloc(map->height * map->width, sizeof(t_cell));
 	while (map->game_map[map->y])
 	{
 		map->x = 0;
 		while (map->game_map[map->y][map->x])
 		{
-			draw_map(mlx, &map->game_map[map->y][map->x], map->x, map->y);
+			pl_count += draw_map(mlx, &map->game_map[map->y][map->x], map->x, map->y);
+			if (pl_count > 1)
+				print_error("Invalid Map(Two Players)\n", -1, mlx);
 			map->x++;
 		}
 		map->y++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ball_hits_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 00:27:08 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 01:11:52 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/21 09:22:26 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,5 @@ void	clean_hit(t_list **objs_list, t_player *player, t_list *hit)
 	}
 	elim_obj(objs_list, player->ball_node);
 	player->shoot = false;
-	player->anim = false;
+	player->shoot_anim = false;
 }
