@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 13:17:51 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:06:26 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,11 @@ void	sprite_move(t_player *player, t_objs *obj, double speed)
 	}
 	else
 	{
-		player->damaged = 0;
 		update_sprite_anim(obj, 0);
 		if (obj->spr_index == ENEMY3 && obj->elapsed_time >= 0.15)
 		{
 			player->damaged = 1;
-			player->hp -= 1;
+			player->hp -= 2;
 		}
 	}
 }
@@ -73,6 +72,8 @@ void	update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst)
 	while (objs_lst != NULL)
 	{
 		obj = (t_objs *)objs_lst->content;
+		if(obj->elapsed_time >= 0.15)
+			player->damaged = 0;
 		if(obj->type == ENEMY)
 		{
 			if (obj->state == 1)

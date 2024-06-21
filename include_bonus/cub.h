@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/21 12:34:26 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/21 14:08:50 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define WIDTH 800
 # define FOV 60
 # define SPRITE_SIZE 64
-# define SPRITE_NBR 64
+# define SPRITE_NBR 65
 
 # define PI 3.14159265359
 
@@ -89,6 +89,7 @@ typedef struct s_player
 	t_list	*ball_node;
 	int		hp;
 	int		damaged;
+	int		healed;
 	int		coins;
 	double	angle;
 	double	pitch;

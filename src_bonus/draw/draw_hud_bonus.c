@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:27:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 13:14:16 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:20:11 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,24 @@ void	draw_hud(t_mlx *mlx, int spr_index, t_v2D sprite_pos)
 	}
 }
 
+void custom_pixel_put(t_image *img, int pixelX, int pixelY, int color)
+{
+    char *dst = img->addr + (pixelY * img->line_length + pixelX * (img->bits_per_pixel / 8));
+    unsigned int *dst_pixel = (unsigned int *)dst;
+    unsigned int dst_color = *dst_pixel;
+
+    float alpha_src = (float)((color >> 24) & 0xFF) / 255.0f;
+    float alpha_dst = 1.0f - alpha_src;
+
+    int red = (int)(((color >> 16) & 0xFF) * alpha_src + ((dst_color >> 16) & 0xFF) * alpha_dst);
+    int green = (int)(((color >> 8) & 0xFF) * alpha_src + ((dst_color >> 8) & 0xFF) * alpha_dst);
+    int blue = (int)((color & 0xFF) * alpha_src + (dst_color & 0xFF) * alpha_dst);
+  	color = (color & 0xFF000000) | (red << 16) | (green << 8) | blue;
+    *dst_pixel = color;
+}
+
+
+
 void draw_end_game(t_mlx *mlx, int	sprite) 
 {
 	t_v2D	scr;
@@ -54,9 +72,23 @@ void draw_end_game(t_mlx *mlx, int	sprite)
 			texture.y = (int)(scr.y);
 			if (texture.x >= 0 && texture.x < WIDTH && texture.y >= 0 && texture.y < HEIGHT)
 			{
-				color = pixel_get(&mlx->sprite[sprite].img, texture.x, texture.y);
-				if (color != (int)0xFF00FF)
-					pixel_put(&mlx->img, scr.x, scr.y, color);
+				if (sprite == DAMAGED)
+				{
+					color = 0x4Dff0000;
+					custom_pixel_put(&mlx->img, scr.x, scr.y, color);
+				}
+				else if (sprite == HEALED)
+				{
+					color = 0x4D00FF00;
+					custom_pixel_put(&mlx->img, scr.x, scr.y, color);
+				}
+				else
+				{
+					color = pixel_get(&mlx->sprite[sprite].img, texture.x, texture.y);
+					if (color != (int)0xFF00FF)
+						pixel_put(&mlx->img, scr.x, scr.y, color);
+
+				}
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 12:24:55 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/21 14:23:29 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_player	init_player(double x, double y, char tile)
 	player.angle = 0;
 	player.coins = 0;
 	player.damaged = 0;
+	player.healed = 0;
 	player.shoot_anim = false;
 	player.shoot = false;
 	player.ball_node = NULL;
