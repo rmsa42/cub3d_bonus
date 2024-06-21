@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:15:49 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/14 14:24:40 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/21 11:41:45 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,17 @@ void update_time(struct timespec *time)
 void	door_anim(t_mlx *mlx, t_map *map)
 {
 	static int i = OPEN_DOOR1;
-	mlx->spr_index = DOOR1;
-	
-	if (map->game_map[map->y][map->x] == 'd' )
+
+	mlx->spr_index = DOOR1;	
+	if (map->game_map[map->y][map->x] == 'P' || map->game_map[map->y][map->x] == 'p')
+	{
+		mlx->spr_index = END_DOOR1;
+		if (map->game_map[map->y][map->x] == 'p')
+			mlx->spr_index = END_DOOR3;
+		else if (mlx->player.coins == 4)
+			mlx->spr_index = END_DOOR2;
+	}
+	if (map->game_map[map->y][map->x] == 'd')
 	{
 		mlx->spr_index = i;
 		if (mlx->elapsed_door >= 0.20)
