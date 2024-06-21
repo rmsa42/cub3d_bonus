@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_sprites_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:38:56 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/20 16:41:33 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/21 11:02:00 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ void	init_sprite3(t_mlx *mlx, t_sprite *sprite)
 	sprite[57] = xpm_to_image(mlx, "sprites/collec.xpm");
 	sprite[58] = xpm_to_image(mlx, "sprites/win_game.xpm");
 	sprite[59] = xpm_to_image(mlx, "sprites/hp_collect1.xpm");
+	sprite[60] = xpm_to_image(mlx, "sprites/end_door/end_door.xpm");
+	sprite[61] = xpm_to_image(mlx, "sprites/end_door/end_door1.xpm");
+	sprite[62] = xpm_to_image(mlx, "sprites/end_door/end_door2.xpm");
 }
 
 void	init_sprite2(t_mlx *mlx, t_sprite *sprite)

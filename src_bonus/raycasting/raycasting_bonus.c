@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/20 13:32:00 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/21 11:42:20 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ void	dda(t_mlx *mlx, int x)
 			hit = 1;
 			mlx->spr_index = select_sprite(ray, mlx->side);
 		}
-		else if (map->game_map[map->y][map->x] == 'D' || map->game_map[map->y][map->x] == 'd')
+		else if (map->game_map[map->y][map->x] == 'D' || map->game_map[map->y][map->x] == 'd' 
+			|| map->game_map[map->y][map->x] == 'P' || map->game_map[map->y][map->x] == 'p')
 		{
 			hit = 1;
 			door_hit(mlx, map);

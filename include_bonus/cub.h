@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/21 11:57:28 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/21 12:25:34 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define WIDTH 800
 # define FOV 60
 # define SPRITE_SIZE 64
-# define SPRITE_NBR 60
+# define SPRITE_NBR 63
 
 # define PI 3.14159265359
 
@@ -59,6 +59,9 @@ typedef enum	e_type
 {
 	FLOOR,
 	DOOR,
+	END_DOOR_STATE,
+	END_DOOR_STATE2,
+	END_DOOR_STATE3,
 	DOOR_OPEN,
 	ENEMY,
 	SPRITE,
