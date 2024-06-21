@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/20 10:46:26 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:30:02 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ void	init_mlx(t_mlx *mlx)
 
 int	flood_fill(t_mlx *mlx, t_map map, char **flood_map, t_cell coor)
 {
-/* 	printf("%d, %d\n", coor.x, coor.y);
-	printf("%s\n", flood_map[coor.y]); */
 	if (coor.x < 0 || coor.y < 0 || flood_map[coor.y][coor.x] == 32
 		|| coor.x >= (int)ft_strlen(flood_map[coor.y])
 		|| coor.y > map.height)
@@ -90,7 +88,7 @@ int	flood_fill(t_mlx *mlx, t_map map, char **flood_map, t_cell coor)
 	return (0);
 }
 
-void	call_flood_fill(t_mlx *mlx, t_v2D pl_pos)
+int	call_flood_fill(t_mlx *mlx, t_v2D pl_pos)
 {
 	t_cell	coor;
 	char	**flood_map;
@@ -99,11 +97,14 @@ void	call_flood_fill(t_mlx *mlx, t_v2D pl_pos)
 	i = -1;
 	coor = (t_cell){(int)pl_pos.x, (int)pl_pos.y};
 	flood_map = malloc(sizeof(char *) * (mlx->map.height + 1));
+	if (flood_map == NULL)
+		return (1);
 	while (mlx->map.game_map[++i])
 		flood_map[i] = ft_strdup(mlx->map.game_map[i]);
 	flood_map[i] = 0;
 	flood_fill(mlx, mlx->map, flood_map, coor);
 	ft_free_dp((void **)flood_map);
+	return (0);
 }
 
 
@@ -128,7 +129,8 @@ int main(int argc, char *argv[])
 	init_sprite(&mlx, mlx.map.config_map, mlx.sprite);
 
 	prepare_map(&mlx);
-	call_flood_fill(&mlx, mlx.player.pos);
+	if (call_flood_fill(&mlx, mlx.player.pos))
+		print_error("", -1, &mlx);
 	
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	if (mlx.window == NULL)

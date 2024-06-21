@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_animations_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:39:53 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/20 13:06:57 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/21 09:21:23 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	calc_char_anim(t_mlx *mlx)
 		char_anim = DYING1;
 		i = 1;
 	}
-	else if (mlx->player.shoot == true && i == 0 && mlx->player.anim)
+	else if (mlx->player.shoot == true && i == 0 && mlx->player.shoot_anim)
 	{
 		i = 1;
 		char_anim = ATTACK1;
@@ -34,11 +34,23 @@ int	calc_char_anim(t_mlx *mlx)
 	}
 	if (char_anim == HP1 || char_anim == ENEMY1)
 	{
-		mlx->player.anim = false;
+		mlx->player.shoot_anim = false;
 		i = 0;
 		char_anim = CHARACTER1;
 	}
 	return (char_anim);
+}
+
+void	ball_animation(t_objs *ball)
+{
+	static int	i;
+	
+	if (i++ >= 45)
+		ball->spr_index = BALL2;
+	else
+		ball->spr_index = BALL1;
+	if (i == 91)
+		i = 0;
 }
 
 void	update_animations(t_mlx *mlx)

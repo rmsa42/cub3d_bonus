@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:02:04 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/20 10:20:40 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/20 22:45:46 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,12 @@ void	check_config_map2(t_mlx *mlx, char *dir, int pos)
 
 void	check_config_map(t_mlx *mlx)
 {
-	int i;
-
-	i = -1;
 	check_config_map2(mlx, "NO ", 0);
 	check_config_map2(mlx, "SO ", 1);
 	check_config_map2(mlx, "WE ", 2);
 	check_config_map2(mlx, "EA ", 3);
 	check_config_map2(mlx, "F ", 4);
-	check_config_map2(mlx, "C ", 5);
-	
+	check_config_map2(mlx, "C ", 5);	
 }
 
 int	map_parser(char *map_name, t_mlx *mlx)

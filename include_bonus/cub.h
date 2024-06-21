@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/20 14:23:24 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:30:10 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 
 # define HEIGHT 600
 # define WIDTH 800
-# define FOV 90
+# define FOV 60
 # define SPRITE_SIZE 64
 # define SPRITE_NBR 60
 
@@ -50,7 +50,7 @@ typedef enum	e_state
 {
 	DIED_STATE,
 	WIN_STATE,
-	GAME_STATE
+	GAME_STATE,
 }	t_state;
 
 typedef enum	e_type
@@ -90,7 +90,7 @@ typedef struct s_player
 	double	pitch;
 	bool	mouse;
 	bool	shoot;
-	bool	anim;
+	bool	shoot_anim;
 }	t_player;
 
 typedef struct s_map
@@ -189,9 +189,12 @@ void		sprite_loop(t_mlx *mlx);
 //Enemy Raycast
 void		enemy_ray(t_mlx *mlx, t_list *objs_lst);
 
+// Animations
+void		ball_animation(t_objs *ball);
+
 // Update
 void		update_player(t_mlx *mlx, t_player *player, t_map *map);
-void		update_ball(t_mlx *mlx, t_player *player, char **game_map);
+void		update_ball(t_mlx *mlx, t_player *player);
 void		update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst);
 void		update_animations(t_mlx *mlx);
 void		update_state(t_mlx *mlx);
@@ -206,7 +209,6 @@ t_map		init_map(char *map_name);
 
 
 // Parser (MAP)
-int			check_element(char *line);
 int			check_path(char *line);
 int			check_rgb(int **c, char *line);
 int			check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite);
@@ -233,10 +235,16 @@ int			handle_mouse(int x, int y, t_mlx *mlx);
 int			handle_mouse_press(int button, int x, int y, t_mlx *mlx);
 t_v2D		rotate(t_v2D vector, double degree);
 
-// Interactions
+// Interactions Player
 t_type		get_next_tile(char **game_map, t_player *player);
 void		interact_door(char **game_map, t_player *player);
 bool		check_objs_collision(t_mlx *mlx, t_list *objs_lst, t_v2D check);
+bool		is_wall_collision(t_map map, float x, float y);
+
+// Interactions Ball
+t_list		*ball_hit_obj(t_list *objs_lst, t_objs *ball);
+bool		ball_hit_wall(t_map map, t_objs *ball);
+void		clean_hit(t_list **objs_list, t_player *player, t_list *hit);
 
 // Draw Hud
 void	draw_hud(t_mlx *mlx, int spr_index, t_v2D sprite_pos);
@@ -251,7 +259,6 @@ void	draw_minimap(t_mlx *mlx, t_list *objs_lst);
 t_list	*sort_sprites(t_player *player, t_list *objs_lst);
 
 // Time
-
 void	update_time(struct timespec *time);
 double	time_passed(struct timespec *last, struct timespec *current);
 

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/20 10:08:33 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:50:49 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_error(char *str, int status, t_mlx *mlx)
 	close_game(mlx, status);
 }
 
-/* void	print_list(t_list *lst)
+void	print_list(t_list *lst)
 {
 	t_objs	*obj;
 	
@@ -30,11 +30,13 @@ void	print_error(char *str, int status, t_mlx *mlx)
 			printf("Enemy\n");
 		else if (obj->type == BALL)
 			printf("Ball\n");
-		else
-			printf("Sprite\n");
+		else if (obj->type == COLLECT)
+			printf("Coin\n");
+		else if (obj->type == HP_COLLECT)
+			printf("Life\n");
 		lst = lst->next;
 	}
-} */
+}
 
 void	obj_destructor(t_list *lst)
 {

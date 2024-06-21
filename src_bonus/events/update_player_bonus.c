@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/20 14:24:24 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:30:47 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +53,18 @@ t_v2D	get_position(t_player *player, double speed)
 	new_pos = normalize_vector(new_pos);
 	velocity = multiply_vector(new_pos, speed);
 	new_pos = add_vector(player->pos, velocity);
-	return(new_pos);
+	return (new_pos);
 }
 
-bool is_collision(t_map map, float x, float y) {
-    int map_x = (int)x;
-    int map_y = (int)y;
-
-    if (map.game_map[map_y][map_x] == '1' || map.game_map[map_y][map_x] == 'D')
-        return true;
-    return false;
-}
-
-bool	object_check(t_mlx *mlx, t_list *objs_lst, t_v2D check)
+bool	move_check(t_mlx *mlx, t_list *objs_lst, t_v2D check)
 {
 	bool collision;
-
-	collision = false;
+	
 	collision = check_objs_collision(mlx, objs_lst, check);
-
-    if (is_collision(mlx->map, check.x - 0.1, check.y - 0.1) ||
-        is_collision(mlx->map, check.x + 0.1, check.y - 0.1) ||
-        is_collision(mlx->map, check.x - 0.1, check.y + 0.1) ||
-        is_collision(mlx->map, check.x + 0.1, check.y + 0.1))
+    if (is_wall_collision(mlx->map, check.x - 0.1, check.y - 0.1) ||
+        is_wall_collision(mlx->map, check.x + 0.1, check.y - 0.1) ||
+        is_wall_collision(mlx->map, check.x - 0.1, check.y + 0.1) ||
+        is_wall_collision(mlx->map, check.x + 0.1, check.y + 0.1))
         collision = true;
     return (collision);
 }
@@ -99,20 +88,21 @@ void	update_player(t_mlx *mlx, t_player *player, t_map *map)
 {
 	t_v2D		new_pos;
 	t_v2D		check;
-	bool		collision;
+	double		speed;
 	
 	 // Ball Update
 	if (player->shoot == true)
-		update_ball(mlx, player, map->game_map);
+		update_ball(mlx, player);
 
 	 // Player Movement (x, y)
-	new_pos = get_position(player, PL_SPEED * mlx->delta);
-	check = get_position(player, (PL_SPEED + 0.1 ) * mlx->delta);
-	collision = object_check(mlx, mlx->objs_lst, map->game_map, check);
-	if (collision == false && player->hp > 0)
-		player_move(player, map->game_map, new_pos, check);
+	speed = PL_SPEED * mlx->delta;
+	new_pos = get_position(player, speed);
+	check = get_position(player, speed + 0.1);
+	if (!move_check(mlx, mlx->objs_lst, check))
+		player_move(player, map->game_map, new_pos, new_pos);
 
 	 // Player Camera Rotation
-	player->direction = rotate(player->direction, player->angle * mlx->delta * ROTATION_SPEED);
-	player->plane = rotate(player->plane, player->angle * mlx->delta * ROTATION_SPEED);
+	speed = player->angle * mlx->delta * ROTATION_SPEED;
+	player->direction = rotate(player->direction, speed);
+	player->plane = rotate(player->plane, speed);
 }
