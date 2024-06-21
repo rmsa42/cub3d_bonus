@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 11:20:48 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/21 12:38:18 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	draw(t_mlx *mlx)
 	{
 		ft_grua(mlx);
 		draw_minimap(mlx, mlx->objs_lst);
+		if (mlx->player.damaged)
+			draw_end_game(mlx, DAMAGED);	
 	}
 	else
 		end_game(mlx);
