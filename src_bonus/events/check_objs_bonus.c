@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_objs_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:00:52 by cacarval          #+#    #+#             */
-/*   Updated: 2024/06/20 11:01:23 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/21 01:01:37 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,44 @@ int	collectable_delete(t_mlx *mlx, t_list **objs_lst, t_objs *obj)
 
 	if (obj->type == COLLECT || obj->type == HP_COLLECT)
 	{
-		if(obj->type == HP_COLLECT && mlx->player.hp < 100)
+		if (obj->type == HP_COLLECT && mlx->player.hp < 100)
 		{
-			mlx->player.hp +=25;
+			mlx->player.hp += 25;
 			if (mlx->player.hp > 100)
 				mlx->player.hp = 100;
 		}
 		else if (obj->type == COLLECT)
 			mlx->player.coins++;
-		else
-			return (0);
 		delete = (*objs_lst);
 		(*objs_lst) = (*objs_lst)->next;
 		elim_obj(&mlx->objs_lst, delete);
 		return (1);
 	}
 	return(0);
+}
+
+bool	is_obj_collision(t_v2D check, t_objs *obj)
+{
+	int	x;
+	int	y;
+
+	x = (int)check.x;
+	y = (int)check.y;
+	if (x == (int)obj->pos.x && y == (int)obj->pos.y)
+		return (true);
+	return (false);
+}
+
+bool is_wall_collision(t_map map, float x, float y)
+{
+	int map_x;
+	int map_y;
+
+	map_x = (int)x;
+	map_y = (int)y;
+	if (map.game_map[map_y][map_x] == '1' || map.game_map[map_y][map_x] == 'D')
+	    return true;
+	return false;
 }
 
 bool	check_objs_collision(t_mlx *mlx, t_list *objs_lst, t_v2D check)
@@ -45,8 +67,7 @@ bool	check_objs_collision(t_mlx *mlx, t_list *objs_lst, t_v2D check)
 	while (objs_lst)
 	{
 		obj = (t_objs *)objs_lst->content;
-		if (((int)check.x == (int)obj->pos.x
-				&& (int)check.y == (int)obj->pos.y))
+		if (is_obj_collision(check, obj))
 		{
 			if (collectable_delete(mlx, &objs_lst, obj))
 				continue;
@@ -54,36 +75,5 @@ bool	check_objs_collision(t_mlx *mlx, t_list *objs_lst, t_v2D check)
 		}
 		objs_lst = objs_lst->next;
 	}
-	return(collision);
-}
-
-void	interact_door(char **game_map, t_player *player)
-{
-	t_type	tile;
-	int		check_x;
-	int		check_y;
-
-	tile = get_next_tile(game_map, player);
-	check_x = (int)(player->pos.x + player->direction.x);
-	check_y = (int)(player->pos.y + player->direction.y);
-	if (tile == DOOR)
-		game_map[check_y][check_x] = 'd';
-	else if (tile == DOOR_OPEN)
-		game_map[check_y][check_x] = 'D';
-}
-
-t_type	get_next_tile(char **game_map, t_player *player)
-{
-	int		check_x;
-	int		check_y;
-	
-	check_x = (int)(player->pos.x + player->direction.x);
-	check_y = (int)(player->pos.y + player->direction.y);
-	if (game_map[check_y][check_x] == 'D')
-		return (DOOR);
-	else if (game_map[check_y][check_x] == 'd')
-		return (DOOR_OPEN);
-	else if (game_map[check_y][check_x] == '1')
-		return (WALL);
-	return (FLOOR);
+	return (collision);
 }
