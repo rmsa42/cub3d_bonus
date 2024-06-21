@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/21 10:30:02 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/21 11:25:40 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,13 @@ int main(int argc, char *argv[])
 {	
 	t_mlx	mlx;
 
-	if (argc > 2)
+	/* if (argc > 2)
 	{
 		ft_fprintf(STDERR_FILENO, "Error\nInvalid arguments\n");
 		return (1);
-	}
+	} */
+	(void)argc;
+	mlx.av = argv;
 	init_mlx(&mlx);
 	mlx.lib = mlx_init();
 	if (mlx.lib == NULL)

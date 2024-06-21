@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 10:29:24 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/21 12:21:07 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	update_state(t_mlx *mlx)
 	if (mlx->player.hp <= 0)
 		mlx->game_state = DIED_STATE;
 	else if (mlx->player.coins == MAX_COINS)
-		mlx->game_state = WIN_STATE;
+		mlx->game_state = PORTAL_STATE;
 }
 
 void	draw(t_mlx *mlx)
@@ -34,6 +34,18 @@ void	draw(t_mlx *mlx)
 void	update(t_mlx *mlx)
 {
 	update_state(mlx);
+	if (mlx->game_state == PORTAL_STATE)
+	{
+		map_destructor(&mlx->map);
+		free(mlx->marked_cells);
+		obj_destructor(mlx->objs_lst);
+		mlx->objs_lst = NULL;
+		map_parser(mlx->av[2], mlx);
+		free_config(mlx->lib, mlx->sprite);
+		check_conf(mlx, mlx->map.config_map, mlx->sprite);
+		prepare_map(mlx);
+		mlx->game_state = GAME_STATE;
+	}
 	if (mlx->game_state == GAME_STATE)
 	{
 		update_player(mlx, &mlx->player, &mlx->map);

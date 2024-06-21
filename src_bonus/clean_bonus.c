@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/20 16:50:49 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/21 12:18:37 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,19 @@ void	print_error(char *str, int status, t_mlx *mlx)
 	ft_fprintf(STDERR_FILENO, "Error\n");
 	perror(str);
 	close_game(mlx, status);
+}
+
+void	free_config(void *lib, t_sprite *sprite)
+{
+	int	i;
+
+	i = 0;
+	while (i < 6)
+	{
+		if (sprite[i].img.img_ptr != NULL)
+			mlx_destroy_image(lib, sprite[i].img.img_ptr);
+		i++;
+	}
 }
 
 void	print_list(t_list *lst)
