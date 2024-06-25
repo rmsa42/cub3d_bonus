@@ -90,6 +90,8 @@ void	prepare_map(t_mlx *mlx)
 	map->y = 0;
 	mlx->num_marked_cells = 0;
 	pl_count = 0;
+	/* print_map(mlx->map.game_map);
+	printf("\n"); */
 	mlx->marked_cells = (t_cell *)ft_calloc(map->height * map->width, sizeof(t_cell));
 	while (map->game_map[map->y])
 	{
@@ -99,6 +101,7 @@ void	prepare_map(t_mlx *mlx)
 			pl_count += draw_map(mlx, &map->game_map[map->y][map->x], map->x, map->y);
 			if (pl_count > 1)
 				print_error("Invalid Map(Two Players)\n", -1, mlx);
+			/* printf("%d\n", map->x); */
 			map->x++;
 		}
 		map->y++;

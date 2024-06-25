@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
 /*   Updated: 2024/06/21 14:08:50 by cacarval         ###   ########.fr       */
@@ -19,6 +19,7 @@
 # include "vector2D.h"
 # include "sprite_enum.h"
 # include <stdbool.h>
+# include <assert.h>
 # include <time.h>
 
 # define ESC 65307
@@ -51,6 +52,7 @@ typedef enum	e_state
 	DIED_STATE,
 	WIN_STATE,
 	GAME_STATE,
+	PORTAL_STATE
 }	t_state;
 
 typedef enum	e_type
@@ -169,6 +171,7 @@ typedef struct s_mlx
 	int				spr_hp_index;
 	int				spr_character_index;
 	int				spr_coins_index;
+	char			**av;
 	struct timespec door_time;
 	struct timespec last_time;
 	struct timespec current_time;
@@ -273,6 +276,9 @@ void	print_list(t_list *lst);
 void	elim_obj(t_list **head, t_list *elim_obj);
 void	print_error(char *str, int statusm, t_mlx *mlx);
 void	close_game(t_mlx *mlx, int status);
+void	obj_destructor(t_list *lst);
+void	map_destructor(t_map *map);
+void	free_config(void *lib, t_sprite *sprite);
 
 void	end_game_screen(t_mlx *mlx);
 void	win_game_screen(t_mlx *mlx);
