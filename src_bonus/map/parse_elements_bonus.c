@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:01:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/19 11:53:03 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/25 13:50:09 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	create_config_map(t_map *map, char **full_map)
 	return (i);
 }
 
-int	begining_of_map(char *line, char *set)
+char	*begining_of_map(char *line, char *set)
 {
 	int	i;
 	int	k;
@@ -50,12 +50,12 @@ int	begining_of_map(char *line, char *set)
 		while (set[k])
 		{
 			if (line[i] == set[k])
-				return (1);
+				return (&line[i]);
 			k++;	
 		}
 		i++;
 	}
-	return (0);
+	return (NULL);
 }
 
 int	get_game_map(t_map *map, char **full_map,int i)

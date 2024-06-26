@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/21 12:25:34 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 10:15:59 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ typedef struct s_mlx
 	void			*window;
 	t_sprite		sprite[SPRITE_NBR];
 	t_player		player;
-	t_map			map;
+	t_map			*map;
 	t_image			img;
 	t_ray			ray;
 	t_draw			draw;
@@ -169,7 +169,9 @@ typedef struct s_mlx
 	int				spr_hp_index;
 	int				spr_character_index;
 	int				spr_coins_index;
-	char			**av;
+	int				nbr_maps;
+	int				iter_map;
+	t_map			*head_map;
 	struct timespec door_time;
 	struct timespec last_time;
 	struct timespec current_time;
@@ -211,8 +213,6 @@ int			game_loop(t_mlx *mlx);
 
 // Map
 void		prepare_map(t_mlx *mlx);
-t_map		init_map(char *map_name);
-
 
 // Parser (MAP)
 int			check_path(char *line);
@@ -223,9 +223,11 @@ int			shift_color(int *rgb);
 int			advance_space(char *line);
 
 void		print_map(char **map);
-int			map_parser(char *file_name, t_mlx *mlx);
+int			map_parser(char *file_name, t_mlx *mlx, t_map *map);
 int			create_config_map(t_map *map, char **full_map);
 int			create_content_map(t_map *map, char **full_map, int after, int len);
+char		*begining_of_map(char *line, char *set);
+int			call_flood_fill(t_mlx *mlx, t_map *map);
 
 // Image
 void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
@@ -245,11 +247,11 @@ t_v2D		rotate(t_v2D vector, double degree);
 t_type		get_next_tile(char **game_map, t_player *player);
 void		interact_door(char **game_map, t_player *player);
 bool		check_objs_collision(t_mlx *mlx, t_list *objs_lst, t_v2D check);
-bool		is_wall_collision(t_map map, float x, float y);
+bool		is_wall_collision(t_map *map, float x, float y);
 
 // Interactions Ball
 t_list		*ball_hit_obj(t_list *objs_lst, t_objs *ball);
-bool		ball_hit_wall(t_map map, t_objs *ball);
+bool		ball_hit_wall(t_map *map, t_objs *ball);
 void		clean_hit(t_list **objs_list, t_player *player, t_list *hit);
 
 // Draw Hud

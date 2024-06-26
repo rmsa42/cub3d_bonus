@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/19 14:31:47 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:44:53 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 	else if (keycode == RARROW)
 		player->angle = 1;
 	else if (keycode == E)
-		interact_door(mlx->map.game_map, player);
+		interact_door(mlx->map->game_map, player);
 	else if (keycode == Q)
 		player->mouse = true;
 	else if (keycode == SPACE && player->shoot == false)

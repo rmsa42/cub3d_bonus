@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ray_hit_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:15:49 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 11:41:45 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/25 10:49:17 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-#include <time.h>
-#include <stdbool.h>
 
 int	select_sprite(t_ray *ray, int side)
 {
@@ -34,16 +32,6 @@ int	select_sprite(t_ray *ray, int side)
 			sprite_index = WE;
 	}
 	return (sprite_index);
-}
-
-double time_passed(struct timespec *last, struct timespec *current) 
-{
-    return (current->tv_sec - last->tv_sec) + (current->tv_nsec - last->tv_nsec) / 1e9;
-}
-
-void update_time(struct timespec *time)
-{
-	clock_gettime(CLOCK_MONOTONIC, time);
 }
 
 void	door_anim(t_mlx *mlx, t_map *map)

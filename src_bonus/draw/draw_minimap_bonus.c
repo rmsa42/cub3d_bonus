@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_minimap_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/20 13:09:21 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:56:29 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void minimap_tiles(t_mlx *mlx,int tile_size)
+void minimap_tiles(t_mlx *mlx, t_map *map, int tile_size)
 {
 	int x;
 	int y;
@@ -22,17 +22,17 @@ void minimap_tiles(t_mlx *mlx,int tile_size)
 	i = -1;
 	j = -1;
 	y = -1;
-	while (++y < mlx->map.height) 
+	while (++y < map->height) 
 	{
 		x = -1;
-		while (++x < (int)ft_strlen(mlx->map.game_map[y])) 
+		while (++x < (int)ft_strlen(map->game_map[y])) 
 		{
 			int color;
-			if (mlx->map.game_map[y][x] == '0')
+			if (map->game_map[y][x] == '0')
 				color = 0x9c9c9c;
-			else if(mlx->map.game_map[y][x] == 'D' || mlx->map.game_map[y][x] == 'd')
+			else if(map->game_map[y][x] == 'D' || map->game_map[y][x] == 'd')
 				color = 0x0050FF;
-			else if (mlx->map.game_map[y][x] == 'X')
+			else if (map->game_map[y][x] == 'X')
 				color = 0xFFFFFF;
 			else
 				color = 0x000000;
@@ -102,6 +102,6 @@ void draw_minimap(t_mlx *mlx, t_list *objs_lst)
 	
 	minimap_size = 200;
 	tile_size = minimap_size / 36;
-	minimap_tiles(mlx, tile_size);
+	minimap_tiles(mlx, mlx->map, tile_size);
 	draw_map_sprites(mlx, objs_lst, tile_size);
 }

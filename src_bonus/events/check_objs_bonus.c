@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_objs_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:00:52 by cacarval          #+#    #+#             */
-/*   Updated: 2024/06/21 11:18:45 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:45:48 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,15 @@ bool	is_obj_collision(t_v2D check, t_v2D obj_pos)
 	return (false);
 }
 
-bool is_wall_collision(t_map map, float x, float y)
+bool is_wall_collision(t_map *map, float x, float y)
 {
 	int map_x;
 	int map_y;
 
 	map_x = (int)x;
 	map_y = (int)y;
-	if (map.game_map[map_y][map_x] == '1' || map.game_map[map_y][map_x] == 'D'
-		|| map.game_map[map_y][map_x] == 'P')
+	if (map->game_map[map_y][map_x] == '1' || map->game_map[map_y][map_x] == 'D'
+		|| map->game_map[map_y][map_x] == 'P')
 		return true;
 	return false;
 }

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 12:25:57 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 10:21:24 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,14 @@ void	update_state(t_mlx *mlx)
 {
 	if (mlx->player.hp <= 0)
 		mlx->game_state = DIED_STATE;
-	else if (mlx->player.coins == MAX_COINS)
+	else if (mlx->player.coins == MAX_COINS
+			&& mlx->nbr_maps == mlx->iter_map)
+		mlx->game_state = WIN_STATE;
+	else if (mlx->player.coins == MAX_COINS
+			&& mlx->map->game_map[(int)mlx->player.pos.y][(int)mlx->player.pos.x] == 'p')
 		mlx->game_state = PORTAL_STATE;
+	else
+		mlx->game_state = GAME_STATE;
 }
 
 void	draw(t_mlx *mlx)
@@ -36,19 +42,19 @@ void	update(t_mlx *mlx)
 	update_state(mlx);
 	if (mlx->game_state == PORTAL_STATE)
 	{
-		map_destructor(&mlx->map);
-		free(mlx->marked_cells);
+		map_destructor(mlx->map);
 		obj_destructor(mlx->objs_lst);
 		mlx->objs_lst = NULL;
-		map_parser(mlx->av[2], mlx);
+		free(mlx->marked_cells);
 		free_config(mlx->lib, mlx->sprite);
-		check_conf(mlx, mlx->map.config_map, mlx->sprite);
+		mlx->map++;
+		mlx->iter_map++;
+		check_conf(mlx, mlx->map->config_map, mlx->sprite);
 		prepare_map(mlx);
-		mlx->game_state = GAME_STATE;
 	}
 	if (mlx->game_state == GAME_STATE)
 	{
-		update_player(mlx, &mlx->player, &mlx->map);
+		update_player(mlx, &mlx->player, mlx->map);
 		update_sprites(mlx, &mlx->player, mlx->objs_lst);
 		update_animations(mlx);
 		enemy_ray(mlx, mlx->objs_lst);

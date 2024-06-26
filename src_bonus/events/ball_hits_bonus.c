@@ -6,13 +6,13 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 00:27:08 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 09:22:26 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:51:45 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-bool	ball_hit_wall(t_map map, t_objs *ball)
+bool	ball_hit_wall(t_map *map, t_objs *ball)
 {
 	if (is_wall_collision(map, ball->pos.x - 0.1, ball->pos.y - 0.1)
 		|| is_wall_collision(map, ball->pos.x + 0.1, ball->pos.y + 0.1)

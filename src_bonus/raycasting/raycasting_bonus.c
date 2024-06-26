@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 11:42:20 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:53:50 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	step_rays(t_map map, t_player *player, t_ray *ray)
+void	step_rays(t_map *map, t_player *player, t_ray *ray)
 {
 	if (ray->dir.x < 0)
 	{
 		ray->step.x = -1;
-		ray->side_d.x = (player->pos.x - map.x) * ray->delta.x;
+		ray->side_d.x = (player->pos.x - map->x) * ray->delta.x;
 	}
 	else
 	{
 		ray->step.x = 1;
-		ray->side_d.x = (map.x + 1.0 - player->pos.x) * ray->delta.x;
+		ray->side_d.x = (map->x + 1.0 - player->pos.x) * ray->delta.x;
 	}
 	if (ray->dir.y < 0)
 	{
 		ray->step.y = -1;
-		ray->side_d.y = (player->pos.y - map.y) * ray->delta.y;
+		ray->side_d.y = (player->pos.y - map->y) * ray->delta.y;
 	}
 	else
 	{
 		ray->step.y = 1;
-		ray->side_d.y = (map.y + 1.0 - player->pos.y) * ray->delta.y;
+		ray->side_d.y = (map->y + 1.0 - player->pos.y) * ray->delta.y;
 	}
 }
 
@@ -47,8 +47,8 @@ void	launch_rays(t_mlx *mlx, int x)
 	mlx->ray.dir.y = player->direction.y + player->plane.y * camera;
 	mlx->ray.delta.x = fabs(1 / mlx->ray.dir.x);
 	mlx->ray.delta.y = fabs(1 / mlx->ray.dir.y);
-	mlx->map.x = (int)player->pos.x;
-	mlx->map.y = (int)player->pos.y;
+	mlx->map->x = (int)player->pos.x;
+	mlx->map->y = (int)player->pos.y;
 	step_rays(mlx->map, &mlx->player, &mlx->ray);
 }
 
@@ -59,7 +59,7 @@ void	dda(t_mlx *mlx, int x)
 	t_ray	*ray;
 
 	hit = 0;
-	map = &mlx->map;
+	map = mlx->map;
 	ray = &mlx->ray;
 	while (!hit)
 	{
@@ -108,7 +108,7 @@ void reset_marked_cells(t_mlx *mlx)
 	{
 		x = mlx->marked_cells[i].x;
 		y = mlx->marked_cells[i].y;
-		mlx->map.game_map[y][x] = '0';
+		mlx->map->game_map[y][x] = '0';
 		i++;
 	}
 	mlx->num_marked_cells = 0;

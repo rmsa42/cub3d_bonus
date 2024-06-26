@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+         #
+#    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/06/21 00:59:40 by rumachad         ###   ########.fr        #
+#    Updated: 2024/06/25 15:15:43 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,11 @@ SRC_BONUS = main_bonus.c \
 	v2D_math_bonus.c \
 	v2D_utils_bonus.c \
 	load_image_bonus.c \
+	map_parser.c \
+	parse_elements_bonus.c \
 	parser_bonus.c \
 	parser_utils_bonus.c \
+	flood_fill_bonus.c \
 	draw_bonus.c \
 	draw_sprite_bonus.c \
 	draw_hud_bonus.c \
@@ -49,10 +52,9 @@ SRC_BONUS = main_bonus.c \
 	common_bonus.c \
 	check_objs_bonus.c \
 	ball_hits_bonus.c \
-	player_inter_bonus.c \
-	map_parser.c \
-	parse_elements_bonus.c
-
+	player_inter_bonus.c
+	
+	
 OBJ_BONUS_PATH = obj_bonus/
 OBJ_BONUS_FILES = $(SRC_BONUS:.c=.o)
 OBJ_BONUS = $(addprefix $(OBJ_BONUS_PATH), $(OBJ_BONUS_FILES))

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/21 11:25:40 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 10:16:26 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,31 @@ int	check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite)
 	return (0);
 }
 
-void	init_mlx(t_mlx *mlx)
+int	init_mlx_structs(t_mlx *mlx)
+{
+	mlx->map = ft_calloc(sizeof(t_map), mlx->nbr_maps);
+	if (mlx->map == NULL)
+		return (1);
+	ft_memset(mlx->sprite, 0, sizeof(t_sprite) * SPRITE_NBR);
+	ft_memset(mlx->map, 0, sizeof(t_map));
+	ft_memset(&mlx->ray, 0, sizeof(t_ray));
+	ft_memset(&mlx->player, 0, sizeof(t_player));
+	ft_memset(&mlx->draw, 0, sizeof(t_draw));
+	ft_memset(mlx->dist_buffer, 0, sizeof(double) * WIDTH);
+	update_time(&mlx->door_time);
+	update_time(&mlx->last_time);
+	update_time(&mlx->prev_time);
+	update_time(&mlx->current_time);
+	return (0);
+}
+
+void	init_mlx_vars(t_mlx *mlx, int ac)
 {
 	mlx->window = NULL;
 	mlx->objs_lst = NULL;
 	mlx->marked_cells = NULL;
+	mlx->map = NULL;
+	mlx->head_map = NULL;
 	mlx->num_marked_cells = 0;
 	mlx->side = 0;
 	mlx->spr_index = 0;
@@ -56,83 +76,52 @@ void	init_mlx(t_mlx *mlx)
 	mlx->delta = 0;
 	mlx->elapsed_time = 0;
 	mlx->elapsed_door = 0;
+	mlx->iter_map = 1;
+	mlx->nbr_maps = ac - 1;
 	mlx->game_state = GAME_STATE;
-	ft_memset(mlx->sprite, 0, sizeof(t_sprite) * SPRITE_NBR);
-	ft_memset(&mlx->map, 0, sizeof(t_map));
-	ft_memset(&mlx->ray, 0, sizeof(t_ray));
-	ft_memset(&mlx->player, 0, sizeof(t_player));
-	ft_memset(&mlx->draw, 0, sizeof(t_draw));
-	ft_memset(mlx->dist_buffer, 0, sizeof(double) * WIDTH);
-	update_time(&mlx->door_time);
-	update_time(&mlx->last_time);
-	update_time(&mlx->prev_time);
-	update_time(&mlx->current_time);
 }
 
-int	flood_fill(t_mlx *mlx, t_map map, char **flood_map, t_cell coor)
+void	init_map(t_mlx *mlx, int nbr_maps, char **av)
 {
-	if (coor.x < 0 || coor.y < 0 || flood_map[coor.y][coor.x] == 32
-		|| coor.x >= (int)ft_strlen(flood_map[coor.y])
-		|| coor.y > map.height)
-	{
-		ft_free_dp((void **)flood_map);
-		print_error("Invalid Map\n", EXIT_FAILURE, mlx);
-	}
-	if (flood_map[coor.y][coor.x] == '1')
-		return (1);
-	flood_map[coor.y][coor.x] = '1';
-	flood_fill(mlx, map, flood_map, (t_cell){coor.x + 1, coor.y});
-	flood_fill(mlx, map, flood_map, (t_cell){coor.x - 1, coor.y});
-	flood_fill(mlx, map, flood_map, (t_cell){coor.x, coor.y + 1});
-	flood_fill(mlx, map, flood_map, (t_cell){coor.x, coor.y - 1});
-	return (0);
-}
-
-int	call_flood_fill(t_mlx *mlx, t_v2D pl_pos)
-{
-	t_cell	coor;
-	char	**flood_map;
+	t_map	*map;
 	int		i;
+	int		k;
 
-	i = -1;
-	coor = (t_cell){(int)pl_pos.x, (int)pl_pos.y};
-	flood_map = malloc(sizeof(char *) * (mlx->map.height + 1));
-	if (flood_map == NULL)
-		return (1);
-	while (mlx->map.game_map[++i])
-		flood_map[i] = ft_strdup(mlx->map.game_map[i]);
-	flood_map[i] = 0;
-	flood_fill(mlx, mlx->map, flood_map, coor);
-	ft_free_dp((void **)flood_map);
-	return (0);
+	i = 1;
+	k = 0;
+	map = mlx->map;
+	while (i <= nbr_maps)
+	{
+		map_parser(av[i], mlx, &map[k]);
+		if (call_flood_fill(mlx, &map[k]))
+			print_error("", -1, mlx);
+		i++;
+		k++;
+	}
+	mlx->head_map = mlx->map;
 }
-
 
 int main(int argc, char *argv[])
 {	
 	t_mlx	mlx;
-
-	/* if (argc > 2)
-	{
-		ft_fprintf(STDERR_FILENO, "Error\nInvalid arguments\n");
-		return (1);
-	} */
-	(void)argc;
-	mlx.av = argv;
-	init_mlx(&mlx);
+	
+	if (argc < 2)
+		return (ft_fprintf(STDERR_FILENO, "Invalid nbr arguments\n"), 1);
 	mlx.lib = mlx_init();
 	if (mlx.lib == NULL)
 		print_error("Mlx init failure\n", EXIT_FAILURE, &mlx);
+	init_mlx_vars(&mlx, argc);
+	if (init_mlx_structs(&mlx))
+		print_error("", EXIT_FAILURE, &mlx);
 
 	 // Map Parser
-	map_parser(argv[1], &mlx);
+	init_map(&mlx, mlx.nbr_maps, argv);
 
 	 // Sprite Init
-	init_sprite(&mlx, mlx.map.config_map, mlx.sprite);
+	init_sprite(&mlx, mlx.map->config_map, mlx.sprite);
 
+	 // Init Player/Objs
 	prepare_map(&mlx);
-	if (call_flood_fill(&mlx, mlx.player.pos))
-		print_error("", -1, &mlx);
 	
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	if (mlx.window == NULL)
@@ -145,5 +134,5 @@ int main(int argc, char *argv[])
 	/* mlx_mouse_hide(mlx.lib, mlx.window); */
 	mlx_loop_hook(mlx.lib, game_loop, &mlx);
 	mlx_loop(mlx.lib);
-	return (0);	
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 11:33:19 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:16:27 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ int	draw_map(t_mlx *mlx, char *tile, int x, int y)
 		*tile = '0';
 		return (1);
 	}
-	else if (*tile == 's')
-		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, BARREL, 20, SPRITE));
 	else if (*tile == 'e')
 		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, ENEMY1, 2, ENEMY));
 	else if (*tile == 'C')
@@ -84,12 +82,8 @@ void	prepare_map(t_mlx *mlx)
 	t_map		*map;
 	int			pl_count;
 
-	map = &mlx->map;
-	map->y = 0;
-	mlx->num_marked_cells = 0;
 	pl_count = 0;
-	/* print_map(mlx->map.game_map);
-	printf("\n"); */
+	map = mlx->map;
 	mlx->marked_cells = (t_cell *)ft_calloc(map->height * map->width, sizeof(t_cell));
 	while (map->game_map[map->y])
 	{
@@ -99,7 +93,6 @@ void	prepare_map(t_mlx *mlx)
 			pl_count += draw_map(mlx, &map->game_map[map->y][map->x], map->x, map->y);
 			if (pl_count > 1)
 				print_error("Invalid Map(Two Players)\n", -1, mlx);
-			/* printf("%d\n", map->x); */
 			map->x++;
 		}
 		map->y++;

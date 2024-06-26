@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:01:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/20 14:24:33 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/25 14:37:58 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	text_x(t_ray *ray, int side, double perp_wall, t_player *player)
 		wall_x = player->pos.y + perp_wall * ray->dir.y;
 	else
 		wall_x = player->pos.x + perp_wall * ray->dir.x;
-	wall_x -= floor(wall_x);
+	wall_x -= (int)(wall_x);
 	tex_x = (int)(wall_x * (int)SPRITE_SIZE);
 	if ((side == 0 && ray->dir.x < 0) || (side == 1 && ray->dir.y > 0))
 		tex_x = SPRITE_SIZE - tex_x - 1;
