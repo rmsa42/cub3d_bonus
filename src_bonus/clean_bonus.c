@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 10:20:46 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:05:41 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,19 +80,26 @@ void	sprite_destructor(void *lib, t_sprite *sprite)
 	}
 }
 
-void	map_destructor(t_map *map)
+void	map_destructor(int nbr_maps, t_map *map)
 {
 	int	i;
+	int	k;
 
-	i = 0;
-	while (map->config_map[i])
+	k = 0;
+	while (k < nbr_maps)
 	{
-		if (map->config_map[i])
-			free(map->config_map[i++]);
+		i = 0;
+		while (map[k].config_map[i])
+		{
+			if (map[k].config_map[i])
+				free(map[k].config_map[i++]);
+		}
+		if (map[k].game_map)
+			ft_free_dp((void **)map[k].game_map);
+		map[k].game_map = NULL;
+		k++;
 	}
-	if (map->game_map)
-		ft_free_dp((void **)map->game_map);
-	map->game_map = NULL;
+	free(map);
 }
 
 void	mlx_destructor(void *lib, void *window)
@@ -113,9 +120,7 @@ void	close_game(t_mlx *mlx, int status)
 {
 	if (mlx->sprite->img.img_ptr != NULL)
 		sprite_destructor(mlx->lib, mlx->sprite);
-	map_destructor(mlx->map);
-	if (mlx->head_map != NULL)
-		free(mlx->head_map);
+	map_destructor(mlx->nbr_maps, mlx->head_map);
 	if (mlx->marked_cells != NULL)
 		free(mlx->marked_cells);
 	obj_destructor(mlx->objs_lst);

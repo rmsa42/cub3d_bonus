@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 10:29:51 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:54:03 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	update(t_mlx *mlx)
 	update_state(mlx);
 	if (mlx->game_state == PORTAL_STATE)
 	{
-		map_destructor(mlx->map);
 		obj_destructor(mlx->objs_lst);
 		mlx->objs_lst = NULL;
 		free(mlx->marked_cells);

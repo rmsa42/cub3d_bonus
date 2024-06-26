@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 12:50:28 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:59:53 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,7 +291,7 @@ void	elim_obj(t_list **head, t_list *elim_obj);
 void	print_error(char *str, int statusm, t_mlx *mlx);
 void	close_game(t_mlx *mlx, int status);
 void	obj_destructor(t_list *lst);
-void	map_destructor(t_map *map);
+void	map_destructor(int nbr_maps, t_map *map);
 void	free_config(void *lib, t_sprite *sprite);
 
 void	end_game_screen(t_mlx *mlx);
