@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/25 11:45:21 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 11:16:27 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ t_v2D	get_position(t_player *player, double speed)
 bool	move_check(t_mlx *mlx, t_list *objs_lst, t_v2D check)
 {
 	bool collision;
-	
+
 	collision = check_objs_collision(mlx, objs_lst, check);
-    if (is_wall_collision(mlx->map, check.x - 0.1, check.y - 0.1) ||
-        is_wall_collision(mlx->map, check.x + 0.1, check.y - 0.1) ||
-        is_wall_collision(mlx->map, check.x - 0.1, check.y + 0.1) ||
-        is_wall_collision(mlx->map, check.x + 0.1, check.y + 0.1))
-        collision = true;
-    return (collision);
+	if (is_wall_collision(mlx->map, check.x - 0.1, check.y - 0.1) ||
+		is_wall_collision(mlx->map, check.x + 0.1, check.y - 0.1) ||
+		is_wall_collision(mlx->map, check.x - 0.1, check.y + 0.1) ||
+		is_wall_collision(mlx->map, check.x + 0.1, check.y + 0.1))
+		collision = true;
+	return (collision);
 }
 
 void	player_move(t_player *player, char **game_map, t_v2D new_pos, t_v2D check)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_extra_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 09:53:20 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 12:36:02 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:05:49 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	end_game_screen(t_mlx *mlx)
 {
 	t_v2D	sprite_pos;
 	
-	sprite_pos = (t_v2D){(WIDTH / 2) - 50, HEIGHT / 2};
+	sprite_pos = (t_v2D){(WIDTH / 2) - SPRITE_SIZE, HEIGHT / 2};
 	draw_end_game(mlx, END_GAME);
 	draw_hud(mlx, mlx->spr_character_index, sprite_pos);
 }

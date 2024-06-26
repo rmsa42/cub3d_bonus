@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 10:29:46 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:45:14 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,18 @@ typedef struct	s_draw
 	int			start;
 	int			end;
 }	t_draw;
+
+typedef struct	s_draw_sprite
+{
+	int	start_y;
+	int	end_y;
+	int	start_x;
+	int	end_x;
+	int	screen_x;
+	int	height;
+	int	tex_x;
+	int	tex_y;
+}	t_draw_sprite;
 
 typedef struct s_cell
 {

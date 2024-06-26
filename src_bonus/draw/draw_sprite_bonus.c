@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/19 15:23:35 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:47:56 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,41 +29,60 @@ t_v2D	sprite_dist(t_player *player, t_v2D pos)
 	return (transform);
 }
 
-void	draw_sprite(t_v2D transform, t_mlx *mlx, t_image *sprite)
+t_draw_sprite	draw_start_calc(t_v2D s_dist, int pitch)
 {
-	int spriteScreen_x = (int)(WIDTH / 2) * (1 + transform.x / transform.y);
-	int spriteHeight = abs((int)(HEIGHT / transform.y));
-	
-	int drawStartY = (-spriteHeight / 2 + HEIGHT / 2) + mlx->player.pitch;
-	if (drawStartY < 0)
-		drawStartY = 0;
-	int drawEndY = (spriteHeight / 2 + HEIGHT / 2) + mlx->player.pitch;
-	if (drawEndY >= HEIGHT)	
-		drawEndY = HEIGHT;
-	int drawStartX = -spriteHeight / 2 + spriteScreen_x;
-	if (drawStartX < 0)
-		drawStartX = 0;
-	int drawEndX = spriteHeight / 2 + spriteScreen_x;
-	if (drawEndX >= WIDTH)
-		drawEndX = WIDTH;
-	
-	for (int stripe = drawStartX; stripe < drawEndX; stripe++)
+	t_draw_sprite	draw;
+
+	draw.screen_x = (int)(WIDTH / 2) * (1 + s_dist.x / s_dist.y);
+	draw.height = abs((int)(HEIGHT / s_dist.y));
+	draw.start_y = (-draw.height / 2 + HEIGHT / 2) + pitch;
+	if (draw.start_y < 0)
+		draw.start_y = 0;
+	draw.end_y = (draw.height / 2 + HEIGHT / 2) + pitch;
+	if (draw.end_y >= HEIGHT)
+		draw.end_y = HEIGHT;
+	draw.start_x = -draw.height / 2 + draw.screen_x;
+	if (draw.start_x < 0)
+		draw.start_x = 0;
+	draw.end_x = draw.height / 2 + draw.screen_x;
+	if (draw.end_x >= WIDTH)
+		draw.end_x = WIDTH;
+	return (draw);
+}
+
+void	draw_sprite_line(t_mlx *mlx, t_image *sprite, t_draw_sprite draw, int x)
+{
+	int	y;
+	int	d;
+	int	color;
+
+	color = 0;
+	y = draw.start_y;
+	while (y < draw.end_y)
 	{
-		int tex_x = (256 * (stripe - (-spriteHeight / 2 + spriteScreen_x)) * SPRITE_SIZE / spriteHeight) / 256;
-		if (transform.y > 0 && stripe > 0 && stripe < WIDTH && transform.y < mlx->dist_buffer[stripe])
+		d = y * 256 - HEIGHT * 128 + draw.height * 128 - mlx->player.pitch * 256;
+		draw.tex_y = ((d * SPRITE_SIZE) / draw.height) / 256;
+		if (draw.tex_y >= 0 && draw.tex_y < SPRITE_SIZE)
 		{
-			for (int y = drawStartY; y < drawEndY; y++)
-			{
-				int d = y * 256 - HEIGHT * 128 + spriteHeight * 128 - mlx->player.pitch * 256;
-				int tex_y = ((d * SPRITE_SIZE) / spriteHeight) / 256;
-				
-				if (tex_y >= 0 && tex_y < SPRITE_SIZE) {
-					int color = pixel_get(sprite, tex_x, tex_y);
-					if (color != (int)0xFF00FF)
-						pixel_put(&mlx->img, stripe, y, color);
-				}
-			}
+			color = pixel_get(sprite, draw.tex_x, draw.tex_y);
+			if (color != (int)0xFF00FF)
+				pixel_put(&mlx->img, x, y, color);
 		}
+		y++;
+	}
+}
+
+void	draw_sprite(t_v2D transform, t_mlx *mlx, t_image *sprite, t_draw_sprite draw)
+{
+	int	x;
+
+	x = draw.start_x;
+	while (x < draw.end_x)
+	{
+		draw.tex_x = (256 * (x - (-draw.height / 2 + draw.screen_x)) * SPRITE_SIZE / draw.height) / 256;
+		if (transform.y > 0 && x > 0 && x < WIDTH && transform.y < mlx->dist_buffer[x])
+			draw_sprite_line(mlx, sprite, draw, x);
+		x++;
 	}
 }
 
@@ -82,7 +101,7 @@ void	sprite_loop(t_mlx *mlx)
 		update_time(&mlx->current_time);
 		obj->elapsed_time = time_passed(&obj->last_time, &mlx->current_time);
 		s_dist = sprite_dist(&mlx->player, obj->pos);
-		draw_sprite(s_dist, mlx, &mlx->sprite[obj->spr_index].img);
+		draw_sprite(s_dist, mlx, &mlx->sprite[obj->spr_index].img, draw_start_calc(s_dist, mlx->player.pitch));
 		objs_lst = objs_lst->next;
 	}
 }
