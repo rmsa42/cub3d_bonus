@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/25 11:56:29 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 10:31:49 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void minimap_tiles(t_mlx *mlx, t_map *map, int tile_size)
 				color = 0x9c9c9c;
 			else if(map->game_map[y][x] == 'D' || map->game_map[y][x] == 'd')
 				color = 0x0050FF;
+			else if(map->game_map[y][x] == 'P' || map->game_map[y][x] == 'p')
+				color = 0x5050FF;
 			else if (map->game_map[y][x] == 'X')
 				color = 0xFFFFFF;
 			else

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:00:52 by cacarval          #+#    #+#             */
-/*   Updated: 2024/06/25 11:45:48 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 10:32:06 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	collectable_delete(t_mlx *mlx, t_list **objs_lst, t_objs *obj)
 	{
 		if (obj->type == HP_COLLECT && mlx->player.hp < 100)
 		{
+			mlx->player.healed = 1;
 			mlx->player.hp += 25;
 			if (mlx->player.hp > 100)
 				mlx->player.hp = 100;

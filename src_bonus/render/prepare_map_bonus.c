@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/25 15:16:27 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 10:32:09 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_player	init_player(double x, double y, char tile)
 	player.plane = multiply_vector(perp_vector(player.direction), (double)FOV / 90);
 	player.angle = 0;
 	player.coins = 0;
+	player.damaged = 0;
+	player.healed = 0;
 	player.shoot_anim = false;
 	player.shoot = false;
 	player.ball_node = NULL;

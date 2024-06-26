@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 10:21:24 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 10:29:51 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@ void	draw(t_mlx *mlx)
 	{
 		ft_grua(mlx);
 		draw_minimap(mlx, mlx->objs_lst);
+		if (mlx->player.damaged)
+			draw_end_game(mlx, DAMAGED);
+		if (mlx->player.healed)
+		{
+			draw_end_game(mlx, HEALED);
+			if (mlx->elapsed_time >= 0.10)	
+				mlx->player.healed = 0;
+		}
 	}
 	else
 		end_game(mlx);

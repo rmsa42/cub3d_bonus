@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:38:56 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 14:21:35 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 10:30:11 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	init_sprite3(t_mlx *mlx, t_sprite *sprite)
 	sprite[END_DOOR1] = xpm_to_image(mlx, "sprites/end_door/end_door.xpm");
 	sprite[END_DOOR2] = xpm_to_image(mlx, "sprites/end_door/end_door1.xpm");
 	sprite[END_DOOR3] = xpm_to_image(mlx, "sprites/end_door/end_door2.xpm");
+	sprite[63] = xpm_to_image(mlx, "sprites/test.xpm");
+	sprite[64] = xpm_to_image(mlx, "sprites/test2.xpm");
 }
 
 void	init_sprite2(t_mlx *mlx, t_sprite *sprite)

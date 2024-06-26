@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 10:15:59 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 10:29:46 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define WIDTH 800
 # define FOV 60
 # define SPRITE_SIZE 64
-# define SPRITE_NBR 63
+# define SPRITE_NBR 65
 
 # define PI 3.14159265359
 
@@ -90,6 +90,8 @@ typedef struct s_player
 	t_v2D	movement;
 	t_list	*ball_node;
 	int		hp;
+	int		damaged;
+	int		healed;
 	int		coins;
 	double	angle;
 	double	pitch;
