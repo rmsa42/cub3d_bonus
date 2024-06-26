@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 13:54:03 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:34:23 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	draw(t_mlx *mlx)
 	if (mlx->game_state == GAME_STATE)
 	{
 		ft_grua(mlx);
-		draw_minimap(mlx, mlx->objs_lst);
+		draw_minimap(mlx);
 		if (mlx->player.damaged)
 			draw_end_game(mlx, DAMAGED);
 		if (mlx->player.healed)

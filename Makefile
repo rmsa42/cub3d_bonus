@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
+#    By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/06/25 15:15:43 by rumachad         ###   ########.fr        #
+#    Updated: 2024/06/26 15:44:32 by cacarval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,9 @@ SRC_BONUS = main_bonus.c \
 	clean_bonus.c \
 	common_bonus.c \
 	check_objs_bonus.c \
+	raycaster_help_bonus.c \
 	ball_hits_bonus.c \
+	put_tile_bonus.c \
 	player_inter_bonus.c
 	
 	

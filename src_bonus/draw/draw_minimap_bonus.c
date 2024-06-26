@@ -6,57 +6,53 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 12:38:20 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:55:13 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void minimap_tiles(t_mlx *mlx, t_map *map, int tile_size)
+int	get_color(int x, int y, t_map *map)
 {
-	int x;
-	int y;
-	int i;
-	int j;
+	int	color;
 
-	i = -1;
-	j = -1;
+	if (map->game_map[y][x] == '0')
+		color = 0x9c9c9c;
+	else if (map->game_map[y][x] == 'D' \
+		|| map->game_map[y][x] == 'd')
+		color = 0x0050FF;
+	else if (map->game_map[y][x] == 'P' \
+		|| map->game_map[y][x] == 'p')
+		color = 0x5050FF;
+	else if (map->game_map[y][x] == 'X')
+		color = 0xFFFFFF;
+	else
+		color = 0x000000;
+	return (color);
+}
+
+void	minimap_tiles(t_mlx *mlx, t_map *map, int tile_size)
+{
+	int	x;
+	int	y;
+
 	y = -1;
-	while (++y < map->height) 
+	while (++y < map->height)
 	{
 		x = -1;
-		while (++x < (int)ft_strlen(map->game_map[y])) 
-		{
-			int color;
-			if (map->game_map[y][x] == '0')
-				color = 0x9c9c9c;
-			else if(map->game_map[y][x] == 'D' || map->game_map[y][x] == 'd')
-				color = 0x0050FF;
-			else if(map->game_map[y][x] == 'P' || map->game_map[y][x] == 'p')
-				color = 0x5050FF;
-			else if (map->game_map[y][x] == 'X')
-				color = 0xFFFFFF;
-			else
-				color = 0x000000;
-			int tile_x = x * tile_size;
-			int tile_y = y * tile_size;
-			i = -1;
-			while (++i < tile_size) 
-			{
-				j = -1;
-				while (++j < tile_size)
-					pixel_put(&mlx->img, tile_x + i, tile_y + j, color);
-			}
-		}
+		while (++x < (int)ft_strlen(map->game_map[y]))
+			put_tiles(mlx, x , y, tile_size);
 	}
 }
 
-void	map_objs(t_mlx *mlx, t_list *objs_lst, int tile_size, int i, int j)
+void	map_objs(t_mlx *mlx, int tile_size, int i, int j)
 {
 	t_v2D	sprite;
 	t_objs	*obj;
 	int		color;
+	t_list	*objs_lst;
 
+	objs_lst = mlx->objs_lst;
 	while (objs_lst != NULL)
 	{
 		obj = (t_objs *)objs_lst->content;
@@ -71,25 +67,25 @@ void	map_objs(t_mlx *mlx, t_list *objs_lst, int tile_size, int i, int j)
 			color = 0x00FF00;
 		pixel_put(&mlx->img, sprite.x + i, sprite.y + j, color);
 		objs_lst = objs_lst->next;
-	}	
+	}
 }
 
-void	draw_map_sprites(t_mlx *mlx, t_list *objs_lst, int tile_size)
+void	draw_map_sprites(t_mlx *mlx, int tile_size)
 {
 	t_v2D	player;
-	int sprite_size = tile_size / 2;
-	int i;
-	int	j;
-	
+	int		sprite_size;
+	int		i;
+	int		j;
+
+	sprite_size = tile_size / 2;
 	i = -sprite_size;
 	player = multiply_vector(mlx->player.pos, tile_size);
-	while (i < sprite_size) 
+	while (i < sprite_size)
 	{
 		j = -sprite_size;
-		while (j < sprite_size) 
+		while (j < sprite_size)
 		{
-			objs_lst = mlx->objs_lst;
-			map_objs(mlx, objs_lst, tile_size, i , j);
+			map_objs(mlx, tile_size, i, j);
 			pixel_put(&mlx->img, player.x + i, player.y + j, 0x00FFFF);
 			j++;
 		}
@@ -97,15 +93,15 @@ void	draw_map_sprites(t_mlx *mlx, t_list *objs_lst, int tile_size)
 	}
 }
 
-void draw_minimap(t_mlx *mlx, t_list *objs_lst)
+void	draw_minimap(t_mlx *mlx)
 {
-	int minimap_size;
-	int tile_size;
-	
+	int	minimap_size;
+	int	tile_size;
+
 	minimap_size = 200;
-	tile_size = (minimap_size / 36) * HEIGHT/600;
+	tile_size = (minimap_size / 36) *(HEIGHT / 600);
 	if (tile_size < 1)
 		tile_size = 1;
 	minimap_tiles(mlx, mlx->map, tile_size);
-	draw_map_sprites(mlx, objs_lst, tile_size);
+	draw_map_sprites(mlx, tile_size);
 }

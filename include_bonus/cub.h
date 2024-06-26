@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 13:59:53 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:56:07 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ t_objs		*init_obj(t_v2D pos, int spr_index, int hp, t_type type);
 t_list		*init_ball(t_list **head, t_player *player);
 //Raycast
 void		ft_grua(t_mlx *mlx);
+void	raycaster_hits(t_mlx *mlx, t_map *map, int *hit);
 t_draw		calculus(t_ray *ray, t_player *player, double *buffer , int side);
 int			select_sprite(t_ray *ray, int side);
 void		draw_line(t_mlx *mlx, int x);
@@ -275,7 +276,9 @@ void	draw_coins(t_mlx *mlx);
 void	draw_hearts(t_mlx *mlx);
 int		calc_char_anim(t_mlx *mlx);
 void	draw_end_game(t_mlx *mlx, int sprite);
-void	draw_minimap(t_mlx *mlx, t_list *objs_lst);
+void	draw_minimap(t_mlx *mlx);
+void	put_tiles(t_mlx *mlx, int x, int y, int tile_size);
+int		get_color(int x, int y, t_map *map);
 
 // Sort Sprite
 t_list	*sort_sprites(t_player *player, t_list *objs_lst);

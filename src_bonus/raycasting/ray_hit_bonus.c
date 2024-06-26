@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_hit_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:15:49 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/25 10:49:17 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:44:17 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	select_sprite(t_ray *ray, int side)
 {
 	int	sprite_index;
-	
+
 	sprite_index = 0;
 	if (side == 1)
 	{
@@ -36,10 +36,11 @@ int	select_sprite(t_ray *ray, int side)
 
 void	door_anim(t_mlx *mlx, t_map *map)
 {
-	static int i = OPEN_DOOR1;
+	static int	i = OPEN_DOOR1;
 
-	mlx->spr_index = DOOR1;	
-	if (map->game_map[map->y][map->x] == 'P' || map->game_map[map->y][map->x] == 'p')
+	mlx->spr_index = DOOR1;
+	if (map->game_map[map->y][map->x] == 'P' || \
+		map->game_map[map->y][map->x] == 'p')
 	{
 		mlx->spr_index = END_DOOR1;
 		if (map->game_map[map->y][map->x] == 'p')
@@ -61,7 +62,7 @@ void	door_anim(t_mlx *mlx, t_map *map)
 }
 
 void	door_hit(t_mlx *mlx, t_map	*map)
-{ 
+{
 	door_anim(mlx, map);
 	if (mlx->side == 0)
 	{
@@ -86,4 +87,3 @@ void	door_hit(t_mlx *mlx, t_map	*map)
 		mlx->ray.side_d.y += mlx->ray.delta.y;
 	}
 }
-

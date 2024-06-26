@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_map_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 10:32:09 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:30:12 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ t_player	init_player(double x, double y, char tile)
 		player.direction = (t_v2D){1, 0};
 	player.movement = (t_v2D){0, 0};
 	player.pitch = 0;
-	player.plane = multiply_vector(perp_vector(player.direction), (double)FOV / 90);
+	player.plane = multiply_vector(perp_vector(player.direction), \
+		(double)FOV / 90);
 	player.angle = 0;
 	player.coins = 0;
 	player.damaged = 0;
@@ -66,11 +67,14 @@ int	draw_map(t_mlx *mlx, char *tile, int x, int y)
 		return (1);
 	}
 	else if (*tile == 'e')
-		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, ENEMY1, 2, ENEMY));
+		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, \
+			ENEMY1, 2, ENEMY));
 	else if (*tile == 'C')
-		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, COLLEC, 1000, COLLECT));
+		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, \
+			COLLEC, 1000, COLLECT));
 	else if (*tile == 'H')
-		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, HP_COLLECT1, 1000, HP_COLLECT));
+		node = ft_lstnew((void *)init_obj((t_v2D){x + 0.5, y + 0.5}, \
+			HP_COLLECT1, 1000, HP_COLLECT));
 	if (node != NULL)
 	{
 		ft_lstadd_back(&mlx->objs_lst, node);
@@ -86,13 +90,15 @@ void	prepare_map(t_mlx *mlx)
 
 	pl_count = 0;
 	map = mlx->map;
-	mlx->marked_cells = (t_cell *)ft_calloc(map->height * map->width, sizeof(t_cell));
+	mlx->marked_cells = (t_cell *)ft_calloc(map->height * map->width, \
+		sizeof(t_cell));
 	while (map->game_map[map->y])
 	{
 		map->x = 0;
 		while (map->game_map[map->y][map->x])
 		{
-			pl_count += draw_map(mlx, &map->game_map[map->y][map->x], map->x, map->y);
+			pl_count += draw_map(mlx, &map->game_map[map->y][map->x], \
+				map->x, map->y);
 			if (pl_count > 1)
 				print_error("Invalid Map(Two Players)\n", -1, mlx);
 			map->x++;

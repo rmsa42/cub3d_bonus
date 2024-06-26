@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_calcs_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:01:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/25 14:37:58 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:44:46 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	text_x(t_ray *ray, int side, double perp_wall, t_player *player)
 	return (tex_x);
 }
 
-t_draw	calculus(t_ray *ray, t_player *player, double *perp_wall_dist , int side)
+t_draw	calculus(t_ray *ray, t_player *player, double *perp_wall_dist, int side)
 {
 	t_draw	draw;
 
@@ -47,7 +47,7 @@ t_draw	calculus(t_ray *ray, t_player *player, double *perp_wall_dist , int side)
 	if (draw.end >= HEIGHT)
 		draw.end = HEIGHT;
 	draw.scale = SPRITE_SIZE / draw.line_height;
-	draw.tex_pos = (draw.start - player->pitch - HEIGHT / 2 +
+	draw.tex_pos = (draw.start - player->pitch - HEIGHT / 2 + \
 			draw.line_height / 2) * draw.scale;
 	return (draw);
 }
