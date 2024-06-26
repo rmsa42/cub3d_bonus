@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_objs_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:00:52 by cacarval          #+#    #+#             */
-/*   Updated: 2024/06/26 10:32:06 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 10:50:56 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,10 @@ bool is_wall_collision(t_map *map, float x, float y)
 
 	map_x = (int)x;
 	map_y = (int)y;
-	if (map->game_map[map_y][map_x] == '1' || map->game_map[map_y][map_x] == 'D'
-		|| map->game_map[map_y][map_x] == 'P')
-		return true;
+	if (map_x <= (int)ft_strlen(map->game_map[map_y]))
+		if (map->game_map[map_y][map_x] == '1' || map->game_map[map_y][map_x] == 'D'
+			|| map->game_map[map_y][map_x] == 'P')
+			return true;
 	return false;
 }
 
@@ -75,7 +76,8 @@ bool	check_objs_collision(t_mlx *mlx, t_list *objs_lst, t_v2D check)
 		{
 			if (collectable_delete(mlx, &objs_lst, obj))
 				continue;
-			collision = true;
+			if (obj->type == ENEMY)
+				collision = true;
 		}
 		objs_lst = objs_lst->next;
 	}

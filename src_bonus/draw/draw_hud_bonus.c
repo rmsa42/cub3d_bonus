@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:27:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/25 11:05:00 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:27:28 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ void	draw_hud(t_mlx *mlx, int spr_index, t_v2D sprite_pos)
 	int		new_size;
 
 	scr.y = sprite_pos.y;
-	new_size = (int)(SPRITE_SIZE * 2);
+	new_size = (int)(SPRITE_SIZE * 2) * WIDTH/800;
 	while (++scr.y < sprite_pos.y + new_size)
 	{
 		scr.x = sprite_pos.x;
 		while (++scr.x < sprite_pos.x + new_size)
 		{
-			texture.x = (int)((scr.x - sprite_pos.x) / 2);
-			texture.y = (int)((scr.y - (sprite_pos.y)) / 2);
+			texture.x = (int)((scr.x - sprite_pos.x) / 2) * 800/WIDTH;
+			texture.y = (int)((scr.y - (sprite_pos.y)) / 2) * 600/HEIGHT;
 			if (texture.x >= 0 && texture.x < SPRITE_SIZE && texture.y >= 0 && texture.y < SPRITE_SIZE)
 			{
 				color = pixel_get(&mlx->sprite[spr_index].img, texture.x, texture.y);
@@ -55,8 +55,6 @@ void custom_pixel_put(t_image *img, int pixelX, int pixelY, int color)
     *(unsigned int*)dst = color;
 }
 
-
-
 void draw_end_game(t_mlx *mlx, int	sprite) 
 {
 	t_v2D	scr;
@@ -69,9 +67,9 @@ void draw_end_game(t_mlx *mlx, int	sprite)
 		scr.x = -1;
 		while (++scr.x < WIDTH)
 		{
-			texture.x = (int)(scr.x);
-			texture.y = (int)(scr.y);
-			if (texture.x >= 0 && texture.x < WIDTH && texture.y >= 0 && texture.y < HEIGHT)
+			texture.x = (int)(scr.x) * 800/WIDTH;
+			texture.y = (int)(scr.y) * 600/HEIGHT;
+			if (texture.x >= 0 && texture.x < 800 && texture.y >= 0 && texture.y < 600)
 			{
 				if (sprite == DAMAGED)
 				{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_minimap_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 10:31:49 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:38:20 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,9 @@ void draw_minimap(t_mlx *mlx, t_list *objs_lst)
 	int tile_size;
 	
 	minimap_size = 200;
-	tile_size = minimap_size / 36;
+	tile_size = (minimap_size / 36) * HEIGHT/600;
+	if (tile_size < 1)
+		tile_size = 1;
 	minimap_tiles(mlx, mlx->map, tile_size);
 	draw_map_sprites(mlx, objs_lst, tile_size);
 }

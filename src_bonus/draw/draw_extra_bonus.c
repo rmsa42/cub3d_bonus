@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 09:53:20 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 12:36:02 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:35:01 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	draw_hearts(t_mlx *mlx)
 {
 	t_v2D	sprite_pos;
 
-	sprite_pos = (t_v2D){20, HEIGHT - 175};
+	sprite_pos = (t_v2D){20 * WIDTH/800, HEIGHT - (175 * HEIGHT/600)};
 	draw_hud(mlx, mlx->spr_hp_index, sprite_pos);
 }
 
@@ -24,7 +24,7 @@ void	draw_coins(t_mlx *mlx)
 {
 	t_v2D	sprite_pos;
 	
-	sprite_pos = (t_v2D){WIDTH - 150, -30};
+	sprite_pos = (t_v2D){WIDTH - (150 * WIDTH/800), -30 * HEIGHT/600};
 	draw_hud(mlx, mlx->spr_coins_index, sprite_pos);
 }
 
@@ -32,7 +32,7 @@ void	draw_char(t_mlx *mlx)
 {
 	t_v2D	sprite_pos;
 
-	sprite_pos = (t_v2D){20, HEIGHT - 110};
+	sprite_pos = (t_v2D){20 * WIDTH/800, HEIGHT - (110 * HEIGHT/600)};
 	draw_hud(mlx, mlx->spr_character_index, sprite_pos);
 }
 
