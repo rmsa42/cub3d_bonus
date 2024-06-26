@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:27:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 11:55:37 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:51:05 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,15 @@ void	draw_hud(t_mlx *mlx, int spr_index, t_v2D sprite_pos)
 	int		new_size;
 
 	scr.y = sprite_pos.y;
-	new_size = (int)(SPRITE_SIZE * 2);
+	new_size = (int)(SPRITE_SIZE * 2) * WIDTH/800;
 	while (++scr.y < sprite_pos.y + new_size)
 	{
 		scr.x = sprite_pos.x;
 		texture.y = (int)((scr.y - (sprite_pos.y)) / 2);
 		while (++scr.x < sprite_pos.x + new_size)
 		{
-			texture.x = (int)((scr.x - sprite_pos.x) / 2);
+			texture.x = (int)((scr.x - sprite_pos.x) / 2) * 800/WIDTH;
+			texture.y = (int)((scr.y - (sprite_pos.y)) / 2) * 600/HEIGHT;
 			if (texture.x >= 0 && texture.x < SPRITE_SIZE && texture.y >= 0 && texture.y < SPRITE_SIZE)
 			{
 				color = pixel_get(&mlx->sprite[spr_index].img, texture.x, texture.y);
@@ -68,8 +69,9 @@ void draw_end_game(t_mlx *mlx, int	sprite)
 		texture.y = (int)(scr.y);
 		while (++scr.x < WIDTH)
 		{
-			texture.x = (int)(scr.x);
-			if (texture.x >= 0 && texture.x < WIDTH && texture.y >= 0 && texture.y < HEIGHT)
+			texture.x = (int)(scr.x) * 800/WIDTH;
+			texture.y = (int)(scr.y) * 600/HEIGHT;
+			if (texture.x >= 0 && texture.x < 800 && texture.y >= 0 && texture.y < 600)
 			{
 				if (sprite == DAMAGED)
 				{
