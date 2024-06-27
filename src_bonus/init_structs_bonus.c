@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structs_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:37:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 11:50:47 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/27 13:43:07 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,14 @@ void	init_map(t_mlx *mlx, int nbr_maps, char **av)
 	{
 		if (map_parser(av[i], &map[k]))
 			print_error("Invalid Map Config\n", EXIT_FAILURE, mlx);
+		if (map->height > HEIGHT || map->width > WIDTH)
+			print_error("Invalid Map Size\n", EXIT_FAILURE, mlx);
 		if (call_flood_fill(mlx, &map[k]))
-			print_error("", -1, mlx);
+			print_error("", EXIT_FAILURE, mlx);
 		i++;
 		k++;
 	}
-	mlx->tile_size = (200 / 36) *(HEIGHT / 600);
-	if (mlx->map->height > 34 || mlx->map->width > 34)
-	{
-		if (mlx->map->height > mlx->map->width)
-			mlx->tile_size = (200 / 36) *(HEIGHT / 600) *(34 / mlx->map->height);
-		else
-			mlx->tile_size = (200 / 36) *(HEIGHT / 600) *(34 / mlx->map->width);
-	}
+	mlx->tile_size = 5.5 *(HEIGHT / 600);
 	if (mlx->tile_size < 1)
-		print_error("Invalid Map Size\n", EXIT_FAILURE, mlx);
+		mlx->tile_size = 1;
 }

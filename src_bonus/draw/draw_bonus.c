@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:27:35 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 14:52:18 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/27 14:12:11 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ void	draw_ceiling(t_image *img, t_draw *draw, int color, int x)
 
 	y = -1;
 	while (++y < draw->start)
-	{
 		pixel_put(img, x, y, color);
-	}
 }
 
 int	darken_color(int color, int factor)

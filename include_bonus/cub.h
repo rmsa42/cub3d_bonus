@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/27 12:24:11 by cacarval         ###   ########.fr       */
+/*   Created: 2024/06/27 14:14:00 by rumachad          #+#    #+#             */
+/*   Updated: 2024/06/27 14:14:20 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include "vector2D.h"
 # include "sprite_enum.h"
 # include <stdbool.h>
-# include <assert.h>
 # include <time.h>
 
 # define ESC 65307
@@ -33,6 +32,20 @@
 # define LEFT_CLICK 1
 # define LARROW 65361
 # define RARROW 65363
+
+# define GREY 0x9c9c9c
+# define BLUE 0x0050FF
+# define VIOLET 0x8050FF
+# define WHITE 0xFFFFFF
+# define BLACK 0x000000
+# define RED 0xFF0000
+# define YELLOW 0xFFFF00
+# define DARK_BLUE 0x000080
+# define GREEN 0x00FF00
+# define LIGHT_BLUE 0x00FFFF
+# define DAMAGE_RED 0x4Dff0000
+# define HEAL_GREEN 0x4D00FF00
+# define TRANSPARENT 0xFF00FF
 
 # define HEIGHT 600
 # define WIDTH 800
@@ -244,7 +257,6 @@ int			color(int nbr);
 int			shift_color(int *rgb);
 int			advance_space(char *line);
 
-void		print_map(char **map);
 int			map_parser(char *file_name, t_map *map);
 char		**create_full_map(int fd, char *map_name, int nbr_lines);
 int			create_config_map(t_map *map, char **full_map);
@@ -298,9 +310,8 @@ double		time_passed(struct timespec *last, struct timespec *current);
 
 // Free Mem
 void		free_list(t_list *lst);
-void		print_list(t_list *lst);
 void		elim_obj(t_list **head, t_list *elim_obj);
-void		print_error(char *str, int statusm, t_mlx *mlx);
+void		print_error(char *str, int status, t_mlx *mlx);
 void		close_game(t_mlx *mlx, int status);
 
 // Destructors
@@ -311,6 +322,5 @@ void		mlx_destructor(void *lib, void *window);
 void		free_config(void *lib, t_sprite *sprite);
 
 void		end_game_screen(t_mlx *mlx);
-void		win_game_screen(t_mlx *mlx);
 
 #endif

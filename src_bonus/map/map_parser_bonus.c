@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:02:04 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 10:36:46 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:07:33 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	create_config_map(t_map *map, char **full_map)
 	i = 0;
 	counter = 0;
 	trimed_line = NULL;
-	while (counter < 6)
+	while (full_map[i] && counter < 6)
 	{
 		trimed_line = ft_strtrim(full_map[i], " 	\n");
 		if (!trimed_line)
@@ -71,6 +71,8 @@ int	create_config_map(t_map *map, char **full_map)
 		}
 		free(trimed_line);
 	}
+	if (counter < 6)
+		return (-1);
 	return (i);
 }
 
@@ -79,7 +81,7 @@ int	map_parser2(char **full_map, t_map *map, int nbr_lines)
 	int		config_lines;
 
 	config_lines = create_config_map(map, full_map);
-	if (config_lines == -1)
+	if (config_lines == -1 || map->config_map[0] == NULL)
 	{
 		ft_free_dp((void **)full_map);
 		return (1);
@@ -90,7 +92,7 @@ int	map_parser2(char **full_map, t_map *map, int nbr_lines)
 		return (1);
 	}
 	map->height = create_content_map(map, full_map, config_lines, nbr_lines);
-	if (map->height == -1)
+	if (map->height == -1 || map->game_map[0] == NULL)
 	{
 		ft_free_dp((void **)full_map);
 		return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:26:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 11:09:57 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:15:52 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	main(int argc, char *argv[])
 	init_map(&mlx, mlx.nbr_maps, argv);
 	init_sprite(&mlx, mlx.map->config_map, mlx.sprite);
 	if (prepare_map(&mlx))
-		print_error("Invalid Map(Two Players)\n", EXIT_FAILURE, &mlx);
+		print_error("Invalid Map(Too many Players)\n", EXIT_FAILURE, &mlx);
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	if (mlx.window == NULL)
 		print_error("Mlx window creation failure\n", EXIT_FAILURE, &mlx);

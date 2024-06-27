@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_hud_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:27:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 11:06:23 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/27 14:11:29 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,25 @@
 void	draw_hud(t_mlx *mlx, int spr_index, t_v2D sprite_pos)
 {
 	t_v2D	scr;
-	t_v2D	texture;
+	t_cell	texture;
 	int		color;
 	int		new_size;
 
 	scr.y = sprite_pos.y;
-	new_size = (int)(SPRITE_SIZE * 2)*(WIDTH / 800);
+	new_size = (int)(SPRITE_SIZE * 2)*((double)WIDTH / 800);
 	while (++scr.y < sprite_pos.y + new_size)
 	{
 		scr.x = sprite_pos.x;
-		texture.y = (int)((scr.y - (sprite_pos.y)) / 2);
+		texture.y = ((scr.y - (sprite_pos.y)) / 2) * (600 / (double)HEIGHT);
 		while (++scr.x < sprite_pos.x + new_size)
 		{
-			texture.x = (int)((scr.x - sprite_pos.x) / 2)*(800 / WIDTH);
-			texture.y = (int)((scr.y - (sprite_pos.y)) / 2)*(600 / HEIGHT);
+			texture.x = ((scr.x - sprite_pos.x) / 2) * (800 / (double)WIDTH);
 			if (texture.x >= 0 && texture.x < SPRITE_SIZE && \
 				texture.y >= 0 && texture.y < SPRITE_SIZE)
 			{
 				color = pixel_get(&mlx->sprite[spr_index].img, \
 					texture.x, texture.y);
-				if (color != (int)0xFF00FF)
+				if (color != TRANSPARENT)
 					pixel_put(&mlx->img, scr.x, scr.y, color);
 			}
 		}
@@ -62,7 +61,7 @@ void	custom_pixel_put(t_image *img, int pixelX, int pixelY, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	put_screen_textures(t_mlx *mlx, t_v2D texture, int sprite, t_v2D scr)
+void	put_screen_textures(t_mlx *mlx, t_cell texture, int sprite, t_v2D scr)
 {
 	int	color;
 
@@ -71,19 +70,19 @@ void	put_screen_textures(t_mlx *mlx, t_v2D texture, int sprite, t_v2D scr)
 	{
 		if (sprite == DAMAGED)
 		{
-			color = 0x4Dff0000;
+			color = DAMAGE_RED;
 			custom_pixel_put(&mlx->img, scr.x, scr.y, color);
 		}
 		else if (sprite == HEALED)
 		{
-			color = 0x4D00FF00;
+			color = HEAL_GREEN;
 			custom_pixel_put(&mlx->img, scr.x, scr.y, color);
 		}
 		else
 		{
 			color = pixel_get(&mlx->sprite[sprite].img, \
 				texture.x, texture.y);
-			if (color != (int)0xFF00FF)
+			if (color != TRANSPARENT)
 				pixel_put(&mlx->img, scr.x, scr.y, color);
 		}
 	}
@@ -92,16 +91,16 @@ void	put_screen_textures(t_mlx *mlx, t_v2D texture, int sprite, t_v2D scr)
 void	draw_end_game(t_mlx *mlx, int sprite)
 {
 	t_v2D	scr;
-	t_v2D	texture;
+	t_cell	texture;
 
 	scr.y = -1;
 	while (++scr.y < HEIGHT)
 	{
-		texture.y = (int)(scr.y)*(600 / HEIGHT);
+		texture.y = (scr.y) * (600 / HEIGHT);
 		scr.x = -1;
 		while (++scr.x < WIDTH)
 		{
-			texture.x = (int)(scr.x)*(800 / WIDTH);
+			texture.x = (scr.x) * (800 / WIDTH);
 			put_screen_textures(mlx, texture, sprite, scr);
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_minimap_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 12:24:21 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/27 14:00:17 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ int	get_color(int x, int y, t_map *map)
 	int	color;
 
 	if (map->game_map[y][x] == '0')
-		color = 0x9c9c9c;
+		color = GREY;
 	else if (map->game_map[y][x] == 'D'
 		|| map->game_map[y][x] == 'd')
-		color = 0x0050FF;
+		color = BLUE;
 	else if (map->game_map[y][x] == 'P'
 		|| map->game_map[y][x] == 'p')
-		color = 0x5050FF;
+		color = VIOLET;
 	else if (map->game_map[y][x] == 'X')
-		color = 0xFFFFFF;
+		color = WHITE;
 	else
-		color = 0x000000;
+		color = BLACK;
 	return (color);
 }
 
@@ -58,13 +58,13 @@ void	map_objs(t_mlx *mlx, int tile_size, int i, int j)
 		obj = (t_objs *)objs_lst->content;
 		sprite = multiply_vector(obj->pos, tile_size);
 		if (obj->type == ENEMY)
-			color = 0xFF0000;
+			color = RED;
 		else if (obj->type == COLLECT)
-			color = 0xFFFF00;
+			color = YELLOW;
 		else if (obj->type == BALL)
-			color = 0x0000FF;
+			color = DARK_BLUE;
 		else if (obj->type == HP_COLLECT)
-			color = 0x00FF00;
+			color = GREEN;
 		pixel_put(&mlx->img, sprite.x + i, sprite.y + j, color);
 		objs_lst = objs_lst->next;
 	}
@@ -86,7 +86,7 @@ void	draw_map_sprites(t_mlx *mlx, int tile_size)
 		while (j < sprite_size)
 		{
 			map_objs(mlx, tile_size, i, j);
-			pixel_put(&mlx->img, player.x + i, player.y + j, 0x00FFFF);
+			pixel_put(&mlx->img, player.x + i, player.y + j, LIGHT_BLUE);
 			j++;
 		}
 		i++;

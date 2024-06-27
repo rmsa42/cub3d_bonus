@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 15:24:39 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/27 14:12:31 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	draw_sprite_line(t_mlx *mlx, t_image *sprite, t_draw_sprite draw, int x)
 		if (draw.tex_y >= 0 && draw.tex_y < SPRITE_SIZE)
 		{
 			color = pixel_get(sprite, draw.tex_x, draw.tex_y);
-			if (color != (int)0xFF00FF)
+			if (color != TRANSPARENT)
 				pixel_put(&mlx->img, x, y, color);
 		}
 		y++;
