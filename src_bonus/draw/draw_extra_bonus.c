@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_extra_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 09:53:20 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 12:50:32 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:54:05 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ void	draw_hearts(t_mlx *mlx)
 {
 	t_v2D	sprite_pos;
 
-	sprite_pos = (t_v2D){20 * WIDTH/800, HEIGHT - (175 * HEIGHT/600)};
+	sprite_pos = (t_v2D){20 * WIDTH / 800, HEIGHT - (175 * HEIGHT / 600)};
 	draw_hud(mlx, mlx->spr_hp_index, sprite_pos);
 }
 
 void	draw_coins(t_mlx *mlx)
 {
 	t_v2D	sprite_pos;
-	
-	sprite_pos = (t_v2D){WIDTH - (150 * WIDTH/800), -30 * HEIGHT/600};
+
+	sprite_pos = (t_v2D){WIDTH - (150 * WIDTH / 800), -30 * HEIGHT / 600};
 	draw_hud(mlx, mlx->spr_coins_index, sprite_pos);
 }
 
@@ -32,14 +32,14 @@ void	draw_char(t_mlx *mlx)
 {
 	t_v2D	sprite_pos;
 
-	sprite_pos = (t_v2D){20 * WIDTH/800, HEIGHT - (110 * HEIGHT/600)};
+	sprite_pos = (t_v2D){20 * WIDTH / 800, HEIGHT - (110 * HEIGHT / 600)};
 	draw_hud(mlx, mlx->spr_character_index, sprite_pos);
 }
 
 void	end_game_screen(t_mlx *mlx)
 {
 	t_v2D	sprite_pos;
-	
+
 	sprite_pos = (t_v2D){(WIDTH / 2) - SPRITE_SIZE, HEIGHT / 2};
 	draw_end_game(mlx, END_GAME);
 	draw_hud(mlx, mlx->spr_character_index, sprite_pos);

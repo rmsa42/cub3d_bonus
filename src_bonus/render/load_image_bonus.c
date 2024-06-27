@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:31:14 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 14:39:56 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:32:54 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	pixel_get(t_image *img, int pixel_x, int pixel_y)
 {
-	int color;
-	
-	color =*(unsigned int*) (img->addr + (pixel_y * img->line_length + pixel_x * (img->bits_per_pixel / 8)));
+	int	color;
+
+	color = *(unsigned int *)(img->addr + (pixel_y * img->line_length + pixel_x \
+		* (img->bits_per_pixel / 8)));
 	return (color);
 }
 
@@ -24,8 +25,9 @@ void	pixel_put( t_image *img, int pixelX, int pixelY, int color)
 {
 	char	*dst;
 
-	dst = img->addr + (pixelY * img->line_length + pixelX * (img->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	dst = img->addr + (pixelY * img->line_length + pixelX * \
+		(img->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }
 
 t_image	image_buffer(t_mlx *mlx)

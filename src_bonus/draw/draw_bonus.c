@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:27:35 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 12:30:28 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:52:18 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,14 @@ int	darken_color(int color, int factor)
 	g = (color >> 8 & 0xFF) / factor;
 	b = (color & 0xFF) / factor;
 	return (r << 16 | g << 8 | b);
-	
 }
 
-void	draw_walls(t_mlx *mlx, t_image *img, t_draw *draw, t_sprite *sprite, int x)
+void	draw_walls(t_mlx *mlx, t_draw *draw, t_sprite *sprite, int x)
 {
 	int	color;
 	int	y;
 	int	tex_y;
-	
+
 	y = draw->start;
 	while (y < draw->end)
 	{
@@ -52,7 +51,7 @@ void	draw_walls(t_mlx *mlx, t_image *img, t_draw *draw, t_sprite *sprite, int x)
 		draw->tex_pos += draw->scale;
 		color = pixel_get(&sprite->img, draw->tex_x, tex_y);
 		color = darken_color(color, mlx->dist_buffer[x]);
-		pixel_put(img, x, y, color);
+		pixel_put(&mlx->img, x, y, color);
 		y++;
 	}
 }
@@ -72,6 +71,6 @@ void	draw_floor(t_image *img, t_draw *draw, int color, int x)
 void	draw_line(t_mlx *mlx, int x)
 {
 	draw_ceiling(&mlx->img, &mlx->draw, mlx->sprite[C].color, x);
-	draw_walls(mlx, &mlx->img, &mlx->draw, &mlx->sprite[mlx->spr_index], x);
+	draw_walls(mlx, &mlx->draw, &mlx->sprite[mlx->spr_index], x);
 	draw_floor(&mlx->img, &mlx->draw, mlx->sprite[F].color, x);
 }

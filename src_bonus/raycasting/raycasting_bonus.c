@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/25 11:53:50 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:40:50 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,29 +75,13 @@ void	dda(t_mlx *mlx, int x)
 			map->y += ray->step.y;
 			mlx->side = 1;
 		}
-		if (map->game_map[map->y][map->x] == '0' || map->game_map[map->y][map->x] == 'X')
-		{
-			if (map->game_map[map->y][map->x] == '0')
-				mlx->marked_cells[mlx->num_marked_cells++] = (t_cell){map->x, map->y};
-			map->game_map[map->y][map->x] = 'X';
-		}
-		if (map->game_map[map->y][map->x] == '1')
-		{
-			hit = 1;
-			mlx->spr_index = select_sprite(ray, mlx->side);
-		}
-		else if (map->game_map[map->y][map->x] == 'D' || map->game_map[map->y][map->x] == 'd' 
-			|| map->game_map[map->y][map->x] == 'P' || map->game_map[map->y][map->x] == 'p')
-		{
-			hit = 1;
-			door_hit(mlx, map);
-		}
+		raycaster_hits(mlx, map, &hit);
 	}
-	mlx->draw = calculus(&mlx->ray, &mlx->player, &mlx->dist_buffer[x], mlx->side);
+	mlx->draw = calculus(&mlx->ray, &mlx->player, \
+		&mlx->dist_buffer[x], mlx->side);
 }
 
-
-void reset_marked_cells(t_mlx *mlx)
+void	reset_marked_cells(t_mlx *mlx)
 {
 	int	i;
 	int	x;
@@ -113,7 +97,6 @@ void reset_marked_cells(t_mlx *mlx)
 	}
 	mlx->num_marked_cells = 0;
 }
-
 
 void	ft_grua(t_mlx *mlx)
 {

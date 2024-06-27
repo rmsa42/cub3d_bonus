@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/06/26 16:07:37 by rumachad         ###   ########.fr        #
+#    Updated: 2024/06/27 10:37:47 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,9 @@ SRC_BONUS = main_bonus.c \
 	destructors_bonus.c \
 	common_bonus.c \
 	check_objs_bonus.c \
+	raycaster_help_bonus.c \
 	ball_hits_bonus.c \
+	put_tile_bonus.c \
 	player_inter_bonus.c
 	
 	
