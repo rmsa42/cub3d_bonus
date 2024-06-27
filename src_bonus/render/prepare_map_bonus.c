@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 14:30:12 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/27 11:08:59 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	draw_map(t_mlx *mlx, char *tile, int x, int y)
 	return (0);
 }
 
-void	prepare_map(t_mlx *mlx)
+int	prepare_map(t_mlx *mlx)
 {
 	t_map		*map;
 	int			pl_count;
@@ -100,9 +100,10 @@ void	prepare_map(t_mlx *mlx)
 			pl_count += draw_map(mlx, &map->game_map[map->y][map->x], \
 				map->x, map->y);
 			if (pl_count > 1)
-				print_error("Invalid Map(Two Players)\n", -1, mlx);
+				return (1);
 			map->x++;
 		}
 		map->y++;
 	}
+	return (0);
 }

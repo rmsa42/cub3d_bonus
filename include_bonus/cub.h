@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/27 10:44:20 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 10:51:02 by rumachad         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/06/27 12:23:32 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,7 @@ void		end_game(t_mlx *mlx);
 int			game_loop(t_mlx *mlx);
 
 // Map
-void		prepare_map(t_mlx *mlx);
+int			prepare_map(t_mlx *mlx);
 
 // Parser (MAP)
 int			check_path(char *line);
