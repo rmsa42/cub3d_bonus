@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_hit_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:15:49 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 14:44:17 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/27 10:52:55 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	door_anim(t_mlx *mlx, t_map *map)
 			update_time(&mlx->door_time);
 		}
 	}
-	if (i == BARREL)
+	if (i == BALL1)
 		i = OPEN_DOOR1;
 }
 

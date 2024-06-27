@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/27 10:37:52 by rumachad         ###   ########.fr       */
+/*   Created: 2024/06/27 10:44:20 by rumachad          #+#    #+#             */
+/*   Updated: 2024/06/27 10:51:02 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define WIDTH 800
 # define FOV 60
 # define SPRITE_SIZE 64
-# define SPRITE_NBR 65
+# define SPRITE_NBR 62
 
 # define PI 3.14159265359
 
@@ -47,7 +47,7 @@
 # define ROTATION_SPEED 200
 # define MAX_COINS 4
 
-typedef enum	e_state
+typedef enum e_state
 {
 	DIED_STATE,
 	WIN_STATE,
@@ -55,7 +55,7 @@ typedef enum	e_state
 	PORTAL_STATE
 }	t_state;
 
-typedef enum	e_type
+typedef enum e_type
 {
 	FLOOR,
 	DOOR,
@@ -73,8 +73,8 @@ typedef enum	e_type
 
 typedef struct s_objs
 {
-	struct timespec last_time;
-	double 			elapsed_time;
+	struct timespec	last_time;
+	double			elapsed_time;
 	int				spr_index;
 	t_type			type;
 	t_v2D			pos;
@@ -135,7 +135,7 @@ typedef struct s_ray
 	t_v2D	step;
 }	t_ray;
 
-typedef struct	s_draw
+typedef struct s_draw
 {
 	int			tex_x;
 	double		line_height;
@@ -145,7 +145,7 @@ typedef struct	s_draw
 	int			end;
 }	t_draw;
 
-typedef struct	s_draw_sprite
+typedef struct s_draw_sprite
 {
 	int	start_y;
 	int	end_y;
@@ -159,9 +159,9 @@ typedef struct	s_draw_sprite
 
 typedef struct s_cell
 {
-    int x;
-    int y;
-}              t_cell;
+	int	x;
+	int	y;
+}	t_cell;
 
 typedef struct s_mlx
 {
@@ -174,11 +174,11 @@ typedef struct s_mlx
 	t_ray			ray;
 	t_draw			draw;
 	t_list			*objs_lst;
-	t_cell 			*marked_cells;
+	t_cell			*marked_cells;
 	t_state			game_state;
 	int				side;
 	double			dist_buffer[WIDTH];
-    int 			num_marked_cells;
+	int				num_marked_cells;
 	int				spr_index;
 	int				spr_hp_index;
 	int				spr_character_index;
@@ -186,15 +186,14 @@ typedef struct s_mlx
 	int				nbr_maps;
 	int				iter_map;
 	t_map			*head_map;
-	struct timespec door_time;
-	struct timespec last_time;
-	struct timespec current_time;
-	struct timespec prev_time;
-	double elapsed_time;
-	double elapsed_door;
-	double	delta;
+	struct timespec	door_time;
+	struct timespec	last_time;
+	struct timespec	current_time;
+	struct timespec	prev_time;
+	double			elapsed_time;
+	double			elapsed_door;
+	double			delta;
 }	t_mlx;
-
 
 // Init
 t_player	init_player(double x, double y, char tile);
@@ -207,8 +206,8 @@ void		init_map(t_mlx *mlx, int nbr_maps, char **av);
 
 //Raycast
 void		ft_grua(t_mlx *mlx);
-void	raycaster_hits(t_mlx *mlx, t_map *map, int *hit);
-t_draw		calculus(t_ray *ray, t_player *player, double *buffer , int side);
+void		raycaster_hits(t_mlx *mlx, t_map *map, int *hit);
+t_draw		calculus(t_ray *ray, t_player *player, double *buffer, int side);
 int			select_sprite(t_ray *ray, int side);
 void		draw_line(t_mlx *mlx, int x);
 void		door_hit(t_mlx *mlx, t_map *map);
@@ -279,38 +278,38 @@ bool		ball_hit_wall(t_map *map, t_objs *ball);
 void		clean_hit(t_list **objs_list, t_player *player, t_list *hit);
 
 // Draw Hud
-void	draw_hud(t_mlx *mlx, int spr_index, t_v2D sprite_pos);
-void	draw_char(t_mlx *mlx);
-void	draw_coins(t_mlx *mlx);
-void	draw_hearts(t_mlx *mlx);
-int		calc_char_anim(t_mlx *mlx);
-void	draw_end_game(t_mlx *mlx, int sprite);
-void	draw_minimap(t_mlx *mlx);
-void	put_tiles(t_mlx *mlx, int x, int y, int tile_size);
-int		get_color(int x, int y, t_map *map);
+void		draw_hud(t_mlx *mlx, int spr_index, t_v2D sprite_pos);
+void		draw_char(t_mlx *mlx);
+void		draw_coins(t_mlx *mlx);
+void		draw_hearts(t_mlx *mlx);
+int			calc_char_anim(t_mlx *mlx);
+void		draw_end_game(t_mlx *mlx, int sprite);
+void		draw_minimap(t_mlx *mlx);
+void		put_tiles(t_mlx *mlx, int x, int y, int tile_size);
+int			get_color(int x, int y, t_map *map);
 
 // Sort Sprite
-t_list	*sort_sprites(t_player *player, t_list *objs_lst);
+t_list		*sort_sprites(t_player *player, t_list *objs_lst);
 
 // Time
-void	update_time(struct timespec *time);
-double	time_passed(struct timespec *last, struct timespec *current);
+void		update_time(struct timespec *time);
+double		time_passed(struct timespec *last, struct timespec *current);
 
 // Free Mem
-void	free_list(t_list *lst);
-void	print_list(t_list *lst);
-void	elim_obj(t_list **head, t_list *elim_obj);
-void	print_error(char *str, int statusm, t_mlx *mlx);
-void	close_game(t_mlx *mlx, int status);
+void		free_list(t_list *lst);
+void		print_list(t_list *lst);
+void		elim_obj(t_list **head, t_list *elim_obj);
+void		print_error(char *str, int statusm, t_mlx *mlx);
+void		close_game(t_mlx *mlx, int status);
 
 // Destructors
-void	obj_destructor(t_list *lst);
-void	sprite_destructor(void *lib, t_sprite *sprite);
-void	map_destructor(int nbr_maps, t_map *map);
-void	mlx_destructor(void *lib, void *window);
-void	free_config(void *lib, t_sprite *sprite);
+void		obj_destructor(t_list *lst);
+void		sprite_destructor(void *lib, t_sprite *sprite);
+void		map_destructor(int nbr_maps, t_map *map);
+void		mlx_destructor(void *lib, void *window);
+void		free_config(void *lib, t_sprite *sprite);
 
-void	end_game_screen(t_mlx *mlx);
-void	win_game_screen(t_mlx *mlx);
+void		end_game_screen(t_mlx *mlx);
+void		win_game_screen(t_mlx *mlx);
 
 #endif

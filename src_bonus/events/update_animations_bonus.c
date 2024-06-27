@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:39:53 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 15:11:52 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/27 10:56:28 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	calc_char_anim(t_mlx *mlx)
 		i = 1;
 		char_anim = ATTACK1;
 	}
-	else if (mlx->elapsed_time >= 0.10 && char_anim < 51)
+	else if (mlx->elapsed_time >= 0.10 && char_anim < DYING7)
 	{
 		char_anim++;
 		update_time(&mlx->last_time);
@@ -59,6 +59,6 @@ void	update_animations(t_mlx *mlx)
 
 	player = &mlx->player;
 	mlx->spr_character_index = calc_char_anim(mlx);
-	mlx->spr_hp_index = HP4 - (player->hp / HP1);
+	mlx->spr_hp_index = HP4 - (player->hp / 26);
 	mlx->spr_coins_index = COINS1 + player->coins;
 }
