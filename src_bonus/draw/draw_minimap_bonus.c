@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 15:55:13 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/27 10:39:20 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	minimap_tiles(t_mlx *mlx, t_map *map, int tile_size)
 	{
 		x = -1;
 		while (++x < (int)ft_strlen(map->game_map[y]))
-			put_tiles(mlx, x , y, tile_size);
+			put_tiles(mlx, x, y, tile_size);
 	}
 }
 

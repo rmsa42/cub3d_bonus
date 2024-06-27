@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   v2D_math.c                                         :+:      :+:    :+:   */
+/*   v2D_math_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:15:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/05/06 22:46:17 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/27 10:41:29 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_v2D	divide_vector(t_v2D v1, const double scalar)
 {
 	t_v2D	v2;
 
-	v2 = create_vector(0, 0);
+	v2 = (t_v2D){0, 0};
 	if (scalar == 0)
 		return (v2);
 	v2.x = v1.x / scalar;

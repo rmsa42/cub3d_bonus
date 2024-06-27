@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector2D.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:17:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/04/26 17:07:34 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/27 10:41:48 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,5 @@ t_v2D	divide_vector(t_v2D v1, const double scalar);
 t_v2D	normalize_vector(t_v2D v1);
 t_v2D	perp_vector(t_v2D v1);
 double	length_vector(t_v2D v1);
-
-// Utils
-void	print_vector(t_v2D vector);
-t_v2D	create_vector(double x, double y);
 
 #endif

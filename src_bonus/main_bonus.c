@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:26:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 10:07:31 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/27 10:39:43 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,6 @@ void	start_game(t_mlx *mlx)
 	mlx_mouse_hide(mlx->lib, mlx->window);
 	mlx_loop_hook(mlx->lib, game_loop, mlx);
 	mlx_loop(mlx->lib);
-}
-
-void	print_map(char **map)
-{
-	int i = 0;
-
-	while (map[i])
-		printf("%s\n", map[i++]);
 }
 
 int	main(int argc, char *argv[])

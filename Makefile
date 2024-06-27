@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
+#    By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/06/27 10:37:47 by rumachad         ###   ########.fr        #
+#    Updated: 2024/06/27 10:42:33 by cacarval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRC_BONUS = main_bonus.c \
 	v2D_math_bonus.c \
 	v2D_utils_bonus.c \
 	load_image_bonus.c \
-	map_parser.c \
+	map_parser_bonus.c \
 	create_content_map_bonus.c \
 	create_full_map_bonus.c \
 	check_elements_bonus.c \
