@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 10:39:20 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/27 11:05:40 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int	get_color(int x, int y, t_map *map)
 
 	if (map->game_map[y][x] == '0')
 		color = 0x9c9c9c;
-	else if (map->game_map[y][x] == 'D' \
+	else if (map->game_map[y][x] == 'D'
 		|| map->game_map[y][x] == 'd')
 		color = 0x0050FF;
-	else if (map->game_map[y][x] == 'P' \
+	else if (map->game_map[y][x] == 'P'
 		|| map->game_map[y][x] == 'p')
 		color = 0x5050FF;
 	else if (map->game_map[y][x] == 'X')

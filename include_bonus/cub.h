@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/27 10:37:52 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/27 11:09:39 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,7 @@ void		end_game(t_mlx *mlx);
 int			game_loop(t_mlx *mlx);
 
 // Map
-void		prepare_map(t_mlx *mlx);
+int			prepare_map(t_mlx *mlx);
 
 // Parser (MAP)
 int			check_path(char *line);
