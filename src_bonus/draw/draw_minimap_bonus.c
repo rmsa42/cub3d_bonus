@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 11:05:40 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/27 11:47:30 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,6 @@ void	draw_map_sprites(t_mlx *mlx, int tile_size)
 
 void	draw_minimap(t_mlx *mlx)
 {
-	int	minimap_size;
-	int	tile_size;
-
-	minimap_size = 200;
-	tile_size = (minimap_size / 36) *(HEIGHT / 600);
-	if (tile_size < 1)
-		tile_size = 1;
-	minimap_tiles(mlx, mlx->map, tile_size);
-	draw_map_sprites(mlx, tile_size);
+	minimap_tiles(mlx, mlx->map, mlx->tile_size);
+	draw_map_sprites(mlx, mlx->tile_size);
 }

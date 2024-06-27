@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/27 11:09:39 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/27 11:46:49 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ typedef struct s_mlx
 	t_cell 			*marked_cells;
 	t_state			game_state;
 	int				side;
+	int				tile_size;
 	double			dist_buffer[WIDTH];
     int 			num_marked_cells;
 	int				spr_index;
