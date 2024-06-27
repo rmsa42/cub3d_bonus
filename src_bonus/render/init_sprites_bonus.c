@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_sprites_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:38:56 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 11:10:58 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/27 12:23:44 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ t_sprite	xpm_to_image(t_mlx *mlx, char *texture)
 
 void	init_sprite3(t_mlx *mlx, t_sprite *sprite)
 {
-	sprite[DYING5] = xpm_to_image(mlx, "sprites/sprite/dying5.xpm");
-	sprite[DYING6] = xpm_to_image(mlx, "sprites/sprite/dying6.xpm");
-	sprite[DYING7] = xpm_to_image(mlx, "sprites/sprite/dying7.xpm");
+	sprite[DYING3] = xpm_to_image(mlx, "sprites/char_sprites/dying3.xpm");
+	sprite[DYING4] = xpm_to_image(mlx, "sprites/char_sprites/dying4.xpm");
+	sprite[DYING5] = xpm_to_image(mlx, "sprites/char_sprites/dying5.xpm");
+	sprite[DYING6] = xpm_to_image(mlx, "sprites/char_sprites/dying6.xpm");
+	sprite[DYING7] = xpm_to_image(mlx, "sprites/char_sprites/dying7.xpm");
 	sprite[COINS1] = xpm_to_image(mlx, "sprites/coins.xpm");
 	sprite[COINS2] = xpm_to_image(mlx, "sprites/coins2.xpm");
 	sprite[COINS3] = xpm_to_image(mlx, "sprites/coins3.xpm");
@@ -49,20 +51,22 @@ void	init_sprite3(t_mlx *mlx, t_sprite *sprite)
 
 void	init_sprite2(t_mlx *mlx, t_sprite *sprite)
 {
-	sprite[CHARACTER7] = xpm_to_image(mlx, "sprites/sprite/character7.xpm");
-	sprite[CHARACTER8] = xpm_to_image(mlx, "sprites/sprite/character8.xpm");
-	sprite[HP1] = xpm_to_image(mlx, "sprites/sprite/hp.xpm");
-	sprite[HP2] = xpm_to_image(mlx, "sprites/sprite/hp2.xpm");
-	sprite[HP3] = xpm_to_image(mlx, "sprites/sprite/hp3.xpm");
-	sprite[HP4] = xpm_to_image(mlx, "sprites/sprite/hp4.xpm");
-	sprite[ATTACK1] = xpm_to_image(mlx, "sprites/sprite/attack.xpm");
-	sprite[ATTACK2] = xpm_to_image(mlx, "sprites/sprite/attack1.xpm");
-	sprite[ATTACK3] = xpm_to_image(mlx, "sprites/sprite/attack2.xpm");
-	sprite[ATTACK4] = xpm_to_image(mlx, "sprites/sprite/attack3.xpm");
-	sprite[ATTACK5] = xpm_to_image(mlx, "sprites/sprite/attack4.xpm");
-	sprite[ATTACK6] = xpm_to_image(mlx, "sprites/sprite/attack5.xpm");
-	sprite[ATTACK7] = xpm_to_image(mlx, "sprites/sprite/attack6.xpm");
-	sprite[ATTACK8] = xpm_to_image(mlx, "sprites/sprite/attack7.xpm");
+	sprite[CHARACTER7] = xpm_to_image(mlx,
+			"sprites/char_sprites/character7.xpm");
+	sprite[CHARACTER8] = xpm_to_image(mlx,
+			"sprites/char_sprites/character8.xpm");
+	sprite[HP1] = xpm_to_image(mlx, "sprites/char_sprites/hp.xpm");
+	sprite[HP2] = xpm_to_image(mlx, "sprites/char_sprites/hp2.xpm");
+	sprite[HP3] = xpm_to_image(mlx, "sprites/char_sprites/hp3.xpm");
+	sprite[HP4] = xpm_to_image(mlx, "sprites/char_sprites/hp4.xpm");
+	sprite[ATTACK1] = xpm_to_image(mlx, "sprites/char_sprites/attack.xpm");
+	sprite[ATTACK2] = xpm_to_image(mlx, "sprites/char_sprites/attack1.xpm");
+	sprite[ATTACK3] = xpm_to_image(mlx, "sprites/char_sprites/attack2.xpm");
+	sprite[ATTACK4] = xpm_to_image(mlx, "sprites/char_sprites/attack3.xpm");
+	sprite[ATTACK5] = xpm_to_image(mlx, "sprites/char_sprites/attack4.xpm");
+	sprite[ATTACK6] = xpm_to_image(mlx, "sprites/char_sprites/attack5.xpm");
+	sprite[ATTACK7] = xpm_to_image(mlx, "sprites/char_sprites/attack6.xpm");
+	sprite[ATTACK8] = xpm_to_image(mlx, "sprites/char_sprites/attack7.xpm");
 	sprite[ENEMY1] = xpm_to_image(mlx, "sprites/enemy/enemy2.xpm");
 	sprite[ENEMY2] = xpm_to_image(mlx, "sprites/enemy/enemy3.xpm");
 	sprite[ENEMY3] = xpm_to_image(mlx, "sprites/enemy/enemy4.xpm");
@@ -70,10 +74,8 @@ void	init_sprite2(t_mlx *mlx, t_sprite *sprite)
 	sprite[ENEMY_DOWN] = xpm_to_image(mlx, "sprites/enemy/enemy5.xpm");
 	sprite[ENEMY5] = xpm_to_image(mlx, "sprites/enemy/enemy6.xpm");
 	sprite[END_GAME] = xpm_to_image(mlx, "sprites/end_game.xpm");
-	sprite[DYING1] = xpm_to_image(mlx, "sprites/sprite/dying.xpm");
-	sprite[DYING2] = xpm_to_image(mlx, "sprites/sprite/dying2.xpm");
-	sprite[DYING3] = xpm_to_image(mlx, "sprites/sprite/dying3.xpm");
-	sprite[DYING4] = xpm_to_image(mlx, "sprites/sprite/dying4.xpm");
+	sprite[DYING1] = xpm_to_image(mlx, "sprites/char_sprites/dying.xpm");
+	sprite[DYING2] = xpm_to_image(mlx, "sprites/char_sprites/dying2.xpm");
 }
 
 void	init_sprite(t_mlx *mlx, char **conf_map, t_sprite *sprite)
@@ -89,12 +91,18 @@ void	init_sprite(t_mlx *mlx, char **conf_map, t_sprite *sprite)
 	sprite[OPEN_DOOR6] = xpm_to_image(mlx, "sprites/open6.xpm");
 	sprite[BALL1] = xpm_to_image(mlx, "sprites/ball.xpm");
 	sprite[BALL2] = xpm_to_image(mlx, "sprites/ball2.xpm");
-	sprite[CHARACTER1] = xpm_to_image(mlx, "sprites/character.xpm");
-	sprite[CHARACTER2] = xpm_to_image(mlx, "sprites/sprite/character2.xpm");
-	sprite[CHARACTER3] = xpm_to_image(mlx, "sprites/sprite/character3.xpm");
-	sprite[CHARACTER4] = xpm_to_image(mlx, "sprites/sprite/character4.xpm");
-	sprite[CHARACTER5] = xpm_to_image(mlx, "sprites/sprite/character5.xpm");
-	sprite[CHARACTER6] = xpm_to_image(mlx, "sprites/sprite/character6.xpm");
+	sprite[CHARACTER1] = xpm_to_image(mlx,
+			"sprites/char_sprites/character.xpm");
+	sprite[CHARACTER2] = xpm_to_image(mlx,
+			"sprites/char_sprites/character2.xpm");
+	sprite[CHARACTER3] = xpm_to_image(mlx,
+			"sprites/char_sprites/character3.xpm");
+	sprite[CHARACTER4] = xpm_to_image(mlx,
+			"sprites/char_sprites/character4.xpm");
+	sprite[CHARACTER5] = xpm_to_image(mlx,
+			"sprites/char_sprites/character5.xpm");
+	sprite[CHARACTER6] = xpm_to_image(mlx,
+			"sprites/char_sprites/character6.xpm");
 	init_sprite2(mlx, sprite);
 	init_sprite3(mlx, sprite);
 }

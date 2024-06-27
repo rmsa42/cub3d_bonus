@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_enum.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:09:33 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 10:59:14 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/27 12:23:36 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SPRITE_ENUM_H
 # define SPRITE_ENUM_H
 
-typedef enum	e_spr_index
+typedef enum e_spr_index
 {
 	NO,
 	SO,
@@ -28,9 +28,6 @@ typedef enum	e_spr_index
 	OPEN_DOOR4,
 	OPEN_DOOR5,
 	OPEN_DOOR6,
-	BARREL,
-	STAFF,
-	KEY,
 	BALL1,
 	BALL2,
 	CHARACTER1,
