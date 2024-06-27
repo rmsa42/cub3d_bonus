@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_inter_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 00:59:50 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 11:40:17 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:05:14 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	interact_door(char **game_map, t_player *player)
 		game_map[check_y][check_x] = 'd';
 	else if (tile == DOOR_OPEN)
 		game_map[check_y][check_x] = 'D';
-	if	(tile == END_DOOR_STATE2)
+	if (tile == END_DOOR_STATE2)
 		game_map[check_y][check_x] = 'p';
 }
 
@@ -33,7 +33,7 @@ t_type	get_next_tile(char **game_map, t_player *player)
 {
 	int		check_x;
 	int		check_y;
-	
+
 	check_x = (int)(player->pos.x + player->direction.x);
 	check_y = (int)(player->pos.y + player->direction.y);
 	if (game_map[check_y][check_x] == 'D')

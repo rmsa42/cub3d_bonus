@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/25 11:44:53 by rumachad         ###   ########.fr       */
+/*   Created: 2024/06/26 15:01:14 by rumachad          #+#    #+#             */
+/*   Updated: 2024/06/26 15:03:54 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 t_v2D	rotate(t_v2D vector, double degree)
 {
-	t_v2D	newV;
+	t_v2D	new_vector;
 	double	angle;
-	
+
 	angle = degree * ((double)PI / 180);
-	newV.x = (vector.x * cos(angle) - vector.y * sin(angle));
-	newV.y = (vector.x * sin(angle) + vector.y * cos(angle));
-	return (newV);
+	new_vector.x = (vector.x * cos(angle) - vector.y * sin(angle));
+	new_vector.y = (vector.x * sin(angle) + vector.y * cos(angle));
+	return (new_vector);
 }
 
-int handle_mouse(int x, int y, t_mlx *mlx)
+int	handle_mouse(int x, int y, t_mlx *mlx)
 {
-	t_v2D center;
-	t_v2D vector;
+	t_v2D	center;
+	t_v2D	vector;
 
 	center = (t_v2D){WIDTH / 2, HEIGHT / 2};
 	if (mlx->player.mouse == false)
@@ -48,19 +48,19 @@ int handle_mouse(int x, int y, t_mlx *mlx)
 	return (0);
 }
 
-int handle_mouse_press(int button, int x, int y, t_mlx *mlx)
+int	handle_mouse_press(int button, int x, int y, t_mlx *mlx)
 {
 	(void)x;
 	(void)y;
 	if (button == LEFT_CLICK && mlx->player.shoot == false)
 		mlx->player.ball_node = init_ball(&mlx->objs_lst, &mlx->player);
-	return(0);
+	return (0);
 }
 
-int	handle_keyPress(int keycode, t_mlx *mlx)
+int	handle_key_press(int keycode, t_mlx *mlx)
 {
 	t_player	*player;
-	
+
 	player = &mlx->player;
 	if (keycode == ESC)
 		close_game(mlx, 0);
@@ -85,7 +85,7 @@ int	handle_keyPress(int keycode, t_mlx *mlx)
 	return (0);
 }
 
-int	handle_keyRelease(int keycode, t_player *player)
+int	handle_key_release(int keycode, t_player *player)
 {
 	if (keycode == W || keycode == S)
 		player->movement.y = 0;

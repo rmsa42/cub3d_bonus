@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ball_hits_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 00:27:08 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 10:45:41 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:19:09 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	ball_hit_wall(t_map *map, t_objs *ball)
 t_list	*ball_hit_obj(t_list *objs_lst, t_objs *ball)
 {
 	t_objs	*obj;
- 
+
 	obj = NULL;
 	while (objs_lst)
 	{

@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/06/25 15:15:43 by rumachad         ###   ########.fr        #
+#    Updated: 2024/06/26 16:07:37 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,13 +32,15 @@ SRC_BONUS = main_bonus.c \
 	ray_hit_bonus.c \
 	enemy_raycast_bonus.c \
 	init_sprites_bonus.c \
+	init_structs_bonus.c \
 	prepare_map_bonus.c \
 	v2D_math_bonus.c \
 	v2D_utils_bonus.c \
 	load_image_bonus.c \
 	map_parser.c \
-	parse_elements_bonus.c \
-	parser_bonus.c \
+	create_content_map_bonus.c \
+	create_full_map_bonus.c \
+	check_elements_bonus.c \
 	parser_utils_bonus.c \
 	flood_fill_bonus.c \
 	draw_bonus.c \
@@ -49,6 +51,7 @@ SRC_BONUS = main_bonus.c \
 	sort_sprites.c \
 	line_calcs_bonus.c \
 	clean_bonus.c \
+	destructors_bonus.c \
 	common_bonus.c \
 	check_objs_bonus.c \
 	ball_hits_bonus.c \

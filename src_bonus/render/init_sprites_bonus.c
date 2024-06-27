@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:38:56 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 10:30:11 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:11:09 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_sprite	xpm_to_image(t_mlx *mlx, char *texture)
 	t_image		img;
 
 	img.img_ptr = mlx_xpm_file_to_image(mlx->lib, texture,
-						&sprite.width, &sprite.height);
+			&sprite.width, &sprite.height);
 	if (img.img_ptr == NULL)
 		print_error("Invalid Sprite\n", EXIT_FAILURE, mlx);
 	img.addr = mlx_get_data_addr(img.img_ptr, &img.bits_per_pixel,
@@ -80,7 +80,7 @@ void	init_sprite2(t_mlx *mlx, t_sprite *sprite)
 
 void	init_sprite(t_mlx *mlx, char **conf_map, t_sprite *sprite)
 {
-	if (check_conf(mlx, conf_map, sprite) == -1)
+	if (check_conf(mlx, conf_map, sprite))
 		print_error("Can't Load Sprites\n", EXIT_FAILURE, mlx);
 	sprite[DOOR1] = xpm_to_image(mlx, "sprites/door.xpm");
 	sprite[OPEN_DOOR1] = xpm_to_image(mlx, "sprites/open.xpm");

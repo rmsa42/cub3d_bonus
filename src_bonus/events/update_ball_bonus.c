@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:56:03 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 09:50:27 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:15:57 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_list	*init_ball(t_list **head, t_player *player)
 {
 	t_list	*node;
 	t_objs	*ball;
-	
+
 	ball = init_obj((t_v2D){0, 0}, BALL1, 20, BALL);
 	ball->pos.x = player->pos.x + player->direction.x * 0.3;
 	ball->pos.y = player->pos.y + player->direction.y * 0.3;

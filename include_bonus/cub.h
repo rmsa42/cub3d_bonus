@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 13:59:53 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/27 10:29:22 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,10 +196,15 @@ typedef struct s_mlx
 }	t_mlx;
 
 
+// Init
 t_player	init_player(double x, double y, char tile);
 void		init_sprite(t_mlx *mlx, char **conf_map, t_sprite *sprite);
 t_objs		*init_obj(t_v2D pos, int spr_index, int hp, t_type type);
 t_list		*init_ball(t_list **head, t_player *player);
+int			init_mlx_structs(t_mlx *mlx);
+void		init_mlx_vars(t_mlx *mlx, int ac);
+void		init_map(t_mlx *mlx, int nbr_maps, char **av);
+
 //Raycast
 void		ft_grua(t_mlx *mlx);
 t_draw		calculus(t_ray *ray, t_player *player, double *buffer , int side);
@@ -232,15 +237,19 @@ void		prepare_map(t_mlx *mlx);
 int			check_path(char *line);
 int			check_rgb(int **c, char *line);
 int			check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite);
+int			check_element(t_mlx *mlx, t_sprite *sprite, char **conf_map, int k);
+int			check_fc(t_sprite *sprite, int **rgb, char **conf_map, int k);
 int			color(int nbr);
 int			shift_color(int *rgb);
 int			advance_space(char *line);
 
 void		print_map(char **map);
-int			map_parser(char *file_name, t_mlx *mlx, t_map *map);
+int			map_parser(char *file_name, t_map *map);
+char		**create_full_map(int fd, char *map_name, int nbr_lines);
 int			create_config_map(t_map *map, char **full_map);
 int			create_content_map(t_map *map, char **full_map, int after, int len);
 char		*begining_of_map(char *line, char *set);
+int			calc_map_lines(int fd, char *map_name);
 int			call_flood_fill(t_mlx *mlx, t_map *map);
 
 // Image
@@ -251,8 +260,8 @@ void		shoot_ball(t_mlx *mlx);
 t_image		image_buffer(t_mlx *mlx);
 
 // Events
-int			handle_keyPress(int keycode, t_mlx *mlx);
-int			handle_keyRelease(int keycode, t_player *player);
+int			handle_key_press(int keycode, t_mlx *mlx);
+int			handle_key_release(int keycode, t_player *player);
 int			handle_mouse(int x, int y, t_mlx *mlx);
 int			handle_mouse_press(int button, int x, int y, t_mlx *mlx);
 t_v2D		rotate(t_v2D vector, double degree);
@@ -290,8 +299,12 @@ void	print_list(t_list *lst);
 void	elim_obj(t_list **head, t_list *elim_obj);
 void	print_error(char *str, int statusm, t_mlx *mlx);
 void	close_game(t_mlx *mlx, int status);
+
+// Destructors
 void	obj_destructor(t_list *lst);
+void	sprite_destructor(void *lib, t_sprite *sprite);
 void	map_destructor(int nbr_maps, t_map *map);
+void	mlx_destructor(void *lib, void *window);
 void	free_config(void *lib, t_sprite *sprite);
 
 void	end_game_screen(t_mlx *mlx);

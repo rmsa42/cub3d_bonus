@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_sprites_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 15:06:26 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:18:49 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	sprite_move(t_player *player, t_objs *obj, double speed)
 	check = dir;
 	velocity = multiply_vector(dir, speed);
 	check = add_vector(obj->pos, multiply_vector(check, speed + 0.3));
-	if ((int)check.x != (int)player->pos.x || (int)check.y != (int)player->pos.y)
+	if ((int)check.x != (int)player->pos.x
+		|| (int)check.y != (int)player->pos.y)
 	{
 		update_sprite_anim(obj, 1);
 		obj->pos = add_vector(obj->pos, velocity);
@@ -66,15 +67,15 @@ void	update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst)
 {
 	t_objs	*obj;
 	double	speed;
-	
+
 	speed = (PL_SPEED) * mlx->delta;
 	obj = NULL;
 	while (objs_lst != NULL)
 	{
 		obj = (t_objs *)objs_lst->content;
-		if(obj->elapsed_time >= 0.15)
+		if (obj->elapsed_time >= 0.15)
 			player->damaged = 0;
-		if(obj->type == ENEMY)
+		if (obj->type == ENEMY)
 		{
 			if (obj->state == 1)
 				sprite_move(player, obj, speed);

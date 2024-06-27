@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 13:54:03 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/27 10:09:48 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,18 @@
 
 void	update_state(t_mlx *mlx)
 {
-	if (mlx->player.hp <= 0)
+	t_player	*player;
+	char		**game_map;
+
+	game_map = mlx->map->game_map;
+	player = &mlx->player;
+	if (player->hp <= 0)
 		mlx->game_state = DIED_STATE;
-	else if (mlx->player.coins == MAX_COINS
-			&& mlx->nbr_maps == mlx->iter_map)
+	else if (player->coins == MAX_COINS
+		&& mlx->nbr_maps == mlx->iter_map)
 		mlx->game_state = WIN_STATE;
-	else if (mlx->player.coins == MAX_COINS
-			&& mlx->map->game_map[(int)mlx->player.pos.y][(int)mlx->player.pos.x] == 'p')
+	else if (player->coins == MAX_COINS
+		&& game_map[(int)player->pos.y][(int)player->pos.x] == 'p')
 		mlx->game_state = PORTAL_STATE;
 	else
 		mlx->game_state = GAME_STATE;
@@ -37,7 +42,7 @@ void	draw(t_mlx *mlx)
 		if (mlx->player.healed)
 		{
 			draw_end_game(mlx, HEALED);
-			if (mlx->elapsed_time >= 0.10)	
+			if (mlx->elapsed_time >= 0.10)
 				mlx->player.healed = 0;
 		}
 	}
@@ -79,7 +84,7 @@ int	game_loop(t_mlx *mlx)
 	update(mlx);
 	draw(mlx);
 	mlx_put_image_to_window(mlx->lib, mlx->window,
-			mlx->img.img_ptr, 0, 0);
+		mlx->img.img_ptr, 0, 0);
 	mlx_destroy_image(mlx->lib, mlx->img.img_ptr);
 	return (0);
 }

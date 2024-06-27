@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:39:53 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/21 09:21:23 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:11:52 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	calc_char_anim(t_mlx *mlx)
 {
-	static int char_anim = CHARACTER1;
-	static int i = 0;
+	static int	char_anim = CHARACTER1;
+	static int	i;
 
 	if (mlx->game_state == DIED_STATE && i == 0)
 	{
@@ -44,7 +44,7 @@ int	calc_char_anim(t_mlx *mlx)
 void	ball_animation(t_objs *ball)
 {
 	static int	i;
-	
+
 	if (i++ >= 45)
 		ball->spr_index = BALL2;
 	else

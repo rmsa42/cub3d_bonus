@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/26 14:05:56 by rumachad         ###   ########.fr       */
+/*   Created: 2024/06/26 15:26:29 by rumachad          #+#    #+#             */
+/*   Updated: 2024/06/27 10:07:31 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-#include "vector2D.h"
 
 int	check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite)
 {
@@ -21,90 +20,45 @@ int	check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite)
 	k = -1;
 	rgb = (int *)malloc(sizeof(int) * 3);
 	if (rgb == NULL)
-		return (0);
+		return (1);
 	ft_memset(rgb, 0, sizeof(int) * 3);
 	while (++k < 6)
 	{
 		if (k >= 0 && k < 4)
-		{
-			if (check_path((conf_map[k] + 2) + advance_space(conf_map[k] + 2)))
-				return (-1);
-			sprite[k] = xpm_to_image(mlx, (conf_map[k] + 2) + advance_space(conf_map[k] + 2));
-		}
+			check_element(mlx, &sprite[k], conf_map, k);
 		else if (k >= 4)
-		{
-			if (check_rgb(&rgb, conf_map[k] + 1 + advance_space(conf_map[k] + 1)))
-				return (-1);
-			sprite[k].color = shift_color(rgb);
-		}
+			check_fc(&sprite[k], &rgb, conf_map, k);
 	}
 	free(rgb);
 	return (0);
 }
 
-int	init_mlx_structs(t_mlx *mlx)
+void	start_game(t_mlx *mlx)
 {
-	mlx->map = ft_calloc(sizeof(t_map), mlx->nbr_maps);
-	if (mlx->map == NULL)
-		return (1);
-	ft_memset(mlx->sprite, 0, sizeof(t_sprite) * SPRITE_NBR);
-	ft_memset(mlx->map, 0, sizeof(t_map));
-	ft_memset(&mlx->ray, 0, sizeof(t_ray));
-	ft_memset(&mlx->player, 0, sizeof(t_player));
-	ft_memset(&mlx->draw, 0, sizeof(t_draw));
-	ft_memset(mlx->dist_buffer, 0, sizeof(double) * WIDTH);
-	update_time(&mlx->door_time);
-	update_time(&mlx->last_time);
-	update_time(&mlx->prev_time);
-	update_time(&mlx->current_time);
-	return (0);
+	mlx_hook(mlx->window, MotionNotify, PointerMotionMask,
+		handle_mouse, mlx);
+	mlx_hook(mlx->window, KeyPress, KeyPressMask,
+		handle_key_press, mlx);
+	mlx_mouse_hook(mlx->window, handle_mouse_press, mlx);
+	mlx_hook(mlx->window, KeyRelease, KeyReleaseMask,
+		handle_key_release, &mlx->player);
+	mlx_mouse_hide(mlx->lib, mlx->window);
+	mlx_loop_hook(mlx->lib, game_loop, mlx);
+	mlx_loop(mlx->lib);
 }
 
-void	init_mlx_vars(t_mlx *mlx, int ac)
+void	print_map(char **map)
 {
-	mlx->window = NULL;
-	mlx->objs_lst = NULL;
-	mlx->marked_cells = NULL;
-	mlx->map = NULL;
-	mlx->head_map = NULL;
-	mlx->num_marked_cells = 0;
-	mlx->side = 0;
-	mlx->spr_index = 0;
-	mlx->spr_hp_index = 0;
-	mlx->spr_character_index = 0;
-	mlx->spr_coins_index = 0;
-	mlx->delta = 0;
-	mlx->elapsed_time = 0;
-	mlx->elapsed_door = 0;
-	mlx->iter_map = 1;
-	mlx->nbr_maps = ac - 1;
-	mlx->game_state = GAME_STATE;
+	int i = 0;
+
+	while (map[i])
+		printf("%s\n", map[i++]);
 }
 
-void	init_map(t_mlx *mlx, int nbr_maps, char **av)
+int	main(int argc, char *argv[])
 {
-	t_map	*map;
-	int		i;
-	int		k;
-
-	i = 1;
-	k = 0;
-	map = mlx->map;
-	while (i <= nbr_maps)
-	{
-		map_parser(av[i], mlx, &map[k]);
-		if (call_flood_fill(mlx, &map[k]))
-			print_error("", -1, mlx);
-		i++;
-		k++;
-	}
-	mlx->head_map = mlx->map;
-}
-
-int main(int argc, char *argv[])
-{	
 	t_mlx	mlx;
-	
+
 	if (argc < 2)
 		return (ft_fprintf(STDERR_FILENO, "Invalid nbr arguments\n"), 1);
 	mlx.lib = mlx_init();
@@ -113,26 +67,12 @@ int main(int argc, char *argv[])
 	init_mlx_vars(&mlx, argc);
 	if (init_mlx_structs(&mlx))
 		print_error("", EXIT_FAILURE, &mlx);
-
-	 // Map Parser
 	init_map(&mlx, mlx.nbr_maps, argv);
-
-	 // Sprite Init
 	init_sprite(&mlx, mlx.map->config_map, mlx.sprite);
-
-	 // Init Player/Objs
 	prepare_map(&mlx);
-	
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	if (mlx.window == NULL)
 		print_error("Mlx window creation failure\n", EXIT_FAILURE, &mlx);
-
-	mlx_hook(mlx.window, MotionNotify, PointerMotionMask, handle_mouse, &mlx);
-	mlx_hook(mlx.window, KeyPress, KeyPressMask, handle_keyPress, &mlx);
-	mlx_mouse_hook(mlx.window, handle_mouse_press, &mlx);
-	mlx_hook(mlx.window, KeyRelease, KeyReleaseMask, handle_keyRelease, &mlx.player);
-	mlx_mouse_hide(mlx.lib, mlx.window);
-	mlx_loop_hook(mlx.lib, game_loop, &mlx);
-	mlx_loop(mlx.lib);
+	start_game(&mlx);
 	return (0);
 }
