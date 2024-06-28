@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:14:00 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 14:14:20 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:32:16 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,8 +251,8 @@ int			prepare_map(t_mlx *mlx);
 int			check_path(char *line);
 int			check_rgb(int **c, char *line);
 int			check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite);
-int			check_element(t_mlx *mlx, t_sprite *sprite, char **conf_map, int k);
-int			check_fc(t_sprite *sprite, int **rgb, char **conf_map, int k);
+int			check_element(t_mlx *mlx, t_sprite *sprite, char *conf_map);
+int			check_fc(t_sprite *sprite, int **rgb, char *conf_map);
 int			color(int nbr);
 int			shift_color(int *rgb);
 int			advance_space(char *line);

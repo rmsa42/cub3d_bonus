@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:26:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 15:15:52 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:36:58 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite)
 	if (rgb == NULL)
 		return (1);
 	ft_memset(rgb, 0, sizeof(int) * 3);
-	while (++k < 6)
+	while (conf_map[++k])
 	{
 		if (k >= 0 && k < 4)
-			check_element(mlx, &sprite[k], conf_map, k);
+			check_element(mlx, &sprite[k], conf_map[k]);
 		else if (k >= 4)
-			check_fc(&sprite[k], &rgb, conf_map, k);
+			check_fc(&sprite[k], &rgb, conf_map[k]);
 	}
 	free(rgb);
 	return (0);
@@ -55,7 +55,7 @@ int	main(int argc, char *argv[])
 		return (ft_fprintf(STDERR_FILENO, "Invalid nbr arguments\n"), 1);
 	mlx.lib = mlx_init();
 	if (mlx.lib == NULL)
-		print_error("Mlx init failure\n", EXIT_FAILURE, &mlx);
+		return (ft_fprintf(STDERR_FILENO, "MLX Failure\n"), 1);
 	init_mlx_vars(&mlx, argc);
 	if (init_mlx_structs(&mlx))
 		print_error("", EXIT_FAILURE, &mlx);

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 15:18:49 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:25:40 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,20 @@ void	update_sprite_anim(t_objs *obj, int flag)
 void	sprite_move(t_player *player, t_objs *obj, double speed)
 {
 	t_v2D	dir;
-	t_v2D	velocity;
+	t_v2D	dist;
 	t_v2D	check;
 
 	dir.x = player->pos.x - obj->pos.x;
 	dir.y = player->pos.y - obj->pos.y;
 	dir = normalize_vector(dir);
 	check = dir;
-	velocity = multiply_vector(dir, speed);
+	dist = multiply_vector(dir, speed);
 	check = add_vector(obj->pos, multiply_vector(check, speed + 0.3));
 	if ((int)check.x != (int)player->pos.x
 		|| (int)check.y != (int)player->pos.y)
 	{
 		update_sprite_anim(obj, 1);
-		obj->pos = add_vector(obj->pos, velocity);
+		obj->pos = add_vector(obj->pos, dist);
 	}
 	else
 	{

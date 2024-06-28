@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:56:03 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 15:15:57 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:25:26 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	ball_movement(t_player *player, t_objs *ball, double speed)
 {
-	t_v2D	velocity;
+	t_v2D	dist;
 
-	velocity = multiply_vector(player->direction, speed);
-	ball->pos = add_vector(ball->pos, velocity);
+	dist = multiply_vector(player->direction, speed);
+	ball->pos = add_vector(ball->pos, dist);
 }
 
 void	update_ball(t_mlx *mlx, t_player *player)

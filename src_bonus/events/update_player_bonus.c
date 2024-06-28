@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:29:15 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 10:02:38 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:25:15 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	portal_calc(t_player *player, t_v2D old_pos,
 
 t_v2D	get_position(t_player *player, double speed)
 {
-	t_v2D	velocity;
+	t_v2D	dist;
 	t_v2D	new_pos;
 	t_v2D	y;
 	t_v2D	x;
@@ -52,8 +52,8 @@ t_v2D	get_position(t_player *player, double speed)
 	x = multiply_vector(player->plane, player->movement.x);
 	new_pos = add_vector(x, y);
 	new_pos = normalize_vector(new_pos);
-	velocity = multiply_vector(new_pos, speed);
-	new_pos = add_vector(player->pos, velocity);
+	dist = multiply_vector(new_pos, speed);
+	new_pos = add_vector(player->pos, dist);
 	return (new_pos);
 }
 
@@ -74,13 +74,13 @@ void	player_move(t_player *player, char **game_map,
 		t_v2D new_pos, t_v2D check)
 {
 	t_v2D	old_pos;
-	t_v2D	velocity;
+	t_v2D	dist;
 
 	old_pos = player->pos;
-	velocity = minus_vector(new_pos, player->pos);
+	dist = minus_vector(new_pos, player->pos);
 	if (game_map[(int)check.y][(int)check.x] == 'd')
 	{
-		portal_calc(player, old_pos, check, velocity);
+		portal_calc(player, old_pos, check, dist);
 		return ;
 	}
 	player->pos = new_pos;

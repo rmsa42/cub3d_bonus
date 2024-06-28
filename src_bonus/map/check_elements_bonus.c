@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 16:07:58 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:31:30 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,18 @@ int	check_path(char *line)
 	return (0);
 }
 
-int	check_element(t_mlx *mlx, t_sprite *sprite, char **conf_map, int k)
+int	check_element(t_mlx *mlx, t_sprite *sprite, char *conf_map)
 {
-	if (check_path((conf_map[k] + 2) + advance_space(conf_map[k] + 2)))
+	if (check_path((conf_map + 2) + advance_space(conf_map + 2)))
 		return (1);
-	*sprite = xpm_to_image(mlx, (conf_map[k] + 2)
-			+ advance_space(conf_map[k] + 2));
+	*sprite = xpm_to_image(mlx, (conf_map + 2)
+			+ advance_space(conf_map + 2));
 	return (0);
 }
 
-int	check_fc(t_sprite *sprite, int **rgb, char **conf_map, int k)
+int	check_fc(t_sprite *sprite, int **rgb, char *conf_map)
 {
-	if (check_rgb(rgb, conf_map[k] + 1 + advance_space(conf_map[k] + 1)))
+	if (check_rgb(rgb, conf_map + 1 + advance_space(conf_map + 1)))
 		return (1);
 	(*sprite).color = shift_color(*rgb);
 	return (0);
