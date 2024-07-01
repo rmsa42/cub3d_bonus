@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:14:00 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/28 15:32:16 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:47:14 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@
 # define HEAL_GREEN 0x4D00FF00
 # define TRANSPARENT 0xFF00FF
 
-# define HEIGHT 600
-# define WIDTH 800
+# define HEIGHT 800
+# define WIDTH 1200
 # define FOV 60
 # define SPRITE_SIZE 64
 # define SPRITE_NBR 62
@@ -81,7 +81,9 @@ typedef enum e_type
 	BALL,
 	COLLECT,
 	WALL,
-	HP_COLLECT
+	HP_COLLECT,
+	DAMAGED,
+	HEALED
 }	t_type;
 
 typedef struct s_objs
@@ -225,7 +227,7 @@ t_draw		calculus(t_ray *ray, t_player *player, double *buffer, int side);
 int			select_sprite(t_ray *ray, int side);
 void		draw_line(t_mlx *mlx, int x);
 void		door_hit(t_mlx *mlx, t_map *map);
-void		sprite_loop(t_mlx *mlx);
+void		draw_sprites(t_mlx *mlx);
 
 //Enemy Raycast
 void		enemy_ray(t_mlx *mlx, t_list *objs_lst);
@@ -245,7 +247,7 @@ void		end_game(t_mlx *mlx);
 int			game_loop(t_mlx *mlx);
 
 // Map
-int			prepare_map(t_mlx *mlx);
+int			set_map(t_mlx *mlx);
 
 // Parser (MAP)
 int			check_path(char *line);
@@ -291,12 +293,14 @@ bool		ball_hit_wall(t_map *map, t_objs *ball);
 void		clean_hit(t_list **objs_list, t_player *player, t_list *hit);
 
 // Draw Hud
-void		draw_hud(t_mlx *mlx, int spr_index, t_v2D sprite_pos);
-void		draw_char(t_mlx *mlx);
-void		draw_coins(t_mlx *mlx);
-void		draw_hearts(t_mlx *mlx);
+void		draw_hud(t_image *img, t_sprite *sprite, t_v2D sprite_pos);
+void		draw_char(t_image *img, t_sprite *sprites, int spr_index);
+void		draw_coins(t_image *img, t_sprite *sprites, int spr_index);
+void		draw_hearts(t_image *img, t_sprite *sprites, int spr_index);
+void		draw_status(t_mlx *mlx);
 int			calc_char_anim(t_mlx *mlx);
-void		draw_end_game(t_mlx *mlx, int sprite);
+void		draw_damage_heal(t_image *img, int status);
+void		draw_screen(t_image *img, t_sprite *sprite);
 void		draw_minimap(t_mlx *mlx);
 void		put_tiles(t_mlx *mlx, int x, int y, int tile_size);
 int			get_color(int x, int y, t_map *map);
@@ -309,18 +313,19 @@ void		update_time(struct timespec *time);
 double		time_passed(struct timespec *last, struct timespec *current);
 
 // Free Mem
-void		free_list(t_list *lst);
+void		free_obj_lst(t_list *objs);
+void		free_config(void *lib, t_sprite *sprite);
+void		free_sprites(void *lib, t_sprite *sprite);
+void		free_map(int nbr_maps, t_map *map);
 void		elim_obj(t_list **head, t_list *elim_obj);
 void		print_error(char *str, int status, t_mlx *mlx);
 void		close_game(t_mlx *mlx, int status);
 
 // Destructors
-void		obj_destructor(t_list *lst);
+void		obj_destructor(t_list *node);
 void		sprite_destructor(void *lib, t_sprite *sprite);
-void		map_destructor(int nbr_maps, t_map *map);
+void		map_destructor(t_map *map);
 void		mlx_destructor(void *lib, void *window);
 void		free_config(void *lib, t_sprite *sprite);
-
-void		end_game_screen(t_mlx *mlx);
 
 #endif

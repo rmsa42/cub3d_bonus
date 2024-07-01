@@ -6,58 +6,41 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 14:32:04 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 10:12:01 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:02:47 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	obj_destructor(t_list *lst)
+void	obj_destructor(t_list *node)
 {
-	t_list	*temp;
-
-	while (lst != NULL)
-	{
-		temp = lst;
-		lst = lst->next;
-		free(temp->content);
-		free(temp);
-	}
+	free(node->content);
+	free(node);
+	node = NULL;
 }
 
 void	sprite_destructor(void *lib, t_sprite *sprite)
 {
+	if (sprite->img.img_ptr != NULL)
+		mlx_destroy_image(lib, sprite->img.img_ptr);
+	sprite->img.img_ptr = NULL;
+}
+
+void	map_destructor(t_map *map)
+{
 	int	i;
 
 	i = 0;
-	while (i < SPRITE_NBR)
+	while (map->config_map[i])
 	{
-		if (sprite[i].img.img_ptr != NULL)
-			mlx_destroy_image(lib, sprite[i].img.img_ptr);
+		if (map->config_map[i])
+			free(map->config_map[i]);
+		map->config_map[i] = NULL;
 		i++;
 	}
-}
-
-void	map_destructor(int nbr_maps, t_map *map)
-{
-	int	i;
-	int	k;
-
-	k = 0;
-	while (k < nbr_maps)
-	{
-		i = 0;
-		while (map[k].config_map[i])
-		{
-			if (map[k].config_map[i])
-				free(map[k].config_map[i++]);
-		}
-		if (map[k].game_map)
-			ft_free_dp((void **)map[k].game_map);
-		map[k].game_map = NULL;
-		k++;
-	}
-	free(map);
+	if (map->game_map)
+		ft_free_dp((void **)map->game_map);
+	map->game_map = NULL;
 }
 
 void	mlx_destructor(void *lib, void *window)

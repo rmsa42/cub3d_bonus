@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:42:31 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 14:12:31 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:23:52 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	draw_sprite(t_v2D transform, t_mlx *mlx,
 	}
 }
 
-void	sprite_loop(t_mlx *mlx)
+void	draw_sprites(t_mlx *mlx)
 {
 	t_v2D	s_dist;
 	t_objs	*obj;
@@ -102,9 +102,9 @@ void	sprite_loop(t_mlx *mlx)
 	while (objs_lst != NULL)
 	{
 		obj = (t_objs *)objs_lst->content;
+		s_dist = sprite_dist(&mlx->player, obj->pos);
 		update_time(&mlx->current_time);
 		obj->elapsed_time = time_passed(&obj->last_time, &mlx->current_time);
-		s_dist = sprite_dist(&mlx->player, obj->pos);
 		draw_sprite(s_dist, mlx, &mlx->sprite[obj->spr_index].img,
 			draw_start_calc(s_dist, mlx->player.pitch));
 		objs_lst = objs_lst->next;

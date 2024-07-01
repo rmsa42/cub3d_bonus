@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:19:06 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 14:40:50 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:19:36 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,21 +81,21 @@ void	dda(t_mlx *mlx, int x)
 		&mlx->dist_buffer[x], mlx->side);
 }
 
-void	reset_marked_cells(t_mlx *mlx)
+void	reset_marked_cells(int *len, t_cell *marked_cells, char **game_map)
 {
 	int	i;
 	int	x;
 	int	y;
 
 	i = 0;
-	while (i < mlx->num_marked_cells)
+	while (i < *len)
 	{
-		x = mlx->marked_cells[i].x;
-		y = mlx->marked_cells[i].y;
-		mlx->map->game_map[y][x] = '0';
+		x = marked_cells[i].x;
+		y = marked_cells[i].y;
+		game_map[y][x] = '0';
 		i++;
 	}
-	mlx->num_marked_cells = 0;
+	*len = 0;
 }
 
 void	ft_grua(t_mlx *mlx)
@@ -104,7 +104,8 @@ void	ft_grua(t_mlx *mlx)
 
 	x = 0;
 	mlx->side = 0;
-	reset_marked_cells(mlx);
+	reset_marked_cells(&mlx->num_marked_cells, mlx->marked_cells,
+		mlx->map->game_map);
 	while (x < (int)WIDTH)
 	{
 		launch_rays(mlx, x);
@@ -112,8 +113,4 @@ void	ft_grua(t_mlx *mlx)
 		draw_line(mlx, x);
 		x++;
 	}
-	sprite_loop(mlx);
-	draw_coins(mlx);
-	draw_char(mlx);
-	draw_hearts(mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/28 15:25:40 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:24:50 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ void	update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst)
 	while (objs_lst != NULL)
 	{
 		obj = (t_objs *)objs_lst->content;
-		if (obj->elapsed_time >= 0.15)
-			player->damaged = 0;
 		if (obj->type == ENEMY)
 		{
 			if (obj->state == 1)

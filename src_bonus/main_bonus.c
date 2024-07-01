@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:26:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/28 15:36:58 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/01 17:09:39 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	start_game(t_mlx *mlx)
 	mlx_loop_hook(mlx->lib, game_loop, mlx);
 	mlx_loop(mlx->lib);
 }
-
+/* Erro no Mapa longer_config.cub */
 int	main(int argc, char *argv[])
 {
 	t_mlx	mlx;
@@ -61,8 +61,8 @@ int	main(int argc, char *argv[])
 		print_error("", EXIT_FAILURE, &mlx);
 	init_map(&mlx, mlx.nbr_maps, argv);
 	init_sprite(&mlx, mlx.map->config_map, mlx.sprite);
-	if (prepare_map(&mlx))
-		print_error("Invalid Map(Too many Players)\n", EXIT_FAILURE, &mlx);
+	if (set_map(&mlx))
+		print_error("Invalid Map(No/Too many Players)\n", EXIT_FAILURE, &mlx);
 	mlx.window = mlx_new_window(mlx.lib, WIDTH, HEIGHT, "cub3D");
 	if (mlx.window == NULL)
 		print_error("Mlx window creation failure\n", EXIT_FAILURE, &mlx);

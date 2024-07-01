@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prepare_map_bonus.c                                :+:      :+:    :+:   */
+/*   set_map_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 11:08:59 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:57:40 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,12 @@ t_objs	*init_obj(t_v2D pos, int spr_index, int hp, t_type type)
 	obj->pos = pos;
 	obj->hp = hp;
 	obj->state = 0;
+	obj->elapsed_time = 0;
 	update_time(&obj->last_time);
 	return (obj);
 }
 
-int	draw_map(t_mlx *mlx, char *tile, int x, int y)
+int	map_info(t_mlx *mlx, char *tile, int x, int y)
 {
 	t_list		*node;
 
@@ -83,7 +84,7 @@ int	draw_map(t_mlx *mlx, char *tile, int x, int y)
 	return (0);
 }
 
-int	prepare_map(t_mlx *mlx)
+int	set_map(t_mlx *mlx)
 {
 	t_map		*map;
 	int			pl_count;
@@ -92,14 +93,16 @@ int	prepare_map(t_mlx *mlx)
 	map = mlx->map;
 	mlx->marked_cells = (t_cell *)ft_calloc(map->height * map->width, \
 		sizeof(t_cell));
+	if (mlx->marked_cells == NULL)
+		return (1);
 	while (map->game_map[map->y])
 	{
 		map->x = 0;
 		while (map->game_map[map->y][map->x])
 		{
-			pl_count += draw_map(mlx, &map->game_map[map->y][map->x], \
+			pl_count += map_info(mlx, &map->game_map[map->y][map->x], \
 				map->x, map->y);
-			if (pl_count > 1)
+			if (pl_count > 1 || pl_count < 1)
 				return (1);
 			map->x++;
 		}

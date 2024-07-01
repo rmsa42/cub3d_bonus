@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_image_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:31:14 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 14:32:54 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:13:06 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ int	pixel_get(t_image *img, int pixel_x, int pixel_y)
 	return (color);
 }
 
-void	pixel_put( t_image *img, int pixelX, int pixelY, int color)
+void	pixel_put(t_image *img, int pixel_x, int pixel_y, int color)
 {
 	char	*dst;
 
-	dst = img->addr + (pixelY * img->line_length + pixelX * \
+	dst = img->addr + (pixel_y * img->line_length + pixel_x * \
 		(img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }

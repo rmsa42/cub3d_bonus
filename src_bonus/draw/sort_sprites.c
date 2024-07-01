@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 13:57:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/13 12:00:09 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/01 11:05:53 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@ int	compare_dist(t_v2D obj_pos1, t_v2D obj_pos2, t_v2D pl_pos)
 	t_v2D	v1;
 	t_v2D	v2;
 
-	v1.x = pl_pos.x - obj_pos1.x;
-	v1.y = pl_pos.y - obj_pos1.y;
-	v2.x = pl_pos.x - obj_pos2.x;
-	v2.y = pl_pos.y - obj_pos2.y;
-	if (length_vector(v2) > length_vector(v1))
+	v1 = (t_v2D){pl_pos.x - obj_pos1.x, pl_pos.y - obj_pos1.y};
+	v2 = (t_v2D){pl_pos.x - obj_pos2.x, pl_pos.y - obj_pos2.y};
+	if ((v2.x * v2.x) + (v2.y * v2.y) > (v1.x * v1.x) + (v1.y * v1.y))
 		return (1);
 	return (0);
 }

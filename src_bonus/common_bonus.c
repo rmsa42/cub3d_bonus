@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 00:48:27 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 14:29:49 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/01 10:40:12 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void	elim_obj(t_list **head, t_list *elim_obj)
 	if (*head == elim_obj)
 	{
 		*head = elim_obj->next;
-		free(elim_obj->content);
-		free(elim_obj);
+		obj_destructor(elim_obj);
 		return ;
 	}
 	while (temp->next && temp->next != elim_obj)
@@ -29,8 +28,7 @@ void	elim_obj(t_list **head, t_list *elim_obj)
 	if (temp->next == NULL)
 		return ;
 	temp->next = elim_obj->next;
-	free(elim_obj->content);
-	free(elim_obj);
+	obj_destructor(elim_obj);
 	elim_obj = NULL;
 }
 

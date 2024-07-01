@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:00:52 by cacarval          #+#    #+#             */
-/*   Updated: 2024/06/26 15:20:14 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:38:58 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,10 @@ bool	is_wall_collision(t_map *map, float x, float y)
 
 	map_x = (int)x;
 	map_y = (int)y;
-	if (map_x <= (int)ft_strlen(map->game_map[map_y]))
-		if (map->game_map[map_y][map_x] == '1'
-			|| map->game_map[map_y][map_x] == 'D'
-			|| map->game_map[map_y][map_x] == 'P')
-			return (true);
+	if (map->game_map[map_y][map_x] == '1'
+		|| map->game_map[map_y][map_x] == 'D'
+		|| map->game_map[map_y][map_x] == 'P')
+		return (true);
 	return (false);
 }
 

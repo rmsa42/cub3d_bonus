@@ -6,13 +6,13 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:27:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 14:11:29 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:34:00 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	draw_hud(t_mlx *mlx, int spr_index, t_v2D sprite_pos)
+void	draw_hud(t_image *img, t_sprite *sprite, t_v2D sprite_pos)
 {
 	t_v2D	scr;
 	t_cell	texture;
@@ -31,77 +31,84 @@ void	draw_hud(t_mlx *mlx, int spr_index, t_v2D sprite_pos)
 			if (texture.x >= 0 && texture.x < SPRITE_SIZE && \
 				texture.y >= 0 && texture.y < SPRITE_SIZE)
 			{
-				color = pixel_get(&mlx->sprite[spr_index].img, \
+				color = pixel_get(&sprite->img, \
 					texture.x, texture.y);
 				if (color != TRANSPARENT)
-					pixel_put(&mlx->img, scr.x, scr.y, color);
+					pixel_put(img, scr.x, scr.y, color);
 			}
 		}
 	}
 }
 
-void	custom_pixel_put(t_image *img, int pixelX, int pixelY, int color)
+int	custom_color(t_image *img, int pixel_x, int pixel_y, int color)
 {
-	char			*dst;
 	unsigned int	dst_color;
 	int				red;
 	int				green;
 	int				blue;
 
-	dst = img->addr + (pixelY * img->line_length + pixelX * \
-		(img->bits_per_pixel / 8));
-	dst_color = *(unsigned int *)dst;
+	dst_color = pixel_get(img, pixel_x, pixel_y);
 	red = (int)(((color >> 16) & 0xFF) * 0.3 + \
 		((dst_color >> 16) & 0xFF) * 0.7);
 	green = (int)(((color >> 8) & 0xFF) * 0.3 + \
 		((dst_color >> 8) & 0xFF) * 0.7);
 	blue = (int)((color & 0xFF) * 0.3 + \
 		(dst_color & 0xFF) * 0.7);
-	color = (color & 0xFF000000) | (red << 16) | (green << 8) | blue;
-	*(unsigned int *)dst = color;
+	dst_color = (color & 0xFF000000) | (red << 16) | (green << 8) | blue;
+	return (dst_color);
 }
 
-void	put_screen_textures(t_mlx *mlx, t_cell texture, int sprite, t_v2D scr)
+void	draw_damage_heal(t_image *img, int status)
 {
-	int	color;
+	t_cell	start;
+	int		color;
 
-	if (texture.x >= 0 && texture.x < 800 && \
-		texture.y >= 0 && texture.y < 600)
+	start.y = -1;
+	while (++start.y < HEIGHT)
 	{
-		if (sprite == DAMAGED)
+		start.x = -1;
+		while (++start.x < WIDTH)
 		{
-			color = DAMAGE_RED;
-			custom_pixel_put(&mlx->img, scr.x, scr.y, color);
-		}
-		else if (sprite == HEALED)
-		{
-			color = HEAL_GREEN;
-			custom_pixel_put(&mlx->img, scr.x, scr.y, color);
-		}
-		else
-		{
-			color = pixel_get(&mlx->sprite[sprite].img, \
-				texture.x, texture.y);
-			if (color != TRANSPARENT)
-				pixel_put(&mlx->img, scr.x, scr.y, color);
+			color = custom_color(img, start.x, start.y, status);
+			pixel_put(img, start.x, start.y, color);
 		}
 	}
 }
 
-void	draw_end_game(t_mlx *mlx, int sprite)
+void	draw_screen(t_image *img, t_sprite *sprite)
 {
-	t_v2D	scr;
+	t_cell	scr;
 	t_cell	texture;
+	int		color;
 
 	scr.y = -1;
 	while (++scr.y < HEIGHT)
 	{
-		texture.y = (scr.y) * (600 / HEIGHT);
 		scr.x = -1;
+		texture.y = (scr.y) * (600 / HEIGHT);
 		while (++scr.x < WIDTH)
 		{
 			texture.x = (scr.x) * (800 / WIDTH);
-			put_screen_textures(mlx, texture, sprite, scr);
+			color = pixel_get(&sprite->img, \
+				texture.x, texture.y);
+			if (color != TRANSPARENT)
+				pixel_put(img, scr.x, scr.y, color);
 		}
+	}
+}
+
+void	draw_status(t_mlx *mlx)
+{
+	if (mlx->player.damaged)
+	{
+		draw_damage_heal(&mlx->img, DAMAGE_RED);
+		if (mlx->elapsed_time >= 0.10)
+			mlx->player.damaged = 0;
+	}
+	if (mlx->player.healed)
+	{
+		draw_damage_heal(&mlx->img, HEAL_GREEN);
+		if (mlx->elapsed_time >= 0.10)
+			mlx->player.healed = 0;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 14:03:29 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:47:36 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,12 @@ void	draw(t_mlx *mlx)
 	if (mlx->game_state == GAME_STATE)
 	{
 		ft_grua(mlx);
+		draw_char(&mlx->img, mlx->sprite, mlx->spr_character_index);
+		draw_hearts(&mlx->img, mlx->sprite, mlx->spr_hp_index);
+		draw_sprites(mlx);
+		draw_coins(&mlx->img, mlx->sprite, mlx->spr_coins_index);
 		draw_minimap(mlx);
-		if (mlx->player.damaged)
-			draw_end_game(mlx, DAMAGED);
-		if (mlx->player.healed)
-		{
-			draw_end_game(mlx, HEALED);
-			if (mlx->elapsed_time >= 0.10)
-				mlx->player.healed = 0;
-		}
+		draw_status(mlx);
 	}
 	else
 		end_game(mlx);
@@ -55,14 +52,14 @@ void	update(t_mlx *mlx)
 	update_state(mlx);
 	if (mlx->game_state == PORTAL_STATE)
 	{
-		obj_destructor(mlx->objs_lst);
+		free_obj_lst(mlx->objs_lst);
 		mlx->objs_lst = NULL;
 		free(mlx->marked_cells);
 		free_config(mlx->lib, mlx->sprite);
 		mlx->map++;
 		mlx->iter_map++;
 		check_conf(mlx, mlx->map->config_map, mlx->sprite);
-		prepare_map(mlx);
+		set_map(mlx);
 	}
 	if (mlx->game_state == GAME_STATE)
 	{

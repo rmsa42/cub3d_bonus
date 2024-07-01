@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+         #
+#    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/06/27 10:42:33 by cacarval         ###   ########.fr        #
+#    Updated: 2024/07/01 12:12:13 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRC_BONUS = main_bonus.c \
 	enemy_raycast_bonus.c \
 	init_sprites_bonus.c \
 	init_structs_bonus.c \
-	prepare_map_bonus.c \
+	set_map_bonus.c \
 	v2D_math_bonus.c \
 	v2D_utils_bonus.c \
 	load_image_bonus.c \
@@ -51,6 +51,7 @@ SRC_BONUS = main_bonus.c \
 	sort_sprites.c \
 	line_calcs_bonus.c \
 	clean_bonus.c \
+	free_mem_bonus.c \
 	destructors_bonus.c \
 	common_bonus.c \
 	check_objs_bonus.c \

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:09:33 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 12:23:36 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:31:29 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ typedef enum e_spr_index
 	END_DOOR1,
 	END_DOOR2,
 	END_DOOR3,
-	DAMAGED,
-	HEALED,
 }	t_spr_index;
 
 #endif
