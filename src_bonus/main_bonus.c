@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:26:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/01 17:09:39 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:22:44 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,17 @@
 int	check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite)
 {
 	int	k;
-	int	*rgb;
 
 	k = -1;
-	rgb = (int *)malloc(sizeof(int) * 3);
-	if (rgb == NULL)
-		return (1);
-	ft_memset(rgb, 0, sizeof(int) * 3);
-	while (conf_map[++k])
+	while (conf_map[++k] && k < 4)
 	{
-		if (k >= 0 && k < 4)
-			check_element(mlx, &sprite[k], conf_map[k]);
-		else if (k >= 4)
-			check_fc(&sprite[k], &rgb, conf_map[k]);
+		if (check_element(mlx, &sprite[k], conf_map[k]))
+			print_error("Wrong Textures", EXIT_FAILURE, mlx);
 	}
-	free(rgb);
+	mlx->f_color = check_rgb(conf_map[4] + 1 + advance_space(conf_map[4] + 1));
+	mlx->c_color = check_rgb(conf_map[5] + 1 + advance_space(conf_map[5] + 1));
+	if (mlx->c_color == -1 || mlx->f_color == -1)
+		print_error("Wrong Colors", EXIT_FAILURE, mlx);
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_hud_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 14:27:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/01 15:34:00 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:21:35 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,18 @@ void	draw_damage_heal(t_image *img, int status)
 
 void	draw_screen(t_image *img, t_sprite *sprite)
 {
-	t_cell	scr;
-	t_cell	texture;
+	t_v2D	scr;
+	t_v2D	texture;
 	int		color;
 
 	scr.y = -1;
 	while (++scr.y < HEIGHT)
 	{
 		scr.x = -1;
-		texture.y = (scr.y) * (600 / HEIGHT);
+		texture.y = (scr.y) * ((double)600 / HEIGHT);
 		while (++scr.x < WIDTH)
 		{
-			texture.x = (scr.x) * (800 / WIDTH);
+			texture.x = (scr.x) * ((double)800 / WIDTH);
 			color = pixel_get(&sprite->img, \
 				texture.x, texture.y);
 			if (color != TRANSPARENT)

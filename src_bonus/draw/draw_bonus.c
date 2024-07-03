@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:27:35 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 14:12:11 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:13:18 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	draw_floor(t_image *img, t_draw *draw, int color, int x)
 
 void	draw_line(t_mlx *mlx, int x)
 {
-	draw_ceiling(&mlx->img, &mlx->draw, mlx->sprite[C].color, x);
+	draw_ceiling(&mlx->img, &mlx->draw, mlx->c_color, x);
 	draw_walls(mlx, &mlx->draw, &mlx->sprite[mlx->spr_index], x);
-	draw_floor(&mlx->img, &mlx->draw, mlx->sprite[F].color, x);
+	draw_floor(&mlx->img, &mlx->draw, mlx->f_color, x);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_map_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:20:48 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/01 16:57:40 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/03 10:48:59 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,11 @@ int	set_map(t_mlx *mlx)
 		{
 			pl_count += map_info(mlx, &map->game_map[map->y][map->x], \
 				map->x, map->y);
-			if (pl_count > 1 || pl_count < 1)
-				return (1);
 			map->x++;
 		}
 		map->y++;
 	}
+	if (pl_count > 1 || pl_count < 1)
+		return (1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:14:00 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/01 15:47:14 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:16:01 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,8 @@ typedef struct s_mlx
 	int				spr_character_index;
 	int				spr_coins_index;
 	int				nbr_maps;
+	int				c_color;
+	int				f_color;
 	int				iter_map;
 	t_map			*head_map;
 	struct timespec	door_time;
@@ -251,7 +253,7 @@ int			set_map(t_mlx *mlx);
 
 // Parser (MAP)
 int			check_path(char *line);
-int			check_rgb(int **c, char *line);
+int			check_rgb(char *line);
 int			check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite);
 int			check_element(t_mlx *mlx, t_sprite *sprite, char *conf_map);
 int			check_fc(t_sprite *sprite, int **rgb, char *conf_map);
