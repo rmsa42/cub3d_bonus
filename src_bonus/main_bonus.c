@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:26:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/03 11:22:44 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:19:39 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	start_game(t_mlx *mlx)
 	mlx_loop_hook(mlx->lib, game_loop, mlx);
 	mlx_loop(mlx->lib);
 }
-/* Erro no Mapa longer_config.cub */
+
 int	main(int argc, char *argv[])
 {
 	t_mlx	mlx;

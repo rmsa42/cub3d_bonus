@@ -6,7 +6,7 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 09:53:20 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/03 13:18:17 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:23:50 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	end_game_screen(t_image *img, t_sprite *sprites, int spr_index)
 {
 	t_v2D	sprite_pos;
 
-	sprite_pos = (t_v2D){(WIDTH / 2) - (SPRITE_SIZE * 800) / WIDTH, HEIGHT / 2};
+	sprite_pos = (t_v2D){(WIDTH / 2) - (SPRITE_SIZE * 800) / (double)WIDTH,
+		HEIGHT / 2};
 	draw_screen(img, &sprites[END_GAME]);
 	draw_hud(img, &sprites[spr_index], sprite_pos);
 }
