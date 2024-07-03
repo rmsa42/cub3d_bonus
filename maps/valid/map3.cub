@@ -1,10 +1,10 @@
-WE ./sprites/wall2.xpm
+WE ./sprites/wall3.xpm
 NO ./sprites/wall3.xpm
-SO ./sprites/wall4.xpm
-EA ./sprites/wall1.xpm
+SO ./sprites/wall3.xpm
+EA ./sprites/wall3.xpm
 
-C 225,255,255
-F 0,0,0
+C 0,0,0
+F 123,123,123
 
 
 

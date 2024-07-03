@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/01 15:47:36 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:16:01 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void	draw(t_mlx *mlx)
 	if (mlx->game_state == GAME_STATE)
 	{
 		ft_grua(mlx);
+		draw_sprites(mlx);
 		draw_char(&mlx->img, mlx->sprite, mlx->spr_character_index);
 		draw_hearts(&mlx->img, mlx->sprite, mlx->spr_hp_index);
-		draw_sprites(mlx);
 		draw_coins(&mlx->img, mlx->sprite, mlx->spr_coins_index);
 		draw_minimap(mlx);
 		draw_status(mlx);
@@ -60,6 +60,11 @@ void	update(t_mlx *mlx)
 		mlx->iter_map++;
 		check_conf(mlx, mlx->map->config_map, mlx->sprite);
 		set_map(mlx);
+		mlx->tile_size = 5.5 *(HEIGHT / 600);
+		if (mlx->map->height > 60 || mlx->map->width > 60)
+			mlx->tile_size = 1;
+		if (mlx->tile_size < 1)
+			mlx->tile_size = 1;
 	}
 	if (mlx->game_state == GAME_STATE)
 	{
