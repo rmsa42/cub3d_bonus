@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:02:04 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/28 15:35:11 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:37:41 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,21 +82,12 @@ int	map_parser2(char **full_map, t_map *map, int nbr_lines)
 
 	config_lines = create_config_map(map, full_map);
 	if (config_lines == -1 || map->config_map[0] == NULL)
-	{
-		ft_free_dp((void **)full_map);
 		return (1);
-	}
 	if (check_config_map(map))
-	{
-		ft_free_dp((void **)full_map);
 		return (1);
-	}
 	map->height = create_content_map(map, full_map, config_lines, nbr_lines);
 	if (map->height == -1 || map->game_map[0] == NULL)
-	{
-		ft_free_dp((void **)full_map);
 		return (1);
-	}
 	return (0);
 }
 
@@ -116,7 +107,10 @@ int	map_parser(char *map_name, t_map *map)
 	if (full_map == NULL)
 		return (1);
 	if (map_parser2(full_map, map, nbr_lines))
+	{
+		ft_free_dp((void **)full_map);
 		return (1);
+	}
 	ft_free_dp((void **)full_map);
 	return (0);
 }

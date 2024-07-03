@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:09:33 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/01 14:31:29 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/03 12:03:08 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ typedef enum e_spr_index
 	SO,
 	EA,
 	WE,
-	F,
-	C,
 	DOOR1,
 	OPEN_DOOR1,
 	OPEN_DOOR2,

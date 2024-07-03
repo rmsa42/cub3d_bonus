@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 22:38:56 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 12:23:44 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:58:49 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,7 @@ void	init_sprite2(t_mlx *mlx, t_sprite *sprite)
 
 void	init_sprite(t_mlx *mlx, char **conf_map, t_sprite *sprite)
 {
-	if (check_conf(mlx, conf_map, sprite))
-		print_error("Can't Load Sprites\n", EXIT_FAILURE, mlx);
+	check_conf(mlx, conf_map, sprite);
 	sprite[DOOR1] = xpm_to_image(mlx, "sprites/door.xpm");
 	sprite[OPEN_DOOR1] = xpm_to_image(mlx, "sprites/open.xpm");
 	sprite[OPEN_DOOR2] = xpm_to_image(mlx, "sprites/open2.xpm");
