@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_mem_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 10:54:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/01 12:03:00 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/03 12:05:14 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_config(void *lib, t_sprite *sprite)
 	int	i;
 
 	i = 0;
-	while (i < 6)
+	while (i < 4)
 	{
 		if (sprite[i].img.img_ptr != NULL)
 		{
