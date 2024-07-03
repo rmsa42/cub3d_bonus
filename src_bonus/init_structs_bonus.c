@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:37:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/03 12:20:49 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:52:41 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	init_mlx_vars(t_mlx *mlx, int ac)
 	mlx->nbr_maps = ac - 1;
 	mlx->game_state = GAME_STATE;
 	mlx->tile_size = 0;
+	mlx->f_color = 0;
+	mlx->c_color = 0;
 }
 
 void	init_map(t_mlx *mlx, int nbr_maps, char **av)

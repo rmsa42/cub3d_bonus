@@ -3,48 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   check_elements_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:57:17 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/03 11:11:37 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:20:03 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int is_number(char *line)
+int	is_number(char *line)
 {
-    int j;
-    j = 0;
-    while (line[j])
-        if (ft_isdigit(line[j++]) == 0)
-            return (0);
-    return (1);
+	int	j;
+
+	j = 0;
+	while (line[j])
+		if (ft_isdigit(line[j++]) == 0)
+			return (0);
+	return (1);
 }
 
-int check_rgb(char *line)
+int	check_rgb(char *line)
 {
-    char    **rgb;
-    int     i;
-    int		ele_color;
-    int		c[3];
+	char	**rgb;
+	int		i;
+	int		ele_color;
+	int		c[3];
 
-    i = -1;
-    rgb = ft_split(line, ',');
-    while (rgb[++i])
-    {
-        if (!is_number(rgb[i]))
-            break ;
-        ele_color = ft_atoi(rgb[i]);
-        if (color(ele_color))
-            c[i] = ele_color;
-        else
-            break ;
-    }
-    ft_free_dp((void **)rgb);
-    if (i != 3)
-        return (-1);
-    return (shift_color(c));
+	i = -1;
+	rgb = ft_split(line, ',');
+	while (rgb[++i])
+	{
+		if (!is_number(rgb[i]))
+			break ;
+		ele_color = ft_atoi(rgb[i]);
+		if (color(ele_color))
+			c[i] = ele_color;
+		else
+			break ;
+	}
+	ft_free_dp((void **)rgb);
+	if (i != 3)
+		return (-1);
+	return (shift_color(c));
 }
 
 int	check_path(char *line)
@@ -70,4 +71,3 @@ int	check_element(t_mlx *mlx, t_sprite *sprite, char *conf_map)
 			+ advance_space(conf_map + 2));
 	return (0);
 }
-

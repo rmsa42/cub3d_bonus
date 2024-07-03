@@ -48,6 +48,6 @@ then
 		fi
 	done
 else
-	exit 130
+	exit 0
 fi
 exit 0

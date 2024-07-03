@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:14:00 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/03 11:16:01 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:16:33 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@
 # define HEAL_GREEN 0x4D00FF00
 # define TRANSPARENT 0xFF00FF
 
-# define HEIGHT 800
-# define WIDTH 1200
+# define HEIGHT 100
+# define WIDTH 100
 # define FOV 60
 # define SPRITE_SIZE 64
 # define SPRITE_NBR 62
@@ -222,7 +222,7 @@ int			init_mlx_structs(t_mlx *mlx);
 void		init_mlx_vars(t_mlx *mlx, int ac);
 void		init_map(t_mlx *mlx, int nbr_maps, char **av);
 
-//Raycast
+// Raycast
 void		ft_grua(t_mlx *mlx);
 void		raycaster_hits(t_mlx *mlx, t_map *map, int *hit);
 t_draw		calculus(t_ray *ray, t_player *player, double *buffer, int side);
@@ -230,18 +230,14 @@ int			select_sprite(t_ray *ray, int side);
 void		draw_line(t_mlx *mlx, int x);
 void		door_hit(t_mlx *mlx, t_map *map);
 void		draw_sprites(t_mlx *mlx);
-
-//Enemy Raycast
 void		enemy_ray(t_mlx *mlx, t_list *objs_lst);
-
-// Animations
-void		ball_animation(t_objs *ball);
 
 // Update
 void		update_player(t_mlx *mlx, t_player *player, t_map *map);
 void		update_ball(t_mlx *mlx, t_player *player);
 void		update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst);
 void		update_animations(t_mlx *mlx);
+void		ball_animation(t_objs *ball);
 void		update_state(t_mlx *mlx);
 void		end_game(t_mlx *mlx);
 
@@ -256,7 +252,6 @@ int			check_path(char *line);
 int			check_rgb(char *line);
 int			check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite);
 int			check_element(t_mlx *mlx, t_sprite *sprite, char *conf_map);
-int			check_fc(t_sprite *sprite, int **rgb, char *conf_map);
 int			color(int nbr);
 int			shift_color(int *rgb);
 int			advance_space(char *line);
@@ -273,7 +268,6 @@ int			call_flood_fill(t_mlx *mlx, t_map *map);
 void		pixel_put(t_image *img, int pixelX, int pixelY, int color);
 int			pixel_get(t_image *img, int pixel_x, int pixel_y);
 t_sprite	xpm_to_image(t_mlx *mlx, char *texture);
-void		shoot_ball(t_mlx *mlx);
 t_image		image_buffer(t_mlx *mlx);
 
 // Events
