@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:54:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/01 16:51:47 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/04 10:47:12 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	flood_fill(t_mlx *mlx, t_map *map, char **flood_map, t_cell coor)
 {
-	if (coor.x < 0 || coor.y < 0 || flood_map[coor.y][coor.x] == SPACE
+	if (coor.x < 0 || coor.y < 0
 		|| coor.x >= (int)ft_strlen(flood_map[coor.y])
 		|| coor.y > map->height)
 	{

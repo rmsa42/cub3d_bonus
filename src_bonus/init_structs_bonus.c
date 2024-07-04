@@ -6,11 +6,11 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:37:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/04 10:35:03 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:48:36 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "cub_bonus.h"
 
 int	init_mlx_structs(t_mlx *mlx)
 {
@@ -68,7 +68,7 @@ void	init_map(t_mlx *mlx, int nbr_maps, char **av)
 	{
 		if (map_parser(av[i], &map[k]))
 			print_error("Invalid Map Config\n", EXIT_FAILURE, mlx);
-		if (map->height > HEIGHT || map->width > WIDTH)
+		if (map[k].height > HEIGHT || map[k].width > WIDTH)
 			print_error("Invalid Map Size\n", EXIT_FAILURE, mlx);
 		if (call_flood_fill(mlx, &map[k]))
 			print_error("", EXIT_FAILURE, mlx);
