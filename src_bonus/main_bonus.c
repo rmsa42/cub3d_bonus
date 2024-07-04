@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:26:29 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/04 11:50:07 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/04 12:16:40 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	check_conf(t_mlx *mlx, char **conf_map, t_sprite *sprite)
 
 void	start_game(t_mlx *mlx)
 {
+	mlx_hook(mlx->window, DestroyNotify, ButtonPressMask, close_game, mlx);
 	mlx_hook(mlx->window, MotionNotify, PointerMotionMask,
 		handle_mouse, mlx);
 	mlx_hook(mlx->window, KeyPress, KeyPressMask,
