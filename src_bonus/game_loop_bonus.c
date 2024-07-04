@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:49:21 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/03 14:16:01 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/04 10:37:50 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	update_state(t_mlx *mlx)
 
 void	draw(t_mlx *mlx)
 {
+	mlx->img = image_buffer(mlx);
 	if (mlx->game_state == GAME_STATE)
 	{
 		ft_grua(mlx);
@@ -61,17 +62,15 @@ void	update(t_mlx *mlx)
 		check_conf(mlx, mlx->map->config_map, mlx->sprite);
 		set_map(mlx);
 		mlx->tile_size = 5.5 *(HEIGHT / 600);
-		if (mlx->map->height > 60 || mlx->map->width > 60)
-			mlx->tile_size = 1;
-		if (mlx->tile_size < 1)
+		if (mlx->map->height > 60 || mlx->map->width > 60 || mlx->tile_size < 1)
 			mlx->tile_size = 1;
 	}
-	if (mlx->game_state == GAME_STATE)
+	else if (mlx->game_state == GAME_STATE)
 	{
 		update_player(mlx, &mlx->player, mlx->map);
+		enemy_ray(mlx, mlx->objs_lst);
 		update_sprites(mlx, &mlx->player, mlx->objs_lst);
 		update_animations(mlx);
-		enemy_ray(mlx, mlx->objs_lst);
 	}
 }
 
@@ -82,7 +81,6 @@ int	game_loop(t_mlx *mlx)
 	mlx->prev_time = mlx->current_time;
 	mlx->elapsed_time = time_passed(&mlx->last_time, &mlx->current_time);
 	mlx->elapsed_door = time_passed(&mlx->door_time, &mlx->current_time);
-	mlx->img = image_buffer(mlx);
 	update(mlx);
 	draw(mlx);
 	mlx_put_image_to_window(mlx->lib, mlx->window,

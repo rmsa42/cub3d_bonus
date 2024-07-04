@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structs_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:37:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/03 14:23:22 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/04 10:35:03 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ void	init_map(t_mlx *mlx, int nbr_maps, char **av)
 		k++;
 	}
 	mlx->tile_size = 5.5 *(HEIGHT / 600);
-	if (mlx->map->height > 60 || mlx->map->width > 60)
-		mlx->tile_size = 1;
-	if (mlx->tile_size < 1)
+	if (mlx->map->height > 60 || mlx->map->width > 60 || mlx->tile_size < 1)
 		mlx->tile_size = 1;
 }

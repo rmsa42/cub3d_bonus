@@ -6,7 +6,7 @@
 #    By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 10:38:51 by rumachad          #+#    #+#              #
-#    Updated: 2024/07/01 12:12:13 by rumachad         ###   ########.fr        #
+#    Updated: 2024/07/04 09:26:39 by rumachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRC_BONUS = main_bonus.c \
 	set_map_bonus.c \
 	v2D_math_bonus.c \
 	v2D_utils_bonus.c \
-	load_image_bonus.c \
+	img_manipulation_bonus.c \
 	map_parser_bonus.c \
 	create_content_map_bonus.c \
 	create_full_map_bonus.c \
@@ -72,7 +72,7 @@ MLX_PATH = minilibx-linux
 LIBFT_PATH = libft
 
 HEADER_BONUS = include_bonus
-CFLAGS = -Wall -Wextra -Werror -I
+CFLAGS = -O3 -Wall -Wextra -Werror -I
 MLXFLAGS = -Lminilibx-linux -lmlx -lXext -lX11
 LIBFTFLAGS = -Llibft -lft
 MATHFLAGS = -lm

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:14:00 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/03 14:16:33 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/04 10:06:10 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,18 @@
 # define HEAL_GREEN 0x4D00FF00
 # define TRANSPARENT 0xFF00FF
 
-# define HEIGHT 100
-# define WIDTH 100
+# define HEIGHT 600
+# define WIDTH 800
 # define FOV 60
 # define SPRITE_SIZE 64
 # define SPRITE_NBR 62
 
 # define PI 3.14159265359
 
-# define BALL_SPEED 9
+# define BALL_SPEED 10
 # define PL_SPEED 3
 # define ROTATION_SPEED 200
+# define MOUSE_SPEED 0.1
 # define MAX_COINS 4
 
 typedef enum e_state

@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:38:32 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/01 15:24:50 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/04 09:51:40 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	sprite_move(t_player *player, t_objs *obj, double speed)
 		update_sprite_anim(obj, 0);
 		if (obj->spr_index == ENEMY3 && obj->elapsed_time >= 0.15)
 		{
-			player->damaged = 1;
+			player->damaged = true;
 			player->hp -= 2;
 		}
 	}
@@ -68,8 +68,8 @@ void	update_sprites(t_mlx *mlx, t_player *player, t_list *objs_lst)
 	t_objs	*obj;
 	double	speed;
 
-	speed = (PL_SPEED) * mlx->delta;
 	obj = NULL;
+	speed = (PL_SPEED) * mlx->delta;
 	while (objs_lst != NULL)
 	{
 		obj = (t_objs *)objs_lst->content;

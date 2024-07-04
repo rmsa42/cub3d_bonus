@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 00:27:08 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 15:19:09 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/04 09:59:50 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 bool	ball_hit_wall(t_map *map, t_objs *ball)
 {
-	if (is_wall_collision(map, ball->pos.x - 0.2, ball->pos.y - 0.2)
-		|| is_wall_collision(map, ball->pos.x + 0.2, ball->pos.y + 0.2)
-		|| is_wall_collision(map, ball->pos.x + 0.2, ball->pos.y - 0.2)
-		|| is_wall_collision(map, ball->pos.x - 0.2, ball->pos.y + 0.2))
+	if (is_wall_collision(map, ball->pos.x - 0.1, ball->pos.y - 0.1)
+		|| is_wall_collision(map, ball->pos.x + 0.1, ball->pos.y + 0.1)
+		|| is_wall_collision(map, ball->pos.x + 0.1, ball->pos.y - 0.1)
+		|| is_wall_collision(map, ball->pos.x - 0.1, ball->pos.y + 0.1))
 		return (true);
 	return (false);
 }
