@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   v2D_math_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:15:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/27 10:41:29 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:55:37 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector2D.h"
+#include "vector2D_bonus.h"
 
 t_v2D	add_vector(t_v2D v1, t_v2D v2)
 {

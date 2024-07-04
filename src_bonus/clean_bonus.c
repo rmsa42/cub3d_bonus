@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:58:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/04 11:50:07 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:56:05 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_error(char *str, int status, t_mlx *mlx)
 	close_game(mlx, status);
 }
 
-void	close_game(t_mlx *mlx, int status)
+int	close_game(t_mlx *mlx, int status)
 {
 	free_sprites(mlx->lib, mlx->sprite);
 	free_map(mlx->nbr_maps, mlx->head_map);
