@@ -6,11 +6,11 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:41:47 by cacarval          #+#    #+#             */
-/*   Updated: 2024/06/26 15:57:37 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:49:43 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "cub_bonus.h"
 
 void	put_tiles(t_mlx *mlx, int x, int y, int tile_size)
 {
