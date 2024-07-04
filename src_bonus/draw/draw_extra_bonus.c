@@ -6,11 +6,11 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 09:53:20 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/03 14:23:50 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:49:20 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "cub_bonus.h"
 
 void	draw_hearts(t_image *img, t_sprite *sprites, int spr_index)
 {

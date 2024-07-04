@@ -6,11 +6,11 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 10:54:01 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/03 12:05:14 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:50:07 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "cub_bonus.h"
 
 void	free_config(void *lib, t_sprite *sprite)
 {

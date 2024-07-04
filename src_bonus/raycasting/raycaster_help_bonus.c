@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_help_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 14:35:20 by cacarval          #+#    #+#             */
-/*   Updated: 2024/07/01 11:14:19 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:50:07 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "cub_bonus.h"
 
 void	raycaster_hits(t_mlx *mlx, t_map *map, int *hit)
 {

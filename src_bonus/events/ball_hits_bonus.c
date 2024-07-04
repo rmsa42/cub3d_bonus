@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ball_hits_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 00:27:08 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/04 09:59:50 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:50:07 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "cub_bonus.h"
 
 bool	ball_hit_wall(t_map *map, t_objs *ball)
 {

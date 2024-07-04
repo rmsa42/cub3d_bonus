@@ -6,11 +6,11 @@
 /*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:24:23 by rumachad          #+#    #+#             */
-/*   Updated: 2024/06/26 14:48:40 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:50:07 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "cub_bonus.h"
 
 void	enemy_step_rays(t_map *map, t_v2D *pos, t_ray *ray)
 {
