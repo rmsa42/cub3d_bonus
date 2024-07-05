@@ -6,13 +6,14 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:00:52 by cacarval          #+#    #+#             */
-/*   Updated: 2024/07/05 09:49:26 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/05 10:24:46 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_bonus.h"
 
-int	collectable_delete(t_mlx *mlx, t_list **objs_lst, t_objs *obj, t_player *player)
+int	collectable_delete(t_mlx *mlx, t_list **objs_lst,
+		t_objs *obj, t_player *player)
 {
 	t_list	*delete;
 
