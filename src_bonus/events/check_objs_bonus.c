@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_objs_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:00:52 by cacarval          #+#    #+#             */
-/*   Updated: 2024/07/05 10:24:46 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:17:14 by cacarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,8 @@ int	collectable_delete(t_mlx *mlx, t_list **objs_lst,
 		if (player->hp > 100)
 			player->hp = 100;
 	}
-	else if (obj->type == COLLECT)
-	{
-		if (player->coins != MAX_COINS)
-			player->coins++;
-	}
+	else if (obj->type == COLLECT && player->coins != MAX_COINS)
+		player->coins++;
 	else
 		return (0);
 	delete = (*objs_lst);
