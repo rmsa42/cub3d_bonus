@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprite_enum.h                                      :+:      :+:    :+:   */
+/*   sprite_enum_bonus.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:09:33 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/03 12:20:45 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/05 10:21:36 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPRITE_ENUM_H
-# define SPRITE_ENUM_H
+#ifndef SPRITE_ENUM_BONUS_H
+# define SPRITE_ENUM_BONUS_H
 
 typedef enum e_spr_index
 {

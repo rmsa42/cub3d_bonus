@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:54:02 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/04 11:52:45 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/05 09:32:06 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	call_flood_fill(t_mlx *mlx, t_map *map)
 		len = ft_strlen(flood_map[i]);
 		p = begining_of_map(flood_map[i], "NEWS");
 		if (p)
-			coor = (t_cell){len - ft_strlen(p) - 1, i};
+			coor = (t_cell){len - ft_strlen(p), i};
 	}
 	flood_map[i] = 0;
 	flood_fill(mlx, map, flood_map, coor);

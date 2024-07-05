@@ -3,38 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   check_objs_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cacarval <cacarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:00:52 by cacarval          #+#    #+#             */
-/*   Updated: 2024/07/04 11:50:07 by cacarval         ###   ########.fr       */
+/*   Updated: 2024/07/05 09:49:26 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub_bonus.h"
 
-int	collectable_delete(t_mlx *mlx, t_list **objs_lst, t_objs *obj)
+int	collectable_delete(t_mlx *mlx, t_list **objs_lst, t_objs *obj, t_player *player)
 {
 	t_list	*delete;
 
-	if (obj->type == COLLECT || obj->type == HP_COLLECT)
+	if (obj->type == HP_COLLECT && player->hp < 100)
 	{
-		if (obj->type == HP_COLLECT && mlx->player.hp < 100)
-		{
-			mlx->player.healed = 1;
-			mlx->player.hp += 25;
-			if (mlx->player.hp > 100)
-				mlx->player.hp = 100;
-		}
-		else if (obj->type == COLLECT)
-			mlx->player.coins++;
-		else
-			return (0);
-		delete = (*objs_lst);
-		(*objs_lst) = (*objs_lst)->next;
-		elim_obj(&mlx->objs_lst, delete);
-		return (1);
+		player->healed = true;
+		player->hp += 25;
+		if (player->hp > 100)
+			player->hp = 100;
 	}
-	return (0);
+	else if (obj->type == COLLECT)
+	{
+		if (player->coins != MAX_COINS)
+			player->coins++;
+	}
+	else
+		return (0);
+	delete = (*objs_lst);
+	(*objs_lst) = (*objs_lst)->next;
+	elim_obj(&mlx->objs_lst, delete);
+	return (1);
 }
 
 bool	is_obj_collision(t_v2D check, t_v2D obj_pos)
@@ -74,7 +73,7 @@ bool	check_objs_collision(t_mlx *mlx, t_list *objs_lst, t_v2D check)
 		obj = (t_objs *)objs_lst->content;
 		if (is_obj_collision(check, obj->pos))
 		{
-			if (collectable_delete(mlx, &objs_lst, obj))
+			if (collectable_delete(mlx, &objs_lst, obj, &mlx->player))
 				continue ;
 			if (obj->type == ENEMY)
 				collision = true;

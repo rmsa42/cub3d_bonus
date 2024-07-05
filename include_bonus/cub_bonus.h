@@ -6,7 +6,7 @@
 /*   By: rumachad <rumachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:14:00 by rumachad          #+#    #+#             */
-/*   Updated: 2024/07/04 11:48:15 by rumachad         ###   ########.fr       */
+/*   Updated: 2024/07/04 15:17:50 by rumachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@
 # define HEAL_GREEN 0x4D00FF00
 # define TRANSPARENT 0xFF00FF
 
-# define HEIGHT 1080
-# define WIDTH 1920
+# define HEIGHT 600
+# define WIDTH 800
 # define FOV 60
 # define SPRITE_SIZE 64
 # define SPRITE_NBR 62
